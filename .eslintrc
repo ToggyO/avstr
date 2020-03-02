@@ -1,0 +1,11 @@
+{
+  "extends": "eslint-config-sh-react",
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "globals": {
+    "window": true
+  },
+  "rules": {}
+}
