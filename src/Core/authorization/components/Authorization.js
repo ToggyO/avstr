@@ -8,7 +8,6 @@ const Authorization = () => (
     </h1>
 );
 
-
 Authorization.defaultProps = {
 
 };
