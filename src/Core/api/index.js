@@ -1,26 +1,4 @@
-import AuthorizationError from './errors/authorization-error';
-import RequestError from './errors/request-error';
-import AccessError from './errors/access-error';
-import NotFoundError from './errors/not-found-error';
-import ServerError from './errors/server-error';
-import RequestCodeError from './errors/request-code-error';
-
-function handleRequestErrors(status) {
-    switch (status) {
-        case 400:
-            throw new RequestError(status);
-        case 401:
-            throw new AuthorizationError(status);
-        case 403:
-            throw new AccessError(status);
-        case 404:
-            throw new NotFoundError(status);
-        case 500:
-            throw new ServerError(status);
-        default:
-            throw new RequestCodeError(status);
-    }
-}
+import handleRequestErrors from './handeRequestErrors';
 
 async function sendRequest(url, options, successCode) {
     const res = await fetch(url, options);
