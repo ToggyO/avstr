@@ -1,0 +1,18 @@
+.authForm {
+    display: flex;
+    flex-direction: column;
+
+    .input {
+        width: 348px;
+        flex: 0 0 56px;
+    }
+
+    .checkbox {
+        flex: 0 0 24px;
+    }
+
+    .btn {
+        width: 102px;
+        flex: 0 0 48px;
+    }
+}
