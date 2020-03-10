@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { Input, Button } from 'semantic-ui-react';
 import Checkbox from '../../../common/Checkbox/Checkbox';
@@ -7,7 +7,7 @@ import Checkbox from '../../../common/Checkbox/Checkbox';
 import styles from './AuthForm.module.scss';
 
 
-const AuthForm = () => {
+const AuthForm = ({ formSubmitHandler }) => {
     const [loginText, setLoginText] = useState('');
     const [passwordText, setPasswordText] = useState('');
     const [checkboxValue, setCheckboxValue] = useState(false);
@@ -24,7 +24,16 @@ const AuthForm = () => {
         setCheckboxValue(checked);
     };
 
-    console.log(loginText, passwordText, checkboxValue);
+    const handleBtnClick = (e) => {
+        e.preventDefault();
+        formSubmitHandler({
+            login: loginText,
+            password: passwordText,
+            stayAuth: checkboxValue,
+            queryParams: 123,
+        });
+    };
+
     return (
         <form className={styles.authForm}>
             <Input
@@ -47,7 +56,7 @@ const AuthForm = () => {
             />
             <Button
                 className={styles.btn}
-                // onClick={}
+                onClick={handleBtnClick}
             >
                 Войти
             </Button>
@@ -56,6 +65,8 @@ const AuthForm = () => {
 };
 
 
-AuthForm.propTypes = {};
+AuthForm.propTypes = {
+    formSubmitHandler: PropTypes.func.isRequired,
+};
 
 export default AuthForm;
