@@ -7,15 +7,21 @@ import { LOGIN } from '../actions';
 import { receiveRedirectUrl } from '../action-creators';
 
 
-function* handleLogin({ data }) {
+// function* handleLogin({ data }) {
+function* handleLogin() {
     try {
         console.log('login');
-        const { isOk, redirectUrl } = yield call(api.post, 'url', data);
+        const { isOk, redirectUrl } = yield call(api.post, 'http://84.201.128.17:30080/api/account', {
+            Username: 'avastar-test@smarthead.ru',
+            Password: 'Qwe123!',
+            ReturnUrl: 'avastar.com',
+            RememberLogin: true,
+        });
 
         if (isOk) {
             yield put(receiveRedirectUrl(redirectUrl));
         } else {
-            history.push('/qwerty');
+            history.push('/');
         }
     } catch ({ type }) {
         switch (type) {
