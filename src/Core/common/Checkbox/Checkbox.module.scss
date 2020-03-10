@@ -1,0 +1,31 @@
+.span {
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    border: none;
+}
+
+.hidden {
+    display: none;
+
+    & + span {
+        cursor: pointer;
+        user-select: none;
+
+        &::before {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            content: "";
+            background: grey;
+            cursor: pointer;
+        }
+    }
+
+    &:checked + span::before {
+        display: inline-block;
+        content: "";
+        background: darkblue;
+        cursor: pointer;
+    }
+}

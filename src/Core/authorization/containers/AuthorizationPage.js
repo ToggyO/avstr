@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import Authorization from '../components/Authorization';
+import Authorization from '../components/Authorization/Authorization';
 
 
 const AuthorizationPage = () => (
