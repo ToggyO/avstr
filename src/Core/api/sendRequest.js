@@ -27,4 +27,3 @@ async function sendRequest(url, options, successCode) {
 }
 
 export default sendRequest;
-
