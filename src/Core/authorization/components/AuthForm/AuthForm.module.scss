@@ -3,8 +3,9 @@
     flex-direction: column;
 
     .input {
-        width: 348px;
         flex: 0 0 56px;
+        width: 348px;
+        margin-bottom: 10px;
     }
 
     .checkbox {
@@ -12,7 +13,8 @@
     }
 
     .btn {
-        width: 102px;
         flex: 0 0 48px;
+        width: 102px;
+        margin-top: 10px;
     }
 }
