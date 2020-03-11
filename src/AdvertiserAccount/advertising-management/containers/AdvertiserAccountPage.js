@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { login } from '../../../Core/authorization/action-creators';
@@ -9,8 +9,8 @@ import AdvertiserAccount from '../components/AdvertiserAccount';
 
 class AdvertiserAccountPage extends Component {
     componentDidMount() {
-        const { loginAction } = this.props;
-        loginAction();
+        // const { loginAction } = this.props;
+        // loginAction();
     }
 
     render() {
@@ -25,7 +25,7 @@ AdvertiserAccountPage.defaultProps = {
 };
 
 AdvertiserAccountPage.propTypes = {
-    loginAction: PropTypes.func.isRequired,
+    // loginAction: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
