@@ -1,6 +1,9 @@
 .authForm {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 348px;
+    margin: 0 auto;
 
     .input {
         flex: 0 0 56px;
@@ -8,8 +11,10 @@
         margin-bottom: 10px;
     }
 
-    .checkbox {
+    & label {
         flex: 0 0 24px;
+        text-align: left;
+        align-self: flex-start;
     }
 
     .btn {
