@@ -7,7 +7,7 @@ import Checkbox from '../../../common/Checkbox/Checkbox';
 import styles from './AuthForm.module.scss';
 
 
-const AuthForm = ({ formSubmitHandler }) => {
+const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [loginText, setLoginText] = useState('');
     const [passwordText, setPasswordText] = useState('');
     const [checkboxValue, setCheckboxValue] = useState(false);
@@ -48,6 +48,7 @@ const AuthForm = ({ formSubmitHandler }) => {
                 value={passwordText}
                 onChange={handlePasswordChange}
             />
+            {errMessage !== '' && <span>{errMessage}</span>}
             <Checkbox
                 className={styles.checkbox}
                 label="Оставаться в системе"
@@ -66,6 +67,7 @@ const AuthForm = ({ formSubmitHandler }) => {
 
 
 AuthForm.propTypes = {
+    errMessage: PropTypes.string.isRequired,
     formSubmitHandler: PropTypes.func.isRequired,
 };
 

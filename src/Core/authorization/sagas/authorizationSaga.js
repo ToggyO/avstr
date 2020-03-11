@@ -5,7 +5,7 @@ import api from '../../api';
 // import userManager from '../userManager';
 
 import { LOGIN } from '../actions';
-import { receiveRedirectUrl } from '../action-creators';
+import { receiveRedirectUrl, setErrMessage } from '../action-creators';
 
 
 // function* handleLogin({ data }) {
@@ -38,11 +38,10 @@ function* handleLogin() {
         // alert('err');
         switch (type) {
             case 'AuthorizationError':
-                /* userManager.signinRedirect({
-                    data: {
-                        path: history.location.path,
-                    },
-                }); */
+                setErrMessage('Вы ввели неверные учетные данные. Попробуйте еще раз.');
+                break;
+            case 'ServerError':
+                setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.');
                 break;
             default:
                 break;

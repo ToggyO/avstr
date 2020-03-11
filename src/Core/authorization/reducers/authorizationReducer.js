@@ -1,7 +1,8 @@
-import { RECEIVE_REDIRECT_URL } from '../actions';
+import { RECEIVE_REDIRECT_URL, SET_AUTH_ERR_MESSAGE } from '../actions';
 
 const initialState = {
     redirectUrl: '',
+    authErrMessage: '',
 };
 
 const authorizationReducer = (state = { ...initialState }, { type, data }) => {
@@ -10,6 +11,11 @@ const authorizationReducer = (state = { ...initialState }, { type, data }) => {
             return {
                 ...state,
                 redirectUrl: data,
+            };
+        case SET_AUTH_ERR_MESSAGE:
+            return {
+                ...state,
+                authErrMessage: data,
             };
         default:
             return state;
