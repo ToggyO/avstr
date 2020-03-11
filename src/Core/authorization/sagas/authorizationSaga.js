@@ -12,15 +12,16 @@ import { receiveRedirectUrl } from '../action-creators';
 function* handleLogin() {
     try {
         const url = new URL(window.location);
-        const searchParams = url.searchParams.get('ReturnUrl');
-        const ReturnUrl = new URL(searchParams);
-        const Re = ReturnUrl.pathname + ReturnUrl.search + ReturnUrl.hash;
+        const searchParam = new URL(url.searchParams.get('ReturnUrl'));
+        const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
         const { isOk, returnUrl } = yield call(api.post, 'http://accounts.avastar.smartheadtest.ru/api/account', {
             Username: 'avastar-test@smarthead.ru',
             Password: 'Qwe123!',
-            ReturnUrl: Re,
+            ReturnUrl,
             RememberLogin: true,
+        }, {
+            credentials: 'include',
         });
         // console.log(isOk, returnUrl);
 
