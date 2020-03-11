@@ -21,12 +21,16 @@ function* handleLogin() {
         if (isOk) {
             yield put(receiveRedirectUrl(redirectUrl));
         } else {
-            history.push('/');
+            history.push({
+                pathname: '/',
+            });
         }
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
-                history.push('/');
+                history.push({
+                    pathname: '/',
+                });
                 break;
             default:
         }

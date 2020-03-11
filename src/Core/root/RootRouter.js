@@ -1,17 +1,18 @@
 import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import history from '../history';
 
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AuthorizationPage from '../authorization/containers/AuthorizationPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 
 
 const RootRouter = () => (
-    <BrowserRouter>
+    <Router history={history}>
         <Switch>
             <Route exact path="/" component={AuthorizationPage} />
             <Route exact path="/advertiser" component={AdvertiserAccountRouter} />
         </Switch>
-    </BrowserRouter>
+    </Router>
 );
 
 
