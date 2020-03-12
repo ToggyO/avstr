@@ -11,18 +11,15 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         {...rest}
         render={(props) => {
             userManager.getUser().then((user) => {
-                // alert(user);
-                if (user && !user.expired) {
-                    // alert(user.access_token);
-                    return <Component {...props} />;
+                if (!user || user.expired) {
+                    userManager.signinRedirect({
+                        data: {
+                            path: history.location.pathname,
+                        },
+                    });
                 }
-
-                return userManager.signinRedirect({
-                    data: {
-                        path: history.location.path,
-                    },
-                });
             });
+            return <Component {...props} />;
         }}
     />
 );

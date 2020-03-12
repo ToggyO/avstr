@@ -1,20 +1,53 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
 import history from '../history';
 
 import PrivateRoute from './PrivateRoute';
 import AuthorizationPage from '../authorization/containers/AuthorizationPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
+import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
 
 
-const RootRouter = () => (
-    <Router history={history}>
-        <Switch>
-            <Route exact path="/" component={AuthorizationPage} />
-            <PrivateRoute exact path="/advertiser" component={AdvertiserAccountRouter} />
-        </Switch>
-    </Router>
-);
+const RootRouter = ({ isLoadingUser }) => {
+    if (isLoadingUser || !history.location) {
+        return <div>Loading...</div>;
+    }
+
+    return (
+        <Router history={history}>
+            <Switch>
+                <Route
+                    exact
+                    path="/"
+                    component={AuthorizationPage}
+                />
+                <Route
+                    path="/callback"
+                    component={CallbackPage}
+                />
+                <PrivateRoute
+                    exact
+                    path="/advertiser"
+                    component={AdvertiserAccountRouter}
+                />
+            </Switch>
+        </Router>
+    );
+};
 
 
-export default RootRouter;
+RootRouter.propTypes = {
+    isLoadingUser: PropTypes.bool.isRequired,
+};
+
+
+const mapStateToProps = ({ oidcReducer: { user, isLoadingUser } }) => ({
+    user,
+    isLoadingUser,
+});
+
+export default connect(mapStateToProps)(RootRouter);

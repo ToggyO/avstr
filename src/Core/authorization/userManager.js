@@ -2,7 +2,7 @@ import { createUserManager } from 'redux-oidc';
 
 const userManagerConfig = {
     client_id: 'avastar-frontend',
-    redirect_uri: 'http://localhost:3000',
+    redirect_uri: 'http://localhost:3000/callback',
     response_type: 'token id_token',
     scope: 'openid avastar-microservices',
     authority: 'http://accounts.avastar.smartheadtest.ru',
