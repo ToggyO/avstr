@@ -27,12 +27,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     />
 );
 
-PrivateRoute.defaultProps = {
-    component: {},
-};
 
 PrivateRoute.propTypes = {
-    component: PropTypes.shape(),
+    component: PropTypes.func.isRequired,
 };
 
 
