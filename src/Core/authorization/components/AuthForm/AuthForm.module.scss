@@ -15,6 +15,10 @@
         flex: 0 0 24px;
         text-align: left;
         align-self: flex-start;
+
+        span::before {
+            margin-right: 5px;
+        }
     }
 
     .btn {
