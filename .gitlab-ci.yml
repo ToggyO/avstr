@@ -1,0 +1,38 @@
+include:
+  - project: 'avastar/SmartHead.Avastar.Ingress'
+    file: '/ingress.gitlab-ci.yml'
+
+stages:
+  - build
+  - deploy
+
+services:
+  - docker:dind
+
+stable:build:
+  image: docker:stable
+  tags: [csharp]
+  stage: build
+  variables:
+    DOCKER_FILE_PATH: deployments/docker/Dockerfile
+    IMAGE: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+  only:
+    - master
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry-gitlab.smarthead.ru
+  script:
+    - docker build -t $IMAGE -f $DOCKER_FILE_PATH .
+    - docker push $IMAGE
+
+stable:deploy:
+  stage: deploy
+  extends: .ingress
+  only: 
+    - master
+  image: 
+    name: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:19
+    entrypoint: [""]
+  script:
+    - kubectl create secret docker-registry --dry-run=true gitlab-auth --docker-server="https://registry-gitlab.smarthead.ru" --docker-username="gitlab-ci-token" --docker-password="$CI_JOB_TOKEN" -o yaml | kubectl apply -f -
+    - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | kubectl apply -f -
+
