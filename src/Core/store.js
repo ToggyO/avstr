@@ -1,9 +1,9 @@
 import { createStore, compose, applyMiddleware } from 'redux';
 
 import createSagaMiddleware from 'redux-saga';
-// import createOidcMiddleware from 'redux-oidc';
+import createOidcMiddleware from 'redux-oidc';
 
-// import userManager from './authorization/userManager';
+import userManager from './authorization/userManager';
 
 import rootReducer from './root/rootReducer';
 import rootSaga from './root/rootSaga';
@@ -14,7 +14,7 @@ const composeEnhancers = process.env.NODE_ENV !== 'production'
     && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
-// const oidcMiddleware = createOidcMiddleware(userManager);
+const oidcMiddleware = createOidcMiddleware(userManager);
 const sagaMiddleware = createSagaMiddleware();
 
 const configureStore = (preloadedState) => (
@@ -22,8 +22,10 @@ const configureStore = (preloadedState) => (
         rootReducer,
         preloadedState,
         composeEnhancers(
-            // oidcMiddleware,
-            applyMiddleware(sagaMiddleware),
+            applyMiddleware(
+                sagaMiddleware,
+                oidcMiddleware,
+            ),
         ),
     )
 );

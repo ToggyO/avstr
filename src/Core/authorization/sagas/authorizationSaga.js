@@ -23,16 +23,9 @@ function* handleLogin() {
         }, {
             credentials: 'include',
         });
-        // console.log(isOk, returnUrl);
 
         if (isOk) {
-            /* alert(returnUrl);
-            yield put(receiveRedirectUrl(returnUrl));
-            history.push({
-                pathname: '/callback',
-            }); */
-        } else {
-            //
+            window.location = '/advertiser';
         }
     } catch ({ type }) {
         // alert('err');
