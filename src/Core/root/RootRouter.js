@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 
 import history from '../history';
 
-import PrivateRoute from './PrivateRoute';
 import AuthorizationPage from '../authorization/containers/AuthorizationPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
@@ -29,7 +28,7 @@ const RootRouter = ({ isLoadingUser }) => {
                     path="/callback"
                     component={CallbackPage}
                 />
-                <PrivateRoute
+                <Route
                     exact
                     path="/advertiser"
                     component={AdvertiserAccountRouter}

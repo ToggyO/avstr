@@ -11,13 +11,10 @@ class CallbackPage extends Component {
     }
 
     /* successCallback = ({ state: { path: { path } } }) => {
-        alert('success', path);
         history.push('/advertiser');
-    };
+    }; */
 
-    errorCallback = (error) => {
-        alert(error);
-        console.log(error);
+    /* errorCallback = (error) => {
         history.push('/');
     }; */
 

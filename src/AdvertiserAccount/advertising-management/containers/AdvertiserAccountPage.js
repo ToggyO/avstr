@@ -5,17 +5,35 @@ import { connect } from 'react-redux';
 import { login } from '../../../Core/authorization/action-creators';
 
 import AdvertiserAccount from '../components/AdvertiserAccount';
+import userManager from '../../../Core/authorization/userManager';
 
 
 class AdvertiserAccountPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: false,
+        };
+    }
+
     componentDidMount() {
-        // const { loginAction } = this.props;
-        // loginAction();
+        userManager.getUser().then((user) => {
+            if (!user || user.expired) {
+                userManager.signinRedirect({
+                    data: { path: '' },
+                });
+            } else {
+                this.setState({
+                    isLoggedIn: true,
+                });
+            }
+        });
     }
 
     render() {
+        const { isLoggedIn } = this.state;
         return (
-            <AdvertiserAccount />
+            isLoggedIn ? <AdvertiserAccount /> : <div>Loading...</div>
         );
     }
 }

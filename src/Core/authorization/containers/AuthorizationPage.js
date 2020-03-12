@@ -1,17 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from '../action-creators';
+import history from '../../history';
 
 import Authorization from '../components/Authorization/Authorization';
+import userManager from '../userManager';
 
 
-const AuthorizationPage = ({ loginAction, authErrMessage }) => (
-    <Authorization
-        errMessage={authErrMessage}
-        formSubmitHandler={loginAction}
-    />
-);
+class AuthorizationPage extends Component {
+    componentDidMount() {
+        if (!window.location.search) {
+            userManager.getUser().then((user) => {
+                if (!user || user.expired) {
+                    userManager.signinRedirect({
+                        data: { path: '' },
+                    });
+                } else {
+                    history.push('/advertiser');
+                }
+            });
+        }
+    }
+
+    render() {
+        const { authErrMessage, loginAction } = this.props;
+        return (
+            <Authorization
+                errMessage={authErrMessage}
+                formSubmitHandler={loginAction}
+            />
+        );
+    }
+}
 
 
 AuthorizationPage.propTypes = {
