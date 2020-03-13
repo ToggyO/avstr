@@ -1,3 +1,5 @@
+@import '../../../scss/colors';
+
 .authForm {
     display: flex;
     flex-direction: column;
@@ -10,6 +12,7 @@
 
     .title {
         margin-top: 132px;
+        color: $dark-blue;
         font-size: 20px;
         line-height: 28px;
     }
@@ -17,6 +20,7 @@
     .subtitle {
         margin-top: 8px;
         margin-bottom: 32px;
+        color: $dark-blue;
         font-size: 14px;
         line-height: 24px;
     }
