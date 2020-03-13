@@ -36,6 +36,9 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     return (
         <form className={styles.authForm}>
+            {/* <Logo /> */}
+            <h1 className={styles.title}>Добро пожаловать</h1>
+            <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
             <Input
                 className={styles.input}
                 placeholder="Введите логин"
@@ -49,18 +52,21 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 onChange={handlePasswordChange}
             />
             {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
-            <Checkbox
-                className={styles.checkbox}
-                label="Оставаться в системе"
-                checked={checkboxValue}
-                onChange={handleCheckboxValue}
-            />
-            <Button
-                className={styles.btn}
-                onClick={handleBtnClick}
-            >
-                Войти
-            </Button>
+
+            <div className={styles.btnWrap}>
+                <Checkbox
+                    className={styles.checkbox}
+                    label="Оставаться в системе"
+                    checked={checkboxValue}
+                    onChange={handleCheckboxValue}
+                />
+                <Button
+                    className={styles.btn}
+                    onClick={handleBtnClick}
+                >
+                    Войти
+                </Button>
+            </div>
         </form>
     );
 };

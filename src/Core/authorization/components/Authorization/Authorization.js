@@ -8,10 +8,6 @@ import styles from './Authorization.module.scss';
 
 const Authorization = ({ formSubmitHandler, errMessage }) => (
     <div className={styles.authorization}>
-        <div className={styles.cover} />
-        {/* <Logo /> */}
-        <h1 className={styles.title}>Добро пожаловать</h1>
-        <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
         <AuthForm
             errMessage={errMessage}
             formSubmitHandler={formSubmitHandler}
