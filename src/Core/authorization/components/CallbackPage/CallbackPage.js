@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Loader from '../../../common/Loader/Loader';
 import userManager from '../../userManager';
 
-// import history from '../../../history';
+import history from '../../../history';
 
 
 class CallbackPage extends Component {
@@ -14,13 +14,13 @@ class CallbackPage extends Component {
             .catch((error) => this.errorCallback(error));
     }
 
-    /* successCallback = ({ state: { path: { path } } }) => {
+    successCallback = ({ state: { path: { path } } }) => {
         history.push('/advertiser');
     };
 
     errorCallback = (error) => {
         history.push('/');
-    }; */
+    };
 
     render() {
         return (
