@@ -6,7 +6,7 @@ import history from '../history';
 import AuthorizationPage from '../authorization/containers/AuthorizationPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
-
+import LogoutPage from '../authorization/components/LogoutPage/LogoutPage';
 
 const RootRouter = () => (
     <Router history={history}>
@@ -24,6 +24,12 @@ const RootRouter = () => (
                 exact
                 path="/advertiser"
                 component={AdvertiserAccountRouter}
+            />
+
+            <Route
+                exact
+                path="/logout"
+                component={LogoutPage}
             />
         </Switch>
     </Router>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { login } from '../../../Core/authorization/action-creators';
+import { logout } from '../../../Core/authorization/action-creators';
 
 import AdvertiserAccount from '../components/AdvertiserAccount';
 import userManager from '../../../Core/authorization/userManager';
@@ -32,8 +32,9 @@ class AdvertiserAccountPage extends Component {
 
     render() {
         const { isLoggedIn } = this.state;
+        const { logoutAction } = this.props;
         return (
-            isLoggedIn ? <AdvertiserAccount /> : <div>Loading...</div>
+            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <div>Loading...</div>
         );
     }
 }
@@ -43,11 +44,11 @@ AdvertiserAccountPage.defaultProps = {
 };
 
 AdvertiserAccountPage.propTypes = {
-    // loginAction: PropTypes.func.isRequired,
+    logoutAction: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = {
-    loginAction: login,
+    logoutAction: logout,
 };
 
 export default connect(null, mapDispatchToProps)(AdvertiserAccountPage);

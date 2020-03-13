@@ -1,26 +1,33 @@
 import React from 'react';
+
+import { Button } from 'semantic-ui-react';
 import userManager from '../../../Core/authorization/userManager';
-// import PropTypes from 'prop-types';
-
-const AdvertiserAccount = () => (
-    <div>
-        <h1>
-            Advertiser Account
-        </h1>
-        <button
-            type="button"
-            onClick={() => {
-                userManager.getUser().then((user) => alert(user.access_token));
-            }}
-        >
-            getuser
-        </button>
-    </div>
-);
 
 
-AdvertiserAccount.defaultProps = {};
+const AdvertiserAccount = () => {
+    const handleBtnClick = () => {
+        userManager.signoutRedirect();
+        userManager.removeUser();
+    };
 
-AdvertiserAccount.propTypes = {};
+    return (
+        <div>
+            <h1>
+                Advertiser Account
+            </h1>
+            <Button
+                onClick={() => {
+                    userManager.getUser().then((user) => alert(user.access_token));
+                }}
+            >
+                getToken
+            </Button>
+
+            <Button onClick={handleBtnClick}>
+                Выйти
+            </Button>
+        </div>
+    );
+};
 
 export default AdvertiserAccount;

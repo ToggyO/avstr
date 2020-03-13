@@ -5,7 +5,7 @@ const userManagerConfig = {
     redirect_uri: 'http://localhost:3000/callback',
     response_type: 'token id_token',
     scope: 'openid avastar-microservices',
-    authority: 'http://accounts.avastar.smartheadtest.ru',
+    authority: 'http://localhost:3759',
     post_logout_redirect_uri: 'http://localhost:3000',
 };
 

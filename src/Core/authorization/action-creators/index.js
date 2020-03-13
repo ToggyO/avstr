@@ -1,4 +1,4 @@
-import { LOGIN, RECEIVE_REDIRECT_URL, SET_AUTH_ERR_MESSAGE } from '../actions';
+import { LOGIN, LOGOUT, SET_AUTH_ERR_MESSAGE } from '../actions';
 
 
 export const login = (data) => ({
@@ -6,8 +6,8 @@ export const login = (data) => ({
     data,
 });
 
-export const receiveRedirectUrl = (data) => ({
-    type: RECEIVE_REDIRECT_URL,
+export const logout = (data) => ({
+    type: LOGOUT,
     data,
 });
 
