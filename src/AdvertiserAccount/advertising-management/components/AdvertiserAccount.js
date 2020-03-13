@@ -1,20 +1,36 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+
+import { Button } from 'semantic-ui-react';
+import userManager from '../../../Core/authorization/userManager';
+
+import styles from './AdvertiserAccount.module.scss';
 
 
-const AdvertiserAccount = () => (
-    <h1>
-        Advertiser Account
-    </h1>
-);
+const AdvertiserAccount = () => {
+    const handleBtnClick = () => {
+        userManager.signoutRedirect();
+        userManager.removeUser();
+    };
 
+    return (
+        <div className={styles.wrap}>
+            <h1>
+                Кабинет рекламодателя
+            </h1>
 
-AdvertiserAccount.defaultProps = {
+            {/* <Button
+                onClick={() => {
+                    userManager.getUser().then((user) => alert(user.access_token));
+                }}
+            >
+                Токен
+            </Button> */}
 
-};
-
-AdvertiserAccount.propTypes = {
-
+            <Button onClick={handleBtnClick}>
+                Выйти
+            </Button>
+        </div>
+    );
 };
 
 export default AdvertiserAccount;

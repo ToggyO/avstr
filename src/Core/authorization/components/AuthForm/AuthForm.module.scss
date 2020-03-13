@@ -1,6 +1,29 @@
+@import '../../../scss/colors';
+
 .authForm {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 416px;
+    height: 516px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+
+    .title {
+        margin-top: 132px;
+        color: $dark-blue;
+        font-size: 20px;
+        line-height: 28px;
+    }
+
+    .subtitle {
+        margin-top: 8px;
+        margin-bottom: 32px;
+        color: $dark-blue;
+        font-size: 14px;
+        line-height: 24px;
+    }
 
     .input {
         flex: 0 0 56px;
@@ -8,13 +31,45 @@
         margin-bottom: 10px;
     }
 
-    .checkbox {
-        flex: 0 0 24px;
+    label {
+        align-self: flex-start;
+        margin-top: 10px;
+
+        .hidden {
+            display: block;
+        }
+
+        span {
+            display: flex;
+            align-content: center;
+            margin-top: -5px;
+
+            &::before {
+                width: 19px;
+                height: 19px;
+                margin-right: 5px;
+                background: white;
+                border: 1px solid rgba(34, 36, 38, 0.15);
+                border-radius: 3px;
+            }
+        }
+    }
+
+    .btnWrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 348px;
+        margin-top: 44px;
+    }
+
+    .err {
+        color: darkred;
+        font-size: 12px;
     }
 
     .btn {
         flex: 0 0 48px;
         width: 102px;
-        margin-top: 10px;
     }
 }

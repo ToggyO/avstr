@@ -1,11 +1,11 @@
 import sendRequest from './sendRequest';
 
 const api = {
-    get(url) {
-        return sendRequest(url, {}, 200);
+    get(url, options) {
+        return sendRequest(url, { ...options }, 200);
     },
 
-    post(url, body) {
+    post(url, body, options) {
         return sendRequest(
             url,
             {
@@ -14,27 +14,30 @@ const api = {
                     'Content-Type': 'application/json;charset=utf-8',
                 },
                 body: JSON.stringify(body),
+                ...options,
             },
             [200, 201],
         );
     },
 
-    put(url, body) {
+    put(url, body, options) {
         return sendRequest(url, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
             },
             body: JSON.stringify(body),
+            ...options,
         }, 200);
     },
 
-    delete(url) {
+    delete(url, options) {
         return sendRequest(url, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',
             },
+            ...options,
         }, 204);
     },
 };
