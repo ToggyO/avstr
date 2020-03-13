@@ -12,7 +12,7 @@ function* handleLogin() {
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
-        const { isOk } = yield call(api.post, 'http://localhost:3759/api/account', {
+        const { isOk } = yield call(api.post, 'http://accounts.avastar.smartheadtest.ru/api/account', {
             Username: 'avastar-test@smarthead.ru',
             Password: 'Qwe123!',
             ReturnUrl,
@@ -41,7 +41,7 @@ function* handleLogin() {
 
 function* handleLogout() {
     try {
-        const { isOk } = yield call(api.get, 'http://localhost:3759/api/account/logout', {
+        const { isOk } = yield call(api.get, 'http://accounts.avastar.smartheadtest.ru/api/account/logout', {
             credentials: 'include',
         });
         if (isOk) {
