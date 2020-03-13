@@ -12,9 +12,9 @@ class CallbackPage extends Component {
 
     /* successCallback = ({ state: { path: { path } } }) => {
         history.push('/advertiser');
-    }; */
+    };
 
-    /* errorCallback = (error) => {
+    errorCallback = (error) => {
         history.push('/');
     }; */
 

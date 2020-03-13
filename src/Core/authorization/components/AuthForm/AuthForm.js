@@ -48,7 +48,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 value={passwordText}
                 onChange={handlePasswordChange}
             />
-            {errMessage !== '' && <span>{errMessage}</span>}
+            {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
             <Checkbox
                 className={styles.checkbox}
                 label="Оставаться в системе"

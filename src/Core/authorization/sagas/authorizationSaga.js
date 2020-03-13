@@ -1,4 +1,4 @@
-import { takeLatest, call } from 'redux-saga/effects';
+import { takeLatest, call, put } from 'redux-saga/effects';
 // import history from '../../history';
 
 import api from '../../api';
@@ -28,13 +28,12 @@ function* handleLogin() {
             window.location = '/advertiser';
         }
     } catch ({ type }) {
-        // alert('err');
         switch (type) {
             case 'AuthorizationError':
-                setErrMessage('Вы ввели неверные учетные данные. Попробуйте еще раз.');
+                yield put(setErrMessage('Вы ввели неверные учетные данные. Попробуйте еще раз.'));
                 break;
             case 'ServerError':
-                setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.');
+                yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));
                 break;
             default:
                 break;
