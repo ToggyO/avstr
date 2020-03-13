@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Loader } from 'semantic-ui-react';
+
 import { connect } from 'react-redux';
 import { logout } from '../../../Core/authorization/action-creators';
 
@@ -34,7 +36,7 @@ class AdvertiserAccountPage extends Component {
         const { isLoggedIn } = this.state;
         const { logoutAction } = this.props;
         return (
-            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <div>Loading...</div>
+            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <Loader active inline="centered" />
         );
     }
 }

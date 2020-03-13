@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+
+import Loader from '../../../common/Loader/Loader';
 import userManager from '../../userManager';
+
 // import history from '../../../history';
+
 
 class CallbackPage extends Component {
     componentDidMount() {
@@ -19,7 +23,9 @@ class CallbackPage extends Component {
     }; */
 
     render() {
-        return <div>Loading...</div>;
+        return (
+            <Loader />
+        );
     }
 }
 

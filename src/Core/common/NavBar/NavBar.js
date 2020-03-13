@@ -1,16 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-const NavBar = ({ btnHandler }) => {
-    return (
-        <nav>
+const NavBar = () => (
+    <nav />
+);
 
-        </nav>
-    );
-};
 
-NavBar.propTypes = {
-
-};
+NavBar.propTypes = {};
 
 export default NavBar;

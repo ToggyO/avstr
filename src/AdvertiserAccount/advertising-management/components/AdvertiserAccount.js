@@ -15,13 +15,13 @@ const AdvertiserAccount = () => {
             <h1>
                 Advertiser Account
             </h1>
-            <Button
+            {/* <Button
                 onClick={() => {
                     userManager.getUser().then((user) => alert(user.access_token));
                 }}
             >
-                getToken
-            </Button>
+                Токен
+            </Button> */}
 
             <Button onClick={handleBtnClick}>
                 Выйти
