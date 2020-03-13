@@ -26,11 +26,16 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     const handleBtnClick = (e) => {
         e.preventDefault();
+
+        /* Username: 'avastar-test@smarthead.ru',
+        Password: 'Qwe123!',
+        ReturnUrl,
+        RememberLogin: true, */
+
         formSubmitHandler({
-            login: loginText,
-            password: passwordText,
-            stayAuth: checkboxValue,
-            queryParams: 123,
+            Username: loginText,
+            Password: passwordText,
+            RememberLogin: checkboxValue,
         });
     };
 

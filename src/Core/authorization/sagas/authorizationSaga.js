@@ -5,18 +5,18 @@ import { setErrMessage } from '../action-creators';
 import api from '../../api';
 
 
-// function* handleLogin({ data }) {
-function* handleLogin() {
+function* handleLogin({ data }) {
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
         const { isOk } = yield call(api.post, 'http://accounts.avastar.smartheadtest.ru/api/account', {
-            Username: 'avastar-test@smarthead.ru',
-            Password: 'Qwe123!',
+            ...data,
             ReturnUrl,
-            RememberLogin: true,
+            /* Username: 'avastar-test@smarthead.ru',
+            Password: 'Qwe123!',
+            RememberLogin: true, */
         }, {
             credentials: 'include',
         });
