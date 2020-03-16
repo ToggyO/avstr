@@ -26,7 +26,7 @@
     "semantic-ui-react": "^0.88.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
+    "babel-eslint": "10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-sh-react": "git+https://git@gitlab.smarthead.ru/frontend-public/eslint-config-sh-react.git",
     "eslint-plugin-import": "^2.20.1",
