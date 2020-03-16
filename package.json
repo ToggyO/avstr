@@ -53,12 +53,12 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "src/**/*.js": "npm run lint:js",
-    "src/**/*.{css,scss}": "npm run lint:css:fix"
+    "src/**/*.{css,scss}": "npm run lint:css"
   },
   "eslintConfig": {
     "extends": "react-app"
