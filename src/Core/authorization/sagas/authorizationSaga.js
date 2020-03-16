@@ -5,18 +5,20 @@ import { setErrMessage } from '../action-creators';
 import api from '../../api';
 
 
-function* handleLogin({ data }) {
+const { REACT_APP_AUTH_API } = process.env;
+// function* handleLogin({ data }) {
+function* handleLogin() {
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
-        const { isOk } = yield call(api.post, 'http://accounts.avastar.smartheadtest.ru/api/account', {
-            ...data,
+        const { isOk } = yield call(api.post, `${REACT_APP_AUTH_API}/account`, {
+            // ...data,
             ReturnUrl,
-            /* Username: 'avastar-test@smarthead.ru',
+            Username: 'avastar-test@smarthead.ru',
             Password: 'Qwe123!',
-            RememberLogin: true, */
+            RememberLogin: true,
         }, {
             credentials: 'include',
         });
@@ -41,7 +43,7 @@ function* handleLogin({ data }) {
 
 function* handleLogout() {
     try {
-        const { isOk } = yield call(api.get, 'http://accounts.avastar.smartheadtest.ru/api/account/logout', {
+        const { isOk } = yield call(api.get, `${REACT_APP_AUTH_API}/account/logout`, {
             credentials: 'include',
         });
         if (isOk) {
