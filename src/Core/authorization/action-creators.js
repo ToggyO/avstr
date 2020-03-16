@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, SET_AUTH_ERR_MESSAGE } from '../actions';
+import { LOGIN, LOGOUT, SET_AUTH_ERR_MESSAGE } from './actions';
 
 
 export const login = (data) => ({
