@@ -17,6 +17,8 @@ class AuthorizationPage extends Component {
                         data: { path: '' },
                     });
                 } else {
+                    // const redirectPath = localStorage.getItem('redirectPath');
+                    // history.push(redirectPath);
                     history.push('/advertiser');
                 }
             });
