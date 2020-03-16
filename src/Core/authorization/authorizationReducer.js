@@ -1,4 +1,4 @@
-import { SET_AUTH_ERR_MESSAGE } from '../actions';
+import { SET_AUTH_ERR_MESSAGE } from './actions';
 
 const initialState = {
     authErrMessage: '',

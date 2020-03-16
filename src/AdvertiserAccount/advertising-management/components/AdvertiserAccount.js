@@ -18,14 +18,6 @@ const AdvertiserAccount = () => {
                 Кабинет рекламодателя
             </h1>
 
-            {/* <Button
-                onClick={() => {
-                    userManager.getUser().then((user) => alert(user.access_token));
-                }}
-            >
-                Токен
-            </Button> */}
-
             <Button onClick={handleBtnClick}>
                 Выйти
             </Button>

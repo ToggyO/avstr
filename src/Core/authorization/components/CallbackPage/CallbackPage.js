@@ -14,11 +14,12 @@ class CallbackPage extends Component {
             .catch((error) => this.errorCallback(error));
     }
 
-    successCallback = ({ state: { path: { path } } }) => {
-        history.push('/advertiser');
+    successCallback = () => {
+        const redirectPath = localStorage.getItem('redirectPath');
+        history.push(redirectPath);
     };
 
-    errorCallback = (error) => {
+    errorCallback = () => {
         history.push('/');
     };
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../action-creators';
-import history from '../../history';
+import { login } from './action-creators';
+import history from '../history';
 
-import Authorization from '../components/Authorization/Authorization';
-import userManager from '../userManager';
+import Authorization from './components/Authorization/Authorization';
+import userManager from './userManager';
 
 
 class AuthorizationPage extends Component {
@@ -17,7 +17,8 @@ class AuthorizationPage extends Component {
                         data: { path: '' },
                     });
                 } else {
-                    history.push('/advertiser');
+                    const redirectPath = localStorage.getItem('redirectPath');
+                    history.push(redirectPath);
                 }
             });
         }

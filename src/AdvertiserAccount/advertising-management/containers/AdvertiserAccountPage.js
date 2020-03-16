@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { Loader } from 'semantic-ui-react';
-
 import { connect } from 'react-redux';
 import { logout } from '../../../Core/authorization/action-creators';
+
+import Loader from '../../../Core/common/Loader/Loader';
 
 import AdvertiserAccount from '../components/AdvertiserAccount';
 import userManager from '../../../Core/authorization/userManager';
@@ -36,7 +36,7 @@ class AdvertiserAccountPage extends Component {
         const { isLoggedIn } = this.state;
         const { logoutAction } = this.props;
         return (
-            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <Loader active inline="centered" />
+            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <Loader />
         );
     }
 }
