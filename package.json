@@ -51,6 +51,11 @@
     "lint:css:fix": "stylelint --quiet --color --allow-empty-input --fix --config .stylelintrc-extended \"src/**/*.{css,scss}\"",
     "lint:js": "eslint --quiet --color --no-error-on-unmatched-pattern ./src --ext .js"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
   "lint-staged": {
     "src/**/*.js": "npm run lint:js",
     "src/**/*.{css,scss}": "npm run lint:css:fix"
