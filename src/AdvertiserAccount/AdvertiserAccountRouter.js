@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import AdvertiserAccountPage from './advertising-management/containers/AdvertiserAccountPage';
+import AdvertiserAccountPage from './AdvertiserAccountPage';
 
 
 const AdvertiserAccountRouter = ({ match: { path } }) => (

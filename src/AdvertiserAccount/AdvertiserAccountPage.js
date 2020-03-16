@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { logout } from '../../../Core/authorization/action-creators';
+import { logout } from '../Core/authorization/action-creators';
 
-import Loader from '../../../Core/common/Loader/Loader';
+import Loader from '../Core/common/Loader/Loader';
 
-import AdvertiserAccount from '../components/AdvertiserAccount';
-import userManager from '../../../Core/authorization/userManager';
+import AdvertiserAccount from './advertising-management/components/AdvertiserAccount';
+import userManager from '../Core/authorization/userManager';
 
 
 class AdvertiserAccountPage extends Component {

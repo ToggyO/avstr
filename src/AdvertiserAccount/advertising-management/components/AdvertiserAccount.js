@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Button } from 'semantic-ui-react';
 import userManager from '../../../Core/authorization/userManager';
 
 import styles from './AdvertiserAccount.module.scss';
+import NavBar from '../../../Core/common/NavBar/NavBar';
 
 
 const AdvertiserAccount = () => {
@@ -14,13 +14,10 @@ const AdvertiserAccount = () => {
 
     return (
         <div className={styles.wrap}>
+            <NavBar handleLogoutClick={handleBtnClick} />
             <h1>
                 Кабинет рекламодателя
             </h1>
-
-            <Button onClick={handleBtnClick}>
-                Выйти
-            </Button>
         </div>
     );
 };
