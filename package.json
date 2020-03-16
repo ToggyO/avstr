@@ -58,7 +58,7 @@
   },
   "lint-staged": {
     "src/**/*.js": "npm run lint:js",
-    "src/**/*.{css,scss}": "npm run lint:css"
+    "src/**/*.{css,scss}": "npm run lint:css:fix"
   },
   "eslintConfig": {
     "extends": "react-app"
