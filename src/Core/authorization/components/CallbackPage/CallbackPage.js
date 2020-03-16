@@ -15,9 +15,8 @@ class CallbackPage extends Component {
     }
 
     successCallback = () => {
-        // const redirectPath = localStorage.getItem('redirectPath');
-        // history.push(redirectPath);
-        history.push('/advertiser');
+        const redirectPath = localStorage.getItem('redirectPath');
+        history.push(redirectPath);
     };
 
     errorCallback = () => {

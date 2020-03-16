@@ -13,7 +13,7 @@ function* handleLogin() {
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
-        const { isOk /* ,  redirectPath */ } = yield call(api.post, `${REACT_APP_AUTH_API}/account`, {
+        const { content } = yield call(api.post, `${REACT_APP_AUTH_API}/account/login`, {
             // ...data,
             ReturnUrl,
             Username: 'avastar-test@smarthead.ru',
@@ -23,11 +23,8 @@ function* handleLogin() {
             credentials: 'include',
         });
 
-        if (isOk) {
-            window.location = '/advertiser';
-            // localStorage.setItem('redirectPath', redirectPath);
-            // window.location = redirectPath;
-        }
+        localStorage.setItem('redirectPath', content);
+        window.location = content;
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
