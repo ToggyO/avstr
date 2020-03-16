@@ -6,19 +6,19 @@ import api from '../../api';
 
 const { REACT_APP_AUTH_API } = process.env;
 
-// function* handleLogin({ data }) {
-function* handleLogin() {
+function* handleLogin({ data }) {
+// function* handleLogin() {
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
         const { content } = yield call(api.post, `${REACT_APP_AUTH_API}/account/login`, {
-            // ...data,
+            ...data,
             ReturnUrl,
-            Username: 'avastar-test@smarthead.ru',
+            /* Username: 'avastar-test@smarthead.ru',
             Password: 'Qwe123!',
-            RememberLogin: true,
+            RememberLogin: true, */
         }, {
             credentials: 'include',
         });
