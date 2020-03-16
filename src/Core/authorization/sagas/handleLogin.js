@@ -1,11 +1,11 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
-import { LOGIN, LOGOUT } from '../actions';
+import { call, put } from 'redux-saga/effects';
+
 import { setErrMessage } from '../action-creators';
 
 import api from '../../api';
 
-
 const { REACT_APP_AUTH_API } = process.env;
+
 // function* handleLogin({ data }) {
 function* handleLogin() {
     try {
@@ -42,22 +42,4 @@ function* handleLogin() {
     }
 }
 
-
-function* handleLogout() {
-    try {
-        const { isOk } = yield call(api.get, `${REACT_APP_AUTH_API}/account/logout`, {
-            credentials: 'include',
-        });
-        if (isOk) {
-            window.location = '/';
-        }
-    } catch (err) {
-        // console.log(err);
-    }
-}
-
-
-export default function* authorizationWatcher() {
-    yield takeLatest(LOGIN, handleLogin);
-    yield takeLatest(LOGOUT, handleLogout);
-}
+export default handleLogin;
