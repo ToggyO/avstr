@@ -5,8 +5,9 @@ import { connect } from 'react-redux';
 import { logout } from '../Core/authorization/action-creators';
 
 import Loader from '../Core/common/Loader/Loader';
+import Advertisements from './advertising-management/components/Advertisements/Advertisements';
 
-import AdvertiserAccount from './advertising-management/components/AdvertiserAccount';
+import history from '../Core/history';
 import userManager from '../Core/authorization/userManager';
 
 
@@ -32,6 +33,10 @@ class AdvertiserAccountPage extends Component {
         });
     }
 
+    handleAddBtn = () => {
+        history.push('/advertiser/add');
+    };
+
     handleLogout = () => {
         userManager.signoutRedirect();
         userManager.removeUser();
@@ -42,14 +47,20 @@ class AdvertiserAccountPage extends Component {
     render() {
         const { isLoggedIn } = this.state;
         return (
-            isLoggedIn ? <AdvertiserAccount navBarBtnHandler={this.handleLogout} /> : <Loader />
+            isLoggedIn
+                ? (
+                    <Advertisements
+                        title="Здесь пока нет объявлений"
+                        addBtnHandler={this.handleAddBtn}
+                        navBarBtnHandler={this.handleLogout}
+                    />
+                )
+                : <Loader />
         );
     }
 }
 
-AdvertiserAccountPage.defaultProps = {
-
-};
+AdvertiserAccountPage.defaultProps = {};
 
 AdvertiserAccountPage.propTypes = {
     logoutAction: PropTypes.func.isRequired,

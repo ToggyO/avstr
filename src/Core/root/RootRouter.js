@@ -7,6 +7,8 @@ import AuthorizationPage from '../authorization/AuthorizationPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage/LogoutPage';
+// import NewAdvertisement
+// from '../../AdvertiserAccount/advertising-management/components/NewAdvertisement/NewAdvertisement';
 
 const RootRouter = () => (
     <Router history={history}>
@@ -25,6 +27,12 @@ const RootRouter = () => (
                 path="/advertiser"
                 component={AdvertiserAccountRouter}
             />
+
+            {/* <Route
+                exact
+                path="/advertiser/add"
+                component={NewAdvertisement}
+            /> */}
 
             <Route
                 exact
