@@ -14,6 +14,9 @@ function* handleLogout() {
         window.location = '/';
     } catch ({ type }) {
         switch (type) {
+            case 'BadRequest':
+                window.location = '/';
+                break;
             case 'ServerError':
                 yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));
                 break;
