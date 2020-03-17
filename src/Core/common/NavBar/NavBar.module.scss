@@ -1,5 +1,19 @@
+@import '../../scss/colors';
+
 .navbar {
     position: absolute;
+    z-index: 9999;
     top: 0;
+    right: 0;
     left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 64px;
+    padding: 0 98px;
+    border-bottom: 1px solid $light-blue;
+
+    .btn {
+        margin-left: 34px;
+    }
 }

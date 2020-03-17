@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Dropdown, Icon, Button } from 'semantic-ui-react';
 
 import styles from './NavBar.module.scss';
+import Logo from '../../authorization/components/Logo/Logo';
 
 const NavBar = ({ handleLogoutClick }) => {
     const trigger = (
@@ -13,14 +14,20 @@ const NavBar = ({ handleLogoutClick }) => {
     );
     return (
         <nav className={styles.navbar}>
-            <Dropdown
-                trigger={trigger}
-                simple
-                item
-            />
-            <Button onClick={handleLogoutClick}>
-                Выйти
-            </Button>
+            <Logo />
+            <div>
+                <Dropdown
+                    trigger={trigger}
+                    simple
+                    item
+                />
+                <Button
+                    className={styles.btn}
+                    onClick={handleLogoutClick}
+                >
+                    Выйти
+                </Button>
+            </div>
         </nav>
     );
 };
