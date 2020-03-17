@@ -32,11 +32,17 @@ class AdvertiserAccountPage extends Component {
         });
     }
 
+    handleLogout = () => {
+        userManager.signoutRedirect();
+        userManager.removeUser();
+        const { logoutAction } = this.props;
+        logoutAction();
+    };
+
     render() {
         const { isLoggedIn } = this.state;
-        const { logoutAction } = this.props;
         return (
-            isLoggedIn ? <AdvertiserAccount logout={logoutAction} /> : <Loader />
+            isLoggedIn ? <AdvertiserAccount navBarBtnHandler={this.handleLogout} /> : <Loader />
         );
     }
 }

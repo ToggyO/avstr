@@ -1,25 +1,30 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Button } from 'semantic-ui-react';
 
-import userManager from '../../../Core/authorization/userManager';
+import Container from '../../../Core/common/Container/Container';
+import NavBar from '../../../Core/common/NavBar/NavBar';
+import Title from '../../../Core/common/Header/Title';
 
 import styles from './AdvertiserAccount.module.scss';
-import NavBar from '../../../Core/common/NavBar/NavBar';
 
 
-const AdvertiserAccount = () => {
-    const handleBtnClick = () => {
-        userManager.signoutRedirect();
-        userManager.removeUser();
-    };
+const AdvertiserAccount = ({ navBarBtnHandler }) => (
+    <Container>
+        <NavBar handleLogoutClick={navBarBtnHandler} />
+        <Title text="Кабинет рекламодателя" />
+        <Button
+            className={styles.btn}
+        >
+            Добавить
+        </Button>
+    </Container>
+);
 
-    return (
-        <div className={styles.wrap}>
-            <NavBar handleLogoutClick={handleBtnClick} />
-            <h1>
-                Кабинет рекламодателя
-            </h1>
-        </div>
-    );
+
+AdvertiserAccount.propTypes = {
+    navBarBtnHandler: PropTypes.func.isRequired,
 };
+
 
 export default AdvertiserAccount;
