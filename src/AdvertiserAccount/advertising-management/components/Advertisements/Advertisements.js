@@ -4,7 +4,7 @@ import { Button } from 'semantic-ui-react';
 
 import Container from '../../../../Core/common/Container/Container';
 import NavBar from '../../../../Core/common/NavBar/NavBar';
-import Title from '../../../../Core/common/Header/Title';
+import Title from '../../../../Core/common/Title/Title';
 
 import styles from './Advertisements.module.scss';
 

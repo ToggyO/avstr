@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
 import Container from '../../../../Core/common/Container/Container';
-import Title from '../../../../Core/common/Header/Title';
+import Title from '../../../../Core/common/Title/Title';
 
 
 class NewAdvertisement extends Component {
@@ -13,7 +13,6 @@ class NewAdvertisement extends Component {
     render() {
         return (
             <Container>
-                <h1>jsdgfhisehfw</h1>
                 <Title text="Новое объявление" />
             </Container>
         );
