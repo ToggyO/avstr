@@ -8,5 +8,14 @@
   "globals": {
     "window": true
   },
-  "rules": {}
+  "rules": {
+      "import/no-unresolved": [
+          "error",
+          {
+              "ignore": [
+                  "^src/"
+              ]
+          }
+      ]
+  }
 }
