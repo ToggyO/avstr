@@ -4,9 +4,11 @@ import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 
 import AuthorizationPage from '../authorization/AuthorizationPage';
-import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage/LogoutPage';
+import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
+import TokenPage from '../authorization/components/TokenPage';
+
 
 const RootRouter = () => (
     <Router history={history}>
@@ -24,6 +26,10 @@ const RootRouter = () => (
                 exact
                 path="/logout"
                 component={LogoutPage}
+            />
+            <Route
+                path="/token"
+                component={TokenPage}
             />
 
             <Route
