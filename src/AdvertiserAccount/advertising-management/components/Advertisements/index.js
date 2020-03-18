@@ -9,20 +9,18 @@ import styles from './index.module.scss';
 
 
 const Advertisements = ({ title, addBtnHandler }) => (
-    <Container>
-        <div className={styles.wrap}>
-            <Title
-                className={styles.title}
-                text={title}
-            />
-            <Button
-                className={styles.btn}
-                onClick={addBtnHandler}
-            >
-                <Icon name="plus" />
-                Добавить
-            </Button>
-        </div>
+    <Container className={styles.wrap}>
+        <Title
+            className={styles.title}
+            text={title}
+        />
+        <Button
+            className={styles.btn}
+            onClick={addBtnHandler}
+        >
+            <Icon name="plus" />
+            Добавить
+        </Button>
     </Container>
 );
 

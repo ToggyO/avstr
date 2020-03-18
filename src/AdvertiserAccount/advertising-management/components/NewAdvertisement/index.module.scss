@@ -1,1 +1,30 @@
-//
+.newAdvertisement {
+    .title {
+        margin-bottom: 24px;
+    }
+
+    .input {
+        width: 716px;
+        height: 56px;
+        margin-bottom: 24px;
+    }
+
+    .description {
+        margin-bottom: 8px;
+        font-size: 12px;
+        line-height: 20px;
+    }
+
+    .dropZone {
+        width: 716px;
+        margin-bottom: 40px;
+    }
+
+    .declineBtn {
+        margin-right: 16px;
+    }
+
+    .saveBtn {
+        //
+    }
+}
