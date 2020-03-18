@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'semantic-ui-react';
 
-import Container from '../../../../Core/common/Container/Container';
-import Title from '../../../../Core/common/Title/Title';
+import Container from '../../../../Core/common/Container';
+import Title from '../../../../Core/common/Title';
 
-import styles from './Advertisements.module.scss';
+import styles from './index.module.scss';
 
 
 const Advertisements = ({ title, addBtnHandler }) => (

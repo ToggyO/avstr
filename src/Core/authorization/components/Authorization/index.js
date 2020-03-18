@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import TestComponent from '../TestComponent';
 // import Logo from '../Logo/Logo';
-import AuthForm from '../AuthForm/AuthForm';
+import AuthForm from '../AuthForm';
 
-import styles from './Authorization.module.scss';
+import styles from './index.module.scss';
 
 const Authorization = ({ formSubmitHandler, errMessage }) => (
     <div className={styles.authorization}>

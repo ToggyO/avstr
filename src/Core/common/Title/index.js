@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import styles from './Title.module.scss';
+import styles from './index.module.scss';
 
 
 const Title = ({ text, className }) => (

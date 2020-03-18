@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader as Load } from 'semantic-ui-react';
-import styles from './Loader.module.scss';
+import styles from './index.module.scss';
 
 const Loader = () => (
     <div className={styles.loader}>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
-import Container from '../../../../Core/common/Container/Container';
-import Title from '../../../../Core/common/Title/Title';
+import Container from '../../../../Core/common/Container';
+import Title from '../../../../Core/common/Title';
 
 
 class NewAdvertisement extends Component {

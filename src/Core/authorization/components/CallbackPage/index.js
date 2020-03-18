@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Loader from '../../../common/Loader/Loader';
+import Loader from '../../../common/Loader';
 import userManager from '../../userManager';
 
 import history from '../../../history';
