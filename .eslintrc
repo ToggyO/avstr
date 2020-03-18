@@ -8,14 +8,15 @@
   "globals": {
     "window": true
   },
-  "rules": {
-      "import/no-unresolved": [
-          "error",
-          {
-              "ignore": [
-                  "^src/"
-              ]
-          }
-      ]
-  }
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": [
+            "node_modules",
+            "src/"
+        ]
+      }
+    }
+  },
+  "rules": {}
 }
