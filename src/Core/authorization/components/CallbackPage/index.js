@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import Loader from '../../../common/Loader';
-import userManager from '../../userManager';
+import history from 'Core/history';
 
-import history from '../../../history';
+import Loader from 'Core/common/Loader';
+import userManager from 'Core/authorization/userManager';
 
 
 class CallbackPage extends Component {

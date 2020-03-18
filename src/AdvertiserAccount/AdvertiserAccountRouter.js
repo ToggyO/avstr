@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+
+import userManager from 'Core/authorization/userManager';
+
+import Loader from 'Core/common/Loader';
+import NavBar from 'Core/common/NavBar';
 import AdvertiserAccountPage from './AdvertiserAccountPage';
 import NewAdvertisement from './advertising-management/components/NewAdvertisement';
-import userManager from '../Core/authorization/userManager';
 
-import Loader from '../Core/common/Loader';
-import NavBar from '../Core/common/NavBar';
 
 class AdvertiserAccountRouter extends Component {
     constructor(props) {

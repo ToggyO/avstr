@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Input, Button } from 'semantic-ui-react';
-import Checkbox from '../../../common/Checkbox';
+import Checkbox from 'Core/common/Checkbox';
 
 import styles from './index.module.scss';
 

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon } from 'semantic-ui-react';
 
-import Container from '../../../../Core/common/Container';
-import Title from '../../../../Core/common/Title';
+import Container from 'Core/common/Container';
+import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
 

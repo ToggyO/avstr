@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Input } from 'semantic-ui-react';
 
-import Container from '../../../../Core/common/Container';
-import Title from '../../../../Core/common/Title';
+import Container from 'Core/common/Container';
+import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
 

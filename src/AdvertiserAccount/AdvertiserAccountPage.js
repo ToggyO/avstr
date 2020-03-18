@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 
-import Advertisements from './advertising-management/components/Advertisements';
+import history from 'Core/history';
 
-import history from '../Core/history';
+import Advertisements from './advertising-management/components/Advertisements';
 
 
 class AdvertiserAccountPage extends Component {
