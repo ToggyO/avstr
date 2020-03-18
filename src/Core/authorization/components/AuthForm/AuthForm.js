@@ -51,6 +51,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 onChange={handleLoginChange}
             />
             <Input
+                type="password"
                 className={styles.input}
                 placeholder="Введите пароль"
                 value={passwordText}

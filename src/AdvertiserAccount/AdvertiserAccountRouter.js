@@ -1,14 +1,62 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
-import AdvertiserAccountPage from './advertising-management/containers/AdvertiserAccountPage';
+import AdvertiserAccountPage from './AdvertiserAccountPage';
+import NewAdvertisement from './advertising-management/components/NewAdvertisement/NewAdvertisement';
+import userManager from '../Core/authorization/userManager';
 
+import Loader from '../Core/common/Loader/Loader';
+import NavBar from '../Core/common/NavBar/NavBar';
 
-const AdvertiserAccountRouter = ({ match: { path } }) => (
-    <Switch>
-        <Route exact path={`${path}`} component={AdvertiserAccountPage} />
-    </Switch>
-);
+class AdvertiserAccountRouter extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoggedIn: false,
+        };
+    }
+
+    componentDidMount() {
+        userManager.getUser().then((user) => {
+            if (!user || user.expired) {
+                userManager.signinRedirect({
+                    data: { path: '' },
+                });
+            } else {
+                this.setState({
+                    isLoggedIn: true,
+                });
+            }
+        });
+    }
+
+    render() {
+        const { match: { path } } = this.props;
+        const { isLoggedIn } = this.state;
+        return (
+            <div>
+                {isLoggedIn
+                    ? (
+                        <div>
+                            <NavBar />
+                            <Switch>
+                                <Route
+                                    exact
+                                    path={`${path}`}
+                                    component={AdvertiserAccountPage}
+                                />
+                                <Route
+                                    path={`${path}/add`}
+                                    component={NewAdvertisement}
+                                />
+                            </Switch>
+                        </div>
+                    )
+                    : <Loader />}
+            </div>
+        );
+    }
+}
 
 
 AdvertiserAccountRouter.propTypes = {

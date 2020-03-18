@@ -22,14 +22,13 @@ const RootRouter = () => (
             />
             <Route
                 exact
-                path="/advertiser"
-                component={AdvertiserAccountRouter}
+                path="/logout"
+                component={LogoutPage}
             />
 
             <Route
-                exact
-                path="/logout"
-                component={LogoutPage}
+                path="/advertiser"
+                component={AdvertiserAccountRouter}
             />
         </Switch>
     </Router>
