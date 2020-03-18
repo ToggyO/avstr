@@ -1,5 +1,10 @@
 .title {
+    margin: 0;
     margin-top: 40px;
     font-size: 20px;
     line-height: 28px;
+
+    &:first-child {
+        margin-top: 40px;
+    }
 }
