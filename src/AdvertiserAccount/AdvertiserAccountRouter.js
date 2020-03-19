@@ -8,6 +8,7 @@ import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
 import AdvertiserAccountPage from './AdvertiserAccountPage';
 import NewAdvertisementPage from './advertising-management/NewAdvertisementPage';
+import api from '../Core/api';
 
 
 class AdvertiserAccountRouter extends Component {
@@ -28,6 +29,7 @@ class AdvertiserAccountRouter extends Component {
                 this.setState({
                     isLoggedIn: true,
                 });
+                api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
             }
         });
     }

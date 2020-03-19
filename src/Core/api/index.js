@@ -1,19 +1,46 @@
 import sendRequest from './sendRequest';
 
+const headers = {
+    'Content-Type': 'application/json;charset=utf-8',
+};
+
+const constantHeader = {};
+
 const api = {
     get(url, options) {
-        return sendRequest(url, { ...options }, 200);
-    },
-
-    post(url, body, options) {
         return sendRequest(
             url,
             {
-                method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json;charset=utf-8',
+                    ...constantHeader,
                 },
-                body: JSON.stringify(body),
+                ...options,
+            },
+            200,
+        );
+    },
+
+    post(url, body, options) {
+        const defaultOptions = {
+            method: 'POST',
+            headers: {
+                ...headers,
+            },
+            body: JSON.stringify(body),
+        };
+
+
+        // eslint-disable-next-line no-restricted-syntax
+        for (const prop in constantHeader) {
+            if (Object.prototype.hasOwnProperty.call(constantHeader, prop)) {
+                Object.defineProperty(defaultOptions.headers, prop, { value: constantHeader[prop] });
+            }
+        }
+
+        return sendRequest(
+            url,
+            {
+                ...defaultOptions,
                 ...options,
             },
             [200, 201],
@@ -24,7 +51,8 @@ const api = {
         return sendRequest(url, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8',
+                ...headers,
+                ...constantHeader,
             },
             body: JSON.stringify(body),
             ...options,
@@ -35,10 +63,16 @@ const api = {
         return sendRequest(url, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json;charset=utf-8',
+                ...headers,
+                ...constantHeader,
             },
             ...options,
         }, 204);
+    },
+
+    setConstantHeader(name, value) {
+        alert(name, value);
+        constantHeader[name] = value;
     },
 };
 

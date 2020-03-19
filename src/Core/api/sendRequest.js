@@ -1,6 +1,7 @@
 import handleRequestErrors from './handeRequestErrors';
 
 async function sendRequest(url, options, successCode) {
+    console.log(options);
     const res = await fetch(url, options);
     const { status } = res;
     let result;

@@ -13,8 +13,9 @@ function* handleUploadFile({ data }) {
     try {
         // console.log(`${REACT_APP_API}/advertiser-microservice/advertisements`);
         const res = yield call(api.post, `${REACT_APP_API}/advertiser-microservice/advertisements`, formData, {
-            headers: {},
-            'Content-Type': 'form/multipart',
+            headers: {
+                'Content-Type': 'form/multipart',
+            },
         });
         alert(res);
     } catch (err) {
