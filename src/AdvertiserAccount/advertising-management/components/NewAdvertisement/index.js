@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 
@@ -12,9 +12,19 @@ import styles from './index.module.scss';
 
 const NewAdvertisement = () => {
     const [advertisementText, setAdvertisementText] = useState('');
+    const dropZoneRef = useRef();
 
     const handleAdvertisementTextChange = ({ target: { value } }) => {
         setAdvertisementText(value);
+    };
+
+    const handleDrop = (accepted, rejected) => {
+        if (rejected.length) {
+            alert('Ошибка добавления в дроп зону');
+        }
+        if (accepted && accepted.length !== 0) {
+            console.log(accepted);
+        }
     };
 
     return (
@@ -36,7 +46,11 @@ const NewAdvertisement = () => {
             </div>
 
             <Dropzone
-                onDrop={(acceptedFiles) => console.log(acceptedFiles)}
+                onDrop={handleDrop}
+                accept="image/jpeg, image/png, image/jpg, application/pdf video/mp4"
+                maxSize={10485760}
+                multiple={false}
+                ref={dropZoneRef}
             >
                 {({ getRootProps, getInputProps }) => (
                     <section>
@@ -45,21 +59,17 @@ const NewAdvertisement = () => {
                             {...getRootProps()}
                         >
                             <input {...getInputProps()} />
-                            <p>Drag n drop some files here, or click to select files</p>
+                            <div className={styles.text}>
+                                Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
+                            </div>
                         </div>
                     </section>
                 )}
             </Dropzone>
 
-            {/* <Input
-                className={styles.dropZone}
-                name="file"
-                type="file"
-            /> */}
-
             <div>
                 <Button className={styles.declineBtn}>Отменить</Button>
-                <Button>Сохранить</Button>
+                <Button disabled>Сохранить</Button>
             </div>
         </Container>
     );
