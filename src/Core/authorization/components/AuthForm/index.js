@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Input, Button } from 'semantic-ui-react';
-import Checkbox from '../../../common/Checkbox/Checkbox';
+import Checkbox from 'Core/common/Checkbox';
 
-import styles from './AuthForm.module.scss';
+import styles from './index.module.scss';
 
 
 const AuthForm = ({ formSubmitHandler, errMessage }) => {
@@ -26,12 +26,6 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     const handleBtnClick = (e) => {
         e.preventDefault();
-
-        /* Username: 'avastar-test@smarthead.ru',
-        Password: 'Qwe123!',
-        ReturnUrl,
-        RememberLogin: true, */
-
         formSubmitHandler({
             Username: loginText,
             Password: passwordText,

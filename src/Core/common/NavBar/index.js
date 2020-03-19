@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Dropdown, Icon, Button } from 'semantic-ui-react';
-import Logo from '../../authorization/components/Logo/Logo';
+import Logo from 'Core/authorization/components/Logo';
 
-import { logout } from '../../authorization/action-creators';
-import userManager from '../../authorization/userManager';
+import { logout } from 'Core/authorization/action-creators';
+import userManager from 'Core/authorization/userManager';
 
-import styles from './NavBar.module.scss';
+import styles from './index.module.scss';
 
 
 const NavBar = ({ logoutAction }) => {

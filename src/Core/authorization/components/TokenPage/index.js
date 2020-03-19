@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 
-import Container from 'Core/common/Container/Container';
+import Container from 'Core/common/Container';
 
 import userManager from '../../userManager';
 

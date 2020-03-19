@@ -4,8 +4,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 
 import AuthorizationPage from '../authorization/AuthorizationPage';
-import CallbackPage from '../authorization/components/CallbackPage/CallbackPage';
-import LogoutPage from '../authorization/components/LogoutPage/LogoutPage';
+import CallbackPage from '../authorization/components/CallbackPage';
+import LogoutPage from '../authorization/components/LogoutPage';
 import AdvertiserAccountRouter from '../../AdvertiserAccount/AdvertiserAccountRouter';
 import TokenPage from '../authorization/components/TokenPage';
 
