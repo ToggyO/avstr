@@ -1,24 +1,31 @@
 import React, { useState } from 'react';
 import { Button } from 'semantic-ui-react';
 
+import Container from 'Core/common/Container/Container';
+
 import userManager from '../../userManager';
 
 const TokenPage = () => {
     const [text, setText] = useState('');
     const handleBtnClick = () => {
-        userManager.getUser().then((user) => setText(user.access_token));
+        userManager.getUser().then((user) => {
+            setText(user.access_token);
+        });
+    };
+
+    const handleCopyBtn = () => {
+        navigator.clipboard.writeText(text);
     };
 
     return (
-        <div>
+        <Container>
             <h1>Сервисная страничка</h1>
-            <div
-                style={{ marginBottom: '20px' }}
-            >
+            <div style={{ marginBottom: '20px' }}>
                 {text}
             </div>
-            <Button onClick={handleBtnClick}>Принести токен :)</Button>
-        </div>
+            <Button onClick={handleBtnClick}>Получить токен</Button>
+            <Button onClick={handleCopyBtn}>Копировать токен</Button>
+        </Container>
     );
 };
 
