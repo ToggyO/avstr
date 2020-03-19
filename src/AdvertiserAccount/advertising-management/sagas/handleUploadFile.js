@@ -11,7 +11,11 @@ function* handleUploadFile({ data }) {
     formData.append('File', data);
 
     try {
-        const res = yield call(api.post(`${REACT_APP_API}/advertiser-microservice/advertisements`, data));
+        // console.log(`${REACT_APP_API}/advertiser-microservice/advertisements`);
+        const res = yield call(api.post, `${REACT_APP_API}/advertiser-microservice/advertisements`, formData, {
+            headers: {},
+            'Content-Type': 'form/multipart',
+        });
         alert(res);
     } catch (err) {
         alert(err);

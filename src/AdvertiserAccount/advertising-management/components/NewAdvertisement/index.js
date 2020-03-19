@@ -1,17 +1,17 @@
 import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import { Button, Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
-
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
 
-// import PropTypes from 'prop-types';
 
-
-const NewAdvertisement = () => {
+const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
     const [advertisementText, setAdvertisementText] = useState('');
+    const [file, setFile] = useState();
     const dropZoneRef = useRef();
 
     const handleAdvertisementTextChange = ({ target: { value } }) => {
@@ -23,8 +23,14 @@ const NewAdvertisement = () => {
             alert('Ошибка добавления в дроп зону');
         }
         if (accepted && accepted.length !== 0) {
-            console.log(accepted);
+            alert('файл принят');
+            console.log(accepted[0]);
+            setFile(accepted[0]);
         }
+    };
+
+    const handleSaveClick = () => {
+        saveClick(file);
     };
 
     return (
@@ -68,13 +74,24 @@ const NewAdvertisement = () => {
             </Dropzone>
 
             <div>
-                <Button className={styles.declineBtn}>Отменить</Button>
-                <Button disabled>Сохранить</Button>
+                <Button
+                    className={styles.declineBtn}
+                >
+                    Отменить
+                </Button>
+
+                <Button
+                    onClick={handleSaveClick}
+                >
+                    Сохранить
+                </Button>
             </div>
         </Container>
     );
 };
 
-NewAdvertisement.propTypes = {};
+NewAdvertisement.propTypes = {
+    saveClick: PropTypes.func.isRequired,
+};
 
 export default NewAdvertisement;

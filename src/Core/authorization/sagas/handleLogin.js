@@ -1,13 +1,11 @@
 import { call, put } from 'redux-saga/effects';
-
+import api from 'Core/api';
 import { setErrMessage } from '../action-creators';
 
-import api from '../../api';
 
 const { REACT_APP_AUTH_API } = process.env;
 
 function* handleLogin({ data }) {
-// function* handleLogin() {
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));

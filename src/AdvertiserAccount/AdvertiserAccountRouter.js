@@ -7,7 +7,7 @@ import userManager from 'Core/authorization/userManager';
 import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
 import AdvertiserAccountPage from './AdvertiserAccountPage';
-import NewAdvertisement from './advertising-management/components/NewAdvertisement';
+import NewAdvertisementPage from './advertising-management/NewAdvertisementPage';
 
 
 class AdvertiserAccountRouter extends Component {
@@ -49,7 +49,7 @@ class AdvertiserAccountRouter extends Component {
                                 />
                                 <Route
                                     path={`${path}/add`}
-                                    component={NewAdvertisement}
+                                    component={NewAdvertisementPage}
                                 />
                             </Switch>
                         </div>
