@@ -18,11 +18,20 @@
     }
 
     .dropZone {
+        display: flex;
+        align-items: center;
         width: 716px;
         height: 36px;
         margin-bottom: 40px;
         border: 1px dashed $light-blue;
         border-radius: 6px;
+
+        .text {
+            margin-left: 7px;
+            color: $main-blue;
+            font-size: 12px;
+            line-height: 20px;
+        }
     }
 
     .declineBtn {
