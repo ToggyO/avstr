@@ -1,0 +1,2 @@
+export const UPLOAD_FILE = 'UPLOAD_FILE';
+export const CHANGE_UPLOAD_STATUS = 'UPLOAD_PENDING';
