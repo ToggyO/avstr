@@ -11,7 +11,7 @@ import styles from './index.module.scss';
 
 const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
     const [advertisementText, setAdvertisementText] = useState('');
-    const [file, setFile] = useState();
+    const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
 
     const handleAdvertisementTextChange = ({ target: { value } }) => {
@@ -30,7 +30,7 @@ const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
     };
 
     const handleSaveClick = () => {
-        saveClick(file);
+        saveClick({ advertisementText, file });
     };
 
     return (

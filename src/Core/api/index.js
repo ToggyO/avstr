@@ -46,6 +46,23 @@ const api = {
         );
     },
 
+    postFile(url, body) {
+        const defaultOptions = {
+            method: 'POST',
+            headers: {},
+            body,
+            // credentials: 'include',
+        };
+
+        defineConstantHeaders(defaultOptions);
+
+        return sendRequest(
+            url,
+            defaultOptions,
+            [200, 201],
+        );
+    },
+
     put(url, body, options) {
         const defaultOptions = {
             method: 'PUT',
