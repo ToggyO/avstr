@@ -14,6 +14,7 @@ const TokenPage = () => {
     };
 
     const handleCopyBtn = () => {
+        console.log(text);
         navigator.clipboard.writeText(text);
     };
 
