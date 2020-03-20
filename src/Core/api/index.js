@@ -5,12 +5,14 @@ const headers = {
 };
 const constantHeader = {};
 const defineConstantHeaders = (defaultOptions) => {
-    // eslint-disable-next-line no-restricted-syntax
+    const options = { ...defaultOptions };
+    // eslint-disable-next-line guard-for-in,no-restricted-syntax
     for (const prop in constantHeader) {
-        if (Object.prototype.hasOwnProperty.call(constantHeader, prop)) {
-            Object.defineProperty(defaultOptions.headers, prop, { value: constantHeader[prop] });
-        }
+        options.headers = {
+            [prop]: constantHeader[prop],
+        };
     }
+    return options;
 };
 
 const api = {
@@ -37,11 +39,11 @@ const api = {
             ...options,
         };
 
-        defineConstantHeaders(defaultOptions);
+        const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            defaultOptions,
+            opt,
             [200, 201],
         );
     },
@@ -49,16 +51,17 @@ const api = {
     postFile(url, body) {
         const defaultOptions = {
             method: 'POST',
-            headers: {},
+            headers: {
+                Authorization: '',
+            },
             body,
-            // credentials: 'include',
         };
 
-        defineConstantHeaders(defaultOptions);
+        const options = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            defaultOptions,
+            options,
             [200, 201],
         );
     },
