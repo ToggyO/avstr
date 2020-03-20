@@ -3,19 +3,28 @@ import sendRequest from './sendRequest';
 const headers = {
     'Content-Type': 'application/json;charset=utf-8',
 };
-
 const constantHeader = {};
+const defineConstantHeaders = (defaultOptions) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const prop in constantHeader) {
+        if (Object.prototype.hasOwnProperty.call(constantHeader, prop)) {
+            Object.defineProperty(defaultOptions.headers, prop, { value: constantHeader[prop] });
+        }
+    }
+};
 
 const api = {
     get(url, options) {
+        const defaultOptions = {
+            headers,
+            ...options,
+        };
+
+        defineConstantHeaders(defaultOptions);
+
         return sendRequest(
             url,
-            {
-                headers: {
-                    ...constantHeader,
-                },
-                ...options,
-            },
+            defaultOptions,
             200,
         );
     },
@@ -23,55 +32,54 @@ const api = {
     post(url, body, options) {
         const defaultOptions = {
             method: 'POST',
-            headers: {
-                ...headers,
-            },
+            headers,
             body: JSON.stringify(body),
+            ...options,
         };
 
-
-        // eslint-disable-next-line no-restricted-syntax
-        for (const prop in constantHeader) {
-            if (Object.prototype.hasOwnProperty.call(constantHeader, prop)) {
-                Object.defineProperty(defaultOptions.headers, prop, { value: constantHeader[prop] });
-            }
-        }
+        defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            {
-                ...defaultOptions,
-                ...options,
-            },
+            defaultOptions,
             [200, 201],
         );
     },
 
     put(url, body, options) {
-        return sendRequest(url, {
+        const defaultOptions = {
             method: 'PUT',
-            headers: {
-                ...headers,
-                ...constantHeader,
-            },
+            headers,
             body: JSON.stringify(body),
             ...options,
-        }, 200);
+        };
+
+        defineConstantHeaders(defaultOptions);
+
+        return sendRequest(
+            url,
+            defaultOptions,
+            200,
+        );
     },
 
     delete(url, options) {
-        return sendRequest(url, {
+        const defaultOptions = {
             method: 'DELETE',
-            headers: {
-                ...headers,
-                ...constantHeader,
-            },
+            headers,
             ...options,
-        }, 204);
+        };
+
+        defineConstantHeaders(defaultOptions);
+
+        return sendRequest(
+            url,
+            defaultOptions,
+            204,
+        );
     },
 
     setConstantHeader(name, value) {
-        alert(name, value);
         constantHeader[name] = value;
     },
 };
