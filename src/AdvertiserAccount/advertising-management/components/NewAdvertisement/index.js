@@ -9,7 +9,7 @@ import Title from 'Core/common/Title';
 import styles from './index.module.scss';
 
 
-const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
+const NewAdvertisement = ({ fileStatus, saveClick }) => {
     const [advertisementText, setAdvertisementText] = useState('');
     const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
@@ -72,6 +72,7 @@ const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
                     </section>
                 )}
             </Dropzone>
+            <div>{fileStatus}</div>
 
             <div>
                 <Button
@@ -91,6 +92,7 @@ const NewAdvertisement = ({ /* fileStatus , */ saveClick }) => {
 };
 
 NewAdvertisement.propTypes = {
+    fileStatus: PropTypes.string.isRequired,
     saveClick: PropTypes.func.isRequired,
 };
 

@@ -7,7 +7,7 @@ const { REACT_APP_API } = process.env;
 
 
 function* handleUploadFile({ data: { advertisementText, file } }) {
-    yield put(changeUploadStatus('pending'));
+    yield put(changeUploadStatus('Pending'));
 
     const formData = new FormData();
     formData.append('file', file);
@@ -23,8 +23,10 @@ function* handleUploadFile({ data: { advertisementText, file } }) {
         req.onloadend = () => {
             const { status } = req;
             if (status === 201) {
+                // changeUploadStatus('Success');
                 console.log('Отправлено успешно!');
             } else {
+                // changeUploadStatus('Error');
                 console.log('Ошибка при отправке');
             }
         };

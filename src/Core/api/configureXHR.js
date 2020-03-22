@@ -3,7 +3,6 @@ function configureXHR(url, options, responseType) {
     const xhr = new XMLHttpRequest();
 
     xhr.open(method, url);
-    // xhr.responseType = 'json';
     xhr.responseType = responseType;
 
     // eslint-disable-next-line no-restricted-syntax
