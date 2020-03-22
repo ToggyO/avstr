@@ -1,5 +1,5 @@
 import sendRequest from './sendRequest';
-import sendXHR from './sendXHR';
+import configureXHR from './configureXHR';
 
 const headers = {
     'Content-Type': 'application/json;charset=utf-8',
@@ -67,16 +67,15 @@ const api = {
         );
     }, */
 
-    postFile(url, body) {
+    configurePostFile(url, responseType) {
         const defaultOptions = {
             method: 'POST',
             headers: {},
-            body,
         };
 
         const options = defineConstantHeaders(defaultOptions);
 
-        return sendXHR(url, options);
+        return configureXHR(url, options, responseType);
     },
 
     put(url, body, options) {
