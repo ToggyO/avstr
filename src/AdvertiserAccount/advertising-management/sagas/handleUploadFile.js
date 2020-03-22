@@ -12,10 +12,6 @@ function* handleUploadFile({ data: { advertisementText, file } }) {
     formData.append('file', file);
     formData.append('name', advertisementText);
 
-    /* for (const [name, value] of formData) {
-        console.log(`${name} = ${value}`);
-    } */
-
     try {
         const res = yield call(api.postFile, `${REACT_APP_API}/advertiser-microservice/advertisements`, formData);
         console.log(res);

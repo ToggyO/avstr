@@ -1,4 +1,5 @@
 import sendRequest from './sendRequest';
+import sendXHR from './sendXHR';
 
 const headers = {
     'Content-Type': 'application/json;charset=utf-8',
@@ -6,11 +7,14 @@ const headers = {
 const constantHeader = {};
 const defineConstantHeaders = (defaultOptions) => {
     const options = { ...defaultOptions };
-    // eslint-disable-next-line guard-for-in,no-restricted-syntax
+
+    // eslint-disable-next-line no-restricted-syntax
     for (const prop in constantHeader) {
-        options.headers = {
-            [prop]: constantHeader[prop],
-        };
+        if ({}.hasOwnProperty.call(constantHeader, prop)) {
+            options.headers = {
+                [prop]: constantHeader[prop],
+            };
+        }
     }
     return options;
 };
@@ -48,15 +52,12 @@ const api = {
         );
     },
 
-    postFile(url, body) {
+    /* postFile(url, body) {
         const defaultOptions = {
             method: 'POST',
-            headers: {
-                Authorization: '',
-            },
+            headers: {},
             body,
         };
-
         const options = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
@@ -64,6 +65,18 @@ const api = {
             options,
             [200, 201],
         );
+    }, */
+
+    postFile(url, body) {
+        const defaultOptions = {
+            method: 'POST',
+            headers: {},
+            body,
+        };
+
+        const options = defineConstantHeaders(defaultOptions);
+
+        return sendXHR(url, options);
     },
 
     put(url, body, options) {
