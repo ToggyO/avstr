@@ -1,9 +1,11 @@
 .card {
     position: relative;
-    opacity: 0.4;
+    // opacity: 0.4;
     width: 349px;
     height: 146px;
     margin-bottom: 44px;
+    background: no-repeat;
+    background-size: cover;
     border-radius: 6px;
 }
 

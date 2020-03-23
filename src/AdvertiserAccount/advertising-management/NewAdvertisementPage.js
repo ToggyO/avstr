@@ -21,7 +21,7 @@ NewAdvertisementPage.propTypes = {
     uploadedFileContent: PropTypes.shape({
         name: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
-        filePath: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
         lastModificationTime: PropTypes.string,
         id: PropTypes.number,
     }).isRequired,

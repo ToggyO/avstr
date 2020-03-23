@@ -13,6 +13,7 @@ import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
 import UploadedFileCard from '../UploadedFileCard';
+import ProgressBar from '../ProgressBar';
 
 
 const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
@@ -72,11 +73,11 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
                 );
             case 'Success':
                 return (
-                    <UploadedFileCard pathToImg={content.filePath} />
+                    <UploadedFileCard pathToImg={content.url} />
                 );
             default:
                 return (
-                    <div>{fileStatus}</div>
+                    <ProgressBar status={fileStatus} />
                 );
         }
     };
@@ -126,7 +127,7 @@ NewAdvertisement.propTypes = {
     content: PropTypes.shape({
         name: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
-        filePath: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
         lastModificationTime: PropTypes.string,
         id: PropTypes.number,
     }).isRequired,
