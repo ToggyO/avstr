@@ -1,7 +1,8 @@
 import { eventChannel, END } from 'redux-saga';
 import { put, call, take } from 'redux-saga/effects';
 import api from 'Core/api';
-// import handleRequestErrors from 'Core/api/handeRequestErrors';
+import handleRequestErrors from 'Core/api/handeRequestErrors';
+
 import { changeUploadStatus } from '../action-creators';
 
 const { REACT_APP_API } = process.env;
@@ -22,12 +23,25 @@ function createUploadChanel(xhr, file) {
         };
 
         const onSuccess = () => {
-            const { status, response } = xhr;
-            if (status === 201) {
-                emitter({ success: { response } });
-                emitter(END);
-            } else {
-                onFailure(null);
+            try {
+                const { status, response } = xhr;
+                if (status === 201) {
+                    emitter({ success: { response } });
+                    emitter(END);
+                } else {
+                    handleRequestErrors(status);
+                }
+            } catch ({ type }) {
+                switch (type) {
+                    case 'AuthorizationError':
+                        window.location = '/';
+                        break;
+                    case 'ServerError':
+                        alert('На сервере произошла ошибка');
+                        break;
+                    default:
+                        break;
+                }
             }
         };
 
@@ -60,7 +74,6 @@ function* handleUploadFile({ data: { advertisementText, file } }) {
 
     while (true) {
         const { progress = 0, err, success } = yield take(channel);
-
         if (success) {
             const { response } = success;
             console.log(response);
