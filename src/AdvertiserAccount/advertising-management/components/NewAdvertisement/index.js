@@ -1,7 +1,6 @@
 import React, {
     useState,
     useRef,
-    useEffect,
     memo,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -16,7 +15,12 @@ import UploadedFileCard from '../UploadedFileCard';
 import ProgressBar from '../ProgressBar';
 
 
-const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
+const NewAdvertisement = ({
+    fileStatus,
+    content,
+    saveClick,
+    changeFileStatus,
+}) => {
     const [advertisementText, setAdvertisementText] = useState('');
     const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
@@ -30,20 +34,27 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
             alert('Ошибка добавления в дроп зону');
         }
         if (accepted && accepted.length !== 0) {
-            console.log(accepted[0]);
-            setFile(accepted[0]);
+            if (!advertisementText) {
+                alert('Введите название объявления.');
+                return;
+            }
+            const data = accepted[0];
+            setFile(data);
+            saveClick({ advertisementText, file: data });
         }
     };
 
     const handleSaveClick = () => {
-        saveClick({ advertisementText, file });
-    };
-
-    useEffect(() => {
-        if (fileStatus !== 'Success') return;
         setAdvertisementText('');
         setFile(null);
-    }, [fileStatus]);
+        changeFileStatus('');
+    };
+
+    const handleCancelClick = () => {
+        setAdvertisementText('');
+        setFile(null);
+        changeFileStatus('');
+    };
 
     const renderDropzoneContent = (status) => {
         switch (status) {
@@ -82,8 +93,6 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
         }
     };
 
-    console.log(content);
-
     return (
         <Container className={styles.newAdvertisement}>
             <Title
@@ -107,6 +116,7 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
             <div>
                 <Button
                     className={styles.declineBtn}
+                    onClick={handleCancelClick}
                 >
                     Отменить
                 </Button>
@@ -132,6 +142,7 @@ NewAdvertisement.propTypes = {
         id: PropTypes.number,
     }).isRequired,
     saveClick: PropTypes.func.isRequired,
+    changeFileStatus: PropTypes.func.isRequired,
 };
 
 export default memo(NewAdvertisement);
