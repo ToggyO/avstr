@@ -1,66 +1,10 @@
-import { eventChannel, END } from 'redux-saga';
 import { put, call, take } from 'redux-saga/effects';
 import api from 'Core/api';
-import handleRequestErrors from 'Core/api/handeRequestErrors';
 
-import { changeUploadStatus } from '../action-creators';
+import createUploadChanel from './createUploadChanel';
+import { changeUploadStatus, receiveUploadedContent } from '../action-creators';
 
 const { REACT_APP_API } = process.env;
-
-
-function createUploadChanel(xhr, file) {
-    return eventChannel((emitter) => {
-        const onProgress = (e) => {
-            if (e.lengthComputable) {
-                const progress = `${e.loaded} / ${e.total}`;
-                emitter({ progress });
-            }
-        };
-
-        const onFailure = () => {
-            emitter({ err: true });
-            emitter(END);
-        };
-
-        const onSuccess = () => {
-            try {
-                const { status, response } = xhr;
-                if (status === 201) {
-                    emitter({ success: { response } });
-                    emitter(END);
-                } else {
-                    handleRequestErrors(status);
-                }
-            } catch ({ type }) {
-                switch (type) {
-                    case 'AuthorizationError':
-                        window.location = '/';
-                        break;
-                    case 'ServerError':
-                        alert('На сервере произошла ошибка');
-                        break;
-                    default:
-                        break;
-                }
-            }
-        };
-
-        xhr.upload.addEventListener('progress', onProgress);
-        xhr.upload.addEventListener('error', onFailure);
-        xhr.upload.addEventListener('abort', onFailure);
-        xhr.addEventListener('loadend', onSuccess);
-
-        xhr.send(file);
-
-        return () => {
-            xhr.upload.removeEventListener('progress', onProgress);
-            xhr.upload.removeEventListener('error', onFailure);
-            xhr.upload.removeEventListener('abort', onFailure);
-            xhr.removeEventListener('loadend', onSuccess);
-            xhr.abort();
-        };
-    });
-}
 
 
 function* handleUploadFile({ data: { advertisementText, file } }) {
@@ -76,8 +20,9 @@ function* handleUploadFile({ data: { advertisementText, file } }) {
         const { progress = 0, err, success } = yield take(channel);
         if (success) {
             const { response } = success;
-            console.log(response);
+
             yield put(changeUploadStatus('Success'));
+            yield put(receiveUploadedContent(response.content));
             return;
         }
         if (err) {

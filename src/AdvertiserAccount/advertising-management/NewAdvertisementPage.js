@@ -7,9 +7,10 @@ import NewAdvertisement from './components/NewAdvertisement';
 import { uploadFile } from './action-creators';
 
 
-const NewAdvertisementPage = ({ fileUploadStatus, uploadFileAction }) => (
+const NewAdvertisementPage = ({ fileUploadStatus, uploadedFileContent, uploadFileAction }) => (
     <NewAdvertisement
         fileStatus={fileUploadStatus}
+        content={uploadedFileContent}
         saveClick={uploadFileAction}
     />
 );
@@ -17,15 +18,22 @@ const NewAdvertisementPage = ({ fileUploadStatus, uploadFileAction }) => (
 
 NewAdvertisementPage.propTypes = {
     fileUploadStatus: PropTypes.string.isRequired,
+    uploadedFileContent: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        creationTime: PropTypes.string.isRequired,
+        filePath: PropTypes.string.isRequired,
+        lastModificationTime: PropTypes.string,
+        id: PropTypes.number,
+    }).isRequired,
     uploadFileAction: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = ({
     advertiserAccountReducer: {
-        advertisingManagementReducer: { fileUploadStatus },
+        advertisingManagementReducer: { fileUploadStatus, uploadedFileContent },
     },
-}) => ({ fileUploadStatus });
+}) => ({ fileUploadStatus, uploadedFileContent });
 
 const mapDispatchToProps = {
     uploadFileAction: uploadFile,

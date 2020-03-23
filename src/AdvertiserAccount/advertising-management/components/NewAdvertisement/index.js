@@ -9,7 +9,7 @@ import Title from 'Core/common/Title';
 import styles from './index.module.scss';
 
 
-const NewAdvertisement = ({ fileStatus, saveClick }) => {
+const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
     const [advertisementText, setAdvertisementText] = useState('');
     const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
@@ -37,7 +37,9 @@ const NewAdvertisement = ({ fileStatus, saveClick }) => {
             setAdvertisementText('');
             setFile(null);
         }
-    });
+    }, [fileStatus]);
+
+    console.log(content);
 
     return (
         <Container className={styles.newAdvertisement}>
@@ -100,6 +102,13 @@ const NewAdvertisement = ({ fileStatus, saveClick }) => {
 
 NewAdvertisement.propTypes = {
     fileStatus: PropTypes.string.isRequired,
+    content: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        creationTime: PropTypes.string.isRequired,
+        filePath: PropTypes.string.isRequired,
+        lastModificationTime: PropTypes.string,
+        id: PropTypes.number,
+    }).isRequired,
     saveClick: PropTypes.func.isRequired,
 };
 
