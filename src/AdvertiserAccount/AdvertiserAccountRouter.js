@@ -44,7 +44,7 @@ class AdvertiserAccountRouter extends Component {
                     ? (
                         <div>
                             <NavBar />
-                            <Suspense fallback={Loader}>
+                            <Suspense fallback={<Loader />}>
                                 <Switch>
                                     <Route
                                         exact

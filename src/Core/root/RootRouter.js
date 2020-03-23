@@ -30,7 +30,7 @@ const RootRouter = () => (
                 component={LogoutPage}
             />
 
-            <Suspense fallback={Loader}>
+            <Suspense fallback={<Loader />}>
                 <Route
                     path="/token"
                     component={TokenPage}
