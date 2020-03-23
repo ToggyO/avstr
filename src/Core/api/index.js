@@ -4,18 +4,16 @@ import configureXHR from './configureXHR';
 const headers = {
     'Content-Type': 'application/json;charset=utf-8',
 };
-const constantHeader = {};
+const constantHeaders = {};
 const defineConstantHeaders = (defaultOptions) => {
     const options = { ...defaultOptions };
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const prop in constantHeader) {
-        if ({}.hasOwnProperty.call(constantHeader, prop)) {
-            options.headers = {
-                [prop]: constantHeader[prop],
-            };
-        }
-    }
+    Object.keys(constantHeaders).forEach((header) => {
+        options.headers = {
+            [header]: constantHeaders[header],
+        };
+    });
+
     return options;
 };
 
@@ -51,21 +49,6 @@ const api = {
             [200, 201],
         );
     },
-
-    /* postFile(url, body) {
-        const defaultOptions = {
-            method: 'POST',
-            headers: {},
-            body,
-        };
-        const options = defineConstantHeaders(defaultOptions);
-
-        return sendRequest(
-            url,
-            options,
-            [200, 201],
-        );
-    }, */
 
     configurePostFile(url, responseType) {
         const defaultOptions = {
@@ -112,7 +95,7 @@ const api = {
     },
 
     setConstantHeader(name, value) {
-        constantHeader[name] = value;
+        constantHeaders[name] = value;
     },
 };
 

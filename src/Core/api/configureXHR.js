@@ -5,12 +5,10 @@ function configureXHR(url, options, responseType) {
     xhr.open(method, url);
     xhr.responseType = responseType;
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const header in headers) {
-        if ({}.hasOwnProperty.call(headers, header)) {
-            xhr.setRequestHeader(header, options.headers[header]);
-        }
-    }
+    Object.keys(headers).forEach((header) => {
+        xhr.setRequestHeader(header, headers[header]);
+    });
+
     return xhr;
 }
 
