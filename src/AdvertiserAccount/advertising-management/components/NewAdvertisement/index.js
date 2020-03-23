@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Input } from 'semantic-ui-react';
@@ -31,6 +31,13 @@ const NewAdvertisement = ({ fileStatus, saveClick }) => {
     const handleSaveClick = () => {
         saveClick({ advertisementText, file });
     };
+
+    useEffect(() => {
+        if (fileStatus === 'Success') {
+            setAdvertisementText('');
+            setFile(null);
+        }
+    });
 
     return (
         <Container className={styles.newAdvertisement}>
