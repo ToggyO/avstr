@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
 import userManager from 'Core/authorization/userManager';
+import api from 'Core/api';
 
 import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
-import AdvertiserAccountPage from './AdvertiserAccountPage';
-import NewAdvertisementPage from './advertising-management/NewAdvertisementPage';
-import api from '../Core/api';
+
+const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
+const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
 
 
 class AdvertiserAccountRouter extends Component {
@@ -43,17 +44,19 @@ class AdvertiserAccountRouter extends Component {
                     ? (
                         <div>
                             <NavBar />
-                            <Switch>
-                                <Route
-                                    exact
-                                    path={`${path}`}
-                                    component={AdvertiserAccountPage}
-                                />
-                                <Route
-                                    path={`${path}/add`}
-                                    component={NewAdvertisementPage}
-                                />
-                            </Switch>
+                            <Suspense fallback={Loader}>
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path={`${path}`}
+                                        component={AdvertiserAccountPage}
+                                    />
+                                    <Route
+                                        path={`${path}/add`}
+                                        component={NewAdvertisementPage}
+                                    />
+                                </Switch>
+                            </Suspense>
                         </div>
                     )
                     : <Loader />}
