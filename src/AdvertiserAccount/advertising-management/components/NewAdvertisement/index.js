@@ -23,7 +23,6 @@ const NewAdvertisement = ({ fileStatus, saveClick }) => {
             alert('Ошибка добавления в дроп зону');
         }
         if (accepted && accepted.length !== 0) {
-            alert('файл принят');
             console.log(accepted[0]);
             setFile(accepted[0]);
         }
@@ -82,6 +81,7 @@ const NewAdvertisement = ({ fileStatus, saveClick }) => {
                 </Button>
 
                 <Button
+                    disabled={advertisementText === '' || !file}
                     onClick={handleSaveClick}
                 >
                     Сохранить
