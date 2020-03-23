@@ -1,17 +1,22 @@
-import React, { useState, useRef } from 'react';
+import React, {
+    useState,
+    useRef,
+    useEffect,
+    memo,
+} from 'react';
+import PropTypes from 'prop-types';
+
 import { Button, Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
-
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
 
-// import PropTypes from 'prop-types';
 
-
-const NewAdvertisement = () => {
+const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
     const [advertisementText, setAdvertisementText] = useState('');
+    const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
 
     const handleAdvertisementTextChange = ({ target: { value } }) => {
@@ -23,9 +28,22 @@ const NewAdvertisement = () => {
             alert('Ошибка добавления в дроп зону');
         }
         if (accepted && accepted.length !== 0) {
-            console.log(accepted);
+            console.log(accepted[0]);
+            setFile(accepted[0]);
         }
     };
+
+    const handleSaveClick = () => {
+        saveClick({ advertisementText, file });
+    };
+
+    useEffect(() => {
+        if (fileStatus !== 'Success') return;
+        setAdvertisementText('');
+        setFile(null);
+    }, [fileStatus]);
+
+    console.log(content);
 
     return (
         <Container className={styles.newAdvertisement}>
@@ -66,15 +84,36 @@ const NewAdvertisement = () => {
                     </section>
                 )}
             </Dropzone>
+            <div>{fileStatus}</div>
 
             <div>
-                <Button className={styles.declineBtn}>Отменить</Button>
-                <Button disabled>Сохранить</Button>
+                <Button
+                    className={styles.declineBtn}
+                >
+                    Отменить
+                </Button>
+
+                <Button
+                    disabled={advertisementText === '' || !file}
+                    onClick={handleSaveClick}
+                >
+                    Сохранить
+                </Button>
             </div>
         </Container>
     );
 };
 
-NewAdvertisement.propTypes = {};
+NewAdvertisement.propTypes = {
+    fileStatus: PropTypes.string.isRequired,
+    content: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        creationTime: PropTypes.string.isRequired,
+        filePath: PropTypes.string.isRequired,
+        lastModificationTime: PropTypes.string,
+        id: PropTypes.number,
+    }).isRequired,
+    saveClick: PropTypes.func.isRequired,
+};
 
-export default NewAdvertisement;
+export default memo(NewAdvertisement);

@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
 import userManager from 'Core/authorization/userManager';
+import api from 'Core/api';
 
 import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
-import AdvertiserAccountPage from './AdvertiserAccountPage';
-import NewAdvertisement from './advertising-management/components/NewAdvertisement';
+
+const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
+const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
 
 
 class AdvertiserAccountRouter extends Component {
@@ -28,6 +30,7 @@ class AdvertiserAccountRouter extends Component {
                 this.setState({
                     isLoggedIn: true,
                 });
+                api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
             }
         });
     }
@@ -41,17 +44,19 @@ class AdvertiserAccountRouter extends Component {
                     ? (
                         <div>
                             <NavBar />
-                            <Switch>
-                                <Route
-                                    exact
-                                    path={`${path}`}
-                                    component={AdvertiserAccountPage}
-                                />
-                                <Route
-                                    path={`${path}/add`}
-                                    component={NewAdvertisement}
-                                />
-                            </Switch>
+                            <Suspense fallback={<Loader />}>
+                                <Switch>
+                                    <Route
+                                        exact
+                                        path={`${path}`}
+                                        component={AdvertiserAccountPage}
+                                    />
+                                    <Route
+                                        path={`${path}/add`}
+                                        component={NewAdvertisementPage}
+                                    />
+                                </Switch>
+                            </Suspense>
                         </div>
                     )
                     : <Loader />}

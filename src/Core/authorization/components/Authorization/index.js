@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 // import TestComponent from '../TestComponent';
 // import Logo from '../Logo/Logo';
@@ -21,4 +21,4 @@ Authorization.propTypes = {
     formSubmitHandler: PropTypes.func.isRequired,
 };
 
-export default Authorization;
+export default memo(Authorization);
