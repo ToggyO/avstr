@@ -1,4 +1,9 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {
+    useState,
+    useRef,
+    useEffect,
+    memo,
+} from 'react';
 import PropTypes from 'prop-types';
 
 import { Button, Input } from 'semantic-ui-react';
@@ -112,4 +117,4 @@ NewAdvertisement.propTypes = {
     saveClick: PropTypes.func.isRequired,
 };
 
-export default NewAdvertisement;
+export default memo(NewAdvertisement);
