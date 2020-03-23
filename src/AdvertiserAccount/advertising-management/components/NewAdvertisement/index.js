@@ -38,10 +38,9 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
     };
 
     useEffect(() => {
-        if (fileStatus === 'Success') {
-            setAdvertisementText('');
-            setFile(null);
-        }
+        if (fileStatus !== 'Success') return;
+        setAdvertisementText('');
+        setFile(null);
     }, [fileStatus]);
 
     console.log(content);
