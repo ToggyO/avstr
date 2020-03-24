@@ -14,7 +14,7 @@ const initialState = {
         lastModificationTime: '',
         id: null,
     },
-    advertisements: [112],
+    advertisements: [],
 };
 
 

@@ -34,8 +34,14 @@ class AdvertiserAccountPage extends Component {
 
 
 AdvertiserAccountPage.propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
-    advertisements: PropTypes.array.isRequired,
+    advertisements: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string,
+            url: PropTypes.string,
+            creationTime: PropTypes.string,
+            id: PropTypes.number,
+        }).isRequired,
+    ).isRequired,
     requestAdvertisementsAction: PropTypes.func.isRequired,
 };
 
