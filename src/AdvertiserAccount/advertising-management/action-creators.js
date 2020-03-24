@@ -2,6 +2,7 @@ import {
     UPLOAD_FILE,
     CHANGE_UPLOAD_STATUS,
     RECEIVE_UPLOADED_CONTENT,
+    RECEIVE_ADVERTISEMENTS,
 } from './actions';
 
 
@@ -17,5 +18,11 @@ export const changeUploadStatus = (data) => ({
 
 export const receiveUploadedContent = (data) => ({
     type: RECEIVE_UPLOADED_CONTENT,
+    data,
+});
+
+
+export const receiveAdvertisements = (data) => ({
+    type: RECEIVE_ADVERTISEMENTS,
     data,
 });
