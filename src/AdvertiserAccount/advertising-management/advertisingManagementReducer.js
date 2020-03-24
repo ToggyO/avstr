@@ -1,4 +1,8 @@
-import { CHANGE_UPLOAD_STATUS, RECEIVE_UPLOADED_CONTENT } from './actions';
+import {
+    CHANGE_UPLOAD_STATUS,
+    RECEIVE_UPLOADED_CONTENT,
+    RECEIVE_ADVERTISEMENTS,
+} from './actions';
 
 
 const initialState = {
@@ -10,7 +14,9 @@ const initialState = {
         lastModificationTime: '',
         id: null,
     },
+    advertisements: [],
 };
+
 
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
@@ -23,6 +29,11 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
             return {
                 ...state,
                 uploadedFileContent: data,
+            };
+        case RECEIVE_ADVERTISEMENTS:
+            return {
+                ...state,
+                advertisements: data,
             };
         default:
             return state;
