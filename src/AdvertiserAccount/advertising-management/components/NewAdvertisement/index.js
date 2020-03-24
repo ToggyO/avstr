@@ -1,7 +1,6 @@
 import React, {
     useState,
     useRef,
-    useEffect,
     memo,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -12,9 +11,16 @@ import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 
 import styles from './index.module.scss';
+import UploadedFileCard from '../UploadedFileCard';
+import ProgressBar from '../ProgressBar';
 
 
-const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
+const NewAdvertisement = ({
+    fileStatus,
+    content,
+    saveClick,
+    changeFileStatus,
+}) => {
     const [advertisementText, setAdvertisementText] = useState('');
     const [file, setFile] = useState(null);
     const dropZoneRef = useRef();
@@ -28,22 +34,64 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
             alert('Ошибка добавления в дроп зону');
         }
         if (accepted && accepted.length !== 0) {
-            console.log(accepted[0]);
-            setFile(accepted[0]);
+            if (!advertisementText) {
+                alert('Введите название объявления.');
+                return;
+            }
+            const data = accepted[0];
+            setFile(data);
+            saveClick({ advertisementText, file: data });
         }
     };
 
     const handleSaveClick = () => {
-        saveClick({ advertisementText, file });
-    };
-
-    useEffect(() => {
-        if (fileStatus !== 'Success') return;
         setAdvertisementText('');
         setFile(null);
-    }, [fileStatus]);
+        changeFileStatus('');
+    };
 
-    console.log(content);
+    const handleCancelClick = () => {
+        setAdvertisementText('');
+        setFile(null);
+        changeFileStatus('');
+    };
+
+    const renderDropzoneContent = (status) => {
+        switch (status) {
+            case '':
+                return (
+                    <Dropzone
+                        onDrop={handleDrop}
+                        accept="image/jpeg, image/png, image/jpg, video/mp4"
+                        maxSize={10485760}
+                        multiple={false}
+                        ref={dropZoneRef}
+                    >
+                        {({ getRootProps, getInputProps }) => (
+                            <section>
+                                <div
+                                    className={styles.dropZone}
+                                    {...getRootProps()}
+                                >
+                                    <input {...getInputProps()} />
+                                    <div className={styles.text}>
+                                        Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
+                                    </div>
+                                </div>
+                            </section>
+                        )}
+                    </Dropzone>
+                );
+            case 'Success':
+                return (
+                    <UploadedFileCard pathToImg={content.url} />
+                );
+            default:
+                return (
+                    <ProgressBar status={fileStatus} />
+                );
+        }
+    };
 
     return (
         <Container className={styles.newAdvertisement}>
@@ -63,32 +111,12 @@ const NewAdvertisement = ({ fileStatus, content, saveClick }) => {
                 Мб, размер изображения 1920&times;1080рх
             </div>
 
-            <Dropzone
-                onDrop={handleDrop}
-                accept="image/jpeg, image/png, image/jpg, application/pdf video/mp4"
-                maxSize={10485760}
-                multiple={false}
-                ref={dropZoneRef}
-            >
-                {({ getRootProps, getInputProps }) => (
-                    <section>
-                        <div
-                            className={styles.dropZone}
-                            {...getRootProps()}
-                        >
-                            <input {...getInputProps()} />
-                            <div className={styles.text}>
-                                Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
-                            </div>
-                        </div>
-                    </section>
-                )}
-            </Dropzone>
-            <div>{fileStatus}</div>
+            {renderDropzoneContent(fileStatus)}
 
             <div>
                 <Button
                     className={styles.declineBtn}
+                    onClick={handleCancelClick}
                 >
                     Отменить
                 </Button>
@@ -109,11 +137,12 @@ NewAdvertisement.propTypes = {
     content: PropTypes.shape({
         name: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
-        filePath: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
         lastModificationTime: PropTypes.string,
         id: PropTypes.number,
     }).isRequired,
     saveClick: PropTypes.func.isRequired,
+    changeFileStatus: PropTypes.func.isRequired,
 };
 
 export default memo(NewAdvertisement);

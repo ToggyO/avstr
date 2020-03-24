@@ -10,7 +10,7 @@ const initialState = {
     uploadedFileContent: {
         name: '',
         creationTime: '',
-        filePath: '',
+        url: '',
         lastModificationTime: '',
         id: null,
     },

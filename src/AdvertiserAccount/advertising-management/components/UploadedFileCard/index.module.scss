@@ -1,0 +1,23 @@
+.card {
+    position: relative;
+    // opacity: 0.4;
+    width: 349px;
+    height: 146px;
+    margin-bottom: 44px;
+    background: no-repeat;
+    background-size: cover;
+    border-radius: 6px;
+}
+
+.icon {
+    position: absolute;
+    right: 23px;
+
+    &.imgIcon {
+        top: 22px;
+    }
+
+    &.deleteIcon {
+        bottom: 22px;
+    }
+}
