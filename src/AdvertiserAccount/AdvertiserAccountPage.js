@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-
 import history from 'Core/history';
+import { requestAdvertisements } from './advertising-management/action-creators';
 
 import Advertisements from './advertising-management/components/Advertisements';
 
 
 class AdvertiserAccountPage extends Component {
+    componentDidMount() {
+        const { requestAdvertisementsAction } = this.props;
+        requestAdvertisementsAction();
+    }
+
     handleAddBtn = () => {
         history.push('/advertiser/add');
     };
 
     render() {
-        const advertisements = [1];
+        const { advertisements } = this.props;
+        console.log(advertisements);
+
         return (
             <Advertisements
                 title={advertisements.length ? 'Объявления' : 'Здесь пока нет объявлений'}
@@ -27,11 +34,19 @@ class AdvertiserAccountPage extends Component {
 
 
 AdvertiserAccountPage.propTypes = {
-
+    // eslint-disable-next-line react/forbid-prop-types
+    advertisements: PropTypes.array.isRequired,
+    requestAdvertisementsAction: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = ({
+    advertiserAccountReducer: {
+        advertisingManagementReducer: { advertisements },
+    },
+}) => ({ advertisements });
 
 const mapDispatchToProps = {
-
+    requestAdvertisementsAction: requestAdvertisements,
 };
 
-export default connect(null, mapDispatchToProps)(AdvertiserAccountPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdvertiserAccountPage);

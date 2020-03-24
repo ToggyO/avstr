@@ -1,7 +1,7 @@
 import {
     CHANGE_UPLOAD_STATUS,
-    RECEIVE_ADVERTISEMENTS,
     RECEIVE_UPLOADED_CONTENT,
+    RECEIVE_ADVERTISEMENTS,
 } from './actions';
 
 
@@ -14,8 +14,9 @@ const initialState = {
         lastModificationTime: '',
         id: null,
     },
-    advertisements: [],
+    advertisements: [112],
 };
+
 
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
