@@ -20,13 +20,10 @@ class AdvertiserAccountPage extends Component {
 
     render() {
         const { advertisements } = this.props;
-        console.log(advertisements);
-
         return (
             <Advertisements
-                title={advertisements.length ? 'Объявления' : 'Здесь пока нет объявлений'}
                 addBtnHandler={this.handleAddBtn}
-                navBarBtnHandler={this.handleLogout}
+                advertisements={advertisements}
             />
         );
     }
