@@ -1,7 +1,3 @@
-include:
-  - project: 'avastar/SmartHead.Avastar.Ingress'
-    file: '/ingress.gitlab-ci.yml'
-
 stages:
   - build
   - deploy
@@ -26,7 +22,6 @@ stable:build:
 
 stable:deploy:
   stage: deploy
-  extends: .ingress
   only: 
     - master
   image: 
