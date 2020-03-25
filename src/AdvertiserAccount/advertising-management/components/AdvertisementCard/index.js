@@ -10,7 +10,7 @@ import UploadedFileCard from '../UploadedFileCard';
 import styles from './index.module.scss';
 
 
-const AdvertisementCard = ({ content: { name, url, creationTime } }) => (
+const AdvertisementCard = ({ content: { name, url, creationTime }, deleteAdvertisement }) => (
     <div className={styles.card}>
         <UploadedFileCard
             pathToImg={url}
@@ -23,6 +23,7 @@ const AdvertisementCard = ({ content: { name, url, creationTime } }) => (
             <Icon
                 name="delete"
                 className={styles.deleteIcon}
+                onClick={deleteAdvertisement}
             />
         </div>
     </div>
@@ -35,6 +36,7 @@ AdvertisementCard.propTypes = {
         url: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
     }).isRequired,
+    deleteAdvertisement: PropTypes.func.isRequired,
 };
 
 export default AdvertisementCard;

@@ -9,7 +9,7 @@ import AdvertisementsList from '../AdvertisementsList';
 import styles from './index.module.scss';
 
 
-const Advertisements = ({ addBtnHandler, advertisements }) => (
+const Advertisements = ({ addBtnHandler, advertisements, deleteAdvertisement }) => (
     <Container>
         <div className={styles.wrap}>
             <Title
@@ -26,7 +26,10 @@ const Advertisements = ({ addBtnHandler, advertisements }) => (
         </div>
         {advertisements.length
             ? (
-                <AdvertisementsList advertisements={advertisements} />
+                <AdvertisementsList
+                    advertisements={advertisements}
+                    deleteAdvertisement={deleteAdvertisement}
+                />
             )
             : ''}
     </Container>
@@ -35,6 +38,7 @@ const Advertisements = ({ addBtnHandler, advertisements }) => (
 
 Advertisements.propTypes = {
     addBtnHandler: PropTypes.func.isRequired,
+    deleteAdvertisement: PropTypes.func.isRequired,
     advertisements: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string,

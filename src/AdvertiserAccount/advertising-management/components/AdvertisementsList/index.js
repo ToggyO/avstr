@@ -6,7 +6,7 @@ import AdvertisementCard from '../AdvertisementCard';
 import styles from './index.module.scss';
 
 
-const AdvertisementsList = ({ advertisements }) => (
+const AdvertisementsList = ({ advertisements, deleteAdvertisement }) => (
     <div className={styles.list}>
         {advertisements.map((advertisement) => {
             const { id } = advertisement;
@@ -14,6 +14,7 @@ const AdvertisementsList = ({ advertisements }) => (
                 <AdvertisementCard
                     key={id}
                     content={advertisement}
+                    deleteAdvertisement={deleteAdvertisement}
                 />
             );
         })}
@@ -30,6 +31,7 @@ AdvertisementsList.propTypes = {
             id: PropTypes.number,
         }).isRequired,
     ).isRequired,
+    deleteAdvertisement: PropTypes.func.isRequired,
 };
 
 export default memo(AdvertisementsList);
