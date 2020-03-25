@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import history from 'Core/history';
-import { requestAdvertisements } from './advertising-management/action-creators';
+import { requestAdvertisements, deleteAdvertisement } from './advertising-management/action-creators';
 
 import Advertisements from './advertising-management/components/Advertisements';
 
@@ -19,11 +19,12 @@ class AdvertiserAccountPage extends Component {
     };
 
     render() {
-        const { advertisements } = this.props;
+        const { advertisements, deleteAdvertisementAction } = this.props;
         return (
             <Advertisements
                 addBtnHandler={this.handleAddBtn}
                 advertisements={advertisements}
+                deleteAdvertisement={deleteAdvertisementAction}
             />
         );
     }
@@ -40,6 +41,7 @@ AdvertiserAccountPage.propTypes = {
         }).isRequired,
     ).isRequired,
     requestAdvertisementsAction: PropTypes.func.isRequired,
+    deleteAdvertisementAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -50,6 +52,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     requestAdvertisementsAction: requestAdvertisements,
+    deleteAdvertisementAction: deleteAdvertisement,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdvertiserAccountPage);
