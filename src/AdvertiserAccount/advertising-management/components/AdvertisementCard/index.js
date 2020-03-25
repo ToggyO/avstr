@@ -10,24 +10,38 @@ import UploadedFileCard from '../UploadedFileCard';
 import styles from './index.module.scss';
 
 
-const AdvertisementCard = ({ content: { name, url, creationTime }, deleteAdvertisement }) => (
-    <div className={styles.card}>
-        <UploadedFileCard
-            pathToImg={url}
-            partOfAdvertisement
-        />
-        <div className={styles.description}>
-            <div className={styles.title}>{name}</div>
-            <div className={styles.time}>{formatDate(creationTime)}</div>
+const AdvertisementCard = ({
+    content: {
+        name,
+        url,
+        creationTime,
+        id,
+    },
+    deleteAdvertisement,
+}) => {
+    const handleDeleteIconClick = () => {
+        deleteAdvertisement(id);
+    };
 
-            <Icon
-                name="delete"
-                className={styles.deleteIcon}
-                onClick={deleteAdvertisement}
+    return (
+        <div className={styles.card}>
+            <UploadedFileCard
+                pathToImg={url}
+                partOfAdvertisement
             />
+            <div className={styles.description}>
+                <div className={styles.title}>{name}</div>
+                <div className={styles.time}>{formatDate(creationTime)}</div>
+
+                <Icon
+                    name="delete"
+                    className={styles.deleteIcon}
+                    onClick={handleDeleteIconClick}
+                />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 
 AdvertisementCard.propTypes = {
@@ -35,6 +49,7 @@ AdvertisementCard.propTypes = {
         name: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
     }).isRequired,
     deleteAdvertisement: PropTypes.func.isRequired,
 };
