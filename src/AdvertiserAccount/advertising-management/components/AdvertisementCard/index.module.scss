@@ -1,0 +1,42 @@
+@import "variables.scss";
+
+.card {
+    box-sizing: border-box;
+    flex: 0 0 350px;
+    height: 302px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    &:nth-child(3n+3) {
+        margin-right: 0;
+    }
+
+    .description {
+        position: relative;
+        height: 102px;
+        padding: 16px 48px 16px 24px;
+        border: 1px solid $light-blue;
+        border-top: none;
+        border-radius: 0 0 6px 6px;
+
+        .title {
+            margin-bottom: 8px;
+            font-size: 16px;
+            line-height: 24px;
+            font-weight: bold;
+        }
+
+        .time {
+            font-size: 12px;
+            line-height: 16px;
+        }
+
+        .deleteIcon {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
