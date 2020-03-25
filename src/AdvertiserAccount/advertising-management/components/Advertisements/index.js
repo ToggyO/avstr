@@ -9,28 +9,31 @@ import AdvertisementsList from '../AdvertisementsList';
 import styles from './index.module.scss';
 
 
-const Advertisements = ({ addBtnHandler, advertisements }) => (
-    <Container>
-        <div className={styles.wrap}>
-            <Title
-                className={styles.title}
-                text={advertisements.length ? 'Объявления' : 'Здесь пока нет объявлений'}
-            />
-            <Button
-                className={styles.btn}
-                onClick={addBtnHandler}
-            >
-                <Icon name="plus" />
-                Добавить
-            </Button>
-        </div>
-        {advertisements.length
-            ? (
-                <AdvertisementsList advertisements={advertisements} />
-            )
-            : ''}
-    </Container>
-);
+const Advertisements = ({ addBtnHandler, advertisements }) => {
+    console.log('render advertisements');
+    return (
+        <Container>
+            <div className={styles.wrap}>
+                <Title
+                    className={styles.title}
+                    text={advertisements.length ? 'Объявления' : 'Здесь пока нет объявлений'}
+                />
+                <Button
+                    className={styles.btn}
+                    onClick={addBtnHandler}
+                >
+                    <Icon name="plus" />
+                    Добавить
+                </Button>
+            </div>
+            {advertisements.length
+                ? (
+                    <AdvertisementsList advertisements={advertisements} />
+                )
+                : ''}
+        </Container>
+    );
+};
 
 
 Advertisements.propTypes = {

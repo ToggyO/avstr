@@ -12,6 +12,15 @@ class AdvertiserAccountPage extends Component {
     componentDidMount() {
         const { requestAdvertisementsAction } = this.props;
         requestAdvertisementsAction();
+        console.log('render container');
+    }
+
+    shouldComponentUpdate(nextProps) {
+        const { advertisements } = this.props;
+        console.log(JSON.stringify(advertisements));
+        console.log(JSON.stringify(nextProps.advertisements));
+        console.log(JSON.stringify(advertisements) === JSON.stringify(nextProps.advertisements));
+        return nextProps.advertisements !== advertisements;
     }
 
     handleAddBtn = () => {

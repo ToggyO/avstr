@@ -6,19 +6,22 @@ import AdvertisementCard from '../AdvertisementCard';
 import styles from './index.module.scss';
 
 
-const AdvertisementsList = ({ advertisements }) => (
-    <div className={styles.list}>
-        {advertisements.map((advertisement) => {
-            const { id } = advertisement;
-            return (
-                <AdvertisementCard
-                    key={id}
-                    content={advertisement}
-                />
-            );
-        })}
-    </div>
-);
+const AdvertisementsList = ({ advertisements }) => {
+    console.log('render list!');
+    return (
+        <div className={styles.list}>
+            {advertisements.map((advertisement) => {
+                const { id } = advertisement;
+                return (
+                    <AdvertisementCard
+                        key={id}
+                        content={advertisement}
+                    />
+                );
+            })}
+        </div>
+    );
+};
 
 
 AdvertisementsList.propTypes = {
