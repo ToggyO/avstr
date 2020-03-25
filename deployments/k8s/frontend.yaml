@@ -35,6 +35,7 @@ spec:
     app: avastar-frontend
     tier: frontend
   ports:
-  - protocol: TCP
+  - name: https
+    protocol: TCP
     port: 80
     targetPort: 80
