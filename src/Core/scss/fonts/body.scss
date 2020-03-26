@@ -1,0 +1,27 @@
+// Body
+@mixin body {
+    @include fontFamily;
+
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: normal;
+}
+
+@mixin body14Medium {
+    @include body;
+
+    line-height: 20px;
+    font-weight: 500;
+}
+
+@mixin body14Regular {
+    @include body;
+
+    line-height: 24px;
+}
+
+@mixin body14RegularUnderline {
+    @include body14Regular;
+
+    text-decoration: underline;
+}

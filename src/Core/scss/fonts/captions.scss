@@ -1,0 +1,26 @@
+//Caption
+@mixin caption {
+    @include fontFamily;
+
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: normal;
+}
+
+@mixin caption12Medium {
+    @include caption;
+
+    font-weight: 500;
+}
+
+@mixin caption12Regular {
+    @include caption;
+
+    line-height: 20px;
+}
+
+@mixin caption12RegularUnderline {
+    @include caption12Regular;
+
+    text-decoration: underline;
+}

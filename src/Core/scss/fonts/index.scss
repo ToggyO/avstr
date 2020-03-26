@@ -1,0 +1,12 @@
+// Families
+$font-montserrat: montserrat, sans-serif;
+
+@mixin fontFamily {
+    font-family: $font-montserrat;
+}
+
+@import 'headlines';
+@import 'subtitles';
+@import 'body';
+@import 'btnsAndLinks';
+@import 'captions';

@@ -1,0 +1,14 @@
+// Btn&Links
+@mixin btnLink14Medium {
+    @include fontFamily;
+
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 500;
+}
+
+@mixin btnLink14Regular {
+    @include btnLink14Medium;
+
+    font-weight: normal;
+}

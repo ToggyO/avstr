@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import './App.scss';
 import 'semantic-ui-css/semantic.min.css';
 
+import 'Core/scss/fonts/add-fonts.scss';
+
 import store from './store';
 import RootRouter from './root/RootRouter';
 // import configureMirage from './api/configureMirage';
