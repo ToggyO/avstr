@@ -2,6 +2,7 @@
 
 .btnWrap {
     .btn {
+        box-sizing: border-box;
         color: white;
         border-radius: $atom;
 
@@ -34,7 +35,6 @@
         }
 
         &.outline {
-            box-sizing: border-box;
             color: $primary-main-600;
             background: $secondary-light-10;
             border: 1px solid $primary-light-100;
@@ -44,9 +44,8 @@
             }
 
             &:active {
-                box-sizing: content-box;
                 background: $primary-light-50;
-                border: none;
+                border: 1px solid $primary-light-50;
             }
 
             &:focus {
@@ -54,7 +53,6 @@
             }
 
             &:disabled {
-                box-sizing: content-box;
                 color: $secondary-light-200;
                 background: $secondary-light-200;
             }

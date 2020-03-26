@@ -29,10 +29,12 @@ const Button = ({
         [styles.withIcon]: size === 'withIcon',
     });
 
+    const allClasses = cn(className, styles.btn, typeClass, sizeClass);
+
     return (
         <span className={styles.btnWrap}>
             <Btn
-                className={cn(className, styles.btn, typeClass, sizeClass)}
+                className={allClasses}
                 onClick={onClick}
                 {...props}
             >
