@@ -1,4 +1,4 @@
-@import '../../scss/colors';
+@import "variables.scss";
 
 .navbar {
     position: absolute;
@@ -14,6 +14,8 @@
     border-bottom: 1px solid black;
 
     .btn {
+        @include btnLink14Regular;
+
         margin-left: 34px;
     }
 }
