@@ -1,0 +1,57 @@
+@import 'variables.scss';
+
+.btn {
+    color: white !important;
+    border-radius: $atom !important;
+
+    &.main {
+        background: $primary-main;
+
+        &:hover {
+            background: $primary-main;
+        }
+
+        &:active {
+            background: $primary-dark;
+        }
+
+        &:focus {
+            outline: $primary-light-100;
+        }
+    }
+
+    &.outline {
+        color: $primary-main;
+        background: $primary-background;
+    }
+
+    &.link {
+        color: $primary-main;
+        background: none;
+    }
+
+    &.dark {
+        background: $secondary-dark-2;
+    }
+
+    &.small {
+        padding: 2*$atom 5*$atom;
+    }
+
+    &.medium {
+        padding: 3*$atom 7*$atom;
+    }
+
+    &.large {
+        padding: 3*$atom 10*$atom;
+    }
+
+    &.icon {
+        padding: 3*$atom 3*$atom;
+    }
+
+    &.withIcon {
+        padding: 4*$atom 7*$atom;
+        padding-left: 8*$atom;
+    }
+}
