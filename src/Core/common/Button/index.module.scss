@@ -5,14 +5,14 @@
     border-radius: $atom !important;
 
     &.main {
-        background: $primary-main;
+        background: $primary-main-600;
 
         &:hover {
-            background: $primary-main;
+            background: $primary-main-600;
         }
 
         &:active {
-            background: $primary-dark;
+            background: $primary-dark-800;
         }
 
         &:focus {
@@ -21,17 +21,17 @@
     }
 
     &.outline {
-        color: $primary-main;
-        background: $primary-background;
+        color: $primary-main-600;
+        background: $primary-light-40;
     }
 
     &.link {
-        color: $primary-main;
+        color: $primary-main-600;
         background: none;
     }
 
     &.dark {
-        background: $secondary-dark-2;
+        background: rgba($secondary-dark-900, 0.7);
     }
 
     &.small {
