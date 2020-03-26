@@ -1,57 +1,93 @@
 @import 'variables.scss';
 
-.btn {
-    color: white !important;
-    border-radius: $atom !important;
+.btnWrap {
+    .btn {
+        color: white;
+        border-radius: $atom;
 
-    &.main {
-        background: $primary-main-600;
+        @include body14Medium;
 
-        &:hover {
+        &.main {
+            @include body14Medium;
+
             background: $primary-main-600;
+
+            &:hover {
+                color: white;
+                background: $primary-light-400;
+            }
+
+            &:active {
+                color: white;
+                background: $primary-dark-800;
+            }
+
+            &:focus {
+                color: white;
+                outline: $primary-light-100;
+            }
+
+            &:disabled {
+                color: white;
+                background: $secondary-light-200;
+            }
         }
 
-        &:active {
-            background: $primary-dark-800;
+        &.outline {
+            box-sizing: border-box;
+            color: $primary-main-600;
+            background: $secondary-light-10;
+            border: 1px solid $primary-light-100;
+
+            &:hover {
+                border: 1px solid $primary-light-400;
+            }
+
+            &:active {
+                box-sizing: content-box;
+                background: $primary-light-50;
+                border: none;
+            }
+
+            &:focus {
+                outline: $primary-light-100;
+            }
+
+            &:disabled {
+                box-sizing: content-box;
+                color: $secondary-light-200;
+                background: $secondary-light-200;
+            }
         }
 
-        &:focus {
-            outline: $primary-light-100;
+        &.link {
+            color: $primary-main-600;
+            background: none;
         }
-    }
 
-    &.outline {
-        color: $primary-main-600;
-        background: $primary-light-40;
-    }
+        &.dark {
+            background: rgba($secondary-dark-900, 0.7);
+        }
 
-    &.link {
-        color: $primary-main-600;
-        background: none;
-    }
+        &.small {
+            padding: 2*$atom 5*$atom;
+        }
 
-    &.dark {
-        background: rgba($secondary-dark-900, 0.7);
-    }
+        &.medium {
+            padding: 3*$atom 7*$atom;
+        }
 
-    &.small {
-        padding: 2*$atom 5*$atom;
-    }
+        &.large {
+            padding: 3*$atom 10*$atom;
+        }
 
-    &.medium {
-        padding: 3*$atom 7*$atom;
-    }
+        &.icon {
+            padding: 3*$atom 3*$atom;
+        }
 
-    &.large {
-        padding: 3*$atom 10*$atom;
-    }
-
-    &.icon {
-        padding: 3*$atom 3*$atom;
-    }
-
-    &.withIcon {
-        padding: 4*$atom 7*$atom;
-        padding-left: 8*$atom;
+        &.withIcon {
+            padding: 3*$atom 7*$atom;
+            padding-left: 8*$atom;
+        }
     }
 }

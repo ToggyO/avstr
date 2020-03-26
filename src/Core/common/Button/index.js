@@ -12,10 +12,11 @@ const Button = ({
     size,
     className,
     onClick,
+    ...props
 }) => {
     const typeClass = cn({
         [styles.main]: type === 'main',
-        [styles.outline]: type === 'secondary',
+        [styles.outline]: type === 'outline',
         [styles.link]: type === 'link',
         [styles.dark]: type === 'dark',
     });
@@ -29,12 +30,15 @@ const Button = ({
     });
 
     return (
-        <Btn
-            className={cn(className, styles.btn, typeClass, sizeClass)}
-            onClick={onClick}
-        >
-            {children}
-        </Btn>
+        <span className={styles.btnWrap}>
+            <Btn
+                className={cn(className, styles.btn, typeClass, sizeClass)}
+                onClick={onClick}
+                {...props}
+            >
+                {children}
+            </Btn>
+        </span>
     );
 };
 
