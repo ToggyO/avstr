@@ -1,31 +1,30 @@
 // Primary
-$primary-dark: #3c61a8;
-$primary-main: #568bf1;
+$primary-dark-800: #3c61a8;
+$primary-main-600: #568bf1;
 $primary-light-400: #77a2f3;
 $primary-light-100: #c1d6ff;
 $primary-light-50: #f0f6ff;
-$primary-background: #f0f6ff;
-$primary-text: #fff;
+$primary-light-40: #f9fbff;
 
 // Secondary
-$secondary-dark: #2e384d;
-$secondary-dark-2: #6d7482;
-$secondary-main: #8798ad;
+$secondary-dark-900: #2e384d;
+$secondary-main-300: #8798ad;
 $secondary-light-200: #b8c4d3;
 $secondary-light-50: #e0e6f1;
+$secondary-light-10: #fff;
 
 // Error
-$error-main: #ea3d2f;
-$error-light: #f9c5c1;
-$error-main: #fdecea;
+$error-main-600: #ea3d2f;
+$error-light-100: #f9c5c1;
+$error-light-50: #fdecea;
 
 // Warning
-$warning-main: #faa004;
+$warning-main-700: #faa004;
 
 // Positive
-$positive-main: #27ae60;
+$positive-main-500: #27ae60;
 $positive-light-100: #bee7cf;
 $positive-light-50: #e9f7ef;
 
 // Informational
-$informational-main: #2697f4;
+$informational-main-500: #2697f4;
