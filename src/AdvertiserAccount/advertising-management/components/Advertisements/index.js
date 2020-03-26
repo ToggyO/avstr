@@ -1,9 +1,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
+import Button from 'Core/common/Button';
 import AdvertisementsList from '../AdvertisementsList';
 
 import styles from './index.module.scss';
@@ -17,6 +18,8 @@ const Advertisements = ({ addBtnHandler, advertisements, deleteAdvertisement }) 
                 text={advertisements.length ? 'Объявления' : 'Здесь пока нет объявлений'}
             />
             <Button
+                type="main"
+                size="withIcon"
                 className={styles.btn}
                 onClick={addBtnHandler}
             >

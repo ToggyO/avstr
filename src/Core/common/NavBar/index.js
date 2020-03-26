@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { Dropdown, Icon, Button } from 'semantic-ui-react';
+import { Dropdown, Icon } from 'semantic-ui-react';
 import Logo from 'Core/authorization/components/Logo';
 
 import { logout } from 'Core/authorization/action-creators';
 import userManager from 'Core/authorization/userManager';
+
+import Button from '../Button';
 
 import styles from './index.module.scss';
 
@@ -35,6 +37,8 @@ const NavBar = ({ logoutAction }) => {
                     item
                 />
                 <Button
+                    type="outline"
+                    size="small"
                     className={styles.btn}
                     onClick={handleLogout}
                 >
