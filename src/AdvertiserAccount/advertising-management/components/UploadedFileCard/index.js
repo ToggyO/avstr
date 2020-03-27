@@ -32,9 +32,14 @@ const UploadedFileCard = ({ pathToImg, partOfAdvertisement }) => {
 };
 
 
+UploadedFileCard.defaultProps = {
+    partOfAdvertisement: false,
+};
+
+
 UploadedFileCard.propTypes = {
     pathToImg: PropTypes.string.isRequired,
-    partOfAdvertisement: PropTypes.bool.isRequired,
+    partOfAdvertisement: PropTypes.bool,
 };
 
 export default UploadedFileCard;

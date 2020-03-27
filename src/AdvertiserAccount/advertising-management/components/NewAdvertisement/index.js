@@ -2,8 +2,11 @@ import React, {
     useState,
     useRef,
     memo,
+    useEffect,
 } from 'react';
 import PropTypes from 'prop-types';
+
+import history from 'Core/history';
 
 import { Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
@@ -12,18 +15,19 @@ import Title from 'Core/common/Title';
 import Button from 'Core/common/Button';
 
 import styles from './index.module.scss';
+
 import UploadedFileCard from '../UploadedFileCard';
 import ProgressBar from '../ProgressBar';
 
 
 const NewAdvertisement = ({
     fileStatus,
-    content,
     saveClick,
     changeFileStatus,
 }) => {
     const [advertisementText, setAdvertisementText] = useState('');
     const [file, setFile] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
     const dropZoneRef = useRef();
 
     const handleAdvertisementTextChange = ({ target: { value } }) => {
@@ -32,30 +36,38 @@ const NewAdvertisement = ({
 
     const handleDrop = (accepted, rejected) => {
         if (rejected.length) {
-            alert('Ошибка добавления в дроп зону');
+            alert('Размер файла или его расширение не соответсвует требованиям');
         }
         if (accepted && accepted.length !== 0) {
-            if (!advertisementText) {
-                alert('Введите название объявления.');
-                return;
-            }
             const data = accepted[0];
-            setFile(data);
-            saveClick({ advertisementText, file: data });
+            const reader = new FileReader();
+            reader.onload = ({ target: { result } }) => {
+                if (data.type === 'video/mp4') {
+                    setThumbnail('./');
+                } else {
+                    setThumbnail(result);
+                }
+                changeFileStatus('FileAdded');
+                setFile(data);
+            };
+            reader.readAsDataURL(accepted[0]);
         }
     };
 
     const handleSaveClick = () => {
-        setAdvertisementText('');
-        setFile(null);
-        changeFileStatus('');
+        saveClick({ advertisementText, file });
     };
 
     const handleCancelClick = () => {
-        setAdvertisementText('');
-        setFile(null);
         changeFileStatus('');
+        history.push('/advertiser');
     };
+
+    useEffect(() => {
+        if (fileStatus !== 'Success') return;
+        changeFileStatus('');
+        history.push('/advertiser');
+    });
 
     const renderDropzoneContent = (status) => {
         switch (status) {
@@ -64,7 +76,7 @@ const NewAdvertisement = ({
                     <Dropzone
                         onDrop={handleDrop}
                         accept="image/jpeg, image/png, image/jpg, video/mp4"
-                        maxSize={10485760}
+                        maxSize={524288000}
                         multiple={false}
                         ref={dropZoneRef}
                     >
@@ -83,9 +95,9 @@ const NewAdvertisement = ({
                         )}
                     </Dropzone>
                 );
-            case 'Success':
+            case 'FileAdded':
                 return (
-                    <UploadedFileCard pathToImg={content.url} />
+                    <UploadedFileCard pathToImg={thumbnail} />
                 );
             default:
                 return (
@@ -108,8 +120,8 @@ const NewAdvertisement = ({
             />
 
             <div className={styles.description}>
-                Максимальный размер загружаемого файла 10&nbsp;
-                Мб, размер изображения 1920&times;1080рх
+                Максимальный размер файла 500&nbsp;МБ (jpg, jpeg, png, mp4), рекомендуемое разрешение
+                1920&times;1080&nbsp;px
             </div>
 
             {renderDropzoneContent(fileStatus)}
