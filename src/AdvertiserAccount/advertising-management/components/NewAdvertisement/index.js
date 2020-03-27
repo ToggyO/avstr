@@ -36,14 +36,19 @@ const NewAdvertisement = ({
 
     const handleDrop = (accepted, rejected) => {
         if (rejected.length) {
-            alert('Ошибка добавления в дроп зону');
+            alert('Размер файла или его расширение не соответсвует требованиям');
         }
         if (accepted && accepted.length !== 0) {
+            const data = accepted[0];
             const reader = new FileReader();
             reader.onload = ({ target: { result } }) => {
-                setThumbnail(result);
+                if (data.type === 'video/mp4') {
+                    setThumbnail('./');
+                } else {
+                    setThumbnail(result);
+                }
                 changeFileStatus('FileAdded');
-                setFile(accepted[0]);
+                setFile(data);
             };
             reader.readAsDataURL(accepted[0]);
         }
@@ -115,7 +120,8 @@ const NewAdvertisement = ({
             />
 
             <div className={styles.description}>
-                Максимальный размер файла 500&nbsp;МБ, рекомендуемое разрешение 1920&times;1080&nbsp;px
+                Максимальный размер файла 500&nbsp;МБ (jpg, jpeg, png, mp4), рекомендуемое разрешение
+                1920&times;1080&nbsp;px
             </div>
 
             {renderDropzoneContent(fileStatus)}
