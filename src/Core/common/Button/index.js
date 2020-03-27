@@ -47,12 +47,14 @@ const Button = ({
 
 Button.defaultProps = {
     className: '',
+    type: 'main',
+    size: 'medium',
 };
 
 Button.propTypes = {
     children: PropTypes.node.isRequired,
-    type: PropTypes.string.isRequired,
-    size: PropTypes.string.isRequired,
+    type: PropTypes.string,
+    size: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func.isRequired,
 };
