@@ -1,0 +1,128 @@
+@import 'variables.scss';
+
+.btnWrap {
+    .btn {
+        box-sizing: border-box;
+        color: $secondary-light-10;
+        border-radius: $atom;
+
+        @include body14Medium;
+
+        &.main {
+            @include body14Medium;
+
+            background: $primary-main-600;
+
+            &:hover {
+                color: white;
+                background: $primary-light-400;
+            }
+
+            &:active {
+                color: $secondary-light-10;
+                background: $primary-dark-800;
+                outline: $primary-light-100 !important;
+            }
+
+            &:focus {
+                color: $secondary-light-10;
+                outline: 3px solid $primary-light-100 !important;
+            }
+
+            &:disabled {
+                color: $secondary-light-10;
+                background: $secondary-light-200;
+            }
+        }
+
+        &.outline {
+            color: $primary-main-600;
+            background: $secondary-light-10;
+            border: 1px solid $primary-light-100;
+
+            &:hover {
+                border: 1px solid $primary-light-400;
+            }
+
+            &:active {
+                background: $primary-light-50;
+                border: 1px solid $primary-light-50;
+            }
+
+            &:focus {
+                outline: 3px solid $primary-light-100;
+            }
+
+            &:disabled {
+                color: $secondary-light-200;
+                background: $secondary-light-200;
+            }
+        }
+
+        &.link {
+            color: $primary-main-600;
+            background: none;
+
+            &:hover {
+                color: $primary-light-400;
+            }
+
+            &:active {
+                color: $primary-dark-800;
+            }
+
+            &:focus {
+                padding: 0 $atom;
+                outline: 3px solid $primary-light-50;
+            }
+
+            &:disabled {
+                color: $secondary-light-200;
+            }
+        }
+
+        &.dark {
+            color: $secondary-light-10;
+            background: rgba($secondary-dark-900, 0.7);
+
+            &:hover {
+                background: rgba($secondary-dark-900, 0.5);
+            }
+
+            &:active {
+                background: rgba($secondary-dark-900, 0.8);
+            }
+
+            &:focus {
+                color: $secondary-light-10;
+                outline: 3px solid $primary-light-100;
+            }
+
+            &:disabled {
+                color: $secondary-light-50;
+                background: $secondary-light-200;
+            }
+        }
+
+        &.small {
+            padding: 2*$atom 5*$atom;
+        }
+
+        &.medium {
+            padding: 3*$atom 7*$atom;
+        }
+
+        &.large {
+            padding: 3*$atom 10*$atom;
+        }
+
+        &.icon {
+            padding: 3*$atom 3*$atom;
+        }
+
+        &.withIcon {
+            padding: 3*$atom 7*$atom;
+            padding-left: 8*$atom;
+        }
+    }
+}

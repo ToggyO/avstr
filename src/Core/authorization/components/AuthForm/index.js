@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Input, Button } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import Checkbox from 'Core/common/Checkbox';
+import Button from 'Core/common/Button';
 
 import styles from './index.module.scss';
 
@@ -61,6 +62,9 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                     onChange={handleCheckboxValue}
                 />
                 <Button
+                    disabled={!loginText || !passwordText}
+                    type="main"
+                    size="medium"
                     className={styles.btn}
                     onClick={handleBtnClick}
                 >
