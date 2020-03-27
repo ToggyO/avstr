@@ -3,7 +3,7 @@
 .btnWrap {
     .btn {
         box-sizing: border-box;
-        color: white;
+        color: $secondary-light-10;
         border-radius: $atom;
 
         @include body14Medium;
@@ -19,17 +19,18 @@
             }
 
             &:active {
-                color: white;
+                color: $secondary-light-10;
                 background: $primary-dark-800;
+                outline: $primary-light-100 !important;
             }
 
             &:focus {
-                color: white;
-                outline: $primary-light-100;
+                color: $secondary-light-10;
+                outline: 3px solid $primary-light-100 !important;
             }
 
             &:disabled {
-                color: white;
+                color: $secondary-light-10;
                 background: $secondary-light-200;
             }
         }
@@ -49,7 +50,7 @@
             }
 
             &:focus {
-                outline: $primary-light-100;
+                outline: 3px solid $primary-light-100;
             }
 
             &:disabled {
@@ -61,10 +62,46 @@
         &.link {
             color: $primary-main-600;
             background: none;
+
+            &:hover {
+                color: $primary-light-400;
+            }
+
+            &:active {
+                color: $primary-dark-800;
+            }
+
+            &:focus {
+                padding: 0 $atom;
+                outline: 3px solid $primary-light-50;
+            }
+
+            &:disabled {
+                color: $secondary-light-200;
+            }
         }
 
         &.dark {
+            color: $secondary-light-10;
             background: rgba($secondary-dark-900, 0.7);
+
+            &:hover {
+                background: rgba($secondary-dark-900, 0.5);
+            }
+
+            &:active {
+                background: rgba($secondary-dark-900, 0.8);
+            }
+
+            &:focus {
+                color: $secondary-light-10;
+                outline: 3px solid $primary-light-100;
+            }
+
+            &:disabled {
+                color: $secondary-light-50;
+                background: $secondary-light-200;
+            }
         }
 
         &.small {
