@@ -43,7 +43,7 @@ const NewAdvertisement = ({
             const reader = new FileReader();
             reader.onload = ({ target: { result } }) => {
                 if (data.type === 'video/mp4') {
-                    setThumbnail('./');
+                    setThumbnail('stub2.jpg');
                 } else {
                     setThumbnail(result);
                 }
@@ -133,7 +133,6 @@ const NewAdvertisement = ({
                 );
         }
     };
-
 
     return (
         <Container className={styles.newAdvertisement}>
