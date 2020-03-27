@@ -69,35 +69,63 @@ const NewAdvertisement = ({
         history.push('/advertiser');
     });
 
+    const renderBtns = () => (
+        <div>
+            <Button
+                type="outline"
+                size="medium"
+                className={styles.declineBtn}
+                onClick={handleCancelClick}
+            >
+                Отменить
+            </Button>
+
+            <Button
+                type="main"
+                size="medium"
+                disabled={advertisementText === '' || !file}
+                onClick={handleSaveClick}
+            >
+                Сохранить
+            </Button>
+        </div>
+    );
+
     const renderDropzoneContent = (status) => {
         switch (status) {
             case '':
                 return (
-                    <Dropzone
-                        onDrop={handleDrop}
-                        accept="image/jpeg, image/png, image/jpg, video/mp4"
-                        maxSize={524288000}
-                        multiple={false}
-                        ref={dropZoneRef}
-                    >
-                        {({ getRootProps, getInputProps }) => (
-                            <section>
-                                <div
-                                    className={styles.dropZone}
-                                    {...getRootProps()}
-                                >
-                                    <input {...getInputProps()} />
-                                    <div className={styles.text}>
-                                        Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
+                    <>
+                        <Dropzone
+                            onDrop={handleDrop}
+                            accept="image/jpeg, image/png, image/jpg, video/mp4"
+                            maxSize={524288000}
+                            multiple={false}
+                            ref={dropZoneRef}
+                        >
+                            {({ getRootProps, getInputProps }) => (
+                                <section>
+                                    <div
+                                        className={styles.dropZone}
+                                        {...getRootProps()}
+                                    >
+                                        <input {...getInputProps()} />
+                                        <div className={styles.text}>
+                                            Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
+                                        </div>
                                     </div>
-                                </div>
-                            </section>
-                        )}
-                    </Dropzone>
+                                </section>
+                            )}
+                        </Dropzone>
+                        {renderBtns()}
+                    </>
                 );
             case 'FileAdded':
                 return (
-                    <UploadedFileCard pathToImg={thumbnail} />
+                    <>
+                        <UploadedFileCard pathToImg={thumbnail} />
+                        {renderBtns()}
+                    </>
                 );
             default:
                 return (
@@ -105,6 +133,7 @@ const NewAdvertisement = ({
                 );
         }
     };
+
 
     return (
         <Container className={styles.newAdvertisement}>
@@ -125,26 +154,6 @@ const NewAdvertisement = ({
             </div>
 
             {renderDropzoneContent(fileStatus)}
-
-            <div>
-                <Button
-                    type="outline"
-                    size="medium"
-                    className={styles.declineBtn}
-                    onClick={handleCancelClick}
-                >
-                    Отменить
-                </Button>
-
-                <Button
-                    type="main"
-                    size="medium"
-                    disabled={advertisementText === '' || !file}
-                    onClick={handleSaveClick}
-                >
-                    Сохранить
-                </Button>
-            </div>
         </Container>
     );
 };
