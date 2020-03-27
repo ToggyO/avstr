@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 .wrap {
     display: flex;
     flex-wrap: wrap;
@@ -5,6 +7,9 @@
     align-items: center;
     margin-top: 40px;
     margin-bottom: 32px;
+    color: $secondary-dark-900;
+
+    @include headlineH1bold20;
 
     .title {
         &:first-child {
