@@ -1,4 +1,4 @@
-@import "variables.scss";
+@import "variables";
 
 .navbar {
     position: absolute;
@@ -11,11 +11,9 @@
     align-items: center;
     height: 64px;
     padding: 0 98px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $secondary-light-50;
 
     .btn {
-        @include btnLink14Regular;
-
         margin-left: 34px;
     }
 }
