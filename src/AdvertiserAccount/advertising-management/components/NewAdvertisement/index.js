@@ -5,10 +5,11 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 
-import { Button, Input } from 'semantic-ui-react';
+import { Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
+import Button from 'Core/common/Button';
 
 import styles from './index.module.scss';
 import UploadedFileCard from '../UploadedFileCard';
@@ -115,6 +116,8 @@ const NewAdvertisement = ({
 
             <div>
                 <Button
+                    type="outline"
+                    size="medium"
                     className={styles.declineBtn}
                     onClick={handleCancelClick}
                 >
@@ -122,6 +125,8 @@ const NewAdvertisement = ({
                 </Button>
 
                 <Button
+                    type="main"
+                    size="medium"
                     disabled={advertisementText === '' || !file}
                     onClick={handleSaveClick}
                 >
