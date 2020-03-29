@@ -23,12 +23,12 @@
         width: 716px;
         height: 144px;
         margin-bottom: 40px;
-        border: 1px dashed $light-blue;
+        border: 1px dashed $primary-light-100;
         border-radius: 6px;
 
         .text {
             margin-left: 7px;
-            color: $main-blue;
+            color: $primary-main-600;
             font-size: 12px;
             line-height: 20px;
         }
@@ -36,9 +36,5 @@
 
     .declineBtn {
         margin-right: 16px;
-    }
-
-    .saveBtn {
-        //
     }
 }

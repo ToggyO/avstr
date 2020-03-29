@@ -6,22 +6,20 @@ import AdvertisementCard from '../AdvertisementCard';
 import styles from './index.module.scss';
 
 
-const AdvertisementsList = ({ advertisements }) => {
-    console.log('render list!');
-    return (
-        <div className={styles.list}>
-            {advertisements.map((advertisement) => {
-                const { id } = advertisement;
-                return (
-                    <AdvertisementCard
-                        key={id}
-                        content={advertisement}
-                    />
-                );
-            })}
-        </div>
-    );
-};
+const AdvertisementsList = ({ advertisements, deleteAdvertisement }) => (
+    <div className={styles.list}>
+        {advertisements.map((advertisement) => {
+            const { id } = advertisement;
+            return (
+                <AdvertisementCard
+                    key={id}
+                    content={advertisement}
+                    deleteAdvertisement={deleteAdvertisement}
+                />
+            );
+        })}
+    </div>
+);
 
 
 AdvertisementsList.propTypes = {
@@ -33,6 +31,7 @@ AdvertisementsList.propTypes = {
             id: PropTypes.number,
         }).isRequired,
     ).isRequired,
+    deleteAdvertisement: PropTypes.func.isRequired,
 };
 
 export default memo(AdvertisementsList);

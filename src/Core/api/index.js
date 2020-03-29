@@ -13,7 +13,6 @@ const defineConstantHeaders = (defaultOptions) => {
             [header]: constantHeaders[header],
         };
     });
-
     return options;
 };
 
@@ -24,11 +23,11 @@ const api = {
             ...options,
         };
 
-        defineConstantHeaders(defaultOptions);
+        const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            defaultOptions,
+            opt,
             200,
         );
     },
@@ -69,11 +68,11 @@ const api = {
             ...options,
         };
 
-        defineConstantHeaders(defaultOptions);
+        const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            defaultOptions,
+            opt,
             200,
         );
     },
@@ -85,11 +84,11 @@ const api = {
             ...options,
         };
 
-        defineConstantHeaders(defaultOptions);
+        const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
             url,
-            defaultOptions,
+            opt,
             204,
         );
     },
