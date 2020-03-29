@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
@@ -52,4 +52,4 @@ Advertisements.propTypes = {
     ).isRequired,
 };
 
-export default memo(Advertisements);
+export default Advertisements;
