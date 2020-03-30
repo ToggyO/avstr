@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import history from 'Core/history';
-
 import Loader from 'Core/common/Loader';
 import userManager from 'Core/authorization/userManager';
+
+import logout from '../../action-creators';
 
 
 class CallbackPage extends Component {
@@ -16,11 +16,14 @@ class CallbackPage extends Component {
 
     successCallback = () => {
         const redirectPath = localStorage.getItem('redirectPath');
-        history.push(redirectPath);
+        window.location = redirectPath;
     };
 
     errorCallback = () => {
-        history.push('/');
+        userManager.signoutRedirect();
+        userManager.removeUser();
+        logout();
+        window.location = '/';
     };
 
     render() {
