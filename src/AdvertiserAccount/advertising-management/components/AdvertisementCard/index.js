@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import formatDate from 'Core/utils/formatDate';
+import isEqual from 'Core/utils/isEqual';
 
 import { Icon } from 'semantic-ui-react';
 import UploadedFileCard from '../UploadedFileCard';
@@ -54,4 +55,6 @@ AdvertisementCard.propTypes = {
     deleteAdvertisement: PropTypes.func.isRequired,
 };
 
-export default AdvertisementCard;
+export default memo(AdvertisementCard, ({ advertisements }, nextProps) => (
+    isEqual(advertisements, nextProps.advertisements)
+));
