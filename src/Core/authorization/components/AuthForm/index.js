@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Input } from 'semantic-ui-react';
+// import { Input } from 'semantic-ui-react';
 import Logo from 'Core/common/Logo';
+import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
 import Button from 'Core/common/Button';
 
@@ -43,14 +44,14 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
             <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
             <Input
                 className={styles.input}
-                placeholder="Введите логин"
+                placeholder="Электронная почта"
                 value={loginText}
                 onChange={handleLoginChange}
             />
             <Input
                 type="password"
                 className={styles.input}
-                placeholder="Введите пароль"
+                placeholder="Пароль"
                 value={passwordText}
                 onChange={handlePasswordChange}
             />

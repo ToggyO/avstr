@@ -1,0 +1,23 @@
+@import 'variables';
+
+.input {
+    input {
+        box-sizing: border-box;
+        width: 300px;
+        height: 12*$atom;
+        padding: 14px 5*$atom;
+        color: $secondary-light-50;
+        border: 1px solid $secondary-light-50;
+
+        &[placeholder] {
+            color: $secondary-main-300;
+
+            @include body14Regular;
+        }
+
+        &:focus {
+            color: $secondary-dark-900;
+            border: 1px solid $primary-light-100;
+        }
+    }
+}
