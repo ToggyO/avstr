@@ -7,6 +7,7 @@ import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
 import Loader from '../common/Loader';
+import SilentRenewPage from '../authorization/components/SilentRenewPage';
 
 const AdvertiserAccountRouter = lazy(() => import('../../AdvertiserAccount/AdvertiserAccountRouter'));
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
@@ -29,6 +30,12 @@ const RootRouter = () => (
                 path="/logout"
                 component={LogoutPage}
             />
+            <Route
+                exact
+                path="/silentRenew"
+                component={SilentRenewPage}
+            />
+
 
             <Suspense fallback={<Loader />}>
                 <Route
