@@ -2,39 +2,60 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Input as Field } from 'semantic-ui-react';
+import { Icon } from 'semantic-ui-react';
 
 import styles from './index.module.scss';
 
-const Index = ({
-    className,
+
+const Input = ({
     type,
     placeholder,
     value,
-    ...props
+    className,
+    iconTypes,
+    ...attrs
 }) => (
-    <Field
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        className={cn(styles.input, className)}
-        {...props}
-    />
+    <div className={styles.wrap}>
+        <input
+            type={type}
+            placeholder={placeholder}
+            value={value}
+            className={cn(styles.input, className)}
+            {...attrs}
+        />
+
+        {iconTypes.map((iconType, i) => {
+            const rightValue = i === 0 ? 20 : 16;
+            const lastRightValue = i === 0 ? 0 : rightValue;
+            return (
+                <Icon
+                    name={iconType}
+                    className={styles.icon}
+                    key={iconType + Math.random()}
+                    style={{ right: `${lastRightValue * (i + 1) + rightValue * (i + 1)}px` }}
+                />
+            );
+        })}
+    </div>
 );
 
 
-Index.defaultProps = {
+Input.defaultProps = {
     type: 'text',
     placeholder: '',
     value: '',
     className: '',
+    iconTypes: [],
 };
 
-Index.propTypes = {
+Input.propTypes = {
     type: PropTypes.string,
     placeholder: PropTypes.string,
     value: PropTypes.string,
-    className: PropTypes,
+    className: PropTypes.string,
+    iconTypes: PropTypes.arrayOf(
+        PropTypes.string,
+    ),
 };
 
-export default Index;
+export default Input;

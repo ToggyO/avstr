@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-// import { Input } from 'semantic-ui-react';
 import Logo from 'Core/common/Logo';
 import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
@@ -50,6 +49,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
             />
             <Input
                 type="password"
+                iconTypes={['eye', 'eye slash', 'eye']}
                 className={styles.input}
                 placeholder="Пароль"
                 value={passwordText}

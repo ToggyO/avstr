@@ -34,7 +34,11 @@
     }
 
     .input {
-        //
+        margin-bottom: 4*$atom;
+
+        @media (max-width: $screen-w--s) {
+            width: 87*$atom;
+        }
     }
 
     label {

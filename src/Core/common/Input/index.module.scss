@@ -1,13 +1,21 @@
 @import 'variables';
 
-.input {
-    input {
+$inputHeight: 14*$atom;
+$inputPaddingTop: 14px;
+
+.wrap {
+    position: relative;
+
+    .input {
         box-sizing: border-box;
-        width: 300px;
-        height: 12*$atom;
-        padding: 14px 5*$atom;
+        display: inline-block;
+        width: 75*$atom;
+        height: $inputHeight;
+        padding: $inputPaddingTop 5*$atom;
         color: $secondary-light-50;
+        background: none;
         border: 1px solid $secondary-light-50;
+        border-radius: 6px;
 
         &[placeholder] {
             color: $secondary-main-300;
@@ -19,5 +27,10 @@
             color: $secondary-dark-900;
             border: 1px solid $primary-light-100;
         }
+    }
+
+    .icon {
+        position: absolute;
+        top: $inputHeight/2;
     }
 }
