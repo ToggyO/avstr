@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Input } from 'semantic-ui-react';
+import Logo from 'Core/common/Logo';
 import Checkbox from 'Core/common/Checkbox';
 import Button from 'Core/common/Button';
+
 
 import styles from './index.module.scss';
 
@@ -36,7 +38,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     return (
         <form className={styles.authForm}>
-            {/* <Logo /> */}
+            <Logo className={styles.logo} />
             <h1 className={styles.title}>Добро пожаловать</h1>
             <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
             <Input
