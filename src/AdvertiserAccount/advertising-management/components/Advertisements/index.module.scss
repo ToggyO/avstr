@@ -2,23 +2,38 @@
 
 .wrap {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 40px;
-    margin-bottom: 32px;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 15px;
     color: $secondary-dark-900;
 
     @include headlineH1bold20;
 
+    @media (min-width: $screen-w--s) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @media (min-width: $screen-w--m) {
+        margin-top: 32px;
+        margin-bottom: 32px;
+    }
+
     .title {
+        align-self: center;
+
         &:first-child {
             margin-top: 0;
         }
     }
 
     .btn {
-        padding: 12px 28px;
-        padding-left: 32px;
+        align-self: flex-start;
+        margin-top: 15px;
+
+        @media (min-width: $screen-w--m) {
+            margin-top: 0;
+        }
     }
 }
