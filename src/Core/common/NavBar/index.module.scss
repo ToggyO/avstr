@@ -1,17 +1,53 @@
 @import "variables";
 
 .navbar {
-    position: absolute;
-    z-index: 9999;
-    top: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 64px;
-    padding: 0 222px;
+    height: 128px;
     border-bottom: 1px solid $secondary-light-50;
+
+    @media (min-width: $screen-w--s) {
+        height: 64px;
+    }
+
+    .wrap {
+        position: absolute;
+        z-index: 9999;
+        top: 0;
+        right: 0;
+        left: 0;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 300px;
+        height: 128px;
+        margin: 0 auto;
+        padding: 0 10px;
+
+        @media (min-width: $screen-w--xs) {
+            width: 540px;
+            padding: 0 15px;
+        }
+
+        @media (min-width: $screen-w--s) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 720px;
+            height: 64px;
+            padding: 0 15px;
+        }
+
+        @media (min-width: $screen-w--m) {
+            width: 960px;
+            padding: 0 30px;
+        }
+
+        @media (min-width: $screen-w--l) {
+            width: 1140px;
+            padding: 0 56px;
+        }
+    }
 
     .btn {
         margin-left: 34px;
