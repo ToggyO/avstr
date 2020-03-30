@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import AdvertisementCard from '../AdvertisementCard';
@@ -34,4 +34,4 @@ AdvertisementsList.propTypes = {
     deleteAdvertisement: PropTypes.func.isRequired,
 };
 
-export default memo(AdvertisementsList);
+export default AdvertisementsList;
