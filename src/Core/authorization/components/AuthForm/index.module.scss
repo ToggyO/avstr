@@ -1,4 +1,4 @@
-@import '../../../scss/colors';
+@import 'variables';
 
 .authForm {
     display: flex;
@@ -6,15 +6,21 @@
     align-items: center;
     width: 416px;
     height: 516px;
-    margin: 0 auto;
     background: white;
     border-radius: 8px;
 
+    .logo {
+        padding-top: 72px;
+    }
+
     .title {
-        margin-top: 132px;
+        margin-top: 40px;
+        margin-bottom: 0;
         color: black;
         font-size: 20px;
         line-height: 28px;
+
+        @include headlineH1bold20;
     }
 
     .subtitle {
@@ -23,6 +29,8 @@
         color: black;
         font-size: 14px;
         line-height: 24px;
+
+        @include body14Regular;
     }
 
     .input {
