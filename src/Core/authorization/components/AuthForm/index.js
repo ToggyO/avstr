@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from 'Core/common/Logo';
@@ -15,6 +15,8 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [passwordText, setPasswordText] = useState('');
     const [showPassword, toggleShowPassword] = useState(false);
     const [checkboxValue, setCheckboxValue] = useState(false);
+    const passwordRef = useRef(null);
+
 
     const handleLoginChange = ({ target: { value } }) => {
         setLoginText(value);
@@ -22,6 +24,18 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     const handlePasswordChange = ({ target: { value } }) => {
         setPasswordText(value);
+    };
+    const handlePasswordFocus = () => {
+        const { current } = passwordRef;
+        setTimeout(() => {
+            current.selectionStart = passwordText.length;
+            current.selectionEnd = passwordText.length;
+        });
+    };
+    const handlePasswordIconClick = () => {
+        toggleShowPassword(!showPassword);
+        const { current } = passwordRef;
+        current.focus();
     };
 
     const handleCheckboxValue = ({ target: { checked } }) => {
@@ -37,13 +51,9 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         });
     };
 
-    const handlePasswordIconClick = () => {
-        toggleShowPassword(!showPassword);
-    };
-
     const passwordIcon = [
         {
-            name: showPassword ? 'eye' : 'eyeHide',
+            name: showPassword ? 'eyeHide' : 'eye',
             handler: handlePasswordIconClick,
         },
     ];
@@ -60,12 +70,14 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 onChange={handleLoginChange}
             />
             <Input
-                type={showPassword ? 'password' : 'text'}
+                type={showPassword ? 'text' : 'password'}
                 icons={passwordIcon}
                 className={styles.input}
                 placeholder="Пароль"
                 value={passwordText}
                 onChange={handlePasswordChange}
+                onFocus={handlePasswordFocus}
+                ref={passwordRef}
             />
             {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
 

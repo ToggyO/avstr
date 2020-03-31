@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -7,7 +7,7 @@ import Icon from '../Icon';
 import styles from './index.module.scss';
 
 
-const Input = ({
+const Input = forwardRef(({
     type,
     placeholder,
     value,
@@ -15,7 +15,7 @@ const Input = ({
     icons,
     error,
     ...attrs
-}) => (
+}, ref) => (
     <div className={styles.wrap}>
         <input
             type={type}
@@ -23,6 +23,7 @@ const Input = ({
             value={value}
             className={cn(styles.input, className, { [styles.error]: error })}
             {...attrs}
+            ref={ref}
         />
 
         {icons.map(({ name, iconClass, handler }, i) => {
@@ -39,7 +40,7 @@ const Input = ({
             );
         })}
     </div>
-);
+));
 
 
 Input.defaultProps = {

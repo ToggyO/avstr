@@ -1,7 +1,9 @@
+@import "variables";
+
 .icon {
     display: inline-block;
-    width: 24px;
-    height: 24px;
+    width: 6*$atom;
+    height: 6*$atom;
     margin: 0;
     padding: 0;
     border: none;
