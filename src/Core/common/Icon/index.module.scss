@@ -1,0 +1,10 @@
+@import "variables";
+
+.icon {
+    display: inline-block;
+    width: 6*$atom;
+    height: 6*$atom;
+    margin: 0;
+    padding: 0;
+    border: none;
+}

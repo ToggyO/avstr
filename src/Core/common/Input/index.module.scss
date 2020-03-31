@@ -1,0 +1,45 @@
+@import 'variables';
+
+$inputHeight: 14*$atom;
+$inputPaddingTop: 14px;
+
+.wrap {
+    position: relative;
+
+    .input {
+        box-sizing: border-box;
+        display: inline-block;
+        width: 75*$atom;
+        height: $inputHeight;
+        padding: $inputPaddingTop 5*$atom;
+        color: $secondary-light-50;
+        background: none;
+        border: 1px solid $secondary-light-50;
+        border-radius: 6px;
+
+        &[placeholder] {
+            color: $secondary-main-300;
+
+            @include body14Regular;
+        }
+
+        &:focus {
+            color: $secondary-dark-900;
+            border: 1px solid $primary-light-100;
+        }
+
+        &:disabled {
+            color: $secondary-main-300;
+            background: $primary-light-40;
+        }
+    }
+
+    .icon {
+        position: absolute;
+        top: $inputHeight/2 - 3*$atom;
+    }
+
+    .error {
+        border: 1px solid $error-light-100;
+    }
+}

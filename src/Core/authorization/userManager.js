@@ -9,6 +9,11 @@ const userManagerConfig = {
     scope: 'openid avastar-microservices',
     authority: REACT_APP_AUTH_URL,
     post_logout_redirect_uri: REACT_APP_REDIRECT_URL,
+    silent_redirect_uri: `${REACT_APP_REDIRECT_URL}/silentRenew`,
+    automaticSilentRenew: true,
+    filterProtocolClaims: true,
+    loadUserInfo: true,
+    monitorSession: true,
 };
 
 const userManager = createUserManager(userManagerConfig);

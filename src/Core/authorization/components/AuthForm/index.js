@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Input } from 'semantic-ui-react';
+import Logo from 'Core/common/Logo';
+import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
 import Button from 'Core/common/Button';
+
 
 import styles from './index.module.scss';
 
@@ -11,7 +13,10 @@ import styles from './index.module.scss';
 const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [loginText, setLoginText] = useState('');
     const [passwordText, setPasswordText] = useState('');
+    const [showPassword, toggleShowPassword] = useState(false);
     const [checkboxValue, setCheckboxValue] = useState(false);
+    const passwordRef = useRef(null);
+
 
     const handleLoginChange = ({ target: { value } }) => {
         setLoginText(value);
@@ -19,6 +24,18 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     const handlePasswordChange = ({ target: { value } }) => {
         setPasswordText(value);
+    };
+    const handlePasswordFocus = () => {
+        const { current } = passwordRef;
+        setTimeout(() => {
+            current.selectionStart = passwordText.length;
+            current.selectionEnd = passwordText.length;
+        });
+    };
+    const handlePasswordIconClick = () => {
+        toggleShowPassword(!showPassword);
+        const { current } = passwordRef;
+        current.focus();
     };
 
     const handleCheckboxValue = ({ target: { checked } }) => {
@@ -34,23 +51,33 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         });
     };
 
+    const passwordIcon = [
+        {
+            name: showPassword ? 'eyeHide' : 'eye',
+            handler: handlePasswordIconClick,
+        },
+    ];
+
     return (
         <form className={styles.authForm}>
-            {/* <Logo /> */}
+            <Logo className={styles.logo} />
             <h1 className={styles.title}>Добро пожаловать</h1>
             <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
             <Input
                 className={styles.input}
-                placeholder="Введите логин"
+                placeholder="Электронная почта"
                 value={loginText}
                 onChange={handleLoginChange}
             />
             <Input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
+                icons={passwordIcon}
                 className={styles.input}
-                placeholder="Введите пароль"
+                placeholder="Пароль"
                 value={passwordText}
                 onChange={handlePasswordChange}
+                onFocus={handlePasswordFocus}
+                ref={passwordRef}
             />
             {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
 
