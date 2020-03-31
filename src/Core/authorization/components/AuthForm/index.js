@@ -13,6 +13,7 @@ import styles from './index.module.scss';
 const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [loginText, setLoginText] = useState('');
     const [passwordText, setPasswordText] = useState('');
+    const [showPassword, toggleShowPassword] = useState(false);
     const [checkboxValue, setCheckboxValue] = useState(false);
 
     const handleLoginChange = ({ target: { value } }) => {
@@ -36,6 +37,17 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         });
     };
 
+    const handlePasswordIconClick = () => {
+        toggleShowPassword(!showPassword);
+    };
+
+    const passwordIcon = [
+        {
+            name: showPassword ? 'eye' : 'eye slash',
+            handler: handlePasswordIconClick,
+        },
+    ];
+
     return (
         <form className={styles.authForm}>
             <Logo className={styles.logo} />
@@ -48,8 +60,8 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 onChange={handleLoginChange}
             />
             <Input
-                type="password"
-                iconTypes={['eye', 'eye slash', 'eye']}
+                type={showPassword ? 'password' : 'text'}
+                icons={passwordIcon}
                 className={styles.input}
                 placeholder="Пароль"
                 value={passwordText}

@@ -12,7 +12,8 @@ const Input = ({
     placeholder,
     value,
     className,
-    iconTypes,
+    icons,
+    error,
     ...attrs
 }) => (
     <div className={styles.wrap}>
@@ -20,19 +21,19 @@ const Input = ({
             type={type}
             placeholder={placeholder}
             value={value}
-            className={cn(styles.input, className)}
+            className={cn(styles.input, className, { [styles.error]: error })}
             {...attrs}
         />
 
-        {iconTypes.map((iconType, i) => {
-            const rightValue = i === 0 ? 20 : 16;
-            const lastRightValue = i === 0 ? 0 : rightValue;
+        {icons.map(({ name, iconClass, handler }, i) => {
+            const rightValue = i === 0 && 20;
             return (
                 <Icon
-                    name={iconType}
-                    className={styles.icon}
-                    key={iconType + Math.random()}
-                    style={{ right: `${lastRightValue * (i + 1) + rightValue * (i + 1)}px` }}
+                    name={name}
+                    className={cn(styles.icon, iconClass)}
+                    key={name + Math.random()}
+                    style={i === 0 ? { right: `${rightValue * (i + 1)}px` } : null}
+                    onClick={handler}
                 />
             );
         })}
@@ -45,7 +46,8 @@ Input.defaultProps = {
     placeholder: '',
     value: '',
     className: '',
-    iconTypes: [],
+    icons: [],
+    error: false,
 };
 
 Input.propTypes = {
@@ -53,9 +55,14 @@ Input.propTypes = {
     placeholder: PropTypes.string,
     value: PropTypes.string,
     className: PropTypes.string,
-    iconTypes: PropTypes.arrayOf(
-        PropTypes.string,
+    icons: PropTypes.arrayOf(
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            iconClass: PropTypes.string,
+            handler: PropTypes.func,
+        }),
     ),
+    error: PropTypes.bool,
 };
 
 export default Input;

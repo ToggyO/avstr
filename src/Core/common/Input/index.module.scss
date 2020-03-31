@@ -27,10 +27,19 @@ $inputPaddingTop: 14px;
             color: $secondary-dark-900;
             border: 1px solid $primary-light-100;
         }
+
+        &:disabled {
+            color: $secondary-main-300;
+            background: $primary-light-40;
+        }
     }
 
     .icon {
         position: absolute;
-        top: $inputHeight/2;
+        top: $inputHeight/2 - 2*$atom;
+    }
+
+    .error {
+        border: 1px solid $error-light-100;
     }
 }
