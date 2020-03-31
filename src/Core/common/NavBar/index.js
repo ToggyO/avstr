@@ -29,21 +29,23 @@ const NavBar = ({ logoutAction }) => {
 
     return (
         <nav className={styles.navbar}>
-            <Logo />
-            <div>
-                <Dropdown
-                    trigger={trigger}
-                    simple
-                    item
-                />
-                <Button
-                    type="outline"
-                    size="small"
-                    className={styles.btn}
-                    onClick={handleLogout}
-                >
-                    Выйти
-                </Button>
+            <div className={styles.wrap}>
+                <Logo />
+                <div>
+                    <Dropdown
+                        trigger={trigger}
+                        simple
+                        item
+                    />
+                    <Button
+                        type="outline"
+                        size="small"
+                        className={styles.btn}
+                        onClick={handleLogout}
+                    >
+                        Выйти
+                    </Button>
+                </div>
             </div>
         </nav>
     );

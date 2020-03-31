@@ -1,6 +1,30 @@
+@import 'variables.scss';
+
 .container {
     box-sizing: border-box;
-    width: 1090px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
     margin: 0 auto;
-    padding-top: 64px;
+    padding: 0 10px;
+
+    @media (min-width: $screen-w--xs) {
+        width: 540px;
+        padding: 0 15px;
+    }
+
+    @media (min-width: $screen-w--s) {
+        width: 720px;
+        padding: 0 15px;
+    }
+
+    @media (min-width: $screen-w--m) {
+        width: 960px;
+        padding: 0 30px;
+    }
+
+    @media (min-width: $screen-w--l) {
+        width: 1140px;
+        padding: 0 56px;
+    }
 }
