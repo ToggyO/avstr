@@ -1,31 +1,42 @@
-.span {
-    margin: 0;
-    padding: 0;
-    font: inherit;
-    border: none;
-}
+@import 'variables';
 
-.hidden {
-    display: none;
+.wrap {
+    .hidden {
+        display: none;
 
-    & + span {
-        cursor: pointer;
-        user-select: none;
+        & + span {
+            display: flex;
+            height: 5*$atom;
+            margin: 0;
+            padding: 0;
+            color: $secondary-light-200;
+            line-height: 5*$atom;
+            cursor: pointer;
+            user-select: none;
+            align-content: center;
 
-        &::before {
+            @include body14Regular;
+
+            &::before {
+                box-sizing: border-box;
+                display: inline-block;
+                width: 5*$atom;
+                height: 5*$atom;
+                margin-right: 14px;
+                content: '';
+                background: $secondary-light-10;
+                border: 1px solid $secondary-light-50;
+                border-radius: $atom;
+                cursor: pointer;
+            }
+        }
+
+        &:checked + span::before {
             display: inline-block;
-            width: 15px;
-            height: 15px;
+            color: $secondary-dark-900;
             content: "";
-            background: grey;
+            background: $primary-main-600;
             cursor: pointer;
         }
-    }
-
-    &:checked + span::before {
-        display: inline-block;
-        content: "";
-        background: darkblue;
-        cursor: pointer;
     }
 }
