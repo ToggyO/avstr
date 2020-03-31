@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { Icon } from 'semantic-ui-react';
+import Icon from '../Icon';
 
 import styles from './index.module.scss';
 
@@ -30,9 +30,10 @@ const Input = ({
             return (
                 <Icon
                     name={name}
+                    style={i === 0 ? { right: `${rightValue * (i + 1)}px` } : null}
                     className={cn(styles.icon, iconClass)}
                     key={name + Math.random()}
-                    style={i === 0 ? { right: `${rightValue * (i + 1)}px` } : null}
+
                     onClick={handler}
                 />
             );
