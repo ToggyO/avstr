@@ -43,7 +43,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     const passwordIcon = [
         {
-            name: showPassword ? 'eye' : 'eye slash',
+            name: showPassword ? 'eye' : 'eyeHide',
             handler: handlePasswordIconClick,
         },
     ];

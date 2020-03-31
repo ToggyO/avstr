@@ -51,7 +51,12 @@ const iconsTypes = {
     user: IconUser,
 };
 
-const Icon = ({ name, color, className }) => {
+const Icon = ({
+    name,
+    color,
+    className,
+    ...attrs
+}) => {
     const Component = iconsTypes[name];
     if (!Component) return null;
 
@@ -60,11 +65,10 @@ const Icon = ({ name, color, className }) => {
             className={
                 cn(
                     styles.icon,
-                    styles[name],
                     className,
                 )
             }
-            style={{ color }}
+            {...attrs}
         />
     );
 };
