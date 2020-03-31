@@ -10,7 +10,7 @@ const Checkbox = ({
     onChange,
     ...attrs
 }) => (
-    <label className={styles.reset}>
+    <label className={styles.wrap}>
         <input
             type="checkbox"
             className={cn(className, styles.hidden)}

@@ -45,36 +45,12 @@
         right: 60px;
     }
 
-    label {
-        align-self: flex-start;
-        margin-top: 10px;
-
-        .hidden {
-            display: block;
-        }
-
-        span {
-            display: flex;
-            align-content: center;
-            margin-top: -5px;
-
-            &::before {
-                width: 19px;
-                height: 19px;
-                margin-right: 5px;
-                background: white;
-                border: 1px solid rgba(34, 36, 38, 0.15);
-                border-radius: 3px;
-            }
-        }
-    }
-
     .btnWrap {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 348px;
-        margin-top: 44px;
+        width: 87*$atom;
+        margin-top: 6*$atom;
     }
 
     .err {
