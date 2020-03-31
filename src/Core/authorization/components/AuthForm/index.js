@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Input } from 'semantic-ui-react';
 import Logo from 'Core/common/Logo';
+import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
 import Button from 'Core/common/Button';
 
@@ -13,6 +13,7 @@ import styles from './index.module.scss';
 const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [loginText, setLoginText] = useState('');
     const [passwordText, setPasswordText] = useState('');
+    const [showPassword, toggleShowPassword] = useState(false);
     const [checkboxValue, setCheckboxValue] = useState(false);
 
     const handleLoginChange = ({ target: { value } }) => {
@@ -36,6 +37,17 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         });
     };
 
+    const handlePasswordIconClick = () => {
+        toggleShowPassword(!showPassword);
+    };
+
+    const passwordIcon = [
+        {
+            name: showPassword ? 'eye' : 'eye slash',
+            handler: handlePasswordIconClick,
+        },
+    ];
+
     return (
         <form className={styles.authForm}>
             <Logo className={styles.logo} />
@@ -43,14 +55,15 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
             <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
             <Input
                 className={styles.input}
-                placeholder="Введите логин"
+                placeholder="Электронная почта"
                 value={loginText}
                 onChange={handleLoginChange}
             />
             <Input
-                type="password"
+                type={showPassword ? 'password' : 'text'}
+                icons={passwordIcon}
                 className={styles.input}
-                placeholder="Введите пароль"
+                placeholder="Пароль"
                 value={passwordText}
                 onChange={handlePasswordChange}
             />
