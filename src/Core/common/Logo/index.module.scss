@@ -1,3 +1,18 @@
+@import "variables";
+
 .logo {
-    //
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.small {
+    width: 18*$atom;
+    height: 7*$atom;
+}
+
+.normal {
+    width: 61.5px;
+    height: 6*$atom;
 }
