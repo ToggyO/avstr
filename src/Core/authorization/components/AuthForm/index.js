@@ -71,52 +71,54 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 
     return (
         <form className={styles.authForm}>
-            <Logo className={styles.logo} />
-            <h1 className={styles.title}>Добро пожаловать</h1>
-            <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
-            <Input
-                className={styles.input}
-                placeholder="Электронная почта"
-                value={loginText}
-                onChange={handleLoginChange}
-                error={showInputErrors}
-            />
-            <div className={styles.passwordWrap}>
+            <div className={styles.wrap}>
+                <Logo className={styles.logo} />
+                <h1 className={styles.title}>Добро пожаловать</h1>
+                <h2 className={styles.subtitle}>Пожалуйста, введите свои учетные данные</h2>
                 <Input
-                    type={showPassword ? 'text' : 'password'}
-                    icons={passwordIcon}
                     className={styles.input}
-                    placeholder="Пароль"
-                    value={passwordText}
+                    placeholder="Электронная почта"
+                    value={loginText}
+                    onChange={handleLoginChange}
                     error={showInputErrors}
-                    onChange={handlePasswordChange}
-                    onFocus={handlePasswordFocus}
-                    ref={passwordRef}
                 />
-                {showInputErrors && (
-                    <ErrMessage
-                        text={errMessage}
-                        className={styles.err}
+                <div className={styles.passwordWrap}>
+                    <Input
+                        type={showPassword ? 'text' : 'password'}
+                        icons={passwordIcon}
+                        className={styles.input}
+                        placeholder="Пароль"
+                        value={passwordText}
+                        error={showInputErrors}
+                        onChange={handlePasswordChange}
+                        onFocus={handlePasswordFocus}
+                        ref={passwordRef}
                     />
-                )}
-            </div>
+                    {showInputErrors && (
+                        <ErrMessage
+                            text={errMessage}
+                            className={styles.err}
+                        />
+                    )}
+                </div>
 
-            <div className={styles.btnWrap}>
-                <Checkbox
-                    className={styles.checkbox}
-                    label="Оставаться в системе"
-                    checked={checkboxValue}
-                    onChange={handleCheckboxValue}
-                />
-                <Button
-                    disabled={!loginText || !passwordText}
-                    type="main"
-                    size="medium"
-                    className={styles.btn}
-                    onClick={handleBtnClick}
-                >
-                    Войти
-                </Button>
+                <div className={styles.btnWrap}>
+                    <Checkbox
+                        className={styles.checkbox}
+                        label="Оставаться в системе"
+                        checked={checkboxValue}
+                        onChange={handleCheckboxValue}
+                    />
+                    <Button
+                        disabled={!loginText || !passwordText}
+                        type="main"
+                        size="medium"
+                        className={styles.btn}
+                        onClick={handleBtnClick}
+                    >
+                        Войти
+                    </Button>
+                </div>
             </div>
         </form>
     );
