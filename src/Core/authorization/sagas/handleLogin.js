@@ -26,7 +26,7 @@ function* handleLogin({ data }) {
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
-                yield put(setErrMessage('Вы ввели неверные учетные данные. Попробуйте еще раз.'));
+                yield put(setErrMessage('Неверное имя пользователя или пароль'));
                 break;
             case 'ServerError':
                 yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));

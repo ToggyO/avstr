@@ -42,7 +42,8 @@
     }
 
     .passwordWrap {
-        //
+        position: relative;
+        height: 80px;
     }
 
     .btnWrap {
@@ -54,7 +55,7 @@
     }
 
     .err {
-        color: darkred;
-        font-size: 12px;
+        position: absolute;
+        bottom: 0;
     }
 }

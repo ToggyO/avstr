@@ -1,10 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from 'Core/common/Logo';
 import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
 import Button from 'Core/common/Button';
+import ErrMessage from 'Core/common/ErrorMessage';
 
 
 import styles from './index.module.scss';
@@ -12,18 +13,23 @@ import styles from './index.module.scss';
 
 const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [loginText, setLoginText] = useState('');
+
     const [passwordText, setPasswordText] = useState('');
     const [showPassword, toggleShowPassword] = useState(false);
-    const [checkboxValue, setCheckboxValue] = useState(false);
     const passwordRef = useRef(null);
+
+    const [checkboxValue, setCheckboxValue] = useState(false);
+    const [showInputErrors, setShowInputErrors] = useState(false);
 
 
     const handleLoginChange = ({ target: { value } }) => {
         setLoginText(value);
+        setShowInputErrors(false);
     };
 
     const handlePasswordChange = ({ target: { value } }) => {
         setPasswordText(value);
+        setShowInputErrors(false);
     };
     const handlePasswordFocus = () => {
         const { current } = passwordRef;
@@ -58,6 +64,11 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         },
     ];
 
+    useEffect(() => {
+        if (!errMessage) return;
+        setShowInputErrors(true);
+    }, [errMessage]);
+
     return (
         <form className={styles.authForm}>
             <Logo className={styles.logo} />
@@ -68,6 +79,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 placeholder="Электронная почта"
                 value={loginText}
                 onChange={handleLoginChange}
+                error={showInputErrors}
             />
             <div className={styles.passwordWrap}>
                 <Input
@@ -76,11 +88,17 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                     className={styles.input}
                     placeholder="Пароль"
                     value={passwordText}
+                    error={showInputErrors}
                     onChange={handlePasswordChange}
                     onFocus={handlePasswordFocus}
                     ref={passwordRef}
                 />
-                {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
+                {showInputErrors && (
+                    <ErrMessage
+                        text={errMessage}
+                        className={styles.err}
+                    />
+                )}
             </div>
 
             <div className={styles.btnWrap}>
