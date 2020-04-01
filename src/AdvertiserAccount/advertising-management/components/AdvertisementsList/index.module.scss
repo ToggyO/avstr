@@ -1,4 +1,22 @@
+@import 'variables';
+
 .list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    max-width: 100%;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-column-gap: 4px;
+
+    @media (min-width: $screen-w--s) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-column-gap: 8px;
+    }
+
+    @media (min-width: $screen-w--m) {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-column-gap: 16px;
+    }
+
+    @media (min-width: $screen-w--l) {
+        grid-column-gap: 20px;
+    }
 }
