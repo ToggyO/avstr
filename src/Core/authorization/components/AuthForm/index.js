@@ -69,17 +69,19 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 value={loginText}
                 onChange={handleLoginChange}
             />
-            <Input
-                type={showPassword ? 'text' : 'password'}
-                icons={passwordIcon}
-                className={styles.input}
-                placeholder="Пароль"
-                value={passwordText}
-                onChange={handlePasswordChange}
-                onFocus={handlePasswordFocus}
-                ref={passwordRef}
-            />
-            {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
+            <div className={styles.passwordWrap}>
+                <Input
+                    type={showPassword ? 'text' : 'password'}
+                    icons={passwordIcon}
+                    className={styles.input}
+                    placeholder="Пароль"
+                    value={passwordText}
+                    onChange={handlePasswordChange}
+                    onFocus={handlePasswordFocus}
+                    ref={passwordRef}
+                />
+                {errMessage !== '' && <span className={styles.err}>{errMessage}</span>}
+            </div>
 
             <div className={styles.btnWrap}>
                 <Checkbox
