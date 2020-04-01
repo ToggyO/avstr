@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 
-import { Input } from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Button from 'Core/common/Button';
+import Input from 'Core/common/Input';
 
 import styles from './index.module.scss';
 
@@ -84,6 +84,7 @@ const NewAdvertisement = ({
                 type="main"
                 size="medium"
                 disabled={advertisementText === '' || !file}
+                className={styles.saveBtn}
                 onClick={handleSaveClick}
             >
                 Сохранить
@@ -104,17 +105,15 @@ const NewAdvertisement = ({
                             ref={dropZoneRef}
                         >
                             {({ getRootProps, getInputProps }) => (
-                                <section>
-                                    <div
-                                        className={styles.dropZone}
-                                        {...getRootProps()}
-                                    >
-                                        <input {...getInputProps()} />
-                                        <div className={styles.text}>
-                                            Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
-                                        </div>
+                                <div
+                                    className={styles.dropZone}
+                                    {...getRootProps()}
+                                >
+                                    <input {...getInputProps()} />
+                                    <div className={styles.text}>
+                                        Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
                                     </div>
-                                </section>
+                                </div>
                             )}
                         </Dropzone>
                         {renderBtns()}

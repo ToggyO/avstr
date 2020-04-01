@@ -3,34 +3,45 @@
 .newAdvertisement {
     .title {
         margin-bottom: 24px;
+        color: $secondary-dark-900;
+
+        @include headlineH1bold20;
     }
 
     .input {
-        width: 716px;
-        height: 56px;
         margin-bottom: 24px;
+
+        @media (min-width: $screen-w--s) {
+            width: 716px;
+        }
     }
 
     .description {
         margin-bottom: 8px;
-        font-size: 12px;
-        line-height: 20px;
+        color: $secondary-main-300;
+
+        @include caption12Regular;
     }
 
     .dropZone {
         display: flex;
+        justify-content: center;
         align-items: center;
-        width: 716px;
+        width: 100%;
         height: 144px;
         margin-bottom: 40px;
         border: 1px dashed $primary-light-100;
         border-radius: 6px;
 
+        @media (min-width: $screen-w--s) {
+            width: 716px;
+        }
+
         .text {
             margin-left: 7px;
             color: $primary-main-600;
-            font-size: 12px;
-            line-height: 20px;
+
+            @include body14Regular;
         }
     }
 
