@@ -106,14 +106,20 @@
 
         &.small {
             padding: 2*$atom 5*$atom;
+
+            @include caption12Medium;
         }
 
         &.medium {
             padding: 3*$atom 7*$atom;
+
+            @include btnLink14Medium;
         }
 
         &.large {
             padding: 3*$atom 10*$atom;
+
+            @include subtitle16Medium;
         }
 
         &.icon {
@@ -123,6 +129,8 @@
         &.withIcon {
             padding: 3*$atom 7*$atom;
             padding-left: 8*$atom;
+
+            @include btnLink14Medium;
         }
     }
 }

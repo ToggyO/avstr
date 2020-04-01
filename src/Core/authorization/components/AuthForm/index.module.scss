@@ -16,7 +16,7 @@
     .title {
         margin-top: 40px;
         margin-bottom: 0;
-        color: black;
+        color: $secondary-dark-900;
         font-size: 20px;
         line-height: 28px;
 
@@ -26,7 +26,7 @@
     .subtitle {
         margin-top: 8px;
         margin-bottom: 32px;
-        color: black;
+        color: $secondary-dark-900;
         font-size: 14px;
         line-height: 24px;
 
@@ -52,10 +52,5 @@
     .err {
         color: darkred;
         font-size: 12px;
-    }
-
-    .btn {
-        flex: 0 0 48px;
-        width: 102px;
     }
 }
