@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Logo from 'Core/common/Logo';
@@ -19,17 +19,14 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const passwordRef = useRef(null);
 
     const [checkboxValue, setCheckboxValue] = useState(false);
-    const [showInputErrors, setShowInputErrors] = useState(false);
 
 
     const handleLoginChange = ({ target: { value } }) => {
         setLoginText(value);
-        setShowInputErrors(false);
     };
 
     const handlePasswordChange = ({ target: { value } }) => {
         setPasswordText(value);
-        setShowInputErrors(false);
     };
     const handlePasswordFocus = () => {
         const { current } = passwordRef;
@@ -64,11 +61,6 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
         },
     ];
 
-    useEffect(() => {
-        if (!errMessage) return;
-        setShowInputErrors(true);
-    }, [errMessage]);
-
     return (
         <form className={styles.authForm}>
             <div className={styles.wrap}>
@@ -80,7 +72,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                     placeholder="Электронная почта"
                     value={loginText}
                     onChange={handleLoginChange}
-                    error={showInputErrors}
+                    error={errMessage}
                 />
                 <div className={styles.passwordWrap}>
                     <Input
@@ -89,12 +81,12 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                         className={styles.input}
                         placeholder="Пароль"
                         value={passwordText}
-                        error={showInputErrors}
+                        error={errMessage}
                         onChange={handlePasswordChange}
                         onFocus={handlePasswordFocus}
                         ref={passwordRef}
                     />
-                    {showInputErrors && (
+                    {errMessage && (
                         <ErrMessage
                             text={errMessage}
                             className={styles.err}
