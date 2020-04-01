@@ -4,58 +4,65 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 416px;
-    height: 516px;
+    width: 100%;
+    height: 129*$atom;
     background: white;
-    border-radius: 8px;
 
-    .logo {
-        margin-top: 72px;
+    @media (min-width: $screen-w--xs) {
+        width: 104*$atom;
+        border-radius: 2*$atom;
     }
 
-    .title {
-        margin-top: 40px;
-        margin-bottom: 0;
-        color: black;
-        font-size: 20px;
-        line-height: 28px;
+    .wrap {
+        width: 280px;
 
-        @include headlineH1bold20;
-    }
-
-    .subtitle {
-        margin-top: 8px;
-        margin-bottom: 32px;
-        color: black;
-        font-size: 14px;
-        line-height: 24px;
-
-        @include body14Regular;
-    }
-
-    .input {
-        margin-bottom: 4*$atom;
+        @media (min-width: $screen-w--xxs) {
+            width: 300px;
+        }
 
         @media (min-width: $screen-w--xs) {
             width: 87*$atom;
         }
-    }
 
-    .btnWrap {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 87*$atom;
-        margin-top: 6*$atom;
-    }
+        .logo {
+            margin-top: 72px;
+        }
 
-    .err {
-        color: darkred;
-        font-size: 12px;
-    }
+        .title {
+            margin-top: 10*$atom;
+            margin-bottom: 0;
+            color: $secondary-dark-900;
 
-    .btn {
-        flex: 0 0 48px;
-        width: 102px;
+            @include headlineH1bold20;
+        }
+
+        .subtitle {
+            margin-top: 2*$atom;
+            margin-bottom: 8*$atom;
+            color: $secondary-dark-900;
+
+            @include body14Regular;
+        }
+
+        .input {
+            margin-bottom: 4*$atom;
+        }
+
+        .passwordWrap {
+            position: relative;
+            height: 20*$atom;
+        }
+
+        .btnWrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6*$atom;
+        }
+
+        .err {
+            position: absolute;
+            bottom: 0;
+        }
     }
 }

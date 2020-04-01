@@ -1,0 +1,7 @@
+@import 'variables';
+
+.err {
+    @include caption12Medium;
+
+    color: $error-main-600;
+}

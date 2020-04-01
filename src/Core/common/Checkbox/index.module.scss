@@ -5,18 +5,17 @@
         display: none;
 
         & + span {
+            @include body14Regular;
+
             display: flex;
             height: 5*$atom;
             margin: 0;
             padding: 0;
             color: $secondary-light-200;
+            line-height: 19px;
             cursor: pointer;
             user-select: none;
             align-content: center;
-
-            @include body14Regular;
-
-            line-height: 19px;
 
             &::before {
                 box-sizing: border-box;

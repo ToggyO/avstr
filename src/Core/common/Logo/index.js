@@ -10,14 +10,15 @@ import styles from './index.module.scss';
 const Logo = ({ size, className, ...attrs }) => {
     const logoClasses = cn(
         styles.logo,
-        styles.normal,
-        { [styles.small]: size === 'small' },
+        {
+            [styles.small]: size === 'normal',
+            [styles.small]: size === 'small',
+        },
         className,
     );
 
     return (
         <IconLogo
-            size
             className={logoClasses}
             {...attrs}
         />

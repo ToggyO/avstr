@@ -1,13 +1,13 @@
 //Subtitles
-@mixin subtitle {
+@mixin subtitle16Regular {
     @include fontFamily;
 
     font-size: 16px;
     line-height: 24px;
 }
 
-@mixin subtitle16Regular {
-    @include subtitle;
+@mixin subtitle16Medium {
+    @include subtitle16Regular;
 
     font-weight: 500;
 }

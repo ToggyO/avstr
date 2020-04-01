@@ -9,7 +9,7 @@ $inputPaddingTop: 14px;
     .input {
         box-sizing: border-box;
         display: inline-block;
-        width: 75*$atom;
+        width: 100%;
         height: $inputHeight;
         padding: $inputPaddingTop 5*$atom;
         color: $secondary-light-50;
