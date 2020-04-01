@@ -8,7 +8,7 @@
     height: 129*$atom;
     background: white;
 
-    @media (min-width: $screen-w--s) {
+    @media (min-width: $screen-w--xs) {
         width: 104*$atom;
         border-radius: 2*$atom;
     }
@@ -21,10 +21,6 @@
         }
 
         @media (min-width: $screen-w--xs) {
-            width: 440px;
-        }
-
-        @media (min-width: $screen-w--s) {
             width: 87*$atom;
         }
 
