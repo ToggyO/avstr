@@ -20,10 +20,12 @@ const NavBar = ({ logoutAction }) => {
         logoutAction();
     };
 
+    const userName = localStorage.getItem('userName');
+
     const trigger = (
         <span>
             <Icon name="user" />
-            mris@avastar.ru
+            {userName}
         </span>
     );
 

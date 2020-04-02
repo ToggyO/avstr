@@ -51,9 +51,9 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const handleBtnClick = (e) => {
         e.preventDefault();
         formSubmitHandler({
-            Username: loginText,
-            Password: passwordText,
-            RememberLogin: checkboxValue,
+            username: loginText,
+            password: passwordText,
+            rememberLogin: checkboxValue,
         });
     };
 
