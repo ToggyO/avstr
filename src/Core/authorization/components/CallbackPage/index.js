@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Loader from 'Core/common/Loader';
-import userManager from 'Core/authorization/userManager';
+import userManager from 'Core/authorization/utils/userManager';
 
 import { logout } from '../../action-creators';
 

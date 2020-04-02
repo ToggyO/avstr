@@ -5,7 +5,7 @@ import { login } from './action-creators';
 import history from '../history';
 
 import Authorization from './components/Authorization';
-import userManager from './userManager';
+import userManager from './utils/userManager';
 
 
 class AuthorizationPage extends Component {
