@@ -12,7 +12,7 @@ function* handleUploadFile({ data: { advertisementText, file } }) {
     formData.append('file', file);
     formData.append('name', advertisementText);
 
-    const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_API}/advertiser-microservice/advertisements`, 'json');
+    const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_API}/advertiser-microservice/promotions`, 'json');
 
     const channel = yield call(createUploadChanel, configuredRequest, formData);
 
