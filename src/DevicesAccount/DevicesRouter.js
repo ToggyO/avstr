@@ -2,15 +2,16 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
+import useIsLoggedIn from 'Core/authorization/utils/useIsLoggedIn';
+
 import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
-import useIsLoggedIn from '../Core/authorization/utils/useIsLoggedIn';
 
-const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
-const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
+const DevicesPage = lazy(() => import('./DevicesPage'));
+// const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
 
 
-const AdvertiserAccountRouter = ({ match: { path } }) => {
+const DevicesRouter = ({ match: { path } }) => {
     const isLoggedIn = useIsLoggedIn();
     return (
         <div>
@@ -23,12 +24,12 @@ const AdvertiserAccountRouter = ({ match: { path } }) => {
                                 <Route
                                     exact
                                     path={`${path}`}
-                                    component={AdvertiserAccountPage}
+                                    component={DevicesPage}
                                 />
-                                <Route
-                                    path={`${path}/add`}
-                                    component={NewAdvertisementPage}
-                                />
+                                {/* <Route
+                                        path={`${path}/add`}
+                                        component={NewAdvertisementPage}
+                                    /> */}
                             </Switch>
                         </Suspense>
                     </div>
@@ -39,10 +40,10 @@ const AdvertiserAccountRouter = ({ match: { path } }) => {
 };
 
 
-AdvertiserAccountRouter.propTypes = {
+DevicesRouter.propTypes = {
     match: PropTypes.shape({
         path: PropTypes.string.isRequired,
     }).isRequired,
 };
 
-export default AdvertiserAccountRouter;
+export default DevicesRouter;

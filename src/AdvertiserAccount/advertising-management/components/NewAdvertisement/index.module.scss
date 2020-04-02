@@ -3,9 +3,6 @@
 .newAdvertisement {
     .title {
         margin-bottom: 24px;
-        color: $secondary-dark-900;
-
-        @include headlineH1bold20;
     }
 
     .input {

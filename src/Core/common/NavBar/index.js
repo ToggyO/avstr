@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { logout } from 'Core/authorization/action-creators';
-import userManager from 'Core/authorization/userManager';
+import userManager from 'Core/authorization/utils/userManager';
 
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';

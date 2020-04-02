@@ -1,0 +1,51 @@
+@import 'variables';
+
+$border: 1px solid $secondary-light-50;
+
+.table {
+    display: block;
+    width: 100%;
+    border-collapse: collapse;
+
+    .head {
+        @include caption12Regular;
+
+        width: 100%;
+        padding: 9px 0;
+        border-top: $border;
+        border-bottom: $border;
+    }
+
+    th,
+    td {
+        padding: 0 44px;
+    }
+
+    th {
+        padding-top: 9px;
+        padding-bottom: 9px;
+        color: $secondary-main-300;
+    }
+
+    td {
+        padding-top: 17px;
+        padding-bottom: 17px;
+        color: $secondary-dark-900;
+    }
+
+    .num {
+        //
+    }
+
+    .name {
+        //
+    }
+
+    .serial {
+        //
+    }
+
+    .activity {
+        //
+    }
+}

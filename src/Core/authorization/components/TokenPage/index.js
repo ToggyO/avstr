@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 
 import Container from 'Core/common/Container';
 
-import userManager from '../../userManager';
+import userManager from '../../utils/userManager';
 
 const TokenPage = () => {
     const [text, setText] = useState('');

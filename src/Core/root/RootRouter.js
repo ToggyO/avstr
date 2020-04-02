@@ -9,8 +9,9 @@ import LogoutPage from '../authorization/components/LogoutPage';
 import Loader from '../common/Loader';
 import SilentRenewPage from '../authorization/components/SilentRenewPage';
 
-const AdvertiserAccountRouter = lazy(() => import('../../AdvertiserAccount/AdvertiserAccountRouter'));
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
+const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
+const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
 const RootRouter = () => (
@@ -46,6 +47,11 @@ const RootRouter = () => (
                 <Route
                     path="/advertiser"
                     component={AdvertiserAccountRouter}
+                />
+
+                <Route
+                    path="/devices"
+                    component={DevicesRouter}
                 />
             </Suspense>
         </Switch>
