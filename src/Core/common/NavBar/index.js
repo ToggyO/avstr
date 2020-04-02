@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import cn from 'classnames';
 import { connect } from 'react-redux';
-
-import { Dropdown, Icon } from 'semantic-ui-react';
-import Logo from 'Core/common/Logo';
 
 import { logout } from 'Core/authorization/action-creators';
 import userManager from 'Core/authorization/userManager';
 
+import { NavLink } from 'react-router-dom';
+import { Dropdown } from 'semantic-ui-react';
+import Logo from 'Core/common/Logo';
 import Button from '../Button';
 
 import styles from './index.module.scss';
@@ -22,23 +23,32 @@ const NavBar = ({ logoutAction }) => {
 
     const userName = localStorage.getItem('userName');
 
-    const trigger = (
-        <span>
-            <Icon name="user" />
-            {userName}
-        </span>
-    );
-
     return (
         <nav className={styles.navbar}>
             <div className={styles.wrap}>
                 <Logo />
                 <div>
-                    <Dropdown
-                        trigger={trigger}
-                        simple
-                        item
-                    />
+                    <Dropdown text={userName}>
+                        <Dropdown.Menu className={styles.menu}>
+                            <NavLink
+                                to="/advertiser"
+                                activeClassName={styles.itemActive}
+                            >
+                                <Dropdown.Item
+                                    text="Рекламодатель"
+                                    className={styles.item}
+                                />
+                            </NavLink>
+                            <NavLink
+                                to="/devices"
+                            >
+                                <Dropdown.Item
+                                    text="Администрирование"
+                                    className={styles.item}
+                                />
+                            </NavLink>
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <Button
                         type="outline"
                         size="small"
