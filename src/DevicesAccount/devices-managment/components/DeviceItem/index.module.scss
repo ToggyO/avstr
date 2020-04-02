@@ -1,1 +1,5 @@
-//
+@import 'variables';
+
+.row {
+    border-bottom: 1px solid $secondary-light-50;
+}

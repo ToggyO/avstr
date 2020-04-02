@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './index.module.scss';
+
 
 const DeviceItem = ({
     content: {
@@ -10,7 +12,7 @@ const DeviceItem = ({
     },
     number,
 }) => (
-    <tr>
+    <tr className={styles.row}>
         <td>{number}</td>
         <td>{name}</td>
         <td>{serialNumber}</td>

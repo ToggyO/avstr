@@ -9,14 +9,14 @@ import styles from './index.module.scss';
 const DevicesList = ({ devices }) => (
     <table className={styles.table}>
         <thead>
-            <tr className="table-row">
-                <th className="th-date">№</th>
-                <th className="th-sum">Название</th>
-                <th className="th-loadDate">Серийный номер</th>
-                <th className="th-period">Статус</th>
+            <tr className={styles.head}>
+                <th className={styles.num}>№</th>
+                <th className={styles.name}>Название</th>
+                <th className={styles.serial}>Серийный номер</th>
+                <th className={styles.status}>Статус</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody className={styles.body}>
             {devices.map((device, i) => {
                 const { id } = device;
                 return (

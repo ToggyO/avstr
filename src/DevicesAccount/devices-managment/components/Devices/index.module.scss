@@ -1,9 +1,9 @@
-@import 'variables.scss';
+@import 'variables';
 
 .wrap {
     display: flex;
     flex-direction: column;
-    margin-top: 15px;
+    margin-top: 32px;
     margin-bottom: 15px;
 
     @media (min-width: $screen-w--s) {
@@ -27,7 +27,6 @@
 
     .btn {
         align-self: flex-start;
-        margin-top: 15px;
 
         @media (min-width: $screen-w--m) {
             margin-top: 0;
