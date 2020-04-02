@@ -10,7 +10,7 @@ import DevicesList from '../DevicesList';
 import styles from './index.module.scss';
 
 
-const Devices = ({ devices }) => (
+const Devices = ({ devices, addBtnHandler }) => (
     <Container>
         <div className={styles.wrap}>
             <Title
@@ -21,7 +21,7 @@ const Devices = ({ devices }) => (
                 type="main"
                 size="withIcon"
                 className={styles.btn}
-                // onClick={addBtnHandler}
+                onClick={addBtnHandler}
             >
                 <Icon name="plus" />
                 Добавить
@@ -45,6 +45,7 @@ Devices.propTypes = {
             isActive: PropTypes.bool.isRequired,
         }),
     ).isRequired,
+    addBtnHandler: PropTypes.func.isRequired,
 };
 
 export default Devices;
