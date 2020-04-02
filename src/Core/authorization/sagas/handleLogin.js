@@ -6,6 +6,7 @@ import { setErrMessage } from '../action-creators';
 const { REACT_APP_AUTH_API } = process.env;
 
 function* handleLogin({ data }) {
+    localStorage.setItem('userName', data.username);
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));

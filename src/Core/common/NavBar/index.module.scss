@@ -52,4 +52,21 @@
     .btn {
         margin-left: 34px;
     }
+
+    .menu {
+        margin: 0;
+        padding: 0;
+
+        .item {
+            @include caption12Regular;
+
+            margin: 0;
+            padding: 14px 20px 18px 20px;
+            color: $secondary-dark-900;
+
+            &:hover {
+                background: $primary-light-50;
+            }
+        }
+    }
 }
