@@ -7,7 +7,7 @@ const { REACT_APP_API } = process.env;
 
 function* handleDeleteAdvertisement({ data }) {
     try {
-        yield call(api.delete, `${REACT_APP_API}/advertiser-microservice/Advertisements/${data}`);
+        yield call(api.delete, `${REACT_APP_API}/advertiser-microservice/promotions/${data}`);
         yield* handleRequestAdvertisements();
     } catch ({ type }) {
         switch (type) {
