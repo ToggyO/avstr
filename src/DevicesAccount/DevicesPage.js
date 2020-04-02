@@ -14,13 +14,19 @@ class DevicesPage extends Component {
     }
 
     handleAddBtn = () => {
-        history.push('/advertiser/add');
+        history.push('/devices/add');
     };
 
     render() {
         // const { } = this.props;
+        const devices = [{
+            id: 0,
+            name: 'Vasia',
+            serialNumber: '123',
+            isActive: true,
+        }];
         return (
-            <Devices />
+            <Devices devices={devices} />
         );
     }
 }

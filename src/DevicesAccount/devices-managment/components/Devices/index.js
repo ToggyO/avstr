@@ -1,17 +1,16 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Icon } from 'semantic-ui-react';
 
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Button from 'Core/common/Button';
-
+import DevicesList from '../DevicesList';
 
 import styles from './index.module.scss';
 
-const devices = [12];
 
-const Devices = () => (
+const Devices = ({ devices }) => (
     <Container>
         <div className={styles.wrap}>
             <Title
@@ -28,20 +27,24 @@ const Devices = () => (
                 Добавить
             </Button>
         </div>
-        {/* {devices.length
+        {devices.length
             ? (
-                <AdvertisementsList
-                    advertisements={advertisements}
-                    deleteAdvertisement={deleteAdvertisement}
-                />
+                <DevicesList devices={devices} />
             )
-            : ''} */}
+            : ''}
     </Container>
 );
 
 
 Devices.propTypes = {
-    //
+    devices: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number.isRequired,
+            name: PropTypes.string.isRequired,
+            serialNumber: PropTypes.number.isRequired,
+            isActive: PropTypes.bool.isRequired,
+        }),
+    ).isRequired,
 };
 
 export default Devices;
