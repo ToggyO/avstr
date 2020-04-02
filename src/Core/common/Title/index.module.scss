@@ -1,8 +1,11 @@
+@import "variables";
+
 .title {
     margin: 0;
     margin-top: 40px;
-    font-size: 20px;
-    line-height: 28px;
+    color: $secondary-dark-900;
+
+    @include headlineH1bold20;
 
     &:first-child {
         margin-top: 40px;
