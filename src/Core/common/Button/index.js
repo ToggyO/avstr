@@ -10,6 +10,8 @@ const Button = ({
     children,
     type,
     size,
+    icon,
+    withIcon,
     className,
     onClick,
     ...props
@@ -25,8 +27,8 @@ const Button = ({
         [styles.small]: size === 'small',
         [styles.medium]: size === 'medium',
         [styles.large]: size === 'large',
-        [styles.icon]: size === 'icon',
-        [styles.withIcon]: size === 'withIcon',
+        [styles.icon]: icon,
+        [styles.withIcon]: withIcon,
     });
 
     const allClasses = cn(className, styles.btn, typeClass, sizeClass);
@@ -49,6 +51,8 @@ Button.defaultProps = {
     className: '',
     type: 'main',
     size: 'medium',
+    icon: false,
+    withIcon: false,
 };
 
 Button.propTypes = {
@@ -57,6 +61,8 @@ Button.propTypes = {
     size: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func.isRequired,
+    icon: PropTypes.bool,
+    withIcon: PropTypes.bool,
 };
 
 
