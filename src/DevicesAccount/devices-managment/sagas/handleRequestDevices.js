@@ -3,12 +3,12 @@ import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
 import { receiveDevices } from '../action-creators';
 
-const { REACT_APP_API } = process.env;
+const { REACT_APP_DEVICE_URL } = process.env;
 
 
 function* handleRequestDevices() {
     try {
-        const { content } = yield call(api.get, `${REACT_APP_API}/device-management-microservice/devices`);
+        const { content } = yield call(api.get, `${REACT_APP_DEVICE_URL}/device-management-microservice/devices`);
         yield put(receiveDevices(content));
     } catch ({ type }) {
         switch (type) {
