@@ -19,7 +19,7 @@ const Advertisements = ({ addBtnHandler, advertisements, deleteAdvertisement }) 
             />
             <Button
                 type="main"
-                size="withIcon"
+                withIcon
                 className={styles.btn}
                 onClick={addBtnHandler}
             >

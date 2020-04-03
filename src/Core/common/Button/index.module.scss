@@ -2,12 +2,12 @@
 
 .btnWrap {
     .btn {
+        @include body14Medium;
+
         box-sizing: border-box;
         margin: 0;
         color: $secondary-light-10;
         border-radius: $atom;
-
-        @include body14Medium;
 
         &.main {
             @include body14Medium;
