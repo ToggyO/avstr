@@ -17,6 +17,7 @@ const AdvertisementCard = ({
         url,
         creationTime,
         id,
+        isVideo,
     },
     deleteAdvertisement,
 }) => {
@@ -28,6 +29,7 @@ const AdvertisementCard = ({
         <div className={styles.card}>
             <UploadedFileCard
                 pathToImg={url}
+                isVideo={isVideo}
                 partOfAdvertisement
             />
             <div className={styles.description}>
@@ -51,6 +53,7 @@ AdvertisementCard.propTypes = {
         url: PropTypes.string.isRequired,
         creationTime: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
+        isVideo: PropTypes.bool.isRequired,
     }).isRequired,
     deleteAdvertisement: PropTypes.func.isRequired,
 };
