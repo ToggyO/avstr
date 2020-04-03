@@ -21,14 +21,7 @@ class DevicesPage extends Component {
     };
 
     render() {
-        // const { devices } = this.props;
-        const devices = [{
-            id: 0,
-            name: 'Vasia',
-            serialNumber: '123',
-            isActive: true,
-        }];
-
+        const { devices } = this.props;
         return (
             <Devices
                 devices={devices}
@@ -40,18 +33,18 @@ class DevicesPage extends Component {
 
 
 DevicesPage.propTypes = {
-    /* devices: PropTypes.arrayOf(
+    devices: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
             serialNumber: PropTypes.number.isRequired,
             isActive: PropTypes.bool.isRequired,
         }),
-    ).isRequired, */
+    ).isRequired,
     requestDevicesAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ devicesReducer: { devices } }) => ({ devices });
+const mapStateToProps = ({ devicesReducer: { devicesManagementReducer: { devices } } }) => ({ devices });
 
 const mapDispatchToProps = {
     requestDevicesAction: requestDevices,
