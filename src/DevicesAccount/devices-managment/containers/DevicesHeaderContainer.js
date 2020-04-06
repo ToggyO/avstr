@@ -2,35 +2,45 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
+import history from 'Core/history';
 
-import Container from 'Core/common/Container';
-
+import DevicesHeader from '../components/DevicesHeader';
 import { requestDevices } from '../action-creators';
-import DevicesList from '../components/DevicesList';
 
 
-class DevicesListPage extends Component {
+class DevicesHeaderContainer extends Component {
     componentDidMount() {
         const { requestDevicesAction } = this.props;
         requestDevicesAction();
     }
 
+    handleAddBtn = () => {
+        history.push('/devices/add');
+    };
+
+    handleMapBtn = () => {
+        history.push('/devices/main/map');
+    };
+
+    handleListBtn = () => {
+        history.push('/devices/main/list');
+    };
+
     render() {
         const { devices } = this.props;
         return (
-            <Container>
-                {devices.length
-                    ? (
-                        <DevicesList devices={devices} />
-                    )
-                    : ''}
-            </Container>
+            <DevicesHeader
+                text={devices.length ? 'Устройства' : 'Нет зарегистрированных устройств'}
+                handleAddBtn={this.handleAddBtn}
+                handleMapBtn={this.handleMapBtn}
+                handleListBtn={this.handleListBtn}
+            />
         );
     }
 }
 
 
-DevicesListPage.propTypes = {
+DevicesHeaderContainer.propTypes = {
     devices: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -48,4 +58,4 @@ const mapDispatchToProps = {
     requestDevicesAction: requestDevices,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DevicesListPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DevicesHeaderContainer);
