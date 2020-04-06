@@ -14,6 +14,7 @@ const DevicesList = ({ devices }) => (
                 <th className={styles.name}>Название</th>
                 <th className={styles.serial}>Серийный номер</th>
                 <th className={styles.status}>Статус</th>
+                <th>{}</th>
             </tr>
         </thead>
         <tbody className={styles.body}>
@@ -21,9 +22,9 @@ const DevicesList = ({ devices }) => (
                 const { id } = device;
                 return (
                     <DeviceItem
-                        key={id}
                         content={device}
                         number={i}
+                        key={id}
                     />
                 );
             })}

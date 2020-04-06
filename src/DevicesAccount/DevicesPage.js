@@ -17,7 +17,7 @@ class DevicesPage extends Component {
     }
 
     handleAddBtn = () => {
-        history.push('/devices/add');
+        history.push('/devices-add');
     };
 
     handleMapBtn = () => {
