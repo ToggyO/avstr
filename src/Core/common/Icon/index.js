@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import { ReactComponent as IconArrowDown } from './iconTypes/arrow-down.svg';
+import { ReactComponent as IconArrowDownMini } from './iconTypes/arrow-down-mini.svg';
+import { ReactComponent as IconArrowLeft } from './iconTypes/arrow-left.svg';
+import { ReactComponent as IconArrowLeftDouble } from './iconTypes/arrow-left-double.svg';
+import { ReactComponent as IconArrowLeftKeyboard } from './iconTypes/arrow-left-keyboard.svg';
+import { ReactComponent as IconArrowRight } from './iconTypes/arrow-right.svg';
+import { ReactComponent as IconArrowRightDouble } from './iconTypes/arrow-right-double.svg';
+import { ReactComponent as IconArrowRightKeyboard } from './iconTypes/arrow-right-keyboard.svg';
+import { ReactComponent as IconArrowUp } from './iconTypes/arrow-up.svg';
+import { ReactComponent as IconArrowUpMini } from './iconTypes/arrow-up-mini.svg';
 import { ReactComponent as IconAttention } from './iconTypes/attention.svg';
 import { ReactComponent as IconBan } from './iconTypes/ban.svg';
 import { ReactComponent as IconCar } from './iconTypes/car.svg';
@@ -27,6 +37,16 @@ import { ReactComponent as IconUser } from './iconTypes/user.svg';
 import styles from './index.module.scss';
 
 const iconsTypes = {
+    arrowDown: IconArrowDown,
+    arrowDownMini: IconArrowDownMini,
+    arrowLeft: IconArrowLeft,
+    arrowLeftDouble: IconArrowLeftDouble,
+    arrowLeftKeyboard: IconArrowLeftKeyboard,
+    arrowRight: IconArrowRight,
+    arrowRightDouble: IconArrowRightDouble,
+    arrowRightKeyboard: IconArrowRightKeyboard,
+    arrowUp: IconArrowUp,
+    arrowUpMini: IconArrowUpMini,
     attention: IconAttention,
     ban: IconBan,
     car: IconCar,
