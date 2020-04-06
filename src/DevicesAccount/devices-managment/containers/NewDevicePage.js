@@ -1,20 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 // import PropTypes from 'prop-types';
 
-class NewDevicePage extends Component {
-    componentDidMount() {
-        //
-    }
+import { connect } from 'react-redux';
+import NewDevice from '../components/NewDevice';
 
-    render() {
-        return (
-            <div>
-                NewDevicePage
-            </div>
-        );
-    }
-}
 
-NewDevicePage.propTypes = {};
+const NewDevicePage = () => (
+    <NewDevice />
+);
 
-export default NewDevicePage;
+
+NewDevicePage.propTypes = {
+    //
+};
+
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+    //
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewDevicePage);
