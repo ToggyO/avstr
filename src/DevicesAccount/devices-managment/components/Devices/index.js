@@ -10,16 +10,39 @@ import DevicesList from '../DevicesList';
 import styles from './index.module.scss';
 
 
-const Devices = ({ devices, addBtnHandler }) => (
+const Devices = ({
+    devices,
+    addBtnHandler,
+    mapBtnHandler,
+    handleListBtn,
+}) => (
     <Container>
         <div className={styles.wrap}>
             <Title
                 className={styles.title}
                 text={devices.length ? 'Устройства' : 'Нет зарегистрированных устройств'}
             />
+            <div>
+                <Button
+                    type="outline"
+
+                    className={styles.btn}
+                    onClick={handleListBtn}
+                >
+                    Списком
+                </Button>
+                <Button
+                    type="outline"
+                    className={styles.btn}
+                    onClick={mapBtnHandler}
+                >
+                    На карте
+                </Button>
+            </div>
+
             <Button
                 type="main"
-                size="withIcon"
+                withIcon
                 className={styles.btn}
                 onClick={addBtnHandler}
             >
@@ -46,6 +69,8 @@ Devices.propTypes = {
         }),
     ).isRequired,
     addBtnHandler: PropTypes.func.isRequired,
+    mapBtnHandler: PropTypes.func.isRequired,
+    handleListBtn: PropTypes.func.isRequired,
 };
 
 export default Devices;

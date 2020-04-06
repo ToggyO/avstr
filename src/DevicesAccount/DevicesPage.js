@@ -20,12 +20,22 @@ class DevicesPage extends Component {
         history.push('/devices/add');
     };
 
+    handleMapBtn = () => {
+        history.push('/devices/map');
+    };
+
+    handleListBtn = () => {
+        history.push('/devices');
+    };
+
     render() {
         const { devices } = this.props;
         return (
             <Devices
                 devices={devices}
                 addBtnHandler={this.handleAddBtn}
+                mapBtnHandler={this.handleMapBtn}
+                handleListBtn={this.handleListBtn}
             />
         );
     }
