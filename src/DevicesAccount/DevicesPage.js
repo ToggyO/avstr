@@ -37,7 +37,7 @@ DevicesPage.propTypes = {
         PropTypes.shape({
             id: PropTypes.number.isRequired,
             name: PropTypes.string.isRequired,
-            serialNumber: PropTypes.number.isRequired,
+            serialNumber: PropTypes.string.isRequired,
             isActive: PropTypes.bool.isRequired,
         }),
     ).isRequired,
