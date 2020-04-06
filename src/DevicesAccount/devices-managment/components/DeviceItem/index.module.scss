@@ -3,3 +3,11 @@
 .row {
     border-bottom: 1px solid $secondary-light-50;
 }
+
+.active {
+    background: $secondary-light-50;
+}
+
+.icon {
+    cursor: pointer;
+}

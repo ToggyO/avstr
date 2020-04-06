@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import cn from 'classnames';
 import { connect } from 'react-redux';
 
 import { logout } from 'Core/authorization/action-creators';
@@ -40,7 +39,7 @@ const NavBar = ({ logoutAction }) => {
                                 />
                             </NavLink>
                             <NavLink
-                                to="/devices"
+                                to="/devices/main/list"
                             >
                                 <Dropdown.Item
                                     text="Администрирование"

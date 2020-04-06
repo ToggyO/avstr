@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+
+import Icon from 'Core/common/Icon';
 
 import styles from './index.module.scss';
 
@@ -11,14 +14,45 @@ const DeviceItem = ({
         isActive,
     },
     number,
-}) => (
-    <tr className={styles.row}>
-        <td>{number}</td>
-        <td>{name}</td>
-        <td>{serialNumber}</td>
-        <td>{isActive && 'active'}</td>
-    </tr>
-);
+}) => {
+    const [isHighlighted, setIsHighlighted] = useState(false);
+
+    const deviceItemClasses = isHighlighted ? styles.active : '';
+
+    const handleMouseOver = ({ target }) => {
+        if (!target.closest(`.${styles.row}`)) return;
+        setIsHighlighted(true);
+    };
+    const handleMouseOut = ({ relatedTarget }) => {
+        if (relatedTarget.closest(`.${styles.row}.${styles.active}`)) return;
+        setIsHighlighted(false);
+    };
+
+    return (
+        <tr
+            className={cn(styles.row, deviceItemClasses)}
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            onFocus={handleMouseOver}
+            onBlur={handleMouseOut}
+        >
+            <td>{number}</td>
+            <td>{name}</td>
+            <td>{serialNumber}</td>
+            <td>{isActive && 'active'}</td>
+            <td>
+                {isHighlighted
+                    ? (
+                        <Icon
+                            className={styles.icon}
+                            name="arrowRight"
+                        />
+                    )
+                    : ''}
+            </td>
+        </tr>
+    );
+};
 
 
 DeviceItem.propTypes = {

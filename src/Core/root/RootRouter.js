@@ -37,7 +37,6 @@ const RootRouter = () => (
                 component={SilentRenewPage}
             />
 
-
             <Suspense fallback={<Loader />}>
                 <Route
                     path="/token"

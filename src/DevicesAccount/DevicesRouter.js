@@ -7,8 +7,9 @@ import useIsLoggedIn from 'Core/authorization/utils/useIsLoggedIn';
 import Loader from 'Core/common/Loader';
 import NavBar from 'Core/common/NavBar';
 
-const DevicesPage = lazy(() => import('./DevicesPage'));
-// const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
+
+const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRouter'));
+const NewDevicePage = lazy(() => import('./devices-managment/containers/NewDevicePage'));
 
 
 const DevicesRouter = ({ match: { path } }) => {
@@ -22,14 +23,13 @@ const DevicesRouter = ({ match: { path } }) => {
                         <Suspense fallback={<Loader />}>
                             <Switch>
                                 <Route
-                                    exact
-                                    path={`${path}`}
-                                    component={DevicesPage}
+                                    path={`${path}/main`}
+                                    component={DevicesPageRouter}
                                 />
-                                {/* <Route
-                                        path={`${path}/add`}
-                                        component={NewAdvertisementPage}
-                                    /> */}
+                                <Route
+                                    path={`${path}/add`}
+                                    component={NewDevicePage}
+                                />
                             </Switch>
                         </Suspense>
                     </div>
