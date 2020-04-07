@@ -40,7 +40,7 @@ const DeviceItem = ({
             <td>{name}</td>
             <td>{serialNumber}</td>
             <td>{isActive && 'active'}</td>
-            <td>
+            <td className={styles.iconWrap}>
                 {isHighlighted
                     ? (
                         <Icon
