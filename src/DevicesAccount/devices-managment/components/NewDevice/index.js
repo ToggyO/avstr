@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
@@ -11,7 +11,7 @@ import NewDeviceTextItem from '../NewDeviceTextItem';
 import styles from './index.module.scss';
 
 
-const NewDevice = () => {
+const NewDevice = ({ declineBtnHandler }) => {
     const [codeText, setCodeText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
 
@@ -63,7 +63,7 @@ const NewDevice = () => {
                     type="outline"
                     size="medium"
                     className={styles.declineBtn}
-                    // onClick={}
+                    onClick={declineBtnHandler}
                 >
                     Отменить
                 </Button>
@@ -84,6 +84,8 @@ const NewDevice = () => {
 };
 
 
-NewDevice.propTypes = {};
+NewDevice.propTypes = {
+    declineBtnHandler: PropTypes.func.isRequired,
+};
 
 export default NewDevice;
