@@ -1,6 +1,7 @@
 import {
     REQUEST_DEVICES,
     RECEIVE_DEVICES,
+    RECEIVE_PAGINATION,
     REGISTER_DEVICE,
     RECEIVE_DEVICE_STATUS,
     RECEIVE_DEVICE_SERIAL,
@@ -9,6 +10,11 @@ import {
 
 export const requestDevices = (data) => ({
     type: REQUEST_DEVICES,
+    data,
+});
+
+export const receivePagination = (data) => ({
+    type: RECEIVE_PAGINATION,
     data,
 });
 
