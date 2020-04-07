@@ -41,7 +41,7 @@ const api = {
             body: JSON.stringify(body),
             ...options,
         };
-        console.log(headers);
+
         const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(
