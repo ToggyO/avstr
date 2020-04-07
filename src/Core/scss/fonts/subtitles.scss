@@ -12,6 +12,12 @@
     font-weight: 500;
 }
 
+@mixin subtitle16Bold {
+    @include subtitle16Regular;
+
+    font-weight: bold;
+}
+
 @mixin subtitle16RegularUnderline {
     @include subtitle16Regular;
 
