@@ -7,9 +7,11 @@ const headers = {
 const constantHeaders = {};
 const defineConstantHeaders = (defaultOptions) => {
     const options = { ...defaultOptions };
+    const oldHeaders = options.headers;
 
     Object.keys(constantHeaders).forEach((header) => {
         options.headers = {
+            ...oldHeaders,
             [header]: constantHeaders[header],
         };
     });
@@ -39,7 +41,7 @@ const api = {
             body: JSON.stringify(body),
             ...options,
         };
-
+        console.log(headers);
         const opt = defineConstantHeaders(defaultOptions);
 
         return sendRequest(

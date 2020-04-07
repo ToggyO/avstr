@@ -3,8 +3,8 @@ import { RECEIVE_DEVICES, RECEIVE_DEVICE_STATUS, RECEIVE_DEVICE_SERIAL } from '.
 
 const initialState = {
     devices: [],
-    lastDeviceSerialNumber: null,
-    isLastDeviceRegistered: null,
+    lastDeviceSerialNumber: '',
+    lastDeviceStatus: '',
 };
 
 
@@ -15,15 +15,15 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 devices: data,
             };
-        case RECEIVE_DEVICE_STATUS:
-            return {
-                ...state,
-                isLastDeviceRegistered: data,
-            };
         case RECEIVE_DEVICE_SERIAL:
             return {
                 ...state,
-                isLastDeviceRegistered: data,
+                lastDeviceSerialNumber: data,
+            };
+        case RECEIVE_DEVICE_STATUS:
+            return {
+                ...state,
+                lastDeviceStatus: data,
             };
         default:
             return state;

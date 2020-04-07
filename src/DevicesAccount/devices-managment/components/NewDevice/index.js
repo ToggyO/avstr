@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import history from 'Core/history';
+
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Input from 'Core/common/Input';
@@ -11,16 +13,29 @@ import NewDeviceTextItem from '../NewDeviceTextItem';
 import styles from './index.module.scss';
 
 
-const NewDevice = ({ declineBtnHandler }) => {
-    const [codeText, setCodeText] = useState('');
+const NewDevice = ({
+    // deviceSerial,
+    // deviceStatus,
+    registerDevice,
+}) => {
+    const [serialText, setSerialText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
 
     const handleCodeChange = ({ target: { value } }) => {
-        setCodeText(value);
+        setSerialText(value);
     };
-
     const handleDeviceNameChange = ({ target: { value } }) => {
         setDeviceNameText(value);
+    };
+
+    const handleDeclineBtn = () => {
+        history.push('/devices/main/list');
+    };
+    const okBtnHandler = () => {
+        registerDevice({
+            name: deviceNameText,
+            serialNumberCrc: serialText,
+        });
     };
 
     return (
@@ -42,7 +57,7 @@ const NewDevice = ({ declineBtnHandler }) => {
             />
             <Input
                 className={styles.firstInput}
-                value={codeText}
+                value={serialText}
                 onChange={handleCodeChange}
             />
 
@@ -63,7 +78,7 @@ const NewDevice = ({ declineBtnHandler }) => {
                     type="outline"
                     size="medium"
                     className={styles.declineBtn}
-                    onClick={declineBtnHandler}
+                    onClick={handleDeclineBtn}
                 >
                     Отменить
                 </Button>
@@ -71,21 +86,29 @@ const NewDevice = ({ declineBtnHandler }) => {
                 <Button
                     type="main"
                     size="medium"
-                    disabled={!codeText || !deviceNameText}
+                    disabled={!serialText || !deviceNameText}
                     className={styles.okBtn}
-                    // onClick={}
+                    onClick={okBtnHandler}
                 >
                     Далее
                     <Icon name="arrow circle right" />
                 </Button>
+                <span>Подождите, ожидается подключение устройства.</span>
             </div>
         </Container>
     );
 };
 
 
+NewDevice.defaultProps = {
+    // deviceSerial: '',
+    // deviceStatus: false,
+};
+
 NewDevice.propTypes = {
-    declineBtnHandler: PropTypes.func.isRequired,
+    // deviceSerial: PropTypes.string,
+    // deviceStatus: PropTypes.bool,
+    registerDevice: PropTypes.func.isRequired,
 };
 
 export default NewDevice;
