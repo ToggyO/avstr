@@ -15,7 +15,7 @@ import styles from './index.module.scss';
 
 const NewDevice = ({
     // deviceSerial,
-    // deviceStatus,
+    deviceStatus,
     registerDevice,
 }) => {
     const [serialText, setSerialText] = useState('');
@@ -73,7 +73,7 @@ const NewDevice = ({
                 onChange={handleDeviceNameChange}
             />
 
-            <div>
+            <div className={styles.btnsWrap}>
                 <Button
                     type="outline"
                     size="medium"
@@ -93,7 +93,12 @@ const NewDevice = ({
                     Далее
                     <Icon name="arrow circle right" />
                 </Button>
-                <span>Подождите, ожидается подключение устройства.</span>
+                {deviceStatus === 'pending'
+                && (
+                    <div className={styles.status}>
+                        Подождите, ожидается подключение устройства.
+                    </div>
+                )}
             </div>
         </Container>
     );
@@ -102,12 +107,12 @@ const NewDevice = ({
 
 NewDevice.defaultProps = {
     // deviceSerial: '',
-    // deviceStatus: false,
+    deviceStatus: '',
 };
 
 NewDevice.propTypes = {
     // deviceSerial: PropTypes.string,
-    // deviceStatus: PropTypes.bool,
+    deviceStatus: PropTypes.string,
     registerDevice: PropTypes.func.isRequired,
 };
 

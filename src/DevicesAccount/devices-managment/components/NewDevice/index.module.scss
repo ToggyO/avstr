@@ -1,3 +1,5 @@
+@import 'variables';
+
 .newDevice {
     .title {
         margin-bottom: 34px;
@@ -19,11 +21,24 @@
         margin-bottom: 40px;
     }
 
-    .declineBtn {
-        margin-right: 16px;
-    }
+    .btnsWrap {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
 
-    .okBtn {
-        //
+        .declineBtn {
+            margin-right: 16px;
+        }
+
+        .okBtn {
+            margin-right: 16px;
+        }
+
+        .status {
+            @include caption12Regular;
+
+            width: 210px;
+            color: $secondary-main-300;
+        }
     }
 }
