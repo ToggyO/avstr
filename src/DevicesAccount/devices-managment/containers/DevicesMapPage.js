@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 
+import ComponentMap from '../components/Map';
+
 class DevicesMapPage extends Component {
     componentDidMount() {
         //
@@ -8,9 +10,7 @@ class DevicesMapPage extends Component {
 
     render() {
         return (
-            <div>
-                Map
-            </div>
+            <ComponentMap />
         );
     }
 }
