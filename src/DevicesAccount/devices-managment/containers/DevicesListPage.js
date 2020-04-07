@@ -16,12 +16,15 @@ class DevicesListPage extends Component {
     }
 
     render() {
-        const { devices } = this.props;
+        const { pagination, devices } = this.props;
         return (
             <Container>
                 {devices.length
                     ? (
-                        <DevicesList devices={devices} />
+                        <DevicesList
+                            pagination={pagination}
+                            devices={devices}
+                        />
                     )
                     : ''}
             </Container>
@@ -31,6 +34,13 @@ class DevicesListPage extends Component {
 
 
 DevicesListPage.propTypes = {
+    pagination: PropTypes.shape({
+        page: PropTypes.number,
+        total: PropTypes.number,
+        size: PropTypes.number,
+        hasPrevious: PropTypes.bool,
+        hasNext: PropTypes.bool,
+    }).isRequired,
     devices: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -42,7 +52,14 @@ DevicesListPage.propTypes = {
     requestDevicesAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ devicesReducer: { devicesManagementReducer: { devices } } }) => ({ devices });
+const mapStateToProps = ({
+    devicesReducer: {
+        devicesManagementReducer: {
+            pagination,
+            devices,
+        },
+    },
+}) => ({ pagination, devices });
 
 const mapDispatchToProps = {
     requestDevicesAction: requestDevices,
