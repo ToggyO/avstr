@@ -11,11 +11,13 @@ const Popup = ({
     children,
     overlayClassName,
     modalClassName,
-    parent,
     onOverlayClick,
 }) => {
+    const modalRoot = document.querySelector('#modal');
+
     const modalClasses = cn(modalClassName, styles.modal);
     let overlayClasses = cn(overlayClassName, styles.overlay);
+
     if (show) {
         overlayClasses = cn(overlayClasses, styles.open);
     }
@@ -24,7 +26,6 @@ const Popup = ({
         if (!e.target.classList.contains(`${styles.overlay}`)) return;
         onOverlayClick();
     };
-
     return (show
         && ReactDOM.createPortal(
             <div
@@ -36,7 +37,7 @@ const Popup = ({
                     {children}
                 </div>
             </div>,
-            parent,
+            modalRoot,
         ));
 };
 

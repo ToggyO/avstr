@@ -21,7 +21,6 @@ const NewDevice = ({
 }) => {
     const [serialText, setSerialText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
-    const modalContainer = document.querySelector('#modal');
 
     const handleCodeChange = ({ target: { value } }) => {
         setSerialText(value);
@@ -107,7 +106,6 @@ const NewDevice = ({
 
             <Popup
                 show
-                parent={modalContainer}
                 modalClassName={styles.modal}
                 // onOverlayClick={}
             >
