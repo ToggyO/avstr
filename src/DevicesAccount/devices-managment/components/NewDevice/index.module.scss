@@ -42,3 +42,40 @@
         }
     }
 }
+
+.modal {
+    @include body14Regular;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 538px;
+    height: 272px;
+    padding: 48px 60px 40px;
+    color: $secondary-main-300;
+    background: white;
+    border-radius: 6px;
+
+    .modalTitle {
+        @include headlineH1bold20;
+
+        margin-bottom: 12px;
+        color: $secondary-dark-900;
+    }
+
+    .modalList {
+        margin: 0;
+        margin-bottom: 40px;
+        padding: 0;
+        list-style: none;
+    }
+
+    .declineModalBtn {
+        margin-right: 16px;
+    }
+
+    .okModalBtn {
+        //
+    }
+}
