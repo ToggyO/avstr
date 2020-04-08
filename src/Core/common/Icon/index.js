@@ -86,6 +86,7 @@ const Icon = ({
                     className,
                 )
             }
+            name={name}
             {...attrs}
         />
     );
