@@ -16,7 +16,7 @@ class DevicesListPage extends Component {
     }
 
     render() {
-        const { pagination, devices } = this.props;
+        const { pagination, devices, requestDevicesAction } = this.props;
         return (
             <Container>
                 {devices.length
@@ -24,6 +24,7 @@ class DevicesListPage extends Component {
                         <DevicesList
                             pagination={pagination}
                             devices={devices}
+                            requestDevices={requestDevicesAction}
                         />
                     )
                     : ''}

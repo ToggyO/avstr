@@ -7,9 +7,13 @@ import styles from './index.module.scss';
 import DevicesPagination from '../DevicesPagination';
 
 
-const DevicesList = ({ pagination, devices }) => (
+const DevicesList = ({ pagination, devices, requestDevices }) => (
     <>
-        <DevicesPagination pagination={pagination} />
+        <DevicesPagination
+            pagination={pagination}
+            requestDevices={requestDevices}
+        />
+
         <table className={styles.table}>
             <thead>
                 <tr className={styles.head}>
@@ -26,7 +30,7 @@ const DevicesList = ({ pagination, devices }) => (
                     return (
                         <DeviceItem
                             content={device}
-                            number={i}
+                            number={i + 1}
                             key={id}
                         />
                     );
@@ -53,6 +57,7 @@ DevicesList.propTypes = {
             isActive: PropTypes.bool.isRequired,
         }),
     ).isRequired,
+    requestDevices: PropTypes.func.isRequired,
 };
 
 export default DevicesList;

@@ -12,26 +12,63 @@ const DevicesPagination = ({
         hasPrevious,
         hasNext,
     },
-}) => (
-    <div className={styles.wrap}>
-        <div>
-            {`Показано устройств: ${size} из 10000`}
-        </div>
-        <div className={styles.controls}>
-            {hasPrevious && <Icon name="arrowLeft" />}
-            <div className={styles.text}>
-                {`Страница ${page} из ${total}`}
-            </div>
-            {hasNext && (
-                <>
-                    <Icon name="arrowRight" />
-                    <Icon name="arrowRightDouble" />
-                </>
-            )}
+    requestDevices,
+}) => {
+    const handlePageChange = (e) => {
+        const icon = e.target.closest('svg[name]');
+        const name = icon.getAttribute('name');
+        if (!icon || !name) return;
+        switch (name) {
+            case 'arrowLeft':
+                if (!hasPrevious) return;
+                requestDevices({
+                    page: page - 1,
+                });
+                break;
+            case 'arrowRight':
+                if (!hasNext) return;
+                requestDevices({
+                    page: page + 1,
+                });
+                break;
+            case 'arrowRightDouble':
+                if (!hasNext) return;
+                requestDevices({
+                    page: total,
+                });
+                break;
+            default:
+                break;
+        }
+    };
 
+    return (
+        <div className={styles.wrap}>
+            <div>
+                {`Показано устройств: ${size} из 10000`}
+            </div>
+            <div className={styles.controls}>
+                <Icon
+                    name="arrowLeft"
+                    onClick={handlePageChange}
+                />
+
+                <div className={styles.text}>
+                    {`Страница ${page} из ${total}`}
+                </div>
+
+                <Icon
+                    name="arrowRight"
+                    onClick={handlePageChange}
+                />
+                <Icon
+                    name="arrowRightDouble"
+                    onClick={handlePageChange}
+                />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 
 DevicesPagination.propTypes = {
@@ -42,6 +79,7 @@ DevicesPagination.propTypes = {
         hasPrevious: PropTypes.bool.isRequired,
         hasNext: PropTypes.bool.isRequired,
     }).isRequired,
+    requestDevices: PropTypes.func.isRequired,
 };
 
 export default DevicesPagination;
