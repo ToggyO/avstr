@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
+import Container from 'Core/common/Container';
+
 import { requestDevices } from '../action-creators';
-
-
-import Devices from '../components/Devices';
+import DevicesList from '../components/DevicesList';
 
 
 class DevicesListPage extends Component {
@@ -16,20 +16,32 @@ class DevicesListPage extends Component {
     }
 
     render() {
-        const { devices } = this.props;
+        const { pagination, devices, requestDevicesAction } = this.props;
         return (
-            <Devices
-                devices={devices}
-                addBtnHandler={this.handleAddBtn}
-                mapBtnHandler={this.handleMapBtn}
-                handleListBtn={this.handleListBtn}
-            />
+            <Container>
+                {devices.length
+                    ? (
+                        <DevicesList
+                            pagination={pagination}
+                            devices={devices}
+                            requestDevices={requestDevicesAction}
+                        />
+                    )
+                    : ''}
+            </Container>
         );
     }
 }
 
 
 DevicesListPage.propTypes = {
+    pagination: PropTypes.shape({
+        page: PropTypes.number,
+        total: PropTypes.number,
+        size: PropTypes.number,
+        hasPrevious: PropTypes.bool,
+        hasNext: PropTypes.bool,
+    }).isRequired,
     devices: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -41,7 +53,14 @@ DevicesListPage.propTypes = {
     requestDevicesAction: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ devicesReducer: { devicesManagementReducer: { devices } } }) => ({ devices });
+const mapStateToProps = ({
+    devicesReducer: {
+        devicesManagementReducer: {
+            pagination,
+            devices,
+        },
+    },
+}) => ({ pagination, devices });
 
 const mapDispatchToProps = {
     requestDevicesAction: requestDevices,

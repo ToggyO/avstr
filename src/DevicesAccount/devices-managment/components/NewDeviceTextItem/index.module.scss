@@ -1,0 +1,9 @@
+@import "variables";
+
+.wrap {
+    @include body14Regular;
+
+    .number {
+        @include subtitle16Bold;
+    }
+}

@@ -24,7 +24,7 @@ const DeviceItem = ({
         setIsHighlighted(true);
     };
     const handleMouseOut = ({ relatedTarget }) => {
-        if (relatedTarget.closest(`.${styles.row}.${styles.active}`)) return;
+        if (relatedTarget && relatedTarget.closest(`.${styles.row}.${styles.active}`)) return;
         setIsHighlighted(false);
     };
 
@@ -40,7 +40,7 @@ const DeviceItem = ({
             <td>{name}</td>
             <td>{serialNumber}</td>
             <td>{isActive && 'active'}</td>
-            <td>
+            <td className={styles.iconWrap}>
                 {isHighlighted
                     ? (
                         <Icon

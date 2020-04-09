@@ -8,6 +8,13 @@
     background: $secondary-light-50;
 }
 
-.icon {
-    cursor: pointer;
+.iconWrap {
+    position: relative;
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
 }
