@@ -110,10 +110,10 @@ const NewDevice = ({
                 // onOverlayClick={}
             >
                 <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
-                <ul className={styles.modalList}>
-                    <li>1. Проверьте, включено ли устройство.</li>
-                    <li>2. Повторите попытку регистрации.</li>
-                </ul>
+                <ol className={styles.modalList}>
+                    <li>Проверьте, включено ли устройство.</li>
+                    <li>Повторите попытку регистрации.</li>
+                </ol>
                 <div>
                     <Button
                         type="outline"
