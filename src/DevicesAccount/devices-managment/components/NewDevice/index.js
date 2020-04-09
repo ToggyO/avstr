@@ -102,10 +102,11 @@ const NewDevice = ({
                         </div>
                     )}
                 </div>
+                <div>{deviceStatus}</div>
             </Container>
 
             <Popup
-                // show
+                show={deviceStatus === 'notConnected'}
                 modalClassName={styles.modal}
                 // onOverlayClick={}
             >
