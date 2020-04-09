@@ -105,7 +105,7 @@ const NewDevice = ({
             </Container>
 
             <Popup
-                show
+                // show
                 modalClassName={styles.modal}
                 // onOverlayClick={}
             >
