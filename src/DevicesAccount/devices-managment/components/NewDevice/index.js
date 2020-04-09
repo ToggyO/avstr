@@ -18,6 +18,7 @@ const NewDevice = ({
     // deviceSerial,
     deviceStatus,
     registerDevice,
+    changeDeviceStatus,
 }) => {
     const [serialText, setSerialText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
@@ -30,6 +31,7 @@ const NewDevice = ({
     };
 
     const handleDeclineBtn = () => {
+        changeDeviceStatus('');
         history.push('/devices/main/list');
     };
     const okBtnHandler = () => {
@@ -149,6 +151,7 @@ NewDevice.propTypes = {
     // deviceSerial: PropTypes.string,
     deviceStatus: PropTypes.string,
     registerDevice: PropTypes.func.isRequired,
+    changeDeviceStatus: PropTypes.func.isRequired,
 };
 
 export default NewDevice;

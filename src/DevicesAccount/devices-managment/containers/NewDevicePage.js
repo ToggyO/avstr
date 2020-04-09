@@ -2,16 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { registerDevice } from '../action-creators';
+import { registerDevice, changeDeviceStatus } from '../action-creators';
 
 import NewDevice from '../components/NewDevice';
 
 
-const NewDevicePage = ({ registerDeviceAction, lastDeviceSerialNumber, lastDeviceStatus }) => (
+const NewDevicePage = ({
+    lastDeviceSerialNumber,
+    lastDeviceStatus,
+    registerDeviceAction,
+    changeDeviceStatusAction,
+}) => (
     <NewDevice
         deviceSerial={lastDeviceSerialNumber}
         deviceStatus={lastDeviceStatus}
         registerDevice={registerDeviceAction}
+        changeDeviceStatus={changeDeviceStatusAction}
     />
 );
 
@@ -25,6 +31,7 @@ NewDevicePage.propTypes = {
     lastDeviceSerialNumber: PropTypes.string,
     lastDeviceStatus: PropTypes.string,
     registerDeviceAction: PropTypes.func.isRequired,
+    changeDeviceStatusAction: PropTypes.func.isRequired,
 };
 
 
@@ -42,6 +49,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     registerDeviceAction: registerDevice,
+    changeDeviceStatusAction: changeDeviceStatus,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDevicePage);

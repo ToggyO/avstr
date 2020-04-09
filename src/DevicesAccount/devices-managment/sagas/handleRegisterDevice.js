@@ -1,7 +1,7 @@
 import { call, put, delay } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { receiveDeviceStatus, receiveDeviceSerial } from '../action-creators';
+import { changeDeviceStatus, receiveDeviceSerial } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
@@ -9,11 +9,11 @@ const { REACT_APP_DEVICE_API } = process.env;
 function* handleRegisterDevice({ data }) {
     try {
         const registerRes = yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices`, data);
-        yield put(receiveDeviceStatus('pending'));
+        yield put(changeDeviceStatus('pending'));
 
         const { content: { id } } = registerRes;
         if (!id || id <= 0) {
-            yield put(receiveDeviceStatus('notConnected'));
+            yield put(changeDeviceStatus('notConnected'));
             return;
         }
 
@@ -37,9 +37,9 @@ function* handleRegisterDevice({ data }) {
         if (isRegistered) {
             const { serialNumber } = data;
             yield put(receiveDeviceSerial(serialNumber));
-            yield put(receiveDeviceStatus('connected'));
+            yield put(changeDeviceStatus('connected'));
         } else {
-            yield put(receiveDeviceStatus('notConnected'));
+            yield put(changeDeviceStatus('notConnected'));
         }
     } catch ({ type }) {
         switch (type) {

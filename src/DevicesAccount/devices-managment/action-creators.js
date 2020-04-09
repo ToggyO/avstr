@@ -29,7 +29,7 @@ export const registerDevice = (data) => ({
     data,
 });
 
-export const receiveDeviceStatus = (data) => ({
+export const changeDeviceStatus = (data) => ({
     type: RECEIVE_DEVICE_STATUS,
     data,
 });
