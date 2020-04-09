@@ -1,120 +1,113 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map } from 'react-yandex-maps';
+
+import { templateBalloonLayout, createPlaceMark, templateBalloonContent } from './mapExtensions';
 
 import styles from './index.module.scss';
 
 const points = [
     {
+        id: 1,
         title: 'Placemark 1',
         descr: 'Some description',
         coords: [55.831903, 37.411961],
     },
     {
+        id: 2,
         title: 'Placemark 2',
         descr: 'Some description',
         coords: [55.763338, 37.565466],
     },
     {
+        id: 3,
         title: 'Placemark 3',
         descr: 'Some description',
         coords: [55.763338, 37.565466],
     },
     {
+        id: 4,
         title: 'Placemark 4',
         descr: 'Some description',
         coords: [55.744522, 37.616378],
     },
     {
+        id: 5,
         title: 'Placemark 5',
         descr: 'Some description',
         coords: [55.780898, 37.642889],
     },
     {
+        id: 6,
         title: 'Placemark 6',
         descr: 'Some description',
         coords: [55.793559, 37.435983],
     },
     {
+        id: 7,
         title: 'Placemark 7',
         descr: 'Some description',
         coords: [55.800584, 37.675638],
     },
     {
+        id: 8,
         title: 'Placemark 8',
         descr: 'Some description',
         coords: [55.716733, 37.589988],
+    },
+    {
+        id: 9,
+        title: 'Placemark 8',
+        descr: 'Some description',
+        coords: [55.716733, 38.589988],
     },
 ];
 
 const mapState = {
     center: [55.751574, 37.573856],
-    zoom: 12,
+    zoom: 11,
+    controls: [],
 };
 
 class ComponentMap extends React.Component {
-    constructor() {
-        super();
+    setMapInstanceRef = (ref) => {
+        this.map = ref;
+    };
 
-        this.state = {
-            balloonLayoutTemplate: null,
-            balloonContentTemplate: null,
-        };
-    }
+    createCollection = (ymaps) => {
+        const { map } = this;
 
-    createTemplateLayoutFactory = (ymaps) => {
-        const { balloonContentTemplate, balloonLayoutTemplate } = this.state;
+        if (ymaps) {
+            points.forEach((point) => {
+                const collection = new ymaps.GeoObjectCollection(null, { preset: point.id });
+                const placeMark = createPlaceMark(
+                    ymaps,
+                    point,
+                    templateBalloonLayout(ymaps),
+                    templateBalloonContent(ymaps),
+                );
 
-        if (ymaps && !balloonContentTemplate && !balloonLayoutTemplate) {
-            this.setState({
-                balloonLayoutTemplate: ymaps.templateLayoutFactory.createClass(
-                    `<div class="popover top">
-                        <a class="close" href="#">&times;</a>
-                        <div class="popover-inner">
-                            $[[options.contentLayout observeSize minWidth=235 maxWidth=235 maxHeight=350]]
-                        </div>
-                    </div>`,
-                ),
-                balloonContentTemplate: ymaps.templateLayoutFactory.createClass(
-                    '<h3>Hello from custom template!</h3>',
-                ),
+                map.geoObjects.add(collection);
+                collection.add(placeMark);
             });
+
+            map.setBounds(map.geoObjects.getBounds());
         }
     };
 
     render() {
-        const { balloonContentTemplate, balloonLayoutTemplate } = this.state;
-
         return (
             <div className={styles.wrap}>
-                <YMaps>
+                <YMaps query={{ load: 'package.full' }}>
                     <Map
-                        onLoad={this.createTemplateLayoutFactory}
+                        onLoad={this.createCollection}
                         defaultState={mapState}
                         options={{ suppressMapOpenBlock: true }}
                         width="100%"
                         height="100%"
                         modules={['templateLayoutFactory']}
-                    >
-                        {points.map((point) => (
-                            balloonContentTemplate && balloonLayoutTemplate && (
-                                <Placemark
-                                    key={point.title}
-                                    geometry={point.coords}
-                                    options={{
-                                        iconLayout: 'default#image',
-                                        iconImageHref: `${process.env.PUBLIC_URL}/placemark.svg`,
-                                        iconImageSize: [22, 22],
-                                        balloonLayout: balloonLayoutTemplate,
-                                        balloonContentLayout: balloonContentTemplate,
-                                        balloonShadow: false,
-                                        balloonPanelMaxMapArea: 0,
-                                    }}
-                                    modules={['geoObject.addon.balloon']}
-                                />
-                            )
-                        ))}
-                    </Map>
+                        instanceRef={this.setMapInstanceRef}
+                    />
                 </YMaps>
             </div>
         );
