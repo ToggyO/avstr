@@ -56,7 +56,6 @@ Popup.propTypes = {
     overlayClassName: PropTypes.string,
     modalClassName: PropTypes.string,
     onOverlayClick: PropTypes.func,
-    parent: PropTypes.string.isRequired,
 };
 
 export default Popup;

@@ -18,6 +18,8 @@ const NewDevice = ({
     // deviceSerial,
     deviceStatus,
     registerDevice,
+    // changeDeviceStatus,
+    cancelRegistration,
 }) => {
     const [serialText, setSerialText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
@@ -30,6 +32,7 @@ const NewDevice = ({
     };
 
     const handleDeclineBtn = () => {
+        cancelRegistration();
         history.push('/devices/main/list');
     };
     const okBtnHandler = () => {
@@ -102,10 +105,11 @@ const NewDevice = ({
                         </div>
                     )}
                 </div>
+                <div>{deviceStatus}</div>
             </Container>
 
             <Popup
-                show
+                show={deviceStatus === 'notConnected'}
                 modalClassName={styles.modal}
                 // onOverlayClick={}
             >
@@ -148,6 +152,8 @@ NewDevice.propTypes = {
     // deviceSerial: PropTypes.string,
     deviceStatus: PropTypes.string,
     registerDevice: PropTypes.func.isRequired,
+    // changeDeviceStatus: PropTypes.func.isRequired,
+    cancelRegistration: PropTypes.func.isRequired,
 };
 
 export default NewDevice;
