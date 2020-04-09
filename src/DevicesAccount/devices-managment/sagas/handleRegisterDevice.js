@@ -1,9 +1,67 @@
-import { call, put, delay } from 'redux-saga/effects';
+import {
+    call,
+    put,
+    delay,
+    fork,
+    take,
+    cancel,
+    cancelled,
+} from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { changeDeviceStatus, receiveDeviceSerial } from '../action-creators';
+import { changeDeviceStatus } from '../action-creators';
+import { CANCEL_DEVICE_REGISTRATION } from '../actions';
 
 const { REACT_APP_DEVICE_API } = process.env;
+
+function* requestDeviceStatus(deviceId) {
+    try {
+        let isRequestsFinish = false;
+        let isRegistered = false;
+
+        setTimeout(() => {
+            isRequestsFinish = true;
+        }, 10000);
+
+        while (!isRequestsFinish) {
+            const statusRes = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/Devices/IsConnected/${deviceId}`);
+            const { content: { isConnected } } = statusRes;
+            if (isConnected) {
+                isRequestsFinish = true;
+                isRegistered = isConnected;
+            }
+            yield delay(1000);
+        }
+
+        if (isRegistered) {
+            yield put(changeDeviceStatus('connected'));
+        } else {
+            yield put(changeDeviceStatus('notConnected'));
+        }
+    } catch ({ type }) {
+        switch (type) {
+            case 'AuthorizationError':
+                window.location = '/';
+                break;
+            case 'ServerError':
+                alert('На сервере произошла ошибка.');
+                break;
+            default:
+                break;
+        }
+    } finally {
+        if (yield cancelled()) {
+            yield put(changeDeviceStatus(''));
+        }
+    }
+}
+
+
+function* handleDeviceStatusRequest(deviceId) {
+    const requestStatusChain = yield fork(requestDeviceStatus, deviceId);
+    yield take(CANCEL_DEVICE_REGISTRATION);
+    yield cancel(requestStatusChain);
+}
 
 
 function* handleRegisterDevice({ data }) {
@@ -16,31 +74,7 @@ function* handleRegisterDevice({ data }) {
             yield put(changeDeviceStatus('notConnected'));
             return;
         }
-
-
-        let isRequestsFinish = false;
-        let isRegistered = false;
-        setTimeout(() => {
-            isRequestsFinish = true;
-        }, 10000);
-
-        while (!isRequestsFinish) {
-            const statusRes = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/Devices/IsConnected/${id}`);
-            const { content: { isConnected } } = statusRes;
-            if (isConnected) {
-                isRequestsFinish = true;
-                isRegistered = isConnected;
-            }
-            yield delay(1000);
-        }
-
-        if (isRegistered) {
-            const { serialNumber } = data;
-            yield put(receiveDeviceSerial(serialNumber));
-            yield put(changeDeviceStatus('connected'));
-        } else {
-            yield put(changeDeviceStatus('notConnected'));
-        }
+        yield* handleDeviceStatusRequest(id);
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
