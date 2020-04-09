@@ -24,9 +24,13 @@ stable:deploy:
   stage: deploy
   only: 
     - master
-  image: 
-    name: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:19
-    entrypoint: [""]
+  image: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:47
+  before_script:
+    - yc config profile create deployment
+    - yc config set service-account-key $SERVICE_ACCOUNT_FILE
+    - yc config set folder-id $FOLDER_ID
+    - yc config set cloud-id $CLOUD_ID
+    - yc managed-kubernetes cluster get-credentials $CLUSTER_NAME --external
   script:
     - kubectl create secret docker-registry --dry-run=true gitlab-auth --docker-server="https://registry-gitlab.smarthead.ru" --docker-username="gitlab-ci-token" --docker-password="$CI_JOB_TOKEN" -o yaml | kubectl apply -f -
     - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | kubectl apply -f -
