@@ -6,7 +6,8 @@ import Title from 'Core/common/Title';
 import Input from 'Core/common/Input';
 import Button from 'Core/common/Button';
 import Popup from 'Core/common/Popup';
-import { Icon } from 'semantic-ui-react';
+import Icon from 'Core/common/Icon';
+import { Icon as SemanticIcon } from 'semantic-ui-react';
 import NewDeviceTextItem from '../NewDeviceTextItem';
 
 import styles from './index.module.scss';
@@ -84,7 +85,6 @@ const NewDeviceForm = ({
                     </div>
                 )}
             </div>
-            <div>{deviceStatus}</div>
         </Container>
 
         <Popup
@@ -92,6 +92,11 @@ const NewDeviceForm = ({
             modalClassName={styles.modal}
             onOverlayClick={handleClosePopup}
         >
+            <Icon
+                name="closeCross"
+                className={styles.closeIcon}
+                onClick={handleClosePopup}
+            />
             <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
             <ol className={styles.modalList}>
                 <li>Проверьте, включено ли устройство.</li>
@@ -113,7 +118,7 @@ const NewDeviceForm = ({
                     onClick={popupOkBtnHandler}
                 >
                     Повторить
-                    <Icon name="arrow circle right" />
+                    <SemanticIcon name="arrow circle right" />
                 </Button>
                 {deviceStatus === 'popupPending'
                 && (

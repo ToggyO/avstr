@@ -52,7 +52,7 @@ const iconsTypes = {
     ban: IconBan,
     car: IconCar,
     checkMark: IconCheckMark,
-    close: IconCloseCross,
+    closeCross: IconCloseCross,
     collapse: IconCollapse,
     errorTriangle: IconErrorTriangle,
     eye: IconEye,

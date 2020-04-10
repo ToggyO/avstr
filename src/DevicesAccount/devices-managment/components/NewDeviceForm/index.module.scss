@@ -46,6 +46,7 @@
 .modal {
     @include body14Regular;
 
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,6 +57,14 @@
     color: $secondary-main-300;
     background: white;
     border-radius: 6px;
+
+    .closeIcon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        fill: $secondary-light-200;
+        cursor: pointer;
+    }
 
     .modalTitle {
         @include headlineH1bold20;
