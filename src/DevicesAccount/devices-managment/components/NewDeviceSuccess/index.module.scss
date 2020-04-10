@@ -1,0 +1,37 @@
+@import "variables";
+
+$circleDiameter: 104px;
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 128px);
+
+    @media (min-width: $screen-w--s) {
+        height: calc(100vh - 64px);
+    }
+
+    .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: $circleDiameter;
+        height: $circleDiameter;
+        margin-bottom: 32px;
+        background: $positive-light-50;
+        border-radius: 50%;
+
+        .icon {
+            fill: $positive-main-500;
+        }
+    }
+
+    .description {
+        @include headlineH1bold20;
+
+        margin-bottom: 40px;
+    }
+}

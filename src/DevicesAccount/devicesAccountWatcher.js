@@ -1,8 +1,10 @@
 import { all } from 'redux-saga/effects';
-// import advertisingManagementWatcher from './advertising-management/sagas/advertisingManagementWatcher';
+import devicesManagementWatcher from './devices-managment/sagas/devicesManagementWatcher';
+import devicesMonitoringWatcher from './devices-monitoring/sagas/devicesMonitoringWatcher';
 
 export default function* devicesAccountWatcher() {
     yield all([
-        //
+        devicesManagementWatcher(),
+        devicesMonitoringWatcher(),
     ]);
 }

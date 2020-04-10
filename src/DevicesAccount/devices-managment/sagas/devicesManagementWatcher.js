@@ -5,7 +5,7 @@ import handleRequestDevices from './handleRequestDevices';
 import handleRegisterDevice from './handleRegisterDevice';
 import handleRequestLocation from './handleRequestLocation';
 
-export default function* advertisingManagementWatcher() {
+export default function* devicesManagementWatcher() {
     yield takeLatest(REQUEST_DEVICES, handleRequestDevices);
     yield takeLatest(REGISTER_DEVICE, handleRegisterDevice);
     yield takeLatest(RECEIVE_DEVICES_LOCATION, handleRequestLocation);

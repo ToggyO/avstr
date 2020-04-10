@@ -8,14 +8,12 @@ import NewDevice from '../components/NewDevice';
 
 
 const NewDevicePage = ({
-    lastDeviceSerialNumber,
     lastDeviceStatus,
     registerDeviceAction,
     changeDeviceStatusAction,
     cancelDeviceRegistrationAction,
 }) => (
     <NewDevice
-        deviceSerial={lastDeviceSerialNumber}
         deviceStatus={lastDeviceStatus}
         registerDevice={registerDeviceAction}
         changeDeviceStatus={changeDeviceStatusAction}
@@ -25,12 +23,10 @@ const NewDevicePage = ({
 
 
 NewDevicePage.defaultProps = {
-    lastDeviceSerialNumber: '',
     lastDeviceStatus: '',
 };
 
 NewDevicePage.propTypes = {
-    lastDeviceSerialNumber: PropTypes.string,
     lastDeviceStatus: PropTypes.string,
     registerDeviceAction: PropTypes.func.isRequired,
     changeDeviceStatusAction: PropTypes.func.isRequired,
@@ -41,12 +37,10 @@ NewDevicePage.propTypes = {
 const mapStateToProps = ({
     devicesReducer: {
         devicesManagementReducer: {
-            lastDeviceSerialNumber,
             lastDeviceStatus,
         },
     },
 }) => ({
-    lastDeviceSerialNumber,
     lastDeviceStatus,
 });
 

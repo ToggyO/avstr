@@ -3,7 +3,6 @@ import {
     RECEIVE_PAGINATION,
     RECEIVE_DEVICES_LOCATION,
     RECEIVE_DEVICE_STATUS,
-    RECEIVE_DEVICE_SERIAL,
 } from './actions';
 
 
@@ -37,11 +36,6 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 lastDeviceStatus: data,
-            };
-        case RECEIVE_DEVICE_SERIAL:
-            return {
-                ...state,
-                lastDeviceSerialNumber: data,
             };
         default:
             return state;
