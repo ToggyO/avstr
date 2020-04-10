@@ -4,7 +4,6 @@ import {
     RECEIVE_PAGINATION,
     REGISTER_DEVICE,
     RECEIVE_DEVICE_STATUS,
-    RECEIVE_DEVICE_SERIAL,
     CANCEL_DEVICE_REGISTRATION,
 } from './actions';
 
@@ -32,11 +31,6 @@ export const registerDevice = (data) => ({
 
 export const changeDeviceStatus = (data) => ({
     type: RECEIVE_DEVICE_STATUS,
-    data,
-});
-
-export const receiveDeviceSerial = (data) => ({
-    type: RECEIVE_DEVICE_SERIAL,
     data,
 });
 
