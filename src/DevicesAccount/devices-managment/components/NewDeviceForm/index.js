@@ -5,12 +5,11 @@ import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Input from 'Core/common/Input';
 import Button from 'Core/common/Button';
-import Popup from 'Core/common/Popup';
-import Icon from 'Core/common/Icon';
 import { Icon as SemanticIcon } from 'semantic-ui-react';
 import NewDeviceTextItem from '../NewDeviceTextItem';
 
 import styles from './index.module.scss';
+import NewDeviceErrPopup from '../NewDeviceErrPopup';
 
 const NewDeviceForm = ({
     deviceStatus,
@@ -76,7 +75,7 @@ const NewDeviceForm = ({
                     onClick={okBtnHandler}
                 >
                     Далее
-                    <Icon name="arrow circle right" />
+                    <SemanticIcon name="arrow circle right" />
                 </Button>
                 {deviceStatus === 'pending'
                 && (
@@ -87,47 +86,13 @@ const NewDeviceForm = ({
             </div>
         </Container>
 
-        <Popup
+        <NewDeviceErrPopup
             show={deviceStatus === 'notConnected' || deviceStatus === 'popupPending'}
-            modalClassName={styles.modal}
-            onOverlayClick={handleClosePopup}
-        >
-            <Icon
-                name="closeCross"
-                className={styles.closeIcon}
-                onClick={handleClosePopup}
-            />
-            <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
-            <ol className={styles.modalList}>
-                <li>Проверьте, включено ли устройство.</li>
-                <li>Повторите попытку регистрации.</li>
-            </ol>
-            <div>
-                <Button
-                    type="outline"
-                    size="medium"
-                    className={styles.declineModalBtn}
-                    onClick={handleDeclineBtn}
-                >
-                    Отменить
-                </Button>
-                <Button
-                    type="main"
-                    size="medium"
-                    className={styles.okModalBtn}
-                    onClick={popupOkBtnHandler}
-                >
-                    Повторить
-                    <SemanticIcon name="arrow circle right" />
-                </Button>
-                {deviceStatus === 'popupPending'
-                && (
-                    <div className={styles.status}>
-                        Подождите, ожидается подключение устройства.
-                    </div>
-                )}
-            </div>
-        </Popup>
+            deviceStatus={deviceStatus}
+            handleClosePopup={handleClosePopup}
+            handleDeclineBtn={handleDeclineBtn}
+            popupOkBtnHandler={popupOkBtnHandler}
+        />
     </>
 );
 
