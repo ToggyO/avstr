@@ -6,6 +6,7 @@ import history from 'Core/history';
 import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Input from 'Core/common/Input';
+import ErrMessage from 'Core/common/ErrorMessage';
 import Button from 'Core/common/Button';
 import { Icon as SemanticIcon } from 'semantic-ui-react';
 import NewDeviceTextItem from '../NewDeviceTextItem';
@@ -22,15 +23,29 @@ const NewDeviceForm = ({
     cancelRegistration,
 }) => {
     const [codeText, setCodeText] = useState('');
+    const [showCodeError, setShowCodeError] = useState(false);
     const [deviceNameText, setDeviceNameText] = useState('');
     const [showWarningPopup, setShowWarningPopup] = useState(false);
 
-    const handleCodeChange = ({ target: { value } }) => {
-        setCodeText(value);
-    };
     const handleDeviceNameChange = ({ target: { value } }) => {
         setDeviceNameText(value);
     };
+
+    const checkCode = (code) => {
+        if (/^\d{9}$/.test(code)) {
+            setShowCodeError(false);
+        } else {
+            setShowCodeError(true);
+        }
+    };
+    const handleInputCodeBlur = () => {
+        checkCode(codeText);
+    };
+    const handleCodeChange = ({ target: { value } }) => {
+        if (value.length > 8) checkCode(value);
+        setCodeText(value);
+    };
+
     const handleDeclineBtn = () => {
         setShowWarningPopup(true);
     };
@@ -83,11 +98,23 @@ const NewDeviceForm = ({
                     text="Введите код с экрана устройства"
                     className={styles.otherPoints}
                 />
-                <Input
-                    className={styles.firstInput}
-                    value={codeText}
-                    onChange={handleCodeChange}
-                />
+                <div>
+                    <Input
+                        placeholder="123456789"
+                        className={styles.firstInput}
+                        value={codeText}
+                        error={showCodeError}
+                        onChange={handleCodeChange}
+                        onBlur={handleInputCodeBlur}
+                    />
+                    {showCodeError
+                    && (
+                        <ErrMessage
+                            text="Код должен состоять из 9 цифр"
+                            className={styles.err}
+                        />
+                    )}
+                </div>
 
                 <NewDeviceTextItem
                     number={3}
@@ -114,7 +141,7 @@ const NewDeviceForm = ({
                     <Button
                         type="main"
                         size="medium"
-                        disabled={!codeText || !deviceNameText}
+                        disabled={showCodeError || !deviceNameText}
                         className={styles.okBtn}
                         onClick={okBtnHandler}
                     >
