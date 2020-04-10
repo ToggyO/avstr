@@ -7,7 +7,6 @@
     "@testing-library/react": "^9.4.1",
     "@testing-library/user-event": "^7.2.1",
     "classnames": "^2.2.6",
-    "env-cmd": "^10.1.0",
     "miragejs": "^0.1.35",
     "node-sass": "^4.13.1",
     "oidc-client": "^1.10.1",

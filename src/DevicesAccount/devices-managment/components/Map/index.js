@@ -2,7 +2,11 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 import { YMaps, Map } from 'react-yandex-maps';
 
-import { templateBalloonLayout, createPlaceMark, templateBalloonContent } from './mapExtensions';
+import {
+    createBalloonLayoutTemplate,
+    createPlaceMark,
+    createBalloonContentTemplate,
+} from './mapExtensions';
 
 import styles from './index.module.scss';
 
@@ -69,22 +73,23 @@ const mapState = {
     controls: [],
 };
 
-class ComponentMap extends React.Component {
-    setMapInstanceRef = (ref) => {
-        this.map = ref;
+
+const ComponentMap = () => {
+    let map = null;
+
+    const setMapInstanceRef = (ref) => {
+        map = ref;
     };
 
-    createCollection = (ymaps) => {
-        const { map } = this;
-
+    const createCollection = (ymaps) => {
         if (ymaps) {
             points.forEach((point) => {
                 const collection = new ymaps.GeoObjectCollection(null, { preset: point.id });
                 const placeMark = createPlaceMark(
                     ymaps,
                     point,
-                    templateBalloonLayout(ymaps),
-                    templateBalloonContent(ymaps),
+                    createBalloonLayoutTemplate(ymaps),
+                    createBalloonContentTemplate(ymaps),
                 );
 
                 map.geoObjects.add(collection);
@@ -95,24 +100,22 @@ class ComponentMap extends React.Component {
         }
     };
 
-    render() {
-        return (
-            <div className={styles.wrap}>
-                <YMaps query={{ load: 'package.full' }}>
-                    <Map
-                        onLoad={this.createCollection}
-                        defaultState={mapState}
-                        options={{ suppressMapOpenBlock: true }}
-                        width="100%"
-                        height="100%"
-                        modules={['templateLayoutFactory']}
-                        instanceRef={this.setMapInstanceRef}
-                    />
-                </YMaps>
-            </div>
-        );
-    }
-}
+    return (
+        <div className={styles.wrap}>
+            <YMaps query={{ load: 'package.full' }}>
+                <Map
+                    onLoad={createCollection}
+                    defaultState={mapState}
+                    options={{ suppressMapOpenBlock: true }}
+                    width="100%"
+                    height="100%"
+                    modules={['templateLayoutFactory']}
+                    instanceRef={setMapInstanceRef}
+                />
+            </YMaps>
+        </div>
+    );
+};
 
 ComponentMap.propTypes = {
 

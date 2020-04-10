@@ -1,10 +1,10 @@
 import styles from './index.module.scss';
 
-const publicUrl = process.env.PUBLIC_URL;
+const { PUBLIC_URL } = process.env;
 
-const iconPlacemark = `${publicUrl}/placemark.svg`;
-const iconClose = `${publicUrl}/close-cross.svg`;
-const iconArrow = `${publicUrl}/arrow-right-keyboard.svg`;
+const iconPlacemark = `${PUBLIC_URL}/placemark.svg`;
+const iconClose = `${PUBLIC_URL}/close-cross.svg`;
+const iconArrow = `${PUBLIC_URL}/arrow-right-keyboard.svg`;
 
 export const createPlaceMark = (ymaps, point, balloonLayout, balloonContent) => (
     new ymaps.Placemark(point.coords, {}, {
@@ -41,7 +41,7 @@ const templateMethodClose = (self) => {
     self.events.fire('userclose');
 };
 
-export const templateBalloonLayout = (ymaps) => (
+export const createBalloonLayoutTemplate = (ymaps) => (
     ymaps.templateLayoutFactory.createClass(
         `<div data-block="balloon" class=${styles.balloon}>
             <i
@@ -67,7 +67,7 @@ export const templateBalloonLayout = (ymaps) => (
     )
 );
 
-export const templateBalloonContent = (ymaps) => (
+export const createBalloonContentTemplate = (ymaps) => (
     ymaps.templateLayoutFactory.createClass(
         `<div class=${styles.info}>
             <div class=${styles.name}>Белая Lada Granta</div>
