@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
 
 import ComponentMap from '../components/Map';
+import { receiveDevicesLocation } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
-        //
+        const { requestDevicesLocationAction } = this.props;
+
+        requestDevicesLocationAction();
     }
 
     render() {
@@ -15,6 +20,20 @@ class DevicesMapPage extends Component {
     }
 }
 
-DevicesMapPage.propTypes = {};
+DevicesMapPage.propTypes = {
+    requestDevicesLocationAction: PropTypes.func.isRequired,
+};
 
-export default DevicesMapPage;
+const mapStateToProps = ({
+    devicesReducer: {
+        devicesManagementReducer: {
+            locationInfo,
+        },
+    },
+}) => ({ locationInfo });
+
+const mapDispatchToProps = {
+    requestDevicesLocationAction: receiveDevicesLocation,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DevicesMapPage);

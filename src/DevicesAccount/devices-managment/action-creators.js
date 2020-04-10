@@ -2,6 +2,7 @@ import {
     REQUEST_DEVICES,
     RECEIVE_DEVICES,
     RECEIVE_PAGINATION,
+    RECEIVE_DEVICES_LOCATION,
     REGISTER_DEVICE,
     RECEIVE_DEVICE_STATUS,
     RECEIVE_DEVICE_SERIAL,
@@ -21,6 +22,11 @@ export const receivePagination = (data) => ({
 
 export const receiveDevices = (data) => ({
     type: RECEIVE_DEVICES,
+    data,
+});
+
+export const receiveDevicesLocation = (data) => ({
+    type: RECEIVE_DEVICES_LOCATION,
     data,
 });
 
