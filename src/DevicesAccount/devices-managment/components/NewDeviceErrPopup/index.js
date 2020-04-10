@@ -11,19 +11,19 @@ import styles from './index.module.scss';
 const NewDeviceErrPopup = ({
     show,
     deviceStatus,
-    handleClosePopup,
-    handleDeclineBtn,
-    popupOkBtnHandler,
+    closeBtnHandler,
+    declineBtnHandler,
+    okBtnHandler,
 }) => (
     <Popup
         show={show}
         modalClassName={styles.modal}
-        onOverlayClick={handleClosePopup}
+        onOverlayClick={closeBtnHandler}
     >
         <Icon
             name="closeCross"
             className={styles.closeIcon}
-            onClick={handleClosePopup}
+            onClick={closeBtnHandler}
         />
         <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
         <ol className={styles.modalList}>
@@ -35,7 +35,7 @@ const NewDeviceErrPopup = ({
                 type="outline"
                 size="medium"
                 className={styles.declineModalBtn}
-                onClick={handleDeclineBtn}
+                onClick={declineBtnHandler}
             >
                 Отменить
             </Button>
@@ -43,7 +43,7 @@ const NewDeviceErrPopup = ({
                 type="main"
                 size="medium"
                 className={styles.okModalBtn}
-                onClick={popupOkBtnHandler}
+                onClick={okBtnHandler}
             >
                 Повторить
                 <SemanticIcon name="arrow circle right" />
@@ -62,9 +62,9 @@ const NewDeviceErrPopup = ({
 NewDeviceErrPopup.propTypes = {
     show: PropTypes.bool.isRequired,
     deviceStatus: PropTypes.string.isRequired,
-    handleClosePopup: PropTypes.func.isRequired,
-    handleDeclineBtn: PropTypes.func.isRequired,
-    popupOkBtnHandler: PropTypes.func.isRequired,
+    closeBtnHandler: PropTypes.func.isRequired,
+    declineBtnHandler: PropTypes.func.isRequired,
+    okBtnHandler: PropTypes.func.isRequired,
 };
 
 export default NewDeviceErrPopup;
