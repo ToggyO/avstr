@@ -82,78 +82,80 @@ const NewDeviceForm = ({
 
     return (
         <>
-            <Container className={styles.newDevice}>
-                <Title
-                    text="Новое устройство"
-                    className={styles.title}
-                />
-                <NewDeviceTextItem
-                    number={1}
-                    text="Включите устройство"
-                    className={styles.firstPoint}
-                />
-
-                <NewDeviceTextItem
-                    number={2}
-                    text="Введите код с экрана устройства"
-                    className={styles.otherPoints}
-                />
-                <div className={styles.codeInputWrap}>
-                    <Input
-                        placeholder="123456789"
-                        className={styles.codeInput}
-                        value={codeText}
-                        error={showCodeError}
-                        onChange={handleCodeChange}
-                        onBlur={handleInputCodeBlur}
+            <Container>
+                <div className={styles.wrap}>
+                    <Title
+                        text="Новое устройство"
+                        className={styles.title}
                     />
-                    {showCodeError
-                    && (
-                        <ErrMessage
-                            text="Код должен состоять из 9 цифр"
-                            className={styles.err}
+                    <NewDeviceTextItem
+                        number={1}
+                        text="Включите устройство"
+                        className={styles.firstPoint}
+                    />
+
+                    <NewDeviceTextItem
+                        number={2}
+                        text="Введите код с экрана устройства"
+                        className={styles.otherPoints}
+                    />
+                    <div className={styles.codeInputWrap}>
+                        <Input
+                            placeholder="123456789"
+                            className={styles.codeInput}
+                            value={codeText}
+                            error={showCodeError}
+                            onChange={handleCodeChange}
+                            onBlur={handleInputCodeBlur}
                         />
-                    )}
-                </div>
+                        {showCodeError
+                        && (
+                            <ErrMessage
+                                text="Код должен состоять из 9 цифр"
+                                className={styles.err}
+                            />
+                        )}
+                    </div>
 
-                <NewDeviceTextItem
-                    number={3}
-                    text="Придумайте название"
-                    className={styles.otherPoints}
-                />
-                <Input
-                    placeholder="Устройство 1"
-                    className={styles.nameInput}
-                    value={deviceNameText}
-                    onChange={handleDeviceNameChange}
-                />
+                    <NewDeviceTextItem
+                        number={3}
+                        text="Придумайте название"
+                        className={styles.otherPoints}
+                    />
+                    <Input
+                        placeholder="Устройство 1"
+                        className={styles.nameInput}
+                        value={deviceNameText}
+                        onChange={handleDeviceNameChange}
+                    />
 
-                <div className={styles.btnsWrap}>
-                    <Button
-                        type="outline"
-                        size="medium"
-                        className={styles.declineBtn}
-                        onClick={handleDeclineBtn}
-                    >
-                        Отменить
-                    </Button>
+                    <div className={styles.btnsWrap}>
+                        <Button
+                            type="outline"
+                            size="medium"
+                            className={styles.declineBtn}
+                            onClick={handleDeclineBtn}
+                        >
+                            Отменить
+                        </Button>
 
-                    <Button
-                        type="main"
-                        size="medium"
-                        disabled={showCodeError || !deviceNameText}
-                        className={styles.okBtn}
-                        onClick={okBtnHandler}
-                    >
-                        Далее
-                        <SemanticIcon name="arrow circle right" />
-                    </Button>
-                    {deviceStatus === 'pending'
-                    && (
-                        <div className={styles.status}>
-                            Подождите, ожидается подключение устройства.
-                        </div>
-                    )}
+                        <Button
+                            type="main"
+                            size="medium"
+                            disabled={showCodeError || !deviceNameText}
+                            className={styles.okBtn}
+                            onClick={okBtnHandler}
+                        >
+                            Далее
+                            <SemanticIcon name="arrow circle right" />
+                        </Button>
+                        {deviceStatus === 'pending'
+                        && (
+                            <div className={styles.status}>
+                                Подождите, ожидается подключение устройства.
+                            </div>
+                        )}
+                    </div>
                 </div>
             </Container>
 
