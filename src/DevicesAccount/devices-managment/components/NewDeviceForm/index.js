@@ -57,7 +57,7 @@ const NewDeviceForm = ({
     };
 
 
-    const popupOkBtnHandler = () => {
+    const retryRegistration = () => {
         registerDevice({
             name: deviceNameText,
             serialNumberCrc: codeText,
@@ -135,7 +135,7 @@ const NewDeviceForm = ({
                 deviceStatus={deviceStatus}
                 closeBtnHandler={handleCloseErrPopup}
                 declineBtnHandler={declineRegistration}
-                okBtnHandler={popupOkBtnHandler}
+                okBtnHandler={retryRegistration}
             />
 
             <NewDeviceWarnPopup
