@@ -13,11 +13,21 @@
         margin-bottom: 10px;
     }
 
-    .firstInput {
-        margin-bottom: 26px;
+    .codeInputWrap {
+        position: relative;
+        height: 80px;
+
+        .codeInput {
+            margin-bottom: 26px;
+        }
+
+        .err {
+            position: absolute;
+            bottom: 0;
+        }
     }
 
-    .secondInput {
+    .nameInput {
         margin-bottom: 40px;
     }
 

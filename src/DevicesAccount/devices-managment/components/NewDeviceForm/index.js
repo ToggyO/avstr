@@ -98,10 +98,10 @@ const NewDeviceForm = ({
                     text="Введите код с экрана устройства"
                     className={styles.otherPoints}
                 />
-                <div>
+                <div className={styles.codeInputWrap}>
                     <Input
                         placeholder="123456789"
-                        className={styles.firstInput}
+                        className={styles.codeInput}
                         value={codeText}
                         error={showCodeError}
                         onChange={handleCodeChange}
@@ -123,7 +123,7 @@ const NewDeviceForm = ({
                 />
                 <Input
                     placeholder="Устройство 1"
-                    className={styles.secondInput}
+                    className={styles.nameInput}
                     value={deviceNameText}
                     onChange={handleDeviceNameChange}
                 />
