@@ -1,9 +1,4 @@
-import {
-    call,
-    cancelled,
-    delay,
-    put,
-} from 'redux-saga/effects';
+import { call, delay, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
 import { changeDeviceStatus } from '../action-creators';
@@ -44,10 +39,6 @@ function* requestDeviceStatus(deviceId) {
                 break;
             default:
                 break;
-        }
-    } finally {
-        if (yield cancelled()) {
-            yield put(changeDeviceStatus(''));
         }
     }
 }

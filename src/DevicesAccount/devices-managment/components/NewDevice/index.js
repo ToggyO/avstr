@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
@@ -15,10 +15,9 @@ import styles from './index.module.scss';
 
 
 const NewDevice = ({
-    // deviceSerial,
     deviceStatus,
     registerDevice,
-    // changeDeviceStatus,
+    changeDeviceStatus,
     cancelRegistration,
 }) => {
     const [serialText, setSerialText] = useState('');
@@ -32,6 +31,7 @@ const NewDevice = ({
     };
 
     const handleDeclineBtn = () => {
+        changeDeviceStatus();
         cancelRegistration();
         history.push('/devices/main/list');
     };
@@ -41,6 +41,11 @@ const NewDevice = ({
             serialNumberCrc: serialText,
         });
     };
+
+    useEffect(() => {
+        if (deviceStatus !== 'connected') return;
+        history.push('/devices/add/success');
+    }, []);
 
     return (
         <>
@@ -144,15 +149,13 @@ const NewDevice = ({
 
 
 NewDevice.defaultProps = {
-    // deviceSerial: '',
     deviceStatus: '',
 };
 
 NewDevice.propTypes = {
-    // deviceSerial: PropTypes.string,
     deviceStatus: PropTypes.string,
     registerDevice: PropTypes.func.isRequired,
-    // changeDeviceStatus: PropTypes.func.isRequired,
+    changeDeviceStatus: PropTypes.func.isRequired,
     cancelRegistration: PropTypes.func.isRequired,
 };
 
