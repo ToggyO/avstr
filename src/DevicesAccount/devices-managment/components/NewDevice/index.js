@@ -3,15 +3,7 @@ import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 
-import Container from 'Core/common/Container';
-import Title from 'Core/common/Title';
-import Input from 'Core/common/Input';
-import Button from 'Core/common/Button';
-import Popup from 'Core/common/Popup';
-import { Icon } from 'semantic-ui-react';
-import NewDeviceTextItem from '../NewDeviceTextItem';
-
-import styles from './index.module.scss';
+import NewDeviceForm from '../NewDeviceForm';
 import NewDeviceSuccess from '../NewDeviceSuccess';
 
 
@@ -21,11 +13,11 @@ const NewDevice = ({
     changeDeviceStatus,
     cancelRegistration,
 }) => {
-    const [serialText, setSerialText] = useState('');
+    const [codeText, setCodeText] = useState('');
     const [deviceNameText, setDeviceNameText] = useState('');
 
     const handleCodeChange = ({ target: { value } }) => {
-        setSerialText(value);
+        setCodeText(value);
     };
     const handleDeviceNameChange = ({ target: { value } }) => {
         setDeviceNameText(value);
@@ -44,7 +36,7 @@ const NewDevice = ({
     const okBtnHandler = () => {
         registerDevice({
             name: deviceNameText,
-            serialNumberCrc: serialText,
+            serialNumberCrc: codeText,
             isFromPopup: false,
         });
     };
@@ -52,7 +44,7 @@ const NewDevice = ({
     const popupOkBtnHandler = () => {
         registerDevice({
             name: deviceNameText,
-            serialNumberCrc: serialText,
+            serialNumberCrc: codeText,
             isFromPopup: true,
         });
     };
@@ -61,108 +53,17 @@ const NewDevice = ({
         deviceStatus === 'connected'
             ? <NewDeviceSuccess changeDeviceStatus={changeDeviceStatus} />
             : (
-                <>
-                    <Container className={styles.newDevice}>
-                        <Title
-                            text="Новое устройство"
-                            className={styles.title}
-                        />
-                        <NewDeviceTextItem
-                            number={1}
-                            text="Включите устройство"
-                            className={styles.firstPoint}
-                        />
-
-                        <NewDeviceTextItem
-                            number={2}
-                            text="Введите код с экрана устройства"
-                            className={styles.otherPoints}
-                        />
-                        <Input
-                            className={styles.firstInput}
-                            value={serialText}
-                            onChange={handleCodeChange}
-                        />
-
-                        <NewDeviceTextItem
-                            number={3}
-                            text="Придумайте название"
-                            className={styles.otherPoints}
-                        />
-                        <Input
-                            placeholder="Устройство 1"
-                            className={styles.secondInput}
-                            value={deviceNameText}
-                            onChange={handleDeviceNameChange}
-                        />
-
-                        <div className={styles.btnsWrap}>
-                            <Button
-                                type="outline"
-                                size="medium"
-                                className={styles.declineBtn}
-                                onClick={handleDeclineBtn}
-                            >
-                                Отменить
-                            </Button>
-
-                            <Button
-                                type="main"
-                                size="medium"
-                                disabled={!serialText || !deviceNameText}
-                                className={styles.okBtn}
-                                onClick={okBtnHandler}
-                            >
-                                Далее
-                                <Icon name="arrow circle right" />
-                            </Button>
-                            {deviceStatus === 'pending'
-                            && (
-                                <div className={styles.status}>
-                                    Подождите, ожидается подключение устройства.
-                                </div>
-                            )}
-                        </div>
-                        <div>{deviceStatus}</div>
-                    </Container>
-
-                    <Popup
-                        show={deviceStatus === 'notConnected' || deviceStatus === 'popupPending'}
-                        modalClassName={styles.modal}
-                        onOverlayClick={handleClosePopup}
-                    >
-                        <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
-                        <ol className={styles.modalList}>
-                            <li>Проверьте, включено ли устройство.</li>
-                            <li>Повторите попытку регистрации.</li>
-                        </ol>
-                        <div>
-                            <Button
-                                type="outline"
-                                size="medium"
-                                className={styles.declineModalBtn}
-                                onClick={handleDeclineBtn}
-                            >
-                                Отменить
-                            </Button>
-                            <Button
-                                type="main"
-                                size="medium"
-                                className={styles.okModalBtn}
-                                onClick={popupOkBtnHandler}
-                            >
-                                Повторить
-                                <Icon name="arrow circle right" />
-                            </Button>
-                            {deviceStatus === 'popupPending'
-                            && (
-                                <div className={styles.status}>
-                                    Подождите, ожидается подключение устройства.
-                                </div>
-                            )}
-                        </div>
-                    </Popup>
-                </>
+                <NewDeviceForm
+                    deviceStatus={deviceStatus}
+                    code={codeText}
+                    deviceName={deviceNameText}
+                    handleCodeChange={handleCodeChange}
+                    handleDeviceNameChange={handleDeviceNameChange}
+                    handleDeclineBtn={handleDeclineBtn}
+                    okBtnHandler={okBtnHandler}
+                    handleClosePopup={handleClosePopup}
+                    popupOkBtnHandler={popupOkBtnHandler}
+                />
             )
     );
 };
