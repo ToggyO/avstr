@@ -33,13 +33,13 @@
         .okBtn {
             margin-right: 16px;
         }
+    }
 
-        .status {
-            @include caption12Regular;
+    .status {
+        @include caption12Regular;
 
-            width: 210px;
-            color: $secondary-main-300;
-        }
+        width: 210px;
+        color: $secondary-main-300;
     }
 }
 

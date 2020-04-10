@@ -30,15 +30,29 @@ const NewDevice = ({
         setDeviceNameText(value);
     };
 
-    const handleDeclineBtn = () => {
+    const handleClosePopup = () => {
         changeDeviceStatus();
         cancelRegistration();
+    };
+
+    const handleDeclineBtn = () => {
+        handleClosePopup();
         history.push('/devices/main/list');
     };
+
     const okBtnHandler = () => {
         registerDevice({
             name: deviceNameText,
             serialNumberCrc: serialText,
+            isFromPopup: false,
+        });
+    };
+
+    const popupOkBtnHandler = () => {
+        registerDevice({
+            name: deviceNameText,
+            serialNumberCrc: serialText,
+            isFromPopup: true,
         });
     };
 
@@ -114,9 +128,9 @@ const NewDevice = ({
             </Container>
 
             <Popup
-                show={deviceStatus === 'notConnected'}
+                show={deviceStatus === 'notConnected' || deviceStatus === 'popupPending'}
                 modalClassName={styles.modal}
-                // onOverlayClick={}
+                onOverlayClick={handleClosePopup}
             >
                 <div className={styles.modalTitle}>Ошибка регистрации устройства</div>
                 <ol className={styles.modalList}>
@@ -136,11 +150,17 @@ const NewDevice = ({
                         type="main"
                         size="medium"
                         className={styles.okModalBtn}
-                        onClick={okBtnHandler}
+                        onClick={popupOkBtnHandler}
                     >
                         Повторить
                         <Icon name="arrow circle right" />
                     </Button>
+                    {deviceStatus === 'popupPending'
+                    && (
+                        <div className={styles.status}>
+                            Подождите, ожидается подключение устройства.
+                        </div>
+                    )}
                 </div>
             </Popup>
         </>
