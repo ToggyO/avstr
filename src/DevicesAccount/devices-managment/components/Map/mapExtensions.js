@@ -41,6 +41,23 @@ const templateMethodClose = (self) => {
     self.events.fire('userclose');
 };
 
+const templateGetShape = (self, ymaps) => {
+    const { element } = self;
+    const {
+        offsetTop,
+        offsetLeft,
+        offsetWidth,
+        offsetHeight,
+    } = element;
+
+    return new ymaps.shape.Rectangle(new ymaps.geometry.pixel.Rectangle([
+        [offsetLeft, offsetTop], [
+            offsetLeft + offsetWidth,
+            offsetTop + offsetHeight + 40,
+        ],
+    ]));
+};
+
 export const createBalloonLayoutTemplate = (ymaps) => (
     ymaps.templateLayoutFactory.createClass(
         `<div data-block="balloon" class=${styles.balloon}>
@@ -62,6 +79,10 @@ export const createBalloonLayoutTemplate = (ymaps) => (
 
             onCloseClick() {
                 templateMethodClose(this);
+            },
+
+            getShape() {
+                return templateGetShape(this, ymaps);
             },
         },
     )
