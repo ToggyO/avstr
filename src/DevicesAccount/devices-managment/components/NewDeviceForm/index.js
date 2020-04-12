@@ -49,7 +49,7 @@ const NewDeviceForm = ({
     const handleDeclineBtn = () => {
         setShowWarningPopup(true);
     };
-    const okBtnHandler = () => {
+    const handleOkBtn = () => {
         registerDevice({
             name: deviceNameText,
             serialNumberCrc: codeText,
@@ -144,7 +144,7 @@ const NewDeviceForm = ({
                             size="medium"
                             disabled={showCodeError || !deviceNameText || deviceStatus === 'pending'}
                             className={styles.okBtn}
-                            onClick={okBtnHandler}
+                            onClick={handleOkBtn}
                         >
                             Далее
                             <SemanticIcon name="arrow circle right" />
