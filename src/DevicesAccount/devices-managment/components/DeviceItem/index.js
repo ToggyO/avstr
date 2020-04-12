@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import isEqual from 'Core/utils/isEqual';
 import Icon from 'Core/common/Icon';
 
 import styles from './index.module.scss';
@@ -65,4 +66,6 @@ DeviceItem.propTypes = {
     number: PropTypes.number.isRequired,
 };
 
-export default DeviceItem;
+export default memo(DeviceItem, ({ content }, nextProps) => (
+    isEqual(content, nextProps.content)
+));
