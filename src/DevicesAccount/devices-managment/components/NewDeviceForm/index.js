@@ -142,7 +142,7 @@ const NewDeviceForm = ({
                         <Button
                             type="main"
                             size="medium"
-                            disabled={showCodeError || !deviceNameText}
+                            disabled={showCodeError || !deviceNameText || deviceStatus === 'pending'}
                             className={styles.okBtn}
                             onClick={okBtnHandler}
                         >

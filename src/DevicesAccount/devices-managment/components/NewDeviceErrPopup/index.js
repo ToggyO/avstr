@@ -40,6 +40,7 @@ const NewDeviceErrPopup = ({
                 Отменить
             </Button>
             <Button
+                disabled={deviceStatus === 'popupPending'}
                 type="main"
                 size="medium"
                 className={styles.okModalBtn}
