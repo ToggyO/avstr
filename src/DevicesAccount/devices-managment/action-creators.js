@@ -2,7 +2,8 @@ import {
     REQUEST_DEVICES,
     RECEIVE_DEVICES,
     RECEIVE_PAGINATION,
-    RECEIVE_DEVICES_LOCATION,
+    REQUEST_GEO_POINTS,
+    RECEIVE_GEO_POINTS,
     REGISTER_DEVICE,
     RECEIVE_DEVICE_STATUS,
     CANCEL_DEVICE_REGISTRATION,
@@ -24,8 +25,13 @@ export const receiveDevices = (data) => ({
     data,
 });
 
-export const receiveDevicesLocation = (data) => ({
-    type: RECEIVE_DEVICES_LOCATION,
+export const requestGeoPoints = (data) => ({
+    type: REQUEST_GEO_POINTS,
+    data,
+});
+
+export const receiveGeoPoints = (data) => ({
+    type: RECEIVE_GEO_POINTS,
     data,
 });
 

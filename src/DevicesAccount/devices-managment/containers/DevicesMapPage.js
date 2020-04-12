@@ -4,36 +4,45 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ComponentMap from '../components/Map';
-import { receiveDevicesLocation } from '../action-creators';
+import { requestGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
-        const { requestDevicesLocationAction } = this.props;
+        const { requestGeoPointsAction } = this.props;
 
-        requestDevicesLocationAction();
+        requestGeoPointsAction(77);
     }
 
     render() {
+        const { geoPoints } = this.props;
+
         return (
-            <ComponentMap />
+            <ComponentMap geoPoints={geoPoints} />
         );
     }
 }
 
 DevicesMapPage.propTypes = {
-    requestDevicesLocationAction: PropTypes.func.isRequired,
+    requestGeoPointsAction: PropTypes.func.isRequired,
+    geoPoints: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            descr: PropTypes.string.isRequired,
+            coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        }),
+    ).isRequired,
 };
 
 const mapStateToProps = ({
     devicesReducer: {
         devicesManagementReducer: {
-            locationInfo,
+            geoPoints,
         },
     },
-}) => ({ locationInfo });
+}) => ({ geoPoints });
 
 const mapDispatchToProps = {
-    requestDevicesLocationAction: receiveDevicesLocation,
+    requestGeoPointsAction: requestGeoPoints,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicesMapPage);

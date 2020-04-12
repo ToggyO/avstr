@@ -1,7 +1,7 @@
 import {
     RECEIVE_DEVICES,
     RECEIVE_PAGINATION,
-    RECEIVE_DEVICES_LOCATION,
+    RECEIVE_GEO_POINTS,
     RECEIVE_DEVICE_STATUS,
 } from './actions';
 
@@ -9,7 +9,7 @@ import {
 const initialState = {
     pagination: {},
     devices: [],
-    locationInfo: {},
+    geoPoints: [],
     lastDeviceStatus: '',
     lastDeviceSerialNumber: '',
 };
@@ -27,10 +27,10 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 devices: data,
             };
-        case RECEIVE_DEVICES_LOCATION:
+        case RECEIVE_GEO_POINTS:
             return {
                 ...state,
-                locationInfo: data,
+                geoPoints: data,
             };
         case RECEIVE_DEVICE_STATUS:
             return {
