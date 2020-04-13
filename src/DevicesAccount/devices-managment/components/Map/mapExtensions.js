@@ -42,13 +42,14 @@ const templateMethodClose = (self) => {
 };
 
 const templateGetShape = (self, ymaps) => {
-    const { element } = self;
     const {
-        offsetTop,
-        offsetLeft,
-        offsetWidth,
-        offsetHeight,
-    } = element;
+        element: {
+            offsetTop,
+            offsetLeft,
+            offsetWidth,
+            offsetHeight,
+        },
+    } = self;
 
     return new ymaps.shape.Rectangle(new ymaps.geometry.pixel.Rectangle([
         [offsetLeft, offsetTop], [
