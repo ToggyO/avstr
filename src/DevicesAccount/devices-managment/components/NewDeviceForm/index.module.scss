@@ -1,6 +1,20 @@
 @import 'variables';
 
-.newDevice {
+.wrap {
+    width: 280px;
+
+    @media (min-width: $screen-w--xxs) {
+        width: 300px;
+    }
+
+    @media (min-width: $screen-w--xs) {
+        width: 348px;
+    }
+
+    @media (min-width: $screen-w--s) {
+        width: 716px;
+    }
+
     .title {
         margin-bottom: 34px;
     }
@@ -13,11 +27,21 @@
         margin-bottom: 10px;
     }
 
-    .firstInput {
-        margin-bottom: 26px;
+    .codeInputWrap {
+        position: relative;
+        height: 80px;
+
+        .codeInput {
+            margin-bottom: 26px;
+        }
+
+        .err {
+            position: absolute;
+            bottom: 0;
+        }
     }
 
-    .secondInput {
+    .nameInput {
         margin-bottom: 40px;
     }
 
@@ -33,48 +57,12 @@
         .okBtn {
             margin-right: 16px;
         }
-    }
-}
 
-.status {
-    @include caption12Regular;
+        .status {
+            @include caption12Regular;
 
-    width: 210px;
-    color: $secondary-main-300;
-}
-
-.modal {
-    @include body14Regular;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    width: 538px;
-    height: 272px;
-    padding: 48px 60px 40px;
-    color: $secondary-main-300;
-    background: white;
-    border-radius: 6px;
-
-    .modalTitle {
-        @include headlineH1bold20;
-
-        margin-bottom: 12px;
-        color: $secondary-dark-900;
-    }
-
-    .modalList {
-        margin: 0;
-        margin-bottom: 40px;
-        padding-left: 15px;
-    }
-
-    .declineModalBtn {
-        margin-right: 16px;
-    }
-
-    .okModalBtn {
-        //
+            width: 210px;
+            color: $secondary-main-300;
+        }
     }
 }

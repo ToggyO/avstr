@@ -7,8 +7,8 @@ $inputPaddingTop: 14px;
     position: relative;
 
     .input {
-        display: inline-block;
         box-sizing: border-box;
+        display: inline-block;
         width: 100%;
         height: $inputHeight;
         padding: $inputPaddingTop 5*$atom;
