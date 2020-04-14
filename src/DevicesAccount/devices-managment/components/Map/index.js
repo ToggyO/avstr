@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { Component, memo } from 'react';
 import PropTypes from 'prop-types';
 import { YMaps, Map as YaMap } from 'react-yandex-maps';
+
+import isEqual from 'Core/utils/isEqual';
 
 import {
     createBalloonLayoutTemplate,
@@ -16,50 +18,101 @@ const mapState = {
     controls: [],
 };
 
+class Map extends Component {
+    constructor(props) {
+        super(props);
 
-const Map = ({ geoPoints }) => {
-    let map = null;
+        this.ymaps = null;
+    }
 
-    const setMapInstanceRef = (ref) => {
-        map = ref;
+    componentDidUpdate(prevProps) {
+        const { geoPoints } = this.props;
+
+        if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length > 0) {
+            console.log('prevProps', prevProps);
+            this.updateCollection();
+        }
+    }
+
+    setMapInstanceRef = (ref) => {
+        this.map = ref;
     };
 
-    const createCollection = (ymaps) => {
+    loadYaMap = (ymaps) => {
         if (ymaps) {
-            geoPoints.forEach((point) => {
-                const { descr } = point;
-                const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
-                const placeMark = createPlaceMark(
-                    ymaps,
-                    point,
-                    createBalloonLayoutTemplate(ymaps),
-                    createBalloonContentTemplate(ymaps, point),
-                );
+            this.ymaps = ymaps;
 
-                map.geoObjects.add(collection);
-                collection.add(placeMark);
-            });
-
-            map.setBounds(map.geoObjects.getBounds());
+            this.initCollection();
         }
     };
 
-    return (
-        <div className={styles.wrap}>
-            <YMaps query={{ load: 'package.full' }}>
-                <YaMap
-                    onLoad={createCollection}
-                    defaultState={mapState}
-                    options={{ suppressMapOpenBlock: true }}
-                    width="100%"
-                    height="100%"
-                    modules={['templateLayoutFactory']}
-                    instanceRef={setMapInstanceRef}
-                />
-            </YMaps>
-        </div>
-    );
-};
+    createCollection = () => {
+        const { map, ymaps } = this;
+        const { geoPoints } = this.props;
+
+        geoPoints.forEach((point) => {
+            const { descr } = point;
+            const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
+            const placeMark = createPlaceMark(
+                ymaps,
+                point,
+                createBalloonLayoutTemplate(ymaps),
+                createBalloonContentTemplate(ymaps, point),
+            );
+
+            map.geoObjects.add(collection);
+            collection.add(placeMark);
+        });
+
+        // const openBalloon = map.balloon.getData();
+
+        // openBalloon.open();
+
+        /* map.geoObjects.each((geoObject) => {
+
+        }); */
+        // console.log(placeMark);
+
+        // map.balloon.open(geoPoints[0].coords);
+
+        // map.balloon.open(map.getCenter());
+    };
+
+    initCollection = () => {
+        const { map } = this;
+
+        this.createCollection();
+        map.setBounds(map.geoObjects.getBounds());
+    };
+
+    updateCollection = () => {
+        const { map } = this;
+
+        console.log(map.balloon.isOpen());
+
+        map.geoObjects.removeAll();
+        this.createCollection();
+    };
+
+    render() {
+        return (
+            <div className={styles.wrap}>
+                <div id="yaMap" />
+                <YMaps query={{ load: 'package.full' }}>
+                    <YaMap
+                        onLoad={this.loadYaMap}
+                        defaultState={mapState}
+                        options={{ suppressMapOpenBlock: true }}
+                        width="100%"
+                        height="100%"
+                        modules={['templateLayoutFactory']}
+                        instanceRef={this.setMapInstanceRef}
+                    />
+                </YMaps>
+            </div>
+        );
+    }
+}
 
 Map.propTypes = {
     geoPoints: PropTypes.arrayOf(
@@ -71,4 +124,6 @@ Map.propTypes = {
     ).isRequired,
 };
 
-export default Map;
+export default memo(Map, ({ geoPoints }, nextProps) => (
+    isEqual(geoPoints, nextProps.geoPoints)
+));
