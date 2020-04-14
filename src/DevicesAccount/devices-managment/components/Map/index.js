@@ -40,7 +40,9 @@ const Map = ({ geoPoints }) => {
                 collection.add(placeMark);
             });
 
-            map.setBounds(map.geoObjects.getBounds());
+            map.setBounds(map.geoObjects.getBounds(), {
+                checkZoomRange: true,
+            });
         }
     };
 
