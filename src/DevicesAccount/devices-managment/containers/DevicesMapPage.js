@@ -6,10 +6,11 @@ import { connect } from 'react-redux';
 import Map from '../components/Map';
 import { requestGeoPoints } from '../action-creators';
 
+import styles from './DevicesMapPageStyles.module.scss';
+
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
-
         requestGeoPointsAction();
     }
 
@@ -17,7 +18,10 @@ class DevicesMapPage extends Component {
         const { geoPoints } = this.props;
 
         return (
-            <Map geoPoints={geoPoints} />
+            <Map
+                className={styles.map}
+                geoPoints={geoPoints}
+            />
         );
     }
 }

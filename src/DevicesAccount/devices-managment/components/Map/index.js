@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+
 import { YMaps, Map as YaMap } from 'react-yandex-maps';
 
 import {
@@ -17,7 +19,7 @@ const mapState = {
 };
 
 
-const Map = ({ geoPoints }) => {
+const Map = ({ geoPoints, className }) => {
     let map = null;
 
     const setMapInstanceRef = (ref) => {
@@ -47,7 +49,7 @@ const Map = ({ geoPoints }) => {
     };
 
     return (
-        <div className={styles.wrap}>
+        <div className={cn(styles.wrap, className)}>
             <YMaps query={{ load: 'package.full' }}>
                 <YaMap
                     onLoad={createCollection}
@@ -63,7 +65,13 @@ const Map = ({ geoPoints }) => {
     );
 };
 
+
+Map.defaultProps = {
+    className: '',
+};
+
 Map.propTypes = {
+    className: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,

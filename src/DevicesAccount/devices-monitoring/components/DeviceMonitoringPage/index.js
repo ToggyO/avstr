@@ -1,16 +1,19 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 
-import styles from './index.module.scss';
+import Map from 'DevicesAccount/devices-managment/components/Map';
 import DeviceMonitoringCard from '../DeviceMonitoringCard';
-// import Map from '../../../devices-managment/components/Map';
+
+import styles from './index.module.scss';
 
 
 const DeviceMonitoringPage = () => (
     <div className={styles.wrap}>
         <DeviceMonitoringCard />
-        <div className={styles.map}>Map</div>
-        {/* <Map /> */}
+        <Map
+            className={styles.map}
+            geoPoints={[]}
+        />
     </div>
 );
 
