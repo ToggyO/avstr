@@ -1,0 +1,14 @@
+@import "variables";
+
+.wrap {
+    display: flex;
+    height: calc(100vh - 128px);
+
+    @media (min-width: $screen-w--s) {
+        height: calc(100vw - 64px);
+    }
+
+    .map {
+        flex: 0 0 auto;
+    }
+}
