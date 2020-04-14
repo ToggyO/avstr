@@ -14,10 +14,13 @@
         border-radius: 0 0 6px 6px;
 
         .title {
+            overflow: hidden;
             margin-bottom: 8px;
             font-size: 16px;
             line-height: 24px;
             font-weight: bold;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         .time {

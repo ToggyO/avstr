@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-// import TestComponent from '../TestComponent';
-// import Logo from '../Logo/Logo';
+
 import AuthForm from '../AuthForm';
 
 import styles from './index.module.scss';
