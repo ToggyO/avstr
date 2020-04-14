@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Map from '../components/Map';
-import { requestGeoPoints } from '../action-creators';
+import Map from '../../components/Map';
+import { requestGeoPoints } from '../../action-creators';
 
-import styles from './DevicesMapPageStyles.module.scss';
+import styles from './index.module.scss';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
