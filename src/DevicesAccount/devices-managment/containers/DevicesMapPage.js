@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import ComponentMap from '../components/Map';
+import Map from '../components/Map';
 import { requestGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
 
-        requestGeoPointsAction(77);
+        requestGeoPointsAction();
     }
 
     render() {
         const { geoPoints } = this.props;
 
         return (
-            <ComponentMap geoPoints={geoPoints} />
+            <Map geoPoints={geoPoints} />
         );
     }
 }

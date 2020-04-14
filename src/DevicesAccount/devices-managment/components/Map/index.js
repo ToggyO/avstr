@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { YMaps, Map } from 'react-yandex-maps';
+import { YMaps, Map as YaMap } from 'react-yandex-maps';
 
 import {
     createBalloonLayoutTemplate,
@@ -17,7 +17,7 @@ const mapState = {
 };
 
 
-const ComponentMap = ({ geoPoints }) => {
+const Map = ({ geoPoints }) => {
     let map = null;
 
     const setMapInstanceRef = (ref) => {
@@ -27,7 +27,8 @@ const ComponentMap = ({ geoPoints }) => {
     const createCollection = (ymaps) => {
         if (ymaps) {
             geoPoints.forEach((point) => {
-                const collection = new ymaps.GeoObjectCollection(null, { preset: point.descr });
+                const { descr } = point;
+                const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
                 const placeMark = createPlaceMark(
                     ymaps,
                     point,
@@ -46,7 +47,7 @@ const ComponentMap = ({ geoPoints }) => {
     return (
         <div className={styles.wrap}>
             <YMaps query={{ load: 'package.full' }}>
-                <Map
+                <YaMap
                     onLoad={createCollection}
                     defaultState={mapState}
                     options={{ suppressMapOpenBlock: true }}
@@ -60,7 +61,7 @@ const ComponentMap = ({ geoPoints }) => {
     );
 };
 
-ComponentMap.propTypes = {
+Map.propTypes = {
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -70,4 +71,4 @@ ComponentMap.propTypes = {
     ).isRequired,
 };
 
-export default ComponentMap;
+export default Map;
