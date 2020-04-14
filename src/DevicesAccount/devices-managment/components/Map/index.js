@@ -25,7 +25,7 @@ const Map = ({ geoPoints }) => {
     };
 
     const createCollection = (ymaps) => {
-        if (ymaps) {
+        if (ymaps && geoPoints.length) {
             geoPoints.forEach((point) => {
                 const { descr } = point;
                 const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
