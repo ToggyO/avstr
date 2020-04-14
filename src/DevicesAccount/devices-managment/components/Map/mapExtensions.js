@@ -67,11 +67,11 @@ export const createBalloonLayoutTemplate = (ymaps) => (
     )
 );
 
-export const createBalloonContentTemplate = (ymaps) => (
+export const createBalloonContentTemplate = (ymaps, { title, descr }) => (
     ymaps.templateLayoutFactory.createClass(
         `<div class=${styles.info}>
-            <div class=${styles.name}>Белая Lada Granta</div>
-            <div class=${styles.id}>12i3jhdasdgasdt8321321347234723471</div>
+            <div class=${styles.name}>${title}</div>
+            <div class=${styles.id}>${descr}</div>
             <a href="#" class=${styles.link}>
                 Мониторинг устройства
                 <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
