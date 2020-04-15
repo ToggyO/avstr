@@ -17,7 +17,13 @@ class DevicesMapPage extends Component {
         const { geoPoints } = this.props;
 
         return (
-            <Map geoPoints={geoPoints} />
+            <div>
+                {geoPoints.length
+                    ? (
+                        <Map geoPoints={geoPoints} />
+                    )
+                    : null}
+            </div>
         );
     }
 }
