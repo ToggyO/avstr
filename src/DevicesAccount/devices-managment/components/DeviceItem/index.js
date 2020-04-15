@@ -2,6 +2,8 @@ import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
+import history from 'Core/history';
+
 import isEqual from 'Core/utils/isEqual';
 import Icon from 'Core/common/Icon';
 
@@ -13,6 +15,7 @@ const DeviceItem = ({
         name,
         serialNumber,
         isActive,
+        id,
     },
     number,
 }) => {
@@ -27,6 +30,10 @@ const DeviceItem = ({
     const handleMouseOut = ({ relatedTarget }) => {
         if (relatedTarget && relatedTarget.closest(`.${styles.row}.${styles.active}`)) return;
         setIsHighlighted(false);
+    };
+
+    const handleArrowClick = () => {
+        history.push(`/devices/monitoring/${id}`);
     };
 
     return (
@@ -47,6 +54,7 @@ const DeviceItem = ({
                         <Icon
                             className={styles.icon}
                             name="arrowRight"
+                            onClick={handleArrowClick}
                         />
                     )
                     : ''}

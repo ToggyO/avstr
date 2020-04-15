@@ -1,0 +1,52 @@
+@import "variables";
+
+.wrap {
+    flex: 0 0 466px;
+    box-sizing: border-box;
+    height: 100%;
+    padding: 23px 91px 0 98px;
+
+    .backBtn {
+        margin-bottom: 38px;
+    }
+
+    .divider {
+        overflow: visible;
+        width: 100%;
+        height: 1px;
+        margin: 0;
+        background: $secondary-light-50;
+        border: none;
+    }
+
+    .title {
+        @include headlineH1bold20;
+
+        margin-bottom: 32px;
+        color: $secondary-dark-900;
+    }
+
+    .description {
+        @include caption12Regular;
+
+        margin-top: 16px;
+        margin-bottom: 8px;
+        color: $secondary-main-300;
+    }
+
+    .value {
+        @include body14Regular;
+
+        margin-bottom: 20px;
+        color: $secondary-dark-900;
+    }
+
+    .stopAdvBtn {
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .deactivateBtn {
+        margin-top: 12px;
+    }
+}

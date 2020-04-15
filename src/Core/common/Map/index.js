@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+
 import { YMaps, Map as YaMap } from 'react-yandex-maps';
 
 import isEqual from 'Core/utils/isEqual';
@@ -97,15 +99,17 @@ class Map extends PureComponent {
     };
 
     render() {
+        const { wrapClassName, mapWidth, mapHeight } = this.props;
+
         return (
-            <div className={styles.wrap}>
+            <div className={cn(styles.wrap, wrapClassName)}>
                 <YMaps query={{ load: 'package.full' }}>
                     <YaMap
                         onLoad={this.loadYaMap}
                         defaultState={mapState}
                         options={{ suppressMapOpenBlock: true }}
-                        width="100%"
-                        height="100%"
+                        width={mapWidth}
+                        height={mapHeight}
                         modules={['templateLayoutFactory']}
                         instanceRef={this.setMapInstanceRef}
                     />
@@ -115,7 +119,16 @@ class Map extends PureComponent {
     }
 }
 
+Map.defaultProps = {
+    wrapClassName: '',
+    mapWidth: '100%',
+    mapHeight: '100%',
+};
+
 Map.propTypes = {
+    wrapClassName: PropTypes.string,
+    mapWidth: PropTypes.string,
+    mapHeight: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,

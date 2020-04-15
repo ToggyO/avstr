@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Map from '../components/Map';
-import { requestGeoPoints } from '../action-creators';
+import Map from 'Core/common/Map';
+import { requestGeoPoints } from '../../action-creators';
+
+import styles from './index.module.scss';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
-
         requestGeoPointsAction();
 
         this.timer = setInterval(
@@ -25,6 +26,8 @@ class DevicesMapPage extends Component {
     updateGeoPoints = () => {
         const { requestGeoPointsAction } = this.props;
 
+        console.log('UPDATE GEO POINTS');
+
         requestGeoPointsAction();
     };
 
@@ -33,7 +36,13 @@ class DevicesMapPage extends Component {
 
         // Необходимо передать полученный стейт geoPoints в компонент map,
         // так как метод onLoad библиотеки react-yandex-maps может сработать один раз и не отрендерить изменный стейт
-        return geoPoints.length && <Map geoPoints={geoPoints} />;
+        return geoPoints.length
+            && (
+                <Map
+                    wrapClassName={styles.map}
+                    geoPoints={geoPoints}
+                />
+            );
     }
 }
 
