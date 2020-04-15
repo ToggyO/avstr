@@ -19,7 +19,12 @@ const mapState = {
 };
 
 
-const Map = ({ geoPoints, className }) => {
+const Map = ({
+    geoPoints,
+    wrapClassName,
+    mapWidth,
+    mapHeight,
+}) => {
     let map = null;
 
     const setMapInstanceRef = (ref) => {
@@ -49,14 +54,14 @@ const Map = ({ geoPoints, className }) => {
     };
 
     return (
-        <div className={cn(styles.wrap, className)}>
+        <div className={cn(styles.wrap, wrapClassName)}>
             <YMaps query={{ load: 'package.full' }}>
                 <YaMap
                     onLoad={createCollection}
                     defaultState={mapState}
                     options={{ suppressMapOpenBlock: true }}
-                    width="100%"
-                    height="100%"
+                    width={mapWidth}
+                    height={mapHeight}
                     modules={['templateLayoutFactory']}
                     instanceRef={setMapInstanceRef}
                 />
@@ -67,11 +72,15 @@ const Map = ({ geoPoints, className }) => {
 
 
 Map.defaultProps = {
-    className: '',
+    wrapClassName: '',
+    mapWidth: '100%',
+    mapHeight: '100%',
 };
 
 Map.propTypes = {
-    className: PropTypes.string,
+    wrapClassName: PropTypes.string,
+    mapWidth: PropTypes.string,
+    mapHeight: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
