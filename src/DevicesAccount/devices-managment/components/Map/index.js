@@ -1,4 +1,4 @@
-import React, { Component, memo } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { YMaps, Map as YaMap } from 'react-yandex-maps';
 
@@ -18,23 +18,19 @@ const mapState = {
     controls: [],
 };
 
-class Map extends Component {
+class Map extends PureComponent {
     constructor(props) {
         super(props);
 
-        /* this.state = {
-            balloonActive: {},
-            activePlacemark: null,
-        }; */
-
         this.ymaps = null;
+        this.balloonIsActive = false;
+        this.balloonIndex = false;
     }
 
     componentDidUpdate(prevProps) {
         const { geoPoints } = this.props;
 
         if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length) {
-            console.log('prevProps', prevProps);
             this.updateCollection();
         }
     }
@@ -56,9 +52,9 @@ class Map extends Component {
     createCollection = () => {
         const { map, ymaps } = this;
         const { geoPoints } = this.props;
-        // let activePlacemark = null;
+        let placeMarks = [];
 
-        geoPoints.forEach((point) => {
+        geoPoints.forEach((point, index) => {
             const { descr } = point;
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
             const placeMark = createPlaceMark(
@@ -68,39 +64,19 @@ class Map extends Component {
                 createBalloonContentTemplate(ymaps, point),
             );
 
+            placeMarks = [...placeMarks, placeMark];
+
             map.geoObjects.add(collection);
             collection.add(placeMark);
 
-            // console.log(balloonIsOpen);
-
-            // placeMark.balloon.opne();
-
             placeMark.events.add('balloonopen', () => {
-                // activePlacemark = placeMark;
-
-                /* this.setState({
-                    activePlacemark: placeMark,
-                }); */
+                this.balloonIndex = index;
             });
-
-            /* if (balloonIsOpen) {
-                console.log(placeMark);
-
-                placeMark.balloon.open();
-            } */
         });
 
-        /* if (balloonIsOpen) {
-            map.balloon.open();
-        } */
-
-        /* if (this.state.activePlacemark) {
-            console.log(this.state.activePlacemark);
-            console.log(this.state.activePlacemark.balloon);
-            this.state.activePlacemark.balloon.open();
-        } */
-
-        // console.log(this.state.activePlacemark);
+        if (this.balloonIsActive) {
+            placeMarks[this.balloonIndex].balloon.open();
+        }
     };
 
     initCollection = () => {
@@ -114,29 +90,10 @@ class Map extends Component {
 
     updateCollection = () => {
         const { map } = this;
-        // const { balloonActive } = this.state;
-        let balloonActive = false;
 
-        if (map.balloon.isOpen()) {
-            /* this.setState({
-                balloonActive: 'wgweg',
-            }); */
-
-            balloonActive = true;
-
-            // console.log('getPosition', map.balloon.getPosition());
-
-            // map.balloon.getData().open();
-        }
-
+        this.balloonIsActive = map.balloon.isOpen();
         map.geoObjects.removeAll();
-        this.createCollection(balloonActive);
-
-        /* if (balloonActive) {
-            // const newBalloonActive = map.balloon.setData(balloonActive);
-
-            // map.balloon.open([55.76164383333333, 49.16737066666666], balloonData, balloonOptions);
-        } */
+        this.createCollection();
     };
 
     render() {
@@ -168,6 +125,4 @@ Map.propTypes = {
     ).isRequired,
 };
 
-export default memo(Map, ({ geoPoints }, nextProps) => (
-    isEqual(geoPoints, nextProps.geoPoints)
-));
+export default Map;
