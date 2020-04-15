@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import cn from 'classnames';
 
 import Button from 'Core/common/Button';
-import Map from 'DevicesAccount/devices-managment/components/Map';
+import Map from 'Core/common/Map';
 import DeviceMonitoringCard from '../DeviceMonitoringCard';
 
 import styles from './index.module.scss';

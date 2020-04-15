@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Map from '../../components/Map';
+import Map from 'Core/common/Map';
 import { requestGeoPoints } from '../../action-creators';
 
 import styles from './index.module.scss';
