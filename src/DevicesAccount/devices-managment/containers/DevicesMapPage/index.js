@@ -22,7 +22,7 @@ class DevicesMapPage extends Component {
         return geoPoints.length
             && (
                 <Map
-                    className={styles.map}
+                    wrapClassName={styles.map}
                     geoPoints={geoPoints}
                 />
             );
