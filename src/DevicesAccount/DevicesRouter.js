@@ -10,6 +10,7 @@ import NavBar from 'Core/common/NavBar';
 
 const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRouter'));
 const NewDevicePage = lazy(() => import('./devices-managment/containers/NewDevicePage'));
+const DeviceMonitoringPage = lazy(() => import('./devices-monitoring/components/DeviceMonitoringPage'));
 
 
 const DevicesRouter = ({ match: { path } }) => {
@@ -29,6 +30,10 @@ const DevicesRouter = ({ match: { path } }) => {
                                 <Route
                                     path={`${path}/add`}
                                     component={NewDevicePage}
+                                />
+                                <Route
+                                    path={`${path}/monitoring`}
+                                    component={DeviceMonitoringPage}
                                 />
                             </Switch>
                         </Suspense>
