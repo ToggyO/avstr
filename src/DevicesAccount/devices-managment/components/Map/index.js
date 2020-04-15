@@ -24,6 +24,7 @@ class Map extends Component {
 
         /* this.state = {
             balloonActive: {},
+            activePlacemark: null,
         }; */
 
         this.ymaps = null;
@@ -34,7 +35,7 @@ class Map extends Component {
 
         if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length) {
             console.log('prevProps', prevProps);
-            // this.updateCollection();
+            this.updateCollection();
         }
     }
 
@@ -44,9 +45,6 @@ class Map extends Component {
 
     loadYaMap = (ymaps) => {
         const { geoPoints } = this.props;
-
-        console.log('ymaps', ymaps);
-        console.log('geoPoints', geoPoints);
 
         if (ymaps && geoPoints.length) {
             this.ymaps = ymaps;
@@ -58,7 +56,7 @@ class Map extends Component {
     createCollection = () => {
         const { map, ymaps } = this;
         const { geoPoints } = this.props;
-        // const { balloonActive } = this.state;
+        // let activePlacemark = null;
 
         geoPoints.forEach((point) => {
             const { descr } = point;
@@ -72,19 +70,37 @@ class Map extends Component {
 
             map.geoObjects.add(collection);
             collection.add(placeMark);
+
+            // console.log(balloonIsOpen);
+
+            // placeMark.balloon.opne();
+
+            placeMark.events.add('balloonopen', () => {
+                // activePlacemark = placeMark;
+
+                /* this.setState({
+                    activePlacemark: placeMark,
+                }); */
+            });
+
+            /* if (balloonIsOpen) {
+                console.log(placeMark);
+
+                placeMark.balloon.open();
+            } */
         });
 
-        /* map.geoObjects.each((geoObject) => {
-
-        }); */
-
-        // map.balloon.open(map.getCenter());
-
-        /* console.log(Object.keys(balloonActive).length === 0 && balloonActive.constructor === Object); */
-
-        /* if (this.state.balloonActive) {
-            this.state.balloonActive.open();
+        /* if (balloonIsOpen) {
+            map.balloon.open();
         } */
+
+        /* if (this.state.activePlacemark) {
+            console.log(this.state.activePlacemark);
+            console.log(this.state.activePlacemark.balloon);
+            this.state.activePlacemark.balloon.open();
+        } */
+
+        // console.log(this.state.activePlacemark);
     };
 
     initCollection = () => {
@@ -98,21 +114,29 @@ class Map extends Component {
 
     updateCollection = () => {
         const { map } = this;
-
-        // console.log(map.balloon.isOpen());
+        // const { balloonActive } = this.state;
+        let balloonActive = false;
 
         if (map.balloon.isOpen()) {
-            // console.log(map.balloon.getData());
-
             /* this.setState({
-                balloonActive: map.balloon.getData(),
+                balloonActive: 'wgweg',
             }); */
+
+            balloonActive = true;
+
+            // console.log('getPosition', map.balloon.getPosition());
 
             // map.balloon.getData().open();
         }
 
         map.geoObjects.removeAll();
-        this.createCollection();
+        this.createCollection(balloonActive);
+
+        /* if (balloonActive) {
+            // const newBalloonActive = map.balloon.setData(balloonActive);
+
+            // map.balloon.open([55.76164383333333, 49.16737066666666], balloonData, balloonOptions);
+        } */
     };
 
     render() {

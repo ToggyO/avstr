@@ -77,10 +77,10 @@ class DevicesMapPage extends Component {
 
         requestGeoPointsAction();
 
-        /* this.timer = setInterval(
+        this.timer = setInterval(
             () => this.updateGeoPoints(),
             5000,
-        ); */
+        );
     }
 
     componentWillUnmount() {
