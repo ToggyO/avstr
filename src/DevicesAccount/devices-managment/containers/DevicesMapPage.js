@@ -16,15 +16,9 @@ class DevicesMapPage extends Component {
     render() {
         const { geoPoints } = this.props;
 
-        return (
-            <div>
-                {geoPoints.length
-                    ? (
-                        <Map geoPoints={geoPoints} />
-                    )
-                    : null}
-            </div>
-        );
+        // Необходимо передать полученный стейт geoPoints в компонент map,
+        // так как метод onLoad библиотеки react-yandex-maps может сработать один раз и не отрендерить изменный стейт
+        return geoPoints.length && <Map geoPoints={geoPoints} />;
     }
 }
 
