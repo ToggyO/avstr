@@ -22,15 +22,19 @@ class Map extends Component {
     constructor(props) {
         super(props);
 
+        /* this.state = {
+            balloonActive: {},
+        }; */
+
         this.ymaps = null;
     }
 
     componentDidUpdate(prevProps) {
         const { geoPoints } = this.props;
 
-        if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length > 0) {
+        if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length) {
             console.log('prevProps', prevProps);
-            this.updateCollection();
+            // this.updateCollection();
         }
     }
 
@@ -39,7 +43,12 @@ class Map extends Component {
     };
 
     loadYaMap = (ymaps) => {
-        if (ymaps) {
+        const { geoPoints } = this.props;
+
+        console.log('ymaps', ymaps);
+        console.log('geoPoints', geoPoints);
+
+        if (ymaps && geoPoints.length) {
             this.ymaps = ymaps;
 
             this.initCollection();
@@ -49,6 +58,7 @@ class Map extends Component {
     createCollection = () => {
         const { map, ymaps } = this;
         const { geoPoints } = this.props;
+        // const { balloonActive } = this.state;
 
         geoPoints.forEach((point) => {
             const { descr } = point;
@@ -64,18 +74,17 @@ class Map extends Component {
             collection.add(placeMark);
         });
 
-        // const openBalloon = map.balloon.getData();
-
-        // openBalloon.open();
-
         /* map.geoObjects.each((geoObject) => {
 
         }); */
-        // console.log(placeMark);
-
-        // map.balloon.open(geoPoints[0].coords);
 
         // map.balloon.open(map.getCenter());
+
+        /* console.log(Object.keys(balloonActive).length === 0 && balloonActive.constructor === Object); */
+
+        /* if (this.state.balloonActive) {
+            this.state.balloonActive.open();
+        } */
     };
 
     initCollection = () => {
@@ -88,7 +97,17 @@ class Map extends Component {
     updateCollection = () => {
         const { map } = this;
 
-        console.log(map.balloon.isOpen());
+        // console.log(map.balloon.isOpen());
+
+        if (map.balloon.isOpen()) {
+            // console.log(map.balloon.getData());
+
+            /* this.setState({
+                balloonActive: map.balloon.getData(),
+            }); */
+
+            // map.balloon.getData().open();
+        }
 
         map.geoObjects.removeAll();
         this.createCollection();
@@ -97,7 +116,6 @@ class Map extends Component {
     render() {
         return (
             <div className={styles.wrap}>
-                <div id="yaMap" />
                 <YMaps query={{ load: 'package.full' }}>
                     <YaMap
                         onLoad={this.loadYaMap}

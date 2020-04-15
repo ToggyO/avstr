@@ -77,10 +77,10 @@ class DevicesMapPage extends Component {
 
         requestGeoPointsAction();
 
-        this.timer = setInterval(
+        /* this.timer = setInterval(
             () => this.updateGeoPoints(),
             5000,
-        );
+        ); */
     }
 
     componentWillUnmount() {
@@ -110,10 +110,11 @@ class DevicesMapPage extends Component {
 
         return (
             <div>
-                {/* <button type="button" onClick={this.handleUpdate}
-                style={{'position': 'relative', 'zIndex': '10000'}}>UPDATE</button> */}
-                <Map geoPoints={geoPoints} />
-                {/* <Map geoPoints={this.state.points} /> */}
+                {geoPoints.length
+                    ? (
+                        <Map geoPoints={geoPoints} />
+                    )
+                    : null}
             </div>
         );
     }
