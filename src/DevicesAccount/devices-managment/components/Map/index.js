@@ -91,7 +91,9 @@ class Map extends Component {
         const { map } = this;
 
         this.createCollection();
-        map.setBounds(map.geoObjects.getBounds());
+        map.setBounds(map.geoObjects.getBounds(), {
+            checkZoomRange: true,
+        });
     };
 
     updateCollection = () => {
