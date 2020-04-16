@@ -24,14 +24,12 @@ class DeviceMonitoringCardContainer extends Component {
 
 
 DeviceMonitoringCardContainer.propTypes = {
-    currentDevice: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            serialNumber: PropTypes.string.isRequired,
-            isActive: PropTypes.bool.isRequired,
-        }),
-    ).isRequired,
+    currentDevice: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        serialNumber: PropTypes.string,
+        isActive: PropTypes.bool,
+    }).isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
 };
 
