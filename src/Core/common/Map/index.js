@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
@@ -20,7 +20,7 @@ const mapState = {
     controls: [],
 };
 
-class Map extends PureComponent {
+class Map extends Component {
     constructor(props) {
         super(props);
 
