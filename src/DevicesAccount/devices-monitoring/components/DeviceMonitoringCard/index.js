@@ -1,3 +1,5 @@
+// TODO(USERNAME): Обсудить с командой кейс по передаче ссылок и, возможно,
+//  делать отдельный запрос для получения данных карточки девайса
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
