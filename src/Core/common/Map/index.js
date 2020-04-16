@@ -59,7 +59,10 @@ const Map = ({
                 <YaMap
                     onLoad={createCollection}
                     defaultState={mapState}
-                    options={{ suppressMapOpenBlock: true }}
+                    options={{
+                        suppressMapOpenBlock: true,
+                        yandexMapDisablePoiInteractivity: true,
+                    }}
                     width={mapWidth}
                     height={mapHeight}
                     modules={['templateLayoutFactory']}
