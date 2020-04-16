@@ -3,26 +3,25 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import Map from 'Core/common/Map';
-import { requestGeoPoints } from '../../action-creators';
-
-import styles from './index.module.scss';
+import MapWrapper from '../components/DeviceMap';
+import { requestGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
+
         requestGeoPointsAction();
     }
 
     render() {
-        const { geoPoints } = this.props;
+        const { geoPoints, requestGeoPointsAction } = this.props;
 
         // Необходимо передать полученный стейт geoPoints в компонент map,
         // так как метод onLoad библиотеки react-yandex-maps может сработать один раз и не отрендерить изменный стейт
         return geoPoints.length
             && (
-                <Map
-                    wrapClassName={styles.map}
+                <MapWrapper
+                    getGeoPoints={requestGeoPointsAction}
                     geoPoints={geoPoints}
                 />
             );

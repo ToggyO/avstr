@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { YMaps, Map as YaMap } from 'react-yandex-maps';
+
+import isEqual from 'Core/utils/isEqual';
 
 import {
     createBalloonLayoutTemplate,
@@ -18,61 +20,107 @@ const mapState = {
     controls: [],
 };
 
+class Map extends Component {
+    constructor(props) {
+        super(props);
 
-const Map = ({
-    geoPoints,
-    wrapClassName,
-    mapWidth,
-    mapHeight,
-}) => {
-    let map = null;
+        this.ymaps = null;
+        this.balloonIsActive = false;
+        this.balloonIndex = false;
+    }
 
-    const setMapInstanceRef = (ref) => {
-        map = ref;
+    componentDidUpdate(prevProps) {
+        const { geoPoints } = this.props;
+
+        if (!isEqual(geoPoints, prevProps.geoPoints)) {
+            this.updateCollection();
+        }
+    }
+
+    setMapInstanceRef = (ref) => {
+        this.map = ref;
     };
 
-    const createCollection = (ymaps) => {
+    loadYaMap = (ymaps) => {
+        const { geoPoints } = this.props;
+
         if (ymaps && geoPoints.length) {
-            geoPoints.forEach((point) => {
-                const { descr } = point;
-                const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
-                const placeMark = createPlaceMark(
-                    ymaps,
-                    point,
-                    createBalloonLayoutTemplate(ymaps),
-                    createBalloonContentTemplate(ymaps, point),
-                );
+            this.ymaps = ymaps;
 
-                map.geoObjects.add(collection);
-                collection.add(placeMark);
-            });
-
-            map.setBounds(map.geoObjects.getBounds(), {
-                checkZoomRange: true,
-            });
+            this.initCollection();
         }
     };
 
-    return (
-        <div className={cn(styles.wrap, wrapClassName)}>
-            <YMaps query={{ load: 'package.full' }}>
-                <YaMap
-                    onLoad={createCollection}
-                    defaultState={mapState}
-                    options={{
-                        suppressMapOpenBlock: true,
-                        yandexMapDisablePoiInteractivity: true,
-                    }}
-                    width={mapWidth}
-                    height={mapHeight}
-                    modules={['templateLayoutFactory']}
-                    instanceRef={setMapInstanceRef}
-                />
-            </YMaps>
-        </div>
-    );
-};
+    createCollection = () => {
+        const { map, ymaps } = this;
+        const { geoPoints } = this.props;
+        let placeMarks = [];
 
+        geoPoints.forEach((point, index) => {
+            const { descr } = point;
+            const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
+            const placeMark = createPlaceMark(
+                ymaps,
+                point,
+                createBalloonLayoutTemplate(ymaps),
+                createBalloonContentTemplate(ymaps, point),
+            );
+
+            placeMarks = [...placeMarks, placeMark];
+
+            map.geoObjects.add(collection);
+            collection.add(placeMark);
+
+            placeMark.events.add('balloonopen', () => {
+                this.balloonIndex = index;
+            });
+        });
+
+        if (this.balloonIsActive) {
+            placeMarks[this.balloonIndex].balloon.open();
+        }
+    };
+
+    initCollection = () => {
+        const { map } = this;
+
+        this.createCollection();
+        map.setBounds(map.geoObjects.getBounds(), {
+            checkZoomRange: true,
+        });
+    };
+
+    updateCollection = () => {
+        const { map } = this;
+
+        this.balloonIsActive = map.balloon.isOpen();
+        map.geoObjects.removeAll();
+        this.createCollection();
+    };
+
+    render() {
+        const { wrapClassName, mapWidth, mapHeight } = this.props;
+
+        return (
+            <div className={cn(styles.wrap, wrapClassName)}>
+                <YMaps query={{ load: 'package.full' }}>
+                    <YaMap
+                        onLoad={this.loadYaMap}
+                        defaultState={mapState}
+                        options={{
+                            suppressMapOpenBlock: true,
+                            yandexMapDisablePoiInteractivity: true,
+                        }}
+                        width={mapWidth}
+                        height={mapHeight}
+                        modules={['templateLayoutFactory']}
+                        instanceRef={this.setMapInstanceRef}
+                    />
+                </YMaps>
+            </div>
+        );
+    }
+}
 
 Map.defaultProps = {
     wrapClassName: '',
