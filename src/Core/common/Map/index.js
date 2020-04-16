@@ -32,7 +32,7 @@ class Map extends Component {
     componentDidUpdate(prevProps) {
         const { geoPoints } = this.props;
 
-        if (!isEqual(geoPoints, prevProps.geoPoints) && prevProps.geoPoints.length) {
+        if (!isEqual(geoPoints, prevProps.geoPoints)) {
             this.updateCollection();
         }
     }
