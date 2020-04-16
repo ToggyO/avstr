@@ -1,5 +1,7 @@
+// TODO(USERNAME): Обсудить с командой кейс по передаче ссылок и, возможно,
+//  делать отдельный запрос для получения данных карточки девайса
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 
@@ -10,8 +12,14 @@ import styles from './index.module.scss';
 
 class DeviceMonitoringCard extends Component {
     componentDidMount() {
-        //
+        const { content } = this.props;
+        if (!content) return;
+        this.setDeviceCardToStorage(content);
     }
+
+    getDeviceCardFromStorage = () => JSON.parse(localStorage.getItem('deviceCard'));
+
+    setDeviceCardToStorage = (data) => localStorage.setItem('deviceCard', JSON.stringify(data));
 
     handleBackBtn = () => {
         history.push('/devices/main/list');
@@ -26,6 +34,14 @@ class DeviceMonitoringCard extends Component {
     };
 
     render() {
+        const { content } = this.props;
+        let cardData;
+        if (content) {
+            cardData = content;
+        } else {
+            cardData = this.getDeviceCardFromStorage();
+        }
+
         return (
             <div className={styles.wrap}>
                 <Button
@@ -42,7 +58,7 @@ class DeviceMonitoringCard extends Component {
 
                 <div className={styles.listPoint}>
                     <div className={styles.description}>Название:</div>
-                    <div className={styles.value}>KIA RIO C873EА777</div>
+                    <div className={styles.value}>{cardData.name}</div>
                 </div>
 
                 <div className={styles.divider} />
@@ -50,7 +66,7 @@ class DeviceMonitoringCard extends Component {
                 <div className={styles.listPoint}>
                     <div className={styles.description}>Устройство:</div>
                     <div className={styles.value}>
-                        12i3jhdasdgasdt8321321347234723471
+                        {cardData.serialNumber}
                     </div>
                 </div>
 
@@ -81,7 +97,12 @@ class DeviceMonitoringCard extends Component {
 }
 
 DeviceMonitoringCard.propTypes = {
-    //
+    content: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        serialNumber: PropTypes.string.isRequired,
+        isActive: PropTypes.bool.isRequired,
+        isAdvertisementsDisabled: PropTypes.bool.isRequired,
+    }).isRequired,
 };
 
 export default DeviceMonitoringCard;
