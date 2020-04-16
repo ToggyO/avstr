@@ -1,7 +1,7 @@
 import {
     REQUEST_DEVICE_CONTENT,
     RECEIVE_DEVICE_CONTENT,
-    // TOGGLE_SHOW_ADVERTISEMENTS,
+    TOGGLE_ADVERTISING_ON_DEVICE,
     // TOGGLE_DEVICE_STATUS
 } from './actions';
 
@@ -16,10 +16,10 @@ export const receiveDeviceContent = (data) => ({
 });
 
 
-/* export const toggleShowAdvertisements = (data) => ({
-    type: TOGGLE_SHOW_ADVERTISEMENTS,
+export const toggleAdvertisingOnDevice = (data) => ({
+    type: TOGGLE_ADVERTISING_ON_DEVICE,
     data,
-}); */
+});
 
 
 /* export const toggleDeviceStatus = (data) => ({

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
-import { requestDeviceContent } from '../action-creators';
+import { requestDeviceContent, toggleAdvertisingOnDevice } from '../action-creators';
 
 
 class DeviceMonitoringCardContainer extends Component {
@@ -15,9 +15,12 @@ class DeviceMonitoringCardContainer extends Component {
     }
 
     render() {
-        const { currentDevice } = this.props;
+        const { currentDevice, toggleAdvertisingOnDeviceAction } = this.props;
         return (
-            <DeviceMonitoringCard content={currentDevice} />
+            <DeviceMonitoringCard
+                content={currentDevice}
+                stopAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+            />
         );
     }
 }
@@ -31,6 +34,7 @@ DeviceMonitoringCardContainer.propTypes = {
         isActive: PropTypes.bool,
     }).isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
+    toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
 };
 
 
@@ -46,6 +50,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
+    toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
 };
 
 
