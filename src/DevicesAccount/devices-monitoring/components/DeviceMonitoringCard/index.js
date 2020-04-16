@@ -14,14 +14,16 @@ const DeviceMonitoringCard = ({
         serialNumber,
         isActive,
         isAdvertisementsDisabled,
+        id,
     },
+    stopAdvertisingHandler,
 }) => {
     const handleBackBtn = () => {
         history.push('/devices/main/list');
     };
 
     const handleStopAdvertisingBtnClick = () => {
-
+        stopAdvertisingHandler(id);
     };
 
     const handleDeactivateBtnClick = () => {
@@ -59,12 +61,13 @@ const DeviceMonitoringCard = ({
             <div className={styles.divider} />
 
             <Button
-                disabled
                 size="small"
                 onClick={handleStopAdvertisingBtnClick}
                 className={styles.stopAdvBtn}
             >
-                Приостановить показ рекламы
+                {isAdvertisementsDisabled
+                    ? 'Запустить показ рекламы'
+                    : 'Приостановить показ рекламы'}
             </Button>
 
             <div className={styles.divider} />
@@ -87,6 +90,7 @@ DeviceMonitoringCard.defaultProps = {
         serialNumber: '',
         isActive: true,
         isAdvertisementsDisabled: false,
+        id: null,
     },
 };
 
@@ -96,7 +100,9 @@ DeviceMonitoringCard.propTypes = {
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
         isAdvertisementsDisabled: PropTypes.bool,
+        id: PropTypes.number,
     }),
+    stopAdvertisingHandler: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;
