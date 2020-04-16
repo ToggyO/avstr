@@ -12,8 +12,8 @@ const DeviceMonitoringCard = ({
     content: {
         name,
         serialNumber,
-        // isActive,
-        // isAdvertisementsDisabled,
+        isActive,
+        isAdvertisementsDisabled,
     },
 }) => {
     const handleBackBtn = () => {
@@ -28,7 +28,6 @@ const DeviceMonitoringCard = ({
 
     };
 
-
     return (
         <div className={styles.wrap}>
             <Button
@@ -40,7 +39,7 @@ const DeviceMonitoringCard = ({
             </Button>
 
             <div className={styles.title}>Мониторинг устройства</div>
-
+            {!isActive ? <div>Деактивировано</div> : isAdvertisementsDisabled && <div>Отключен показ рекламы</div>}
             <div className={styles.divider} />
 
             <div className={styles.listPoint}>
