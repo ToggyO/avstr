@@ -1,42 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
+import { requestDeviceContent } from '../action-creators';
 
 
-const DeviceMonitoringCardContainer = ({ devices }) => {
-    const deviceId = window.location.pathname.match(/\d+/)[0];
-    const findDeviceById = (id) => devices.find((device) => device.id === Number(id));
+class DeviceMonitoringCardContainer extends Component {
+    componentDidMount() {
+        const { requestDeviceContentAction } = this.props;
+        const deviceId = window.location.pathname.match(/\d+/)[0];
+        requestDeviceContentAction(deviceId);
+    }
 
-    return (
-        <DeviceMonitoringCard content={findDeviceById(deviceId)} />
-    );
-};
+    render() {
+        const { currentDevice } = this.props;
+        return (
+            <DeviceMonitoringCard content={currentDevice} />
+        );
+    }
+}
 
 
 DeviceMonitoringCardContainer.propTypes = {
-    devices: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            serialNumber: PropTypes.string.isRequired,
-            isActive: PropTypes.bool.isRequired,
-        }),
-    ).isRequired,
+    currentDevice: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        serialNumber: PropTypes.string,
+        isActive: PropTypes.bool,
+    }).isRequired,
+    requestDeviceContentAction: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = ({
     devicesReducer: {
-        devicesManagementReducer: {
-            devices,
+        devicesMonitoringReducer: {
+            currentDevice,
         },
     },
 }) => ({
-    devices,
+    currentDevice,
 });
 
+const mapDispatchToProps = {
+    requestDeviceContentAction: requestDeviceContent,
+};
 
-export default connect(mapStateToProps)(DeviceMonitoringCardContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringCardContainer);
