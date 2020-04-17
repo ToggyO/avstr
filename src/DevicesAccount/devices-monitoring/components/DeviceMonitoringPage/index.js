@@ -31,7 +31,6 @@ const DeviceMonitoringPage = () => {
                 {showTranslation
                     ? (
                         <div className={styles.videoWrap}>
-                            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
                             <DeviceMonitoringVideoContainer />
                         </div>
                     )
