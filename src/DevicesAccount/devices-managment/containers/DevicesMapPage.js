@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import MapWrapper from '../components/DeviceMap';
+import DeviceMap from '../components/DeviceMap';
 import { requestGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
@@ -20,7 +20,7 @@ class DevicesMapPage extends Component {
         // так как метод onLoad библиотеки react-yandex-maps может сработать один раз и не отрендерить изменный стейт
         return geoPoints.length
             && (
-                <MapWrapper
+                <DeviceMap
                     getGeoPoints={requestGeoPointsAction}
                     geoPoints={geoPoints}
                 />
