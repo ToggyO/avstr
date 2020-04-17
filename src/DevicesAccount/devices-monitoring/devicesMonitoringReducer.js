@@ -1,6 +1,7 @@
 import {
     RECEIVE_DEVICE_CONTENT,
     CHANGE_ADVERTISING_LOADER_STATUS,
+    CHANGE_DEVICE_STATUS_LOADER,
 } from './actions';
 
 
@@ -13,6 +14,7 @@ const initialState = {
         id: null,
     },
     showAdvertisingLoader: false,
+    showDeviceStatusLoader: false,
 };
 
 
@@ -27,6 +29,11 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 showAdvertisingLoader: data,
+            };
+        case CHANGE_DEVICE_STATUS_LOADER:
+            return {
+                ...state,
+                showDeviceStatusLoader: data,
             };
         default:
             return state;

@@ -3,7 +3,8 @@ import {
     RECEIVE_DEVICE_CONTENT,
     TOGGLE_ADVERTISING_ON_DEVICE,
     CHANGE_ADVERTISING_LOADER_STATUS,
-    // TOGGLE_DEVICE_STATUS
+    TOGGLE_DEVICE_STATUS,
+    CHANGE_DEVICE_STATUS_LOADER,
 } from './actions';
 
 export const requestDeviceContent = (data) => ({
@@ -28,7 +29,12 @@ export const changeAdvertisingLoaderStatus = (data) => ({
 });
 
 
-/* export const toggleDeviceStatus = (data) => ({
+export const toggleDeviceStatus = (data) => ({
     type: TOGGLE_DEVICE_STATUS,
     data,
-}); */
+});
+
+export const changeDeviceStatusLoader = (data) => ({
+    type: CHANGE_DEVICE_STATUS_LOADER,
+    data,
+});

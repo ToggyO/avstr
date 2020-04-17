@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
-import { requestDeviceContent, toggleAdvertisingOnDevice } from '../action-creators';
+import { requestDeviceContent, toggleAdvertisingOnDevice, toggleDeviceStatus } from '../action-creators';
 
 
 class DeviceMonitoringCardContainer extends Component {
@@ -15,12 +15,20 @@ class DeviceMonitoringCardContainer extends Component {
     }
 
     render() {
-        const { currentDevice, showAdvertisingLoader, toggleAdvertisingOnDeviceAction } = this.props;
+        const {
+            currentDevice,
+            showAdvertisingLoader,
+            toggleAdvertisingOnDeviceAction,
+            showDeviceStatusLoader,
+            toggleDeviceStatusAction,
+        } = this.props;
         return (
             <DeviceMonitoringCard
                 content={currentDevice}
                 showAdvertisingLoader={showAdvertisingLoader}
-                stopAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+                toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+                showDeviceStatusLoader={showDeviceStatusLoader}
+                toggleDeviceStatus={toggleDeviceStatusAction}
             />
         );
     }
@@ -34,9 +42,11 @@ DeviceMonitoringCardContainer.propTypes = {
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
     }).isRequired,
-    showAdvertisingLoader: PropTypes.bool.isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
+    showAdvertisingLoader: PropTypes.bool.isRequired,
     toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
+    showDeviceStatusLoader: PropTypes.bool.isRequired,
+    toggleDeviceStatusAction: PropTypes.func.isRequired,
 };
 
 
@@ -45,16 +55,19 @@ const mapStateToProps = ({
         devicesMonitoringReducer: {
             currentDevice,
             showAdvertisingLoader,
+            showDeviceStatusLoader,
         },
     },
 }) => ({
     currentDevice,
     showAdvertisingLoader,
+    showDeviceStatusLoader,
 });
 
 const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
     toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
+    toggleDeviceStatusAction: toggleDeviceStatus,
 };
 
 
