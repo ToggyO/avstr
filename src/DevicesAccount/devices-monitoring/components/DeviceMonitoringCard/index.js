@@ -1,6 +1,4 @@
-// TODO(USERNAME): Обсудить с командой кейс по передаче ссылок и, возможно,
-//  делать отдельный запрос для получения данных карточки девайса
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
@@ -10,99 +8,123 @@ import Button from 'Core/common/Button';
 import styles from './index.module.scss';
 
 
-class DeviceMonitoringCard extends Component {
-    componentDidMount() {
-        const { content } = this.props;
-        if (!content) return;
-        this.setDeviceCardToStorage(content);
-    }
-
-    getDeviceCardFromStorage = () => JSON.parse(localStorage.getItem('deviceCard'));
-
-    setDeviceCardToStorage = (data) => localStorage.setItem('deviceCard', JSON.stringify(data));
-
-    handleBackBtn = () => {
+const DeviceMonitoringCard = ({
+    content: {
+        name,
+        serialNumber,
+        isActive,
+        isAdvertisementsDisabled,
+        id,
+    },
+    showAdvertisingLoader,
+    toggleAdvertisingHandler,
+    showDeviceStatusLoader,
+    toggleDeviceStatus,
+}) => {
+    const handleBackBtn = () => {
         history.push('/devices/main/list');
     };
 
-    handleStopAdvertisingBtnClick = () => {
-
+    const handleStopAdvertisingBtnClick = () => {
+        toggleAdvertisingHandler(id);
     };
 
-    handleDeactivateBtnClick = () => {
-
+    const handleDeactivateBtnClick = () => {
+        toggleDeviceStatus(id);
     };
 
-    render() {
-        const { content } = this.props;
-        let cardData;
-        if (content) {
-            cardData = content;
-        } else {
-            cardData = this.getDeviceCardFromStorage();
+    const calcMessage = () => {
+        let message;
+        if (showAdvertisingLoader || showDeviceStatusLoader) {
+            message = 'Загрузка';
+        } else if (!isActive) {
+            message = 'Деактивировано';
+        } else if (isAdvertisementsDisabled) {
+            message = 'Отключен показ рекламы';
         }
+        return message;
+    };
 
-        return (
-            <div className={styles.wrap}>
-                <Button
-                    size="small"
-                    onClick={this.handleBackBtn}
-                    className={styles.backBtn}
-                >
-                    Назад
-                </Button>
+    return (
+        <div className={styles.wrap}>
+            <Button
+                disabled={showDeviceStatusLoader || showAdvertisingLoader}
+                size="small"
+                onClick={handleBackBtn}
+                className={styles.backBtn}
+            >
+                Назад
+            </Button>
 
-                <div className={styles.title}>Мониторинг устройства</div>
+            <div className={styles.title}>Мониторинг устройства</div>
+            <div>{calcMessage()}</div>
+            <div className={styles.divider} />
 
-                <div className={styles.divider} />
-
-                <div className={styles.listPoint}>
-                    <div className={styles.description}>Название:</div>
-                    <div className={styles.value}>{cardData.name}</div>
-                </div>
-
-                <div className={styles.divider} />
-
-                <div className={styles.listPoint}>
-                    <div className={styles.description}>Устройство:</div>
-                    <div className={styles.value}>
-                        {cardData.serialNumber}
-                    </div>
-                </div>
-
-                <div className={styles.divider} />
-
-                <Button
-                    disabled
-                    size="small"
-                    onClick={this.handleStopAdvertisingBtnClick}
-                    className={styles.stopAdvBtn}
-                >
-                    Приостановить показ рекламы
-                </Button>
-
-                <div className={styles.divider} />
-
-                <Button
-                    disabled
-                    size="small"
-                    onClick={this.handleDeactivateBtnClick}
-                    className={styles.deactivateBtn}
-                >
-                    Деактивировать устройство
-                </Button>
+            <div className={styles.listPoint}>
+                <div className={styles.description}>Название:</div>
+                <div className={styles.value}>{name}</div>
             </div>
-        );
-    }
-}
+
+            <div className={styles.divider} />
+
+            <div className={styles.listPoint}>
+                <div className={styles.description}>Устройство:</div>
+                <div className={styles.value}>
+                    {serialNumber}
+                </div>
+            </div>
+
+            <div className={styles.divider} />
+
+            <Button
+                disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
+                size="small"
+                onClick={handleStopAdvertisingBtnClick}
+                className={styles.stopAdvBtn}
+            >
+                {isAdvertisementsDisabled
+                    ? 'Запустить показ рекламы'
+                    : 'Приостановить показ рекламы'}
+            </Button>
+
+            <div className={styles.divider} />
+
+            <Button
+                disabled={showDeviceStatusLoader || showAdvertisingLoader}
+                size="small"
+                onClick={handleDeactivateBtnClick}
+                className={styles.deactivateBtn}
+            >
+                {isActive
+                    ? 'Деактивировать устройство'
+                    : 'Активировать устройство'}
+            </Button>
+        </div>
+    );
+};
+
+DeviceMonitoringCard.defaultProps = {
+    content: {
+        name: '',
+        serialNumber: '',
+        isActive: true,
+        isAdvertisementsDisabled: false,
+        id: null,
+    },
+};
 
 DeviceMonitoringCard.propTypes = {
     content: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        serialNumber: PropTypes.string.isRequired,
-        isActive: PropTypes.bool.isRequired,
-        isAdvertisementsDisabled: PropTypes.bool.isRequired,
-    }).isRequired,
+        name: PropTypes.string,
+        serialNumber: PropTypes.string,
+        isActive: PropTypes.bool,
+        isAdvertisementsDisabled: PropTypes.bool,
+        id: PropTypes.number,
+    }),
+    showAdvertisingLoader: PropTypes.bool.isRequired,
+    toggleAdvertisingHandler: PropTypes.func.isRequired,
+    showDeviceStatusLoader: PropTypes.bool.isRequired,
+    toggleDeviceStatus: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;

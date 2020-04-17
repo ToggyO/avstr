@@ -1,42 +1,74 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
+import { requestDeviceContent, toggleAdvertisingOnDevice, toggleDeviceStatus } from '../action-creators';
 
 
-const DeviceMonitoringCardContainer = ({ devices }) => {
-    const deviceId = window.location.pathname.match(/\d+/)[0];
-    const findDeviceById = (id) => devices.find((device) => device.id === Number(id));
+class DeviceMonitoringCardContainer extends Component {
+    componentDidMount() {
+        const { requestDeviceContentAction } = this.props;
+        const deviceId = window.location.pathname.match(/\d+/)[0];
+        requestDeviceContentAction(deviceId);
+    }
 
-    return (
-        <DeviceMonitoringCard content={findDeviceById(deviceId)} />
-    );
-};
+    render() {
+        const {
+            currentDevice,
+            showAdvertisingLoader,
+            toggleAdvertisingOnDeviceAction,
+            showDeviceStatusLoader,
+            toggleDeviceStatusAction,
+        } = this.props;
+        return (
+            <DeviceMonitoringCard
+                content={currentDevice}
+                showAdvertisingLoader={showAdvertisingLoader}
+                toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+                showDeviceStatusLoader={showDeviceStatusLoader}
+                toggleDeviceStatus={toggleDeviceStatusAction}
+            />
+        );
+    }
+}
 
 
 DeviceMonitoringCardContainer.propTypes = {
-    devices: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            serialNumber: PropTypes.string.isRequired,
-            isActive: PropTypes.bool.isRequired,
-        }),
-    ).isRequired,
+    currentDevice: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        serialNumber: PropTypes.string,
+        isActive: PropTypes.bool,
+    }).isRequired,
+    requestDeviceContentAction: PropTypes.func.isRequired,
+    showAdvertisingLoader: PropTypes.bool.isRequired,
+    toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
+    showDeviceStatusLoader: PropTypes.bool.isRequired,
+    toggleDeviceStatusAction: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = ({
     devicesReducer: {
-        devicesManagementReducer: {
-            devices,
+        devicesMonitoringReducer: {
+            currentDevice,
+            showAdvertisingLoader,
+            showDeviceStatusLoader,
         },
     },
 }) => ({
-    devices,
+    currentDevice,
+    showAdvertisingLoader,
+    showDeviceStatusLoader,
 });
 
+const mapDispatchToProps = {
+    requestDeviceContentAction: requestDeviceContent,
+    toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
+    toggleDeviceStatusAction: toggleDeviceStatus,
+};
 
-export default connect(mapStateToProps)(DeviceMonitoringCardContainer);
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringCardContainer);

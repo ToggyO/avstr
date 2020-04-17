@@ -15,6 +15,7 @@ const DeviceItem = ({
         name,
         serialNumber,
         isActive,
+        isAdvertisementsDisabled,
         id,
     },
     number,
@@ -47,7 +48,12 @@ const DeviceItem = ({
             <td>{number}</td>
             <td>{name}</td>
             <td>{serialNumber}</td>
-            <td>{isActive && 'active'}</td>
+            <td>
+                {!isActive
+                    ? <div>Деактивировано</div>
+                    : isAdvertisementsDisabled
+                    && <div>Отключен показ рекламы</div>}
+            </td>
             <td className={styles.iconWrap}>
                 {isHighlighted
                     ? (
@@ -70,6 +76,7 @@ DeviceItem.propTypes = {
         name: PropTypes.string.isRequired,
         serialNumber: PropTypes.string.isRequired,
         isActive: PropTypes.bool.isRequired,
+        isAdvertisementsDisabled: PropTypes.bool.isRequired,
     }).isRequired,
     number: PropTypes.number.isRequired,
 };
