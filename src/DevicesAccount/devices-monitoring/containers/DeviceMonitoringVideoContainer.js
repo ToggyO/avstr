@@ -13,7 +13,11 @@ class DeviceMonitoringVideoContainer extends Component {
     render() {
         return (
             // eslint-disable-next-line jsx-a11y/media-has-caption
-            <video autoPlay loop>
+            <video
+                height="100%"
+                autoPlay
+                controls
+            >
                 <source src="/2.mp4" type="video/mp4" />
             </video>
         );
