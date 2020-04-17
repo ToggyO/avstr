@@ -48,6 +48,7 @@ const DeviceMonitoringCard = ({
     return (
         <div className={styles.wrap}>
             <Button
+                disabled={showDeviceStatusLoader || showAdvertisingLoader}
                 size="small"
                 onClick={handleBackBtn}
                 className={styles.backBtn}
