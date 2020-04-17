@@ -5,12 +5,14 @@ import {
     TOGGLE_ADVERTISING_ON_DEVICE,
     TOGGLE_DEVICE_STATUS,
     REQUEST_MEDIA_STREAM_OPTIONS,
+    START_MEDIA_STREAM,
 } from '../actions';
 
 import handleRequestDeviceContent from './handleRequestDeviceContent';
 import handleAdvertisingOnDevice from './handleAdvertisingOnDevice';
 import handleToggleDeviceStatus from './handleToggleDeviceStatus';
 import handleRequestMediaStreamOptions from './handleRequestMediaStreamOptions';
+import handleStartMediaStream from './handleStartMediaStream';
 
 
 export default function* devicesMonitoringWatcher() {
@@ -18,4 +20,6 @@ export default function* devicesMonitoringWatcher() {
     yield takeLatest(TOGGLE_ADVERTISING_ON_DEVICE, handleAdvertisingOnDevice);
     yield takeLatest(TOGGLE_DEVICE_STATUS, handleToggleDeviceStatus);
     yield takeLatest(REQUEST_MEDIA_STREAM_OPTIONS, handleRequestMediaStreamOptions);
+    yield takeLatest(REQUEST_MEDIA_STREAM_OPTIONS, handleRequestMediaStreamOptions);
+    yield takeLatest(START_MEDIA_STREAM, handleStartMediaStream);
 }
