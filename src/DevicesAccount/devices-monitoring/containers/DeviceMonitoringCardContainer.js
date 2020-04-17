@@ -15,10 +15,11 @@ class DeviceMonitoringCardContainer extends Component {
     }
 
     render() {
-        const { currentDevice, toggleAdvertisingOnDeviceAction } = this.props;
+        const { currentDevice, showAdvertisingLoader, toggleAdvertisingOnDeviceAction } = this.props;
         return (
             <DeviceMonitoringCard
                 content={currentDevice}
+                showAdvertisingLoader={showAdvertisingLoader}
                 stopAdvertisingHandler={toggleAdvertisingOnDeviceAction}
             />
         );
@@ -33,6 +34,7 @@ DeviceMonitoringCardContainer.propTypes = {
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
     }).isRequired,
+    showAdvertisingLoader: PropTypes.bool.isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
     toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
 };
@@ -42,10 +44,12 @@ const mapStateToProps = ({
     devicesReducer: {
         devicesMonitoringReducer: {
             currentDevice,
+            showAdvertisingLoader,
         },
     },
 }) => ({
     currentDevice,
+    showAdvertisingLoader,
 });
 
 const mapDispatchToProps = {
