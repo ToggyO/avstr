@@ -2,16 +2,16 @@ import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
 import handleRequestDeviceContent from './handleRequestDeviceContent';
-import { changeAdvertisingLoaderStatus } from '../action-creators';
+import { changeDeviceStatusLoader } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
 
-function* handleAdvertisingOnDevice({ data }) {
+function* handleToggleDeviceStatus({ data }) {
     try {
-        yield put(changeAdvertisingLoaderStatus(true));
-        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeAdvertisementsState`, { id: data });
-        yield put(changeAdvertisingLoaderStatus(false));
+        yield put(changeDeviceStatusLoader(true));
+        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeActivationState`, { id: data });
+        yield put(changeDeviceStatusLoader(false));
         yield* handleRequestDeviceContent({ data });
     } catch ({ type }) {
         switch (type) {
@@ -27,4 +27,4 @@ function* handleAdvertisingOnDevice({ data }) {
     }
 }
 
-export default handleAdvertisingOnDevice;
+export default handleToggleDeviceStatus;

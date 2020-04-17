@@ -17,23 +17,25 @@ const DeviceMonitoringCard = ({
         id,
     },
     showAdvertisingLoader,
-    stopAdvertisingHandler,
+    toggleAdvertisingHandler,
+    showDeviceStatusLoader,
+    toggleDeviceStatus,
 }) => {
     const handleBackBtn = () => {
         history.push('/devices/main/list');
     };
 
     const handleStopAdvertisingBtnClick = () => {
-        stopAdvertisingHandler(id);
+        toggleAdvertisingHandler(id);
     };
 
     const handleDeactivateBtnClick = () => {
-
+        toggleDeviceStatus(id);
     };
 
     const calcMessage = () => {
         let message;
-        if (showAdvertisingLoader) {
+        if (showAdvertisingLoader || showDeviceStatusLoader) {
             message = 'Загрузка';
         } else if (!isActive) {
             message = 'Деактивировано';
@@ -74,7 +76,7 @@ const DeviceMonitoringCard = ({
             <div className={styles.divider} />
 
             <Button
-                disabled={showAdvertisingLoader}
+                disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
                 size="small"
                 onClick={handleStopAdvertisingBtnClick}
                 className={styles.stopAdvBtn}
@@ -87,12 +89,14 @@ const DeviceMonitoringCard = ({
             <div className={styles.divider} />
 
             <Button
-                disabled
+                disabled={showDeviceStatusLoader || showAdvertisingLoader}
                 size="small"
                 onClick={handleDeactivateBtnClick}
                 className={styles.deactivateBtn}
             >
-                Деактивировать устройство
+                {isActive
+                    ? 'Деактивировать устройство'
+                    : 'Активировать устройство'}
             </Button>
         </div>
     );
@@ -117,7 +121,9 @@ DeviceMonitoringCard.propTypes = {
         id: PropTypes.number,
     }),
     showAdvertisingLoader: PropTypes.bool.isRequired,
-    stopAdvertisingHandler: PropTypes.func.isRequired,
+    toggleAdvertisingHandler: PropTypes.func.isRequired,
+    showDeviceStatusLoader: PropTypes.bool.isRequired,
+    toggleDeviceStatus: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;
