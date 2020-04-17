@@ -16,6 +16,7 @@ const DeviceMonitoringCard = ({
         isAdvertisementsDisabled,
         id,
     },
+    showAdvertisingLoader,
     stopAdvertisingHandler,
 }) => {
     const handleBackBtn = () => {
@@ -30,6 +31,18 @@ const DeviceMonitoringCard = ({
 
     };
 
+    const calcMessage = () => {
+        let message;
+        if (showAdvertisingLoader) {
+            message = 'Загрузка';
+        } else if (!isActive) {
+            message = 'Деактивировано';
+        } else if (isAdvertisementsDisabled) {
+            message = 'Отключен показ рекламы';
+        }
+        return message;
+    };
+
     return (
         <div className={styles.wrap}>
             <Button
@@ -41,7 +54,7 @@ const DeviceMonitoringCard = ({
             </Button>
 
             <div className={styles.title}>Мониторинг устройства</div>
-            {!isActive ? <div>Деактивировано</div> : isAdvertisementsDisabled && <div>Отключен показ рекламы</div>}
+            <div>{calcMessage()}</div>
             <div className={styles.divider} />
 
             <div className={styles.listPoint}>
@@ -61,6 +74,7 @@ const DeviceMonitoringCard = ({
             <div className={styles.divider} />
 
             <Button
+                disabled={showAdvertisingLoader}
                 size="small"
                 onClick={handleStopAdvertisingBtnClick}
                 className={styles.stopAdvBtn}
@@ -102,6 +116,7 @@ DeviceMonitoringCard.propTypes = {
         isAdvertisementsDisabled: PropTypes.bool,
         id: PropTypes.number,
     }),
+    showAdvertisingLoader: PropTypes.bool.isRequired,
     stopAdvertisingHandler: PropTypes.func.isRequired,
 };
 
