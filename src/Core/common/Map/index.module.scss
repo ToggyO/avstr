@@ -2,9 +2,9 @@
 
 .balloon {
     position: absolute;
-    z-index: 1010;
     top: 0;
     left: 0;
+    z-index: 1010;
     box-sizing: border-box;
     width: 330px;
     padding: 20px 36px;
@@ -18,8 +18,8 @@
         left: 0;
         width: 4px;
         height: 100%;
-        content: '';
         background-color: $primary-main-600;
+        content: '';
     }
 
     &::after {
@@ -28,10 +28,10 @@
         left: 36px;
         width: 0;
         height: 0;
-        content: '';
         border-width: 0 8px 8px;
         border-style: solid;
         border-color: transparent transparent $secondary-light-10 transparent;
+        content: '';
     }
 
     .close {

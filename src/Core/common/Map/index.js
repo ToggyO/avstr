@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-// import { YMaps, Map as YaMap } from 'react-yandex-maps';
-
 import yaMaps from 'ymaps';
+
+import isEqual from 'Core/utils/isEqual';
 
 import {
     createBalloonLayoutTemplate,
@@ -21,23 +21,35 @@ const mapState = {
 };
 
 class Map extends Component {
-    componentDidMount() {
-        this.loadYaMap();
+    constructor(props) {
+        super(props);
+
+        this.map = null;
+        this.ymaps = null;
+        this.balloonIsActive = false;
+        this.balloonIndex = false;
     }
 
-    setMapInstanceRef = (ref) => {
-        this.map = ref;
-    };
+    componentDidUpdate(prevProps) {
+        const { geoPoints } = this.props;
+
+        if (!prevProps.geoPoints.length) {
+            this.loadYaMap();
+        }
+
+        if (prevProps.geoPoints.length && !isEqual(geoPoints, prevProps.geoPoints)) {
+            this.updateCollection();
+        }
+    }
 
     loadYaMap = () => {
-        // const { geoPoints } = this.props;
-
-        console.log(yaMaps);
+        const { geoPoints } = this.props;
 
         yaMaps
             .load()
             .then((ymaps) => {
-                const map = new ymaps.Map(
+                this.ymaps = ymaps;
+                this.map = new ymaps.Map(
                     'yaMap',
                     mapState, {
                         suppressMapOpenBlock: true,
@@ -45,22 +57,21 @@ class Map extends Component {
                     },
                 );
 
-                console.log(map);
+                if (geoPoints.length) {
+                    this.initCollection();
+                }
             })
-            .catch((error) => console.log('Failed to load Yandex Maps', error));
-
-        /* if (ymaps && geoPoints.length) {
-            this.ymaps = ymaps;
-
-            // this.initCollection();
-        } */
+            .catch((error) => {
+                console.log('Failed to load Yandex Maps', error);
+            });
     };
 
     createCollection = () => {
         const { map, ymaps } = this;
         const { geoPoints } = this.props;
+        let placeMarks = [];
 
-        geoPoints.forEach((point) => {
+        geoPoints.forEach((point, index) => {
             const { descr } = point;
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
             const placeMark = createPlaceMark(
@@ -70,9 +81,19 @@ class Map extends Component {
                 createBalloonContentTemplate(ymaps, point),
             );
 
+            placeMarks = [...placeMarks, placeMark];
+
             map.geoObjects.add(collection);
             collection.add(placeMark);
+
+            placeMark.events.add('balloonopen', () => {
+                this.balloonIndex = index;
+            });
         });
+
+        if (this.balloonIsActive) {
+            placeMarks[this.balloonIndex].balloon.open();
+        }
     };
 
     initCollection = () => {
@@ -84,22 +105,20 @@ class Map extends Component {
         });
     };
 
-    render() {
-        const { wrapClassName } = this.props;
+    updateCollection = () => {
+        const { map } = this;
 
-        /* <div className={cn(styles.wrap, wrapClassName)}>
-                <YMaps query={{ load: 'package.full' }}>
-                    <YaMap
-                        onLoad={this.loadYaMap}
-                        defaultState={mapState}
-                        options={{ suppressMapOpenBlock: true }}
-                        width={mapWidth}
-                        height={mapHeight}
-                        modules={['templateLayoutFactory']}
-                        instanceRef={this.setMapInstanceRef}
-                    />
-                </YMaps>
-            </div> */
+        this.balloonIsActive = map.balloon.isOpen();
+        map.geoObjects.removeAll();
+        this.createCollection();
+    };
+
+    render() {
+        const {
+            wrapClassName,
+            // mapWidth,
+            // mapHeight,
+        } = this.props;
 
         return (
             <div id="yaMap" className={cn(styles.wrap, wrapClassName)} />

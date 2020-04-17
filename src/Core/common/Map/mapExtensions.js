@@ -11,12 +11,13 @@ export const createPlaceMark = (ymaps, point, balloonLayout, balloonContent) => 
         iconLayout: 'default#image',
         iconImageHref: iconPlacemark,
         iconImageSize: [22, 22],
+        iconImageOffset: [-11, -11],
         balloonShadow: false,
         balloonLayout,
         balloonContentLayout: balloonContent,
         balloonPanelMaxMapArea: 0,
         hideIconOnBalloonOpen: false,
-        balloonOffset: [-44, -10],
+        balloonOffset: [-44, 18],
     })
 );
 
