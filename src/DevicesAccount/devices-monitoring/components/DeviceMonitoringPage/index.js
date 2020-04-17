@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Button from 'Core/common/Button';
 import Map from 'Core/common/Map';
 import DeviceMonitoringCardContainer from '../../containers/DeviceMonitoringCardContainer';
+import DeviceMonitoringVideoContainer from '../../containers/DeviceMonitoringVideoContainer';
 
 import styles from './index.module.scss';
 
@@ -30,8 +31,7 @@ const DeviceMonitoringPage = () => {
                 {showTranslation
                     ? (
                         <div className={styles.videoWrap}>
-                            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-                            <video className={styles.video} />
+                            <DeviceMonitoringVideoContainer />
                         </div>
                     )
                     : (
