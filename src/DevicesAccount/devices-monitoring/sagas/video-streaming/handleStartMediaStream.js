@@ -1,5 +1,5 @@
 import { cancel, fork, take } from 'redux-saga/effects';
-import { CANCEL_MEDIA_STREAM } from '../actions';
+import { CANCEL_MEDIA_STREAM } from '../../actions';
 import requestMediaStream from './requestMediaStream';
 
 function* handleStartMediaStream(deviceId) {
