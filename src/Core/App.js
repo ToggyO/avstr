@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
 import './App.scss';
@@ -9,13 +9,18 @@ import 'Core/scss/fonts/add-fonts.scss';
 import store from './store';
 import RootRouter from './root/RootRouter';
 // import configureMirage from './api/configureMirage';
-
-
 // configureMirage();
+import StreamStoreService from './streamStoreService';
+
+
+const streamStore = new StreamStoreService();
+const StreamStoreContext = createContext(streamStore);
 
 const App = () => (
     <Provider store={store}>
-        <RootRouter />
+        <StreamStoreContext.Provider value={streamStore}>
+            <RootRouter />
+        </StreamStoreContext.Provider>
     </Provider>
 );
 

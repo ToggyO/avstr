@@ -3,7 +3,7 @@ import {
     CHANGE_ADVERTISING_LOADER_STATUS,
     CHANGE_DEVICE_STATUS_LOADER,
     RECEIVE_MEDIA_STREAM_OPTIONS,
-    RECEIVE_MEDIA_STREAM,
+    RECEIVE_MEDIA_STREAM_ID,
 } from './actions';
 
 
@@ -18,7 +18,7 @@ const initialState = {
     showAdvertisingLoader: false,
     showDeviceStatusLoader: false,
     mediaStreamOptions: '',
-    mediaStream: null,
+    mediaStreamId: null,
 };
 
 
@@ -44,10 +44,10 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 mediaStreamOptions: data,
             };
-        case RECEIVE_MEDIA_STREAM:
+        case RECEIVE_MEDIA_STREAM_ID:
             return {
                 ...state,
-                mediaStream: data,
+                mediaStreamId: data,
             };
         default:
             return state;

@@ -8,7 +8,7 @@ import {
     REQUEST_MEDIA_STREAM_OPTIONS,
     RECEIVE_MEDIA_STREAM_OPTIONS,
     START_MEDIA_STREAM,
-    RECEIVE_MEDIA_STREAM,
+    RECEIVE_MEDIA_STREAM_ID,
     CANCEL_MEDIA_STREAM,
 } from './actions';
 
@@ -57,8 +57,8 @@ export const startMediaStream = (data) => ({
     type: START_MEDIA_STREAM,
     data,
 });
-export const receiveMediaStream = (data) => ({
-    type: RECEIVE_MEDIA_STREAM,
+export const receiveMediaStreamId = (data) => ({
+    type: RECEIVE_MEDIA_STREAM_ID,
     data,
 });
 export const cancelMediaStream = (data) => ({
