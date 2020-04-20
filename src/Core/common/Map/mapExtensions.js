@@ -95,7 +95,7 @@ export const createBalloonContentTemplate = (ymaps, { title, descr }) => (
         `<div class=${styles.info}>
             <div class=${styles.name}>${title}</div>
             <div class=${styles.id}>${descr}</div>
-            <a href="#" class=${styles.link}>
+            <a href="/devices/monitoring/221" class=${styles.link}>
                 Мониторинг устройства
                 <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
             </a>
