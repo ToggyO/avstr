@@ -90,15 +90,18 @@ export const createBalloonLayoutTemplate = (ymaps) => (
     )
 );
 
-export const createBalloonContentTemplate = (ymaps, { title, descr }) => (
-    ymaps.templateLayoutFactory.createClass(
-        `<div class=${styles.info}>
-            <div class=${styles.name}>${title}</div>
-            <div class=${styles.id}>${descr}</div>
-            <a href="/devices/monitoring/221" class=${styles.link}>
-                Мониторинг устройства
-                <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
-            </a>
-        </div>`,
-    )
-);
+export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) => {
+    const linkUrl = `/devices/monitoring/${deviceId}`;
+    return (
+        ymaps.templateLayoutFactory.createClass(
+            `<div class=${styles.info}>
+                <div class=${styles.name}>${title}</div>
+                <div class=${styles.id}>${descr}</div>
+                <a href=${linkUrl} class=${styles.link}>
+                    Мониторинг устройства
+                    <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
+                </a>
+            </div>`,
+        )
+    );
+};
