@@ -3,15 +3,15 @@ import RTCMultiConnection from 'rtcmulticonnection';
 
 function createWebSocketChanel({
     socketUrl,
-    iceServers,
+    servers,
     password,
-    roomId,
+    serialNumber,
 }) {
     return eventChannel((emitter) => {
         const connection = new RTCMultiConnection();
 
         connection.socketURL = socketUrl;
-        connection.socketMessageEvent = 'video-broadcast';
+        connection.socketMessageEvent = 'video-broadcast-demo';
 
         connection.session = {
             audio: true,
@@ -24,7 +24,7 @@ function createWebSocketChanel({
         };
 
         connection.iceServers = [];
-        iceServers.forEach((server) => {
+        servers.forEach((server) => {
             connection.iceServers.push(server);
         });
 
@@ -35,7 +35,7 @@ function createWebSocketChanel({
                 stream,
                 isEnded: false,
             });
-            // emitter(END);
+            emitter(END);
         };
 
         const onStreamEnded = () => {
@@ -43,19 +43,22 @@ function createWebSocketChanel({
             emitter(END);
         };
 
-        const onMediaError = () => {
-            alert('error');
+        const reConnect = () => {
             connection.join(connection.sessionid);
         };
 
         connection.onstream = onStream;
         connection.onstreamended = onStreamEnded;
-        connection.onMediaError = onMediaError;
+        connection.onMediaError = reConnect;
+        connection.error = reConnect;
 
-        connection.join(roomId);
+        connection.join(serialNumber);
 
         return () => {
-
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
         };
     });
 }

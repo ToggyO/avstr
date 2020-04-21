@@ -18,7 +18,7 @@ const initialState = {
     showAdvertisingLoader: false,
     showDeviceStatusLoader: false,
     mediaStreamOptions: '',
-    mediaStreamId: null,
+    mediaStream: null,
 };
 
 
@@ -47,7 +47,7 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
         case RECEIVE_MEDIA_STREAM_ID:
             return {
                 ...state,
-                mediaStreamId: data,
+                mediaStream: data,
             };
         default:
             return state;
