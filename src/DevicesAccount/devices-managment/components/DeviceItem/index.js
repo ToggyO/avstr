@@ -18,7 +18,6 @@ const DeviceItem = ({
         isAdvertisementsDisabled,
         id,
     },
-    number,
 }) => {
     const [isHighlighted, setIsHighlighted] = useState(false);
 
@@ -45,7 +44,6 @@ const DeviceItem = ({
             onFocus={handleMouseOver}
             onBlur={handleMouseOut}
         >
-            <td>{number}</td>
             <td>{name}</td>
             <td>{serialNumber}</td>
             <td>
@@ -78,7 +76,6 @@ DeviceItem.propTypes = {
         isActive: PropTypes.bool.isRequired,
         isAdvertisementsDisabled: PropTypes.bool.isRequired,
     }).isRequired,
-    number: PropTypes.number.isRequired,
 };
 
 export default memo(DeviceItem, ({ content }, nextProps) => (
