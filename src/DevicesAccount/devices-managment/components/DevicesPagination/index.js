@@ -11,6 +11,7 @@ const DevicesPagination = ({
         size,
         hasPrevious,
         hasNext,
+        itemsTotal,
     },
     requestDevices,
 }) => {
@@ -41,11 +42,12 @@ const DevicesPagination = ({
                 break;
         }
     };
+    const amountOfVisibleDevices = itemsTotal > size ? size : itemsTotal;
 
     return (
         <div className={styles.wrap}>
             <div>
-                {`Показано устройств: ${size} из 10000`}
+                {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
             </div>
             <div className={styles.controls}>
                 <Icon
@@ -78,6 +80,7 @@ DevicesPagination.propTypes = {
         size: PropTypes.number.isRequired,
         hasPrevious: PropTypes.bool.isRequired,
         hasNext: PropTypes.bool.isRequired,
+        itemsTotal: PropTypes.number.isRequired,
     }).isRequired,
     requestDevices: PropTypes.func.isRequired,
 };
