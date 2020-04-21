@@ -1,45 +1,67 @@
-import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import React, { Component, createRef } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
-import { requestMediaStreamOptions } from '../action-creators';
+import { startMediaStream } from '../action-creators';
 
 class DeviceMonitoringVideoContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.ref = createRef(null);
+    }
+
     componentDidMount() {
-        // const { serialNumber, requestMediaStreamOptionsAction } = this.props;
-        // requestMediaStreamOptionsAction(serialNumber);
+        const { serialNumber, id, startMediaStreamAction } = this.props;
+        startMediaStreamAction({ serialNumber, id });
+    }
+
+    componentDidUpdate(prevProps) {
+        const { mediaStream } = this.props;
+        if (mediaStream === prevProps.mediaStream) return;
+        this.ref.current.srcObject = mediaStream;
     }
 
     render() {
         return (
             // eslint-disable-next-line jsx-a11y/media-has-caption
             <video
+                ref={this.ref}
                 autoPlay
                 controls
-            >
-                <source src="/2.mp4" type="video/mp4" />
-            </video>
+            />
         );
     }
 }
+DeviceMonitoringVideoContainer.defaultProps = {
+    mediaStream: null,
+};
 
 DeviceMonitoringVideoContainer.propTypes = {
-    // serialNumber: PropTypes.string.isRequired,
-    // requestMediaStreamOptionsAction: PropTypes.func.isRequired,
+    serialNumber: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    startMediaStreamAction: PropTypes.func.isRequired,
+    mediaStream: PropTypes.shape(),
 };
+
 
 const mapStateToProps = ({
     devicesReducer: {
         devicesMonitoringReducer: {
-            currentDevice,
+            currentDevice: {
+                serialNumber,
+                id,
+            },
+            mediaStream,
         },
     },
 }) => ({
-    serialNumber: currentDevice.serialNumber,
+    serialNumber,
+    id,
+    mediaStream,
 });
 
 const mapDispatchToProps = {
-    requestMediaStreamOptionsAction: requestMediaStreamOptions,
+    startMediaStreamAction: startMediaStream,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringVideoContainer);
