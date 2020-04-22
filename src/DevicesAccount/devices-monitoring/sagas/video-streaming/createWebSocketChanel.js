@@ -30,20 +30,6 @@ function createWebSocketChanel({
 
         connection.password = password;
 
-        const onStream = ({ stream }) => {
-            emitter({
-                stream,
-                isEnded: false,
-            });
-            emitter(END);
-        };
-
-        const reConnect = () => {
-            connection.closeSocket();
-            emitter({ isReconnectNeeded: true });
-            emitter(END);
-        };
-
         const closeConnection = () => {
             connection.closeSocket();
             connection.onstream = null;
@@ -52,15 +38,25 @@ function createWebSocketChanel({
             connection.error = null;
         };
 
-        const onStreamEnded = (e) => {
-            alert('stream ended', e);
+        const onStream = ({ stream }) => {
+            emitter({ stream });
+            emitter(END);
+        };
+
+        const onStreamEnded = () => {
+            alert('Трансляция прекращена');
+        };
+
+        const onError = () => {
             closeConnection();
+            emitter({ error: true });
+            emitter(END);
         };
 
         connection.onstream = onStream;
         connection.onstreamended = onStreamEnded;
-        connection.onMediaError = reConnect;
-        connection.error = reConnect;
+        connection.onMediaError = onError;
+        connection.error = onError;
 
         connection.join(serialNumber);
 

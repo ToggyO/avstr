@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import streamStore from 'Core/streamStoreService';
 
 import { connect } from 'react-redux';
-import { startMediaStream } from '../action-creators';
+import { startMediaStream, changeTranslationShowing } from '../action-creators';
 
 
 class DeviceMonitoringVideoContainer extends Component {
@@ -13,7 +13,13 @@ class DeviceMonitoringVideoContainer extends Component {
     }
 
     componentDidMount() {
-        const { serialNumber, id, startMediaStreamAction } = this.props;
+        const {
+            serialNumber,
+            id,
+            startMediaStreamAction,
+            changeTranslationShowingAction,
+        } = this.props;
+        changeTranslationShowingAction(true);
         startMediaStreamAction({ serialNumber, id });
     }
 
@@ -48,6 +54,7 @@ DeviceMonitoringVideoContainer.propTypes = {
     id: PropTypes.number.isRequired,
     startMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
+    changeTranslationShowingAction: PropTypes.func.isRequired,
 };
 
 
@@ -69,6 +76,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     startMediaStreamAction: startMediaStream,
+    changeTranslationShowingAction: changeTranslationShowing,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringVideoContainer);

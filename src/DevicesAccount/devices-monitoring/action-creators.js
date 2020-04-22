@@ -5,10 +5,9 @@ import {
     CHANGE_ADVERTISING_LOADER_STATUS,
     TOGGLE_DEVICE_STATUS,
     CHANGE_DEVICE_STATUS_LOADER,
-    REQUEST_MEDIA_STREAM_OPTIONS,
-    RECEIVE_MEDIA_STREAM_OPTIONS,
     START_MEDIA_STREAM,
     RECEIVE_MEDIA_STREAM_ID,
+    CHANGE_TRANSLATION_SHOWING,
     CANCEL_MEDIA_STREAM,
 } from './actions';
 
@@ -43,22 +42,16 @@ export const changeDeviceStatusLoader = (data) => ({
 });
 
 
-export const requestMediaStreamOptions = (data) => ({
-    type: REQUEST_MEDIA_STREAM_OPTIONS,
-    data,
-});
-export const receiveMediaStreamOptions = (data) => ({
-    type: RECEIVE_MEDIA_STREAM_OPTIONS,
-    data,
-});
-
-
 export const startMediaStream = (data) => ({
     type: START_MEDIA_STREAM,
     data,
 });
 export const receiveMediaStreamId = (data) => ({
     type: RECEIVE_MEDIA_STREAM_ID,
+    data,
+});
+export const changeTranslationShowing = (data) => ({
+    type: CHANGE_TRANSLATION_SHOWING,
     data,
 });
 export const cancelMediaStream = (data) => ({

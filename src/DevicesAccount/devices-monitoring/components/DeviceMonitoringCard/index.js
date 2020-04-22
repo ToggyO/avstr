@@ -20,6 +20,8 @@ const DeviceMonitoringCard = ({
     toggleAdvertisingHandler,
     showDeviceStatusLoader,
     toggleDeviceStatus,
+    isTranslationShowing,
+    startMediaStream,
 }) => {
     const handleBackBtn = () => {
         history.push('/devices/main/list');
@@ -31,6 +33,8 @@ const DeviceMonitoringCard = ({
 
     const handleDeactivateBtnClick = () => {
         toggleDeviceStatus(id);
+        if (isActive || !isTranslationShowing) return;
+        startMediaStream({ serialNumber, id });
     };
 
     const calcMessage = () => {
@@ -125,6 +129,8 @@ DeviceMonitoringCard.propTypes = {
     toggleAdvertisingHandler: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatus: PropTypes.func.isRequired,
+    isTranslationShowing: PropTypes.bool.isRequired,
+    startMediaStream: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;

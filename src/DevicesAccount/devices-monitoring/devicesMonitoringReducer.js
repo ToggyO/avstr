@@ -2,8 +2,8 @@ import {
     RECEIVE_DEVICE_CONTENT,
     CHANGE_ADVERTISING_LOADER_STATUS,
     CHANGE_DEVICE_STATUS_LOADER,
-    RECEIVE_MEDIA_STREAM_OPTIONS,
     RECEIVE_MEDIA_STREAM_ID,
+    CHANGE_TRANSLATION_SHOWING,
 } from './actions';
 
 
@@ -17,8 +17,8 @@ const initialState = {
     },
     showAdvertisingLoader: false,
     showDeviceStatusLoader: false,
-    mediaStreamOptions: '',
     mediaStreamId: null,
+    isTranslationShowing: false,
 };
 
 
@@ -39,15 +39,15 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 showDeviceStatusLoader: data,
             };
-        case RECEIVE_MEDIA_STREAM_OPTIONS:
-            return {
-                ...state,
-                mediaStreamOptions: data,
-            };
         case RECEIVE_MEDIA_STREAM_ID:
             return {
                 ...state,
                 mediaStreamId: data,
+            };
+        case CHANGE_TRANSLATION_SHOWING:
+            return {
+                ...state,
+                isTranslationShowing: data,
             };
         default:
             return state;
