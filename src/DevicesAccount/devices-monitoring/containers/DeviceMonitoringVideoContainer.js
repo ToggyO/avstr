@@ -4,11 +4,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { startMediaStream } from '../action-creators';
 
+
 class DeviceMonitoringVideoContainer extends Component {
     constructor(props) {
         super(props);
         this.ref = createRef(null);
     }
+
 
     componentDidMount() {
         const { serialNumber, id, startMediaStreamAction } = this.props;
@@ -16,9 +18,12 @@ class DeviceMonitoringVideoContainer extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { mediaStream } = this.props;
-        if (mediaStream === prevProps.mediaStream) return;
-        this.ref.current.srcObject = mediaStream;
+        const { mediaStreamId } = this.props;
+        if (mediaStreamId === prevProps.mediaStreamId) return;
+
+        const { getStream } = window.streamStore;
+        const { current } = this.ref;
+        current.srcObject = getStream(mediaStreamId);
     }
 
     render() {
@@ -32,15 +37,17 @@ class DeviceMonitoringVideoContainer extends Component {
         );
     }
 }
+
+
 DeviceMonitoringVideoContainer.defaultProps = {
-    mediaStream: null,
+    mediaStreamId: null,
 };
 
 DeviceMonitoringVideoContainer.propTypes = {
     serialNumber: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     startMediaStreamAction: PropTypes.func.isRequired,
-    mediaStream: PropTypes.shape(),
+    mediaStreamId: PropTypes.number,
 };
 
 
@@ -51,13 +58,13 @@ const mapStateToProps = ({
                 serialNumber,
                 id,
             },
-            mediaStream,
+            mediaStreamId,
         },
     },
 }) => ({
     serialNumber,
     id,
-    mediaStream,
+    mediaStreamId,
 });
 
 const mapDispatchToProps = {

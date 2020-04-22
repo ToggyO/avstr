@@ -57,7 +57,7 @@ export const startMediaStream = (data) => ({
     type: START_MEDIA_STREAM,
     data,
 });
-export const receiveMediaStream = (data) => ({
+export const receiveMediaStreamId = (data) => ({
     type: RECEIVE_MEDIA_STREAM_ID,
     data,
 });

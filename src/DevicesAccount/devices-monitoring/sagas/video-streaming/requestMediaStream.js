@@ -1,7 +1,7 @@
 import { put, call, take } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { receiveMediaStream } from '../../action-creators';
+import { receiveMediaStreamId } from '../../action-creators';
 import createWebSocketChanel from './createWebSocketChanel';
 
 const { REACT_APP_DEVICE_API } = process.env;
@@ -22,9 +22,9 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
             alert('stream ended');
             return;
         }
-        /* const streamStore = new StreamStoreService();
-        const streamId = streamStore.saveStream(stream); */
-        yield put(receiveMediaStream(stream));
+        const { streamStore } = window;
+        const streamId = streamStore.saveStream(stream);
+        yield put(receiveMediaStreamId(streamId));
     }
 }
 
