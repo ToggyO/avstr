@@ -38,13 +38,23 @@ function createWebSocketChanel({
             emitter(END);
         };
 
-        const onStreamEnded = () => {
-            emitter({ isEnded: true });
+        const reConnect = () => {
+            connection.closeSocket();
+            emitter({ isReconnectNeeded: true });
             emitter(END);
         };
 
-        const reConnect = () => {
-            connection.join(connection.sessionid);
+        const closeConnection = () => {
+            connection.closeSocket();
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
+        };
+
+        const onStreamEnded = (e) => {
+            alert('stream ended', e);
+            closeConnection();
         };
 
         connection.onstream = onStream;
@@ -55,10 +65,7 @@ function createWebSocketChanel({
         connection.join(serialNumber);
 
         return () => {
-            connection.onstream = null;
-            connection.onstreamended = null;
-            connection.onMediaError = null;
-            connection.error = null;
+            //
         };
     });
 }

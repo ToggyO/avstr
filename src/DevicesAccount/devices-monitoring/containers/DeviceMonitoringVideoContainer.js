@@ -1,5 +1,6 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
+import streamStore from 'Core/streamStoreService';
 
 import { connect } from 'react-redux';
 import { startMediaStream } from '../action-creators';
@@ -11,7 +12,6 @@ class DeviceMonitoringVideoContainer extends Component {
         this.ref = createRef(null);
     }
 
-
     componentDidMount() {
         const { serialNumber, id, startMediaStreamAction } = this.props;
         startMediaStreamAction({ serialNumber, id });
@@ -21,7 +21,7 @@ class DeviceMonitoringVideoContainer extends Component {
         const { mediaStreamId } = this.props;
         if (mediaStreamId === prevProps.mediaStreamId) return;
 
-        const { getStream } = window.streamStore;
+        const { getStream } = streamStore;
         const { current } = this.ref;
         current.srcObject = getStream(mediaStreamId);
     }

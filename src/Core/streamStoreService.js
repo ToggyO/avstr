@@ -21,4 +21,6 @@ class StreamStoreService {
     }
 }
 
-export default StreamStoreService;
+const streamStoreService = new StreamStoreService();
+
+export default streamStoreService;

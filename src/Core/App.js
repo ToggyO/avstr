@@ -9,17 +9,11 @@ import store from './store';
 import RootRouter from './root/RootRouter';
 // import configureMirage from './api/configureMirage';
 // configureMirage();
-import StreamStoreService from './streamStoreService';
-
-
-const streamStore = new StreamStoreService();
-window.streamStore = streamStore;
 
 const App = () => (
     <Provider store={store}>
         <RootRouter />
     </Provider>
 );
-
 
 export default process.env.NODE_ENV === 'development' ? hot(App) : App;

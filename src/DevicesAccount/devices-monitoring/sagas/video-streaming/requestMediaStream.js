@@ -1,11 +1,12 @@
 import { put, call, take } from 'redux-saga/effects';
 
 import api from 'Core/api';
+import streamStore from 'Core/streamStoreService';
 import { receiveMediaStreamId } from '../../action-creators';
 import createWebSocketChanel from './createWebSocketChanel';
 
-const { REACT_APP_DEVICE_API } = process.env;
 
+const { REACT_APP_DEVICE_API } = process.env;
 
 function* requestMediaStream({ data: { id, serialNumber } }) {
     const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/Devices/MediaStream/${id}`);
@@ -17,12 +18,16 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
 
     const webSocketChannel = yield call(createWebSocketChanel, options);
     while (true) {
-        const { stream, isEnded } = yield take(webSocketChannel);
+        const { stream, isEnded, isReconnectNeeded } = yield take(webSocketChannel);
         if (isEnded) {
             alert('stream ended');
             return;
         }
-        const { streamStore } = window;
+        if (isReconnectNeeded) {
+            yield* requestMediaStream;
+            return;
+        }
+
         const streamId = streamStore.saveStream(stream);
         yield put(receiveMediaStreamId(streamId));
     }
