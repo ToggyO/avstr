@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 
 import Button from 'Core/common/Button';
 import Map from 'Core/common/Map';
-import DeviceMonitoringCardContainer from '../../containers/DeviceMonitoringCardContainer';
-import DeviceMonitoringVideoContainer from '../../containers/DeviceMonitoringVideoContainer';
+import DeviceMonitoringCardContainer from '../DeviceMonitoringCardContainer';
+import DeviceMonitoringVideoContainer from '../../components/DeviceMonitoringVideo';
 
 import { startMediaStream } from '../../action-creators';
 
