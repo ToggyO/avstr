@@ -2,31 +2,22 @@ import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import streamStore from 'Core/streamStoreService';
 
-import { connect } from 'react-redux';
-import { startMediaStream, changeTranslationShowing } from '../action-creators';
 
-
-class DeviceMonitoringVideoContainer extends Component {
+class DeviceMonitoringVideo extends Component {
     constructor(props) {
         super(props);
         this.ref = createRef(null);
     }
 
     componentDidMount() {
-        const {
-            serialNumber,
-            id,
-            startMediaStreamAction,
-            changeTranslationShowingAction,
-        } = this.props;
-        changeTranslationShowingAction(true);
-        startMediaStreamAction({ serialNumber, id });
+        const { mediaStreamId } = this.props;
+        const { getStream } = streamStore;
+        const { current } = this.ref;
+        current.srcObject = getStream(mediaStreamId);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate() {
         const { mediaStreamId } = this.props;
-        if (mediaStreamId === prevProps.mediaStreamId) return;
-
         const { getStream } = streamStore;
         const { current } = this.ref;
         current.srcObject = getStream(mediaStreamId);
@@ -45,39 +36,12 @@ class DeviceMonitoringVideoContainer extends Component {
 }
 
 
-DeviceMonitoringVideoContainer.defaultProps = {
+DeviceMonitoringVideo.defaultProps = {
     mediaStreamId: null,
 };
 
-DeviceMonitoringVideoContainer.propTypes = {
-    serialNumber: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
-    startMediaStreamAction: PropTypes.func.isRequired,
+DeviceMonitoringVideo.propTypes = {
     mediaStreamId: PropTypes.number,
-    changeTranslationShowingAction: PropTypes.func.isRequired,
 };
 
-
-const mapStateToProps = ({
-    devicesReducer: {
-        devicesMonitoringReducer: {
-            currentDevice: {
-                serialNumber,
-                id,
-            },
-            mediaStreamId,
-        },
-    },
-}) => ({
-    serialNumber,
-    id,
-    mediaStreamId,
-});
-
-const mapDispatchToProps = {
-    startMediaStreamAction: startMediaStream,
-    changeTranslationShowingAction: changeTranslationShowing,
-
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringVideoContainer);
+export default DeviceMonitoringVideo;

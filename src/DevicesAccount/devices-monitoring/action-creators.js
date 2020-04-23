@@ -7,7 +7,8 @@ import {
     CHANGE_DEVICE_STATUS_LOADER,
     START_MEDIA_STREAM,
     RECEIVE_MEDIA_STREAM_ID,
-    CHANGE_TRANSLATION_SHOWING,
+    CLEAN_MEDIA_STREAM_ID,
+    CHANGE_MEDIA_STREAM_LOADER,
     CANCEL_MEDIA_STREAM,
 } from './actions';
 
@@ -50,8 +51,12 @@ export const receiveMediaStreamId = (data) => ({
     type: RECEIVE_MEDIA_STREAM_ID,
     data,
 });
-export const changeTranslationShowing = (data) => ({
-    type: CHANGE_TRANSLATION_SHOWING,
+export const cleanMediaStreamId = () => ({
+    type: CLEAN_MEDIA_STREAM_ID,
+});
+
+export const changeMediaStreamLoader = (data) => ({
+    type: CHANGE_MEDIA_STREAM_LOADER,
     data,
 });
 export const cancelMediaStream = (data) => ({

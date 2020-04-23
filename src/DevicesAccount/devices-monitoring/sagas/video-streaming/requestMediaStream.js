@@ -7,15 +7,14 @@ import {
 
 import api from 'Core/api';
 import streamStore from 'Core/streamStoreService';
-import { receiveMediaStreamId } from '../../action-creators';
+import { receiveMediaStreamId, changeMediaStreamLoader } from '../../action-creators';
 import createWebSocketChanel from './createWebSocketChanel';
 
 
 const { REACT_APP_DEVICE_API } = process.env;
 
 function* requestMediaStream({ data: { id, serialNumber } }) {
-    alert('Трансляция начнется примерно через 15 секунд');
-    yield delay(15000);
+    yield put(changeMediaStreamLoader(true));
     const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/Devices/MediaStream/${id}`);
 
     const options = {
@@ -35,6 +34,7 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
 
         const streamId = streamStore.saveStream(stream);
         yield put(receiveMediaStreamId(streamId));
+        yield put(changeMediaStreamLoader(false));
     }
 }
 
