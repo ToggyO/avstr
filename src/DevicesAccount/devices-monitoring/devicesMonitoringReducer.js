@@ -5,6 +5,7 @@ import {
     RECEIVE_MEDIA_STREAM_ID,
     CLEAN_MEDIA_STREAM_ID,
     CHANGE_MEDIA_STREAM_LOADER,
+    CHANGE_CURRENT_DEVICE_STATUS,
 } from './actions';
 
 
@@ -20,6 +21,7 @@ const initialState = {
     showDeviceStatusLoader: false,
     mediaStreamId: null,
     showMediaStreamLoader: false,
+    currentDeviceStatus: null,
 };
 
 
@@ -55,6 +57,11 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 showMediaStreamLoader: data,
+            };
+        case CHANGE_CURRENT_DEVICE_STATUS:
+            return {
+                ...state,
+                currentDeviceStatus: data,
             };
         default:
             return state;
