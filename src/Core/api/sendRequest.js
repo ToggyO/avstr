@@ -18,10 +18,11 @@ async function sendRequest(url, options, successCode) {
         if (successFlag) {
             result = await res.json();
         } else {
-            handleRequestErrors(status);
+            const error = await res.json();
+            handleRequestErrors(status, error);
         }
     } catch (err) {
-        handleRequestErrors(status);
+        handleRequestErrors(status, err);
     }
     return result;
 }

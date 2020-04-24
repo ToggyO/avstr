@@ -1,7 +1,9 @@
 export default class RequestError extends Error {
-    constructor(message, type) {
+    constructor(message, type, content) {
         super(message);
         this.name = 'RequestError';
         this.type = type;
+        this.content = content;
+        console.log(content, this.content);
     }
 }

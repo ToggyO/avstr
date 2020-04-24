@@ -71,11 +71,12 @@ class DeviceMonitoringPage extends Component {
 
 DeviceMonitoringPage.defaultProps = {
     mediaStreamId: null,
+    id: null,
 };
 
 DeviceMonitoringPage.propTypes = {
     serialNumber: PropTypes.string.isRequired,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.number,
     isActive: PropTypes.bool.isRequired,
     startMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
