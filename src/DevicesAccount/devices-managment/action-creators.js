@@ -5,7 +5,7 @@ import {
     REQUEST_GEO_POINTS,
     RECEIVE_GEO_POINTS,
     REGISTER_DEVICE,
-    RECEIVE_DEVICE_STATUS,
+    CHANGE_DEVICE_STATUS,
     CANCEL_DEVICE_REGISTRATION,
 } from './actions';
 
@@ -42,7 +42,7 @@ export const registerDevice = (data) => ({
 });
 
 export const changeDeviceStatus = (data) => ({
-    type: RECEIVE_DEVICE_STATUS,
+    type: CHANGE_DEVICE_STATUS,
     data,
 });
 

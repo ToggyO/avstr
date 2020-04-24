@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
-import { requestDeviceContent, toggleAdvertisingOnDevice, toggleDeviceStatus } from '../action-creators';
+import {
+    requestDeviceContent,
+    toggleAdvertisingOnDevice,
+    toggleDeviceStatus,
+    cleanMediaStreamId,
+} from '../action-creators';
 
 
 class DeviceMonitoringCardContainer extends Component {
@@ -21,6 +26,7 @@ class DeviceMonitoringCardContainer extends Component {
             toggleAdvertisingOnDeviceAction,
             showDeviceStatusLoader,
             toggleDeviceStatusAction,
+            cleanMediaStreamIdAction,
         } = this.props;
         return (
             <DeviceMonitoringCard
@@ -29,6 +35,7 @@ class DeviceMonitoringCardContainer extends Component {
                 toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
                 showDeviceStatusLoader={showDeviceStatusLoader}
                 toggleDeviceStatus={toggleDeviceStatusAction}
+                cleanMediaStreamId={cleanMediaStreamIdAction}
             />
         );
     }
@@ -47,6 +54,7 @@ DeviceMonitoringCardContainer.propTypes = {
     toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatusAction: PropTypes.func.isRequired,
+    cleanMediaStreamIdAction: PropTypes.func.isRequired,
 };
 
 
@@ -68,6 +76,7 @@ const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
     toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
     toggleDeviceStatusAction: toggleDeviceStatus,
+    cleanMediaStreamIdAction: cleanMediaStreamId,
 };
 
 

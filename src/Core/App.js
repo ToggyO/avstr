@@ -1,28 +1,23 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
-import './App.scss';
+
+import io from 'socket.io-client';
 import 'semantic-ui-css/semantic.min.css';
 
 import 'Core/scss/fonts/add-fonts.scss';
-
 import store from './store';
 import RootRouter from './root/RootRouter';
-// import configureMirage from './api/configureMirage';
-// configureMirage();
-// import StreamStoreService from './streamStoreService';
+
+import './App.scss';
 
 
-/* const streamStore = new StreamStoreService();
-const StreamStoreContext = createContext(streamStore); */
+window.io = io;
 
 const App = () => (
     <Provider store={store}>
-        {/* <StreamStoreContext.Provider value={streamStore}> */}
         <RootRouter />
-        {/* </StreamStoreContext.Provider> */}
     </Provider>
 );
-
 
 export default process.env.NODE_ENV === 'development' ? hot(App) : App;

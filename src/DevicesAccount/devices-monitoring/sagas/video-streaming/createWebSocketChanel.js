@@ -30,35 +30,38 @@ function createWebSocketChanel({
 
         connection.password = password;
 
-        const onStream = ({ stream }) => {
-            emitter({
-                stream,
-                isEnded: false,
-            });
-            emitter(END);
-        };
-
-        const onStreamEnded = () => {
-            emitter({ isEnded: true });
-            emitter(END);
-        };
-
-        const reConnect = () => {
-            connection.join(connection.sessionid);
-        };
-
-        connection.onstream = onStream;
-        connection.onstreamended = onStreamEnded;
-        connection.onMediaError = reConnect;
-        connection.error = reConnect;
-
-        connection.join(serialNumber);
-
-        return () => {
+        const closeConnection = () => {
+            connection.closeSocket();
             connection.onstream = null;
             connection.onstreamended = null;
             connection.onMediaError = null;
             connection.error = null;
+        };
+
+        const onStream = ({ stream }) => {
+            emitter({ stream });
+            emitter(END);
+        };
+
+        const onStreamEnded = () => {
+            alert('Трансляция прекращена');
+        };
+
+        const onError = () => {
+            closeConnection();
+            emitter({ error: true });
+            emitter(END);
+        };
+
+        connection.onstream = onStream;
+        connection.onstreamended = onStreamEnded;
+        connection.onMediaError = onError;
+        connection.error = onError;
+
+        connection.join(serialNumber);
+
+        return () => {
+            //
         };
     });
 }

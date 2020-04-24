@@ -20,6 +20,7 @@ const DeviceMonitoringCard = ({
     toggleAdvertisingHandler,
     showDeviceStatusLoader,
     toggleDeviceStatus,
+    cleanMediaStreamId,
 }) => {
     const handleBackBtn = () => {
         history.push('/devices/main/list');
@@ -30,7 +31,8 @@ const DeviceMonitoringCard = ({
     };
 
     const handleDeactivateBtnClick = () => {
-        toggleDeviceStatus(id);
+        cleanMediaStreamId();
+        toggleDeviceStatus({ id, isDeactivate: isActive });
     };
 
     const calcMessage = () => {
@@ -125,6 +127,7 @@ DeviceMonitoringCard.propTypes = {
     toggleAdvertisingHandler: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatus: PropTypes.func.isRequired,
+    cleanMediaStreamId: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;
