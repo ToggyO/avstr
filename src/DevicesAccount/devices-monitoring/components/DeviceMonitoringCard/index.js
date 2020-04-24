@@ -32,7 +32,7 @@ const DeviceMonitoringCard = ({
 
     const handleDeactivateBtnClick = () => {
         cleanMediaStreamId();
-        toggleDeviceStatus(id);
+        toggleDeviceStatus({ id, isDeactivate: isActive });
     };
 
     const calcMessage = () => {

@@ -1,18 +1,42 @@
-import { call, put } from 'redux-saga/effects';
-
+import { call, put, delay } from 'redux-saga/effects';
 import api from 'Core/api';
-import handleRequestDeviceContent from './handleRequestDeviceContent';
-import { changeDeviceStatusLoader } from '../action-creators';
+import { changeDeviceStatusLoader, receiveDeviceContent } from '../action-creators';
+
 
 const { REACT_APP_DEVICE_API } = process.env;
 
-
-function* handleToggleDeviceStatus({ data }) {
+function* handleToggleDeviceStatus({ data: { id, isDeactivate } }) {
     try {
         yield put(changeDeviceStatusLoader(true));
-        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeActivationState`, { id: data });
+        console.log(isDeactivate);
+        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeActivationState`, { id });
+
+        let isRequestsFinish = false;
+        let isToggled = false;
+        let result = null;
+
+        setTimeout(() => {
+            isRequestsFinish = true;
+        }, 10000);
+
+        while (!isRequestsFinish) {
+            const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${id}`);
+            const { isActive } = content;
+            isToggled = isActive !== isDeactivate;
+            if (isToggled) {
+                isRequestsFinish = true;
+                result = content;
+            }
+            yield delay(1000);
+        }
+
+        if (isToggled) {
+            alert('success!');
+            yield put(receiveDeviceContent(result));
+        } else {
+            alert('failed...');
+        }
         yield put(changeDeviceStatusLoader(false));
-        yield* handleRequestDeviceContent({ data });
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
