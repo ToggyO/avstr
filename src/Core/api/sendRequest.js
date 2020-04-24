@@ -22,7 +22,8 @@ async function sendRequest(url, options, successCode) {
             handleRequestErrors(status, error);
         }
     } catch (err) {
-        handleRequestErrors(status, err);
+        const error = await res.json();
+        handleRequestErrors(status, error);
     }
     return result;
 }

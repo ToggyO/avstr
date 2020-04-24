@@ -4,6 +4,5 @@ export default class RequestError extends Error {
         this.name = 'RequestError';
         this.type = type;
         this.content = content;
-        console.log(content, this.content);
     }
 }

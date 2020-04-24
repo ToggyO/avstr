@@ -40,14 +40,15 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
             yield put(changeMediaStreamLoader(false));
         }
     } catch (err) {
-        const { type, content } = err;
+        console.dir(err);
+        const { type } = err;
         switch (type) {
             case 'BadRequest':
-                if (content) {
-                    console.log(content);
+                /* if (content /!*&& content[0] === 'DeviceIsNotConnected'*!/) {
+                    alert(content);
                 } else {
-                    console.log(err);
-                }
+                    console.log('aaaaaaaaa');
+                } */
                 break;
             case 'AuthorizationError':
                 window.location = '/';
