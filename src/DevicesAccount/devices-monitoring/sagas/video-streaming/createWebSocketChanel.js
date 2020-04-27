@@ -44,7 +44,7 @@ function createWebSocketChanel({
         };
 
         const onStreamEnded = () => {
-            alert('Трансляция прекращена');
+            // alert('Трансляция прекращена');
         };
 
         const onError = () => {
@@ -58,7 +58,27 @@ function createWebSocketChanel({
         connection.onMediaError = onError;
         connection.error = onError;
 
-        connection.join(serialNumber);
+        let isNoAttempts = false;
+        setTimeout(() => {
+            isNoAttempts = true;
+        }, 10000);
+
+        const joinRoomIfExists = () => {
+            connection.checkPresence(serialNumber, (isRoomExist, roomId) => {
+                if (isRoomExist === true) {
+                    connection.join(roomId);
+                    return;
+                }
+                if (isNoAttempts) {
+                    alert('Не удалось подсоединиться к комнате, поробуйте еще раз');
+                    return;
+                }
+
+                setTimeout(joinRoomIfExists, 3000);
+            });
+        };
+
+        joinRoomIfExists();
 
         return () => {
             //
