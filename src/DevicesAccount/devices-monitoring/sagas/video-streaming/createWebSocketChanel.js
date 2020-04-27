@@ -6,12 +6,13 @@ function createWebSocketChanel({
     servers,
     password,
     serialNumber,
+    socketMessageEvent,
 }) {
     return eventChannel((emitter) => {
         const connection = new RTCMultiConnection();
 
         connection.socketURL = socketUrl;
-        connection.socketMessageEvent = 'video-broadcast-demo';
+        connection.socketMessageEvent = socketMessageEvent;
 
         connection.session = {
             audio: true,
