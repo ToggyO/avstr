@@ -9,6 +9,7 @@ import {
     toggleAdvertisingOnDevice,
     toggleDeviceStatus,
     cleanMediaStreamId,
+    cancelMediaStream,
 } from '../action-creators';
 
 
@@ -25,8 +26,10 @@ class DeviceMonitoringCardContainer extends Component {
             showAdvertisingLoader,
             toggleAdvertisingOnDeviceAction,
             showDeviceStatusLoader,
+            mediaStreamId,
             toggleDeviceStatusAction,
             cleanMediaStreamIdAction,
+            cancelMediaStreamAction,
         } = this.props;
         return (
             <DeviceMonitoringCard
@@ -36,11 +39,17 @@ class DeviceMonitoringCardContainer extends Component {
                 showDeviceStatusLoader={showDeviceStatusLoader}
                 toggleDeviceStatus={toggleDeviceStatusAction}
                 cleanMediaStreamId={cleanMediaStreamIdAction}
+                cancelMediaStream={cancelMediaStreamAction}
+                mediaStreamId={mediaStreamId}
             />
         );
     }
 }
 
+
+DeviceMonitoringCardContainer.defaultProps = {
+    mediaStreamId: null,
+};
 
 DeviceMonitoringCardContainer.propTypes = {
     currentDevice: PropTypes.shape({
@@ -55,6 +64,8 @@ DeviceMonitoringCardContainer.propTypes = {
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatusAction: PropTypes.func.isRequired,
     cleanMediaStreamIdAction: PropTypes.func.isRequired,
+    cancelMediaStreamAction: PropTypes.func.isRequired,
+    mediaStreamId: PropTypes.number,
 };
 
 
@@ -64,12 +75,14 @@ const mapStateToProps = ({
             currentDevice,
             showAdvertisingLoader,
             showDeviceStatusLoader,
+            mediaStreamId,
         },
     },
 }) => ({
     currentDevice,
     showAdvertisingLoader,
     showDeviceStatusLoader,
+    mediaStreamId,
 });
 
 const mapDispatchToProps = {
@@ -77,6 +90,7 @@ const mapDispatchToProps = {
     toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
     toggleDeviceStatusAction: toggleDeviceStatus,
     cleanMediaStreamIdAction: cleanMediaStreamId,
+    cancelMediaStreamAction: cancelMediaStream,
 };
 
 

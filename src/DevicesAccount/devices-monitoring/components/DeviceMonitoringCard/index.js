@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
+import streamStore from 'Core/streamStoreService';
 
 import Button from 'Core/common/Button';
 
@@ -32,6 +33,7 @@ const DeviceMonitoringCard = ({
 
     const handleDeactivateBtnClick = () => {
         cleanMediaStreamId();
+        streamStore.clean();
         toggleDeviceStatus({ id, isDeactivate: isActive });
     };
 

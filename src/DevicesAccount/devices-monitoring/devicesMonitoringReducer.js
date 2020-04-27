@@ -14,6 +14,7 @@ const initialState = {
         name: '',
         serialNumber: '',
         isActive: true,
+        isRevokeRequired: false,
         isAdvertisementsDisabled: false,
         id: null,
     },

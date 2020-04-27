@@ -6,12 +6,13 @@ function createWebSocketChanel({
     servers,
     password,
     serialNumber,
+    socketMessageEvent,
 }) {
     return eventChannel((emitter) => {
         const connection = new RTCMultiConnection();
 
         connection.socketURL = socketUrl;
-        connection.socketMessageEvent = 'video-broadcast-demo';
+        connection.socketMessageEvent = socketMessageEvent;
 
         connection.session = {
             audio: true,
@@ -39,17 +40,18 @@ function createWebSocketChanel({
         };
 
         const onStream = ({ stream }) => {
-            emitter({ stream });
+            emitter({ stream, connection });
             emitter(END);
         };
 
         const onStreamEnded = () => {
-            alert('Трансляция прекращена');
+            // alert('Трансляция прервалась, пожалуйста проверьте, что устройство включено и активировано');
+            closeConnection();
         };
 
         const onError = () => {
             closeConnection();
-            emitter({ error: true });
+            emitter({ error: 'StreamError' });
             emitter(END);
         };
 
@@ -58,7 +60,29 @@ function createWebSocketChanel({
         connection.onMediaError = onError;
         connection.error = onError;
 
-        connection.join(serialNumber);
+        let isNoAttempts = false;
+        setTimeout(() => {
+            isNoAttempts = true;
+        }, 12000);
+
+        const joinRoomIfExists = () => {
+            connection.checkPresence(serialNumber, (isRoomExist, roomId) => {
+                if (isRoomExist === true) {
+                    connection.join(roomId);
+                    return;
+                }
+                if (isNoAttempts) {
+                    closeConnection();
+                    emitter({ error: 'noRoom' });
+                    emitter(END);
+                    return;
+                }
+
+                setTimeout(joinRoomIfExists, 3000);
+            });
+        };
+
+        joinRoomIfExists();
 
         return () => {
             //

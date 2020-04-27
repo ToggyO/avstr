@@ -3,18 +3,47 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { connect } from 'react-redux';
+import streamStore from 'Core/streamStoreService';
 
 import Button from 'Core/common/Button';
 import Map from 'Core/common/Map';
 import DeviceMonitoringCardContainer from '../DeviceMonitoringCardContainer';
-import DeviceMonitoringVideoContainer from '../../components/DeviceMonitoringVideo';
+import DeviceMonitoringVideo from '../../components/DeviceMonitoringVideo';
 
-import { startMediaStream } from '../../action-creators';
+import {
+    startMediaStream,
+    cancelMediaStream,
+    changeMediaStreamLoader,
+    cleanMediaStreamId,
+} from '../../action-creators';
 
 import styles from './index.module.scss';
 
 
 class DeviceMonitoringPage extends Component {
+    componentWillUnmount() {
+        const {
+            cancelMediaStreamAction,
+            mediaStreamId,
+            cleanMediaStreamIdAction,
+            changeMediaStreamLoaderAction,
+        } = this.props;
+        cancelMediaStreamAction();
+
+        const connection = streamStore.getConnection(mediaStreamId);
+        if (connection) {
+            connection.closeSocket();
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
+        }
+
+        cleanMediaStreamIdAction();
+        streamStore.clean();
+        changeMediaStreamLoaderAction(false);
+    }
+
     handleShowTranslationClick = () => {
         const {
             serialNumber,
@@ -29,7 +58,12 @@ class DeviceMonitoringPage extends Component {
     };
 
     render() {
-        const { showMediaStreamLoader, mediaStreamId, isActive } = this.props;
+        const {
+            showMediaStreamLoader,
+            mediaStreamId,
+            isActive,
+            isRevokeRequired,
+        } = this.props;
         return (
             <div className={styles.wrap}>
                 <DeviceMonitoringCardContainer />
@@ -45,11 +79,11 @@ class DeviceMonitoringPage extends Component {
                     {mediaStreamId
                         ? (
                             <div className={styles.videoWrap}>
-                                <DeviceMonitoringVideoContainer mediaStreamId={mediaStreamId} />
+                                <DeviceMonitoringVideo mediaStreamId={mediaStreamId} />
                             </div>
                         )
                         : (
-                            isActive
+                            isActive && !isRevokeRequired
                             && (
                                 <Button
                                     className={styles.btn}
@@ -78,9 +112,13 @@ DeviceMonitoringPage.propTypes = {
     serialNumber: PropTypes.string.isRequired,
     id: PropTypes.number,
     isActive: PropTypes.bool.isRequired,
+    isRevokeRequired: PropTypes.bool.isRequired,
     startMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
     showMediaStreamLoader: PropTypes.bool.isRequired,
+    cancelMediaStreamAction: PropTypes.func.isRequired,
+    changeMediaStreamLoaderAction: PropTypes.func.isRequired,
+    cleanMediaStreamIdAction: PropTypes.func.isRequired,
 };
 
 
@@ -91,6 +129,7 @@ const mapStateToProps = ({
                 serialNumber,
                 id,
                 isActive,
+                isRevokeRequired,
             },
             mediaStreamId,
             showMediaStreamLoader,
@@ -100,12 +139,16 @@ const mapStateToProps = ({
     serialNumber,
     id,
     isActive,
+    isRevokeRequired,
     mediaStreamId,
     showMediaStreamLoader,
 });
 
 const mapDispatchToProps = {
     startMediaStreamAction: startMediaStream,
+    cancelMediaStreamAction: cancelMediaStream,
+    changeMediaStreamLoaderAction: changeMediaStreamLoader,
+    cleanMediaStreamIdAction: cleanMediaStreamId,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringPage);

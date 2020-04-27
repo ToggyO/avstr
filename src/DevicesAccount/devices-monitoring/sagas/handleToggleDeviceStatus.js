@@ -8,7 +8,6 @@ const { REACT_APP_DEVICE_API } = process.env;
 function* handleToggleDeviceStatus({ data: { id, isDeactivate } }) {
     try {
         yield put(changeDeviceStatusLoader(true));
-        console.log(isDeactivate);
         yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeActivationState`, { id });
 
         let isRequestsFinish = false;
@@ -31,10 +30,9 @@ function* handleToggleDeviceStatus({ data: { id, isDeactivate } }) {
         }
 
         if (isToggled) {
-            alert('success!');
             yield put(receiveDeviceContent(result));
         } else {
-            alert('failed...');
+            alert('Устройство не активировано, попробуйте еще раз');
         }
         yield put(changeDeviceStatusLoader(false));
     } catch ({ type }) {
