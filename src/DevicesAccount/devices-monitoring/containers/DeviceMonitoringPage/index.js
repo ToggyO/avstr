@@ -23,6 +23,10 @@ class DeviceMonitoringPage extends Component {
         const connection = streamStore.getConnection(mediaStreamId);
         if (connection) {
             connection.closeSocket();
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
         }
     }
 
