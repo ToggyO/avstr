@@ -22,21 +22,8 @@ const DeviceMonitoringCard = ({
     showDeviceStatusLoader,
     toggleDeviceStatus,
     cleanMediaStreamId,
-    cancelMediaStream,
-    mediaStreamId,
 }) => {
     const handleBackBtn = () => {
-        cancelMediaStream();
-
-        const connection = streamStore.getConnection(mediaStreamId);
-        if (connection) {
-            connection.closeSocket();
-            connection.onstream = null;
-            connection.onstreamended = null;
-            connection.onMediaError = null;
-            connection.error = null;
-        }
-
         history.push('/devices/main/list');
     };
 
@@ -46,6 +33,7 @@ const DeviceMonitoringCard = ({
 
     const handleDeactivateBtnClick = () => {
         cleanMediaStreamId();
+        streamStore.clean();
         toggleDeviceStatus({ id, isDeactivate: isActive });
     };
 
@@ -127,7 +115,6 @@ DeviceMonitoringCard.defaultProps = {
         isAdvertisementsDisabled: false,
         id: null,
     },
-    mediaStreamId: null,
 };
 
 DeviceMonitoringCard.propTypes = {
@@ -143,8 +130,6 @@ DeviceMonitoringCard.propTypes = {
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatus: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
-    cancelMediaStream: PropTypes.func.isRequired,
-    mediaStreamId: PropTypes.number,
 };
 
 export default DeviceMonitoringCard;

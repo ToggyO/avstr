@@ -26,6 +26,11 @@ class StreamStoreService {
         const obj = this.store.find((storeObj) => storeObj.id === id);
         return obj.connection;
     };
+
+    clean = () => {
+        this.nextId = 1;
+        this.store = [{}];
+    }
 }
 
 const streamStoreService = new StreamStoreService();
