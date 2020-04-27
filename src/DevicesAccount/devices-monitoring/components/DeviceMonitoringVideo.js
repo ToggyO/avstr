@@ -23,6 +23,20 @@ class DeviceMonitoringVideo extends Component {
         current.srcObject = getStream(mediaStreamId);
     }
 
+    componentWillUnmount() {
+        const { cancelMediaStream, mediaStreamId } = this.props;
+        cancelMediaStream();
+
+        const connection = streamStore.getConnection(mediaStreamId);
+        if (connection) {
+            connection.closeSocket();
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
+        }
+    }
+
     render() {
         return (
             // eslint-disable-next-line jsx-a11y/media-has-caption
@@ -42,6 +56,7 @@ DeviceMonitoringVideo.defaultProps = {
 
 DeviceMonitoringVideo.propTypes = {
     mediaStreamId: PropTypes.number,
+    cancelMediaStream: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringVideo;
