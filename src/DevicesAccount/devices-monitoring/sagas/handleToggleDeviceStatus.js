@@ -32,7 +32,7 @@ function* handleToggleDeviceStatus({ data: { id, isDeactivate } }) {
         if (isToggled) {
             yield put(receiveDeviceContent(result));
         } else {
-            alert('failed...');
+            alert('Устройство не активировано, попробуйте еще раз');
         }
         yield put(changeDeviceStatusLoader(false));
     } catch ({ type }) {
