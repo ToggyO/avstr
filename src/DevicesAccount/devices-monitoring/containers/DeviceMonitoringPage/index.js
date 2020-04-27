@@ -29,7 +29,12 @@ class DeviceMonitoringPage extends Component {
     };
 
     render() {
-        const { showMediaStreamLoader, mediaStreamId, isActive } = this.props;
+        const {
+            showMediaStreamLoader,
+            mediaStreamId,
+            isActive,
+            isRevokeRequired,
+        } = this.props;
         return (
             <div className={styles.wrap}>
                 <DeviceMonitoringCardContainer />
@@ -49,7 +54,7 @@ class DeviceMonitoringPage extends Component {
                             </div>
                         )
                         : (
-                            isActive
+                            isActive && !isRevokeRequired
                             && (
                                 <Button
                                     className={styles.btn}
@@ -78,6 +83,7 @@ DeviceMonitoringPage.propTypes = {
     serialNumber: PropTypes.string.isRequired,
     id: PropTypes.number,
     isActive: PropTypes.bool.isRequired,
+    isRevokeRequired: PropTypes.bool.isRequired,
     startMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
     showMediaStreamLoader: PropTypes.bool.isRequired,
@@ -91,6 +97,7 @@ const mapStateToProps = ({
                 serialNumber,
                 id,
                 isActive,
+                isRevokeRequired,
             },
             mediaStreamId,
             showMediaStreamLoader,
@@ -100,6 +107,7 @@ const mapStateToProps = ({
     serialNumber,
     id,
     isActive,
+    isRevokeRequired,
     mediaStreamId,
     showMediaStreamLoader,
 });
