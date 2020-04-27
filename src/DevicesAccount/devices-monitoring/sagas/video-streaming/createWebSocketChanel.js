@@ -39,12 +39,13 @@ function createWebSocketChanel({
         };
 
         const onStream = ({ stream }) => {
-            emitter({ stream });
+            emitter({ stream, connection });
             emitter(END);
         };
 
         const onStreamEnded = () => {
-            // alert('Трансляция прекращена');
+            alert('Трансляция закончена');
+            closeConnection();
         };
 
         const onError = () => {

@@ -3,18 +3,29 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import { connect } from 'react-redux';
+import streamStore from 'Core/streamStoreService';
 
 import Button from 'Core/common/Button';
 import Map from 'Core/common/Map';
 import DeviceMonitoringCardContainer from '../DeviceMonitoringCardContainer';
 import DeviceMonitoringVideoContainer from '../../components/DeviceMonitoringVideo';
 
-import { startMediaStream } from '../../action-creators';
+import { startMediaStream, cancelMediaStream } from '../../action-creators';
 
 import styles from './index.module.scss';
 
 
 class DeviceMonitoringPage extends Component {
+    componentWillUnmount() {
+        const { cancelMediaStreamAction, mediaStreamId } = this.props;
+        cancelMediaStreamAction();
+
+        const connection = streamStore.getConnection(mediaStreamId);
+        if (connection) {
+            connection.closeSocket();
+        }
+    }
+
     handleShowTranslationClick = () => {
         const {
             serialNumber,
@@ -87,6 +98,7 @@ DeviceMonitoringPage.propTypes = {
     startMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
     showMediaStreamLoader: PropTypes.bool.isRequired,
+    cancelMediaStreamAction: PropTypes.func.isRequired,
 };
 
 
@@ -114,6 +126,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     startMediaStreamAction: startMediaStream,
+    cancelMediaStreamAction: cancelMediaStream,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringPage);

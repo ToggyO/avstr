@@ -27,7 +27,7 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
 
         const webSocketChannel = yield call(createWebSocketChanel, options);
         while (true) {
-            const { stream, error } = yield take(webSocketChannel);
+            const { stream, connection, error } = yield take(webSocketChannel);
             if (error) {
                 delay(15000);
                 alert('Ошибка. Трансляция будет перезапущена в течении 15 секунд');
@@ -35,12 +35,12 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
                 return;
             }
 
-            const streamId = streamStore.saveStream(stream);
+            const streamId = streamStore.saveTranslation(stream, connection);
             yield put(receiveMediaStreamId(streamId));
             yield put(changeMediaStreamLoader(false));
         }
     } catch (err) {
-        console.dir(err);
+        // console.dir(err);
         const { type } = err;
         switch (type) {
             case 'BadRequest':

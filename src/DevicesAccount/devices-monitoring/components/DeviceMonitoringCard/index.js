@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
+import streamStore from 'Core/streamStoreService';
 
 import Button from 'Core/common/Button';
 
@@ -21,8 +22,17 @@ const DeviceMonitoringCard = ({
     showDeviceStatusLoader,
     toggleDeviceStatus,
     cleanMediaStreamId,
+    cancelMediaStream,
+    mediaStreamId,
 }) => {
     const handleBackBtn = () => {
+        cancelMediaStream();
+
+        const connection = streamStore.getConnection(mediaStreamId);
+        if (connection) {
+            connection.closeSocket();
+        }
+
         history.push('/devices/main/list');
     };
 
@@ -113,6 +123,7 @@ DeviceMonitoringCard.defaultProps = {
         isAdvertisementsDisabled: false,
         id: null,
     },
+    mediaStreamId: null,
 };
 
 DeviceMonitoringCard.propTypes = {
@@ -128,6 +139,8 @@ DeviceMonitoringCard.propTypes = {
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     toggleDeviceStatus: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
+    cancelMediaStream: PropTypes.func.isRequired,
+    mediaStreamId: PropTypes.number,
 };
 
 export default DeviceMonitoringCard;
