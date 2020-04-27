@@ -44,13 +44,13 @@ function createWebSocketChanel({
         };
 
         const onStreamEnded = () => {
-            alert('Трансляция прервалась, пожалуйста проверьте, что устройство включено и активировано');
+            // alert('Трансляция прервалась, пожалуйста проверьте, что устройство включено и активировано');
             closeConnection();
         };
 
         const onError = () => {
             closeConnection();
-            emitter({ error: true });
+            emitter({ error: 'StreamError' });
             emitter(END);
         };
 
@@ -62,7 +62,7 @@ function createWebSocketChanel({
         let isNoAttempts = false;
         setTimeout(() => {
             isNoAttempts = true;
-        }, 10000);
+        }, 12000);
 
         const joinRoomIfExists = () => {
             connection.checkPresence(serialNumber, (isRoomExist, roomId) => {
@@ -71,7 +71,9 @@ function createWebSocketChanel({
                     return;
                 }
                 if (isNoAttempts) {
-                    alert('Не удалось подсоединиться к комнате, поробуйте еще раз');
+                    closeConnection();
+                    emitter({ error: 'noRoom' });
+                    emitter(END);
                     return;
                 }
 
