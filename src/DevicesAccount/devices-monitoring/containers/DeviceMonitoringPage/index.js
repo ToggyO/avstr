@@ -22,6 +22,27 @@ import styles from './index.module.scss';
 
 class DeviceMonitoringPage extends Component {
     componentWillUnmount() {
+        this.closeTranslation();
+    }
+
+    handleCloseVideoBtnClick = () => {
+        this.closeTranslation();
+    };
+
+    handleShowTranslationClick = () => {
+        const {
+            serialNumber,
+            id,
+            startMediaStreamAction,
+        } = this.props;
+
+        startMediaStreamAction({
+            serialNumber,
+            id,
+        });
+    };
+
+    closeTranslation = () => {
         const {
             cancelMediaStreamAction,
             mediaStreamId,
@@ -42,40 +63,6 @@ class DeviceMonitoringPage extends Component {
         cleanMediaStreamIdAction();
         streamStore.clean();
         changeMediaStreamLoaderAction(false);
-    }
-
-    handleCloseVideoBtn = () => {
-        const {
-            mediaStreamId,
-            cleanMediaStreamIdAction,
-            changeMediaStreamLoaderAction,
-        } = this.props;
-
-        const connection = streamStore.getConnection(mediaStreamId);
-        if (connection) {
-            connection.closeSocket();
-            connection.onstream = null;
-            connection.onstreamended = null;
-            connection.onMediaError = null;
-            connection.error = null;
-        }
-
-        cleanMediaStreamIdAction();
-        streamStore.clean();
-        changeMediaStreamLoaderAction(false);
-    };
-
-    handleShowTranslationClick = () => {
-        const {
-            serialNumber,
-            id,
-            startMediaStreamAction,
-        } = this.props;
-
-        startMediaStreamAction({
-            serialNumber,
-            id,
-        });
     };
 
     render() {
@@ -103,7 +90,7 @@ class DeviceMonitoringPage extends Component {
                                 <Button
                                     size="small"
                                     className={styles.closeVideoBtn}
-                                    onClick={this.handleCloseVideoBtn}
+                                    onClick={this.handleCloseVideoBtnClick}
                                 >
                                     х
                                 </Button>
