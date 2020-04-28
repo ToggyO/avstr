@@ -7,12 +7,7 @@ import {
 
 import api from 'Core/api';
 import streamStore from 'Core/streamStoreService';
-import {
-    receiveMediaStreamId,
-    changeMediaStreamLoader,
-    changeCurrentDeviceStatus,
-    cleanMediaStreamId,
-} from '../../action-creators';
+import { receiveMediaStreamId, changeMediaStreamLoader, changeCurrentDeviceStatus } from '../../action-creators';
 
 import createWebSocketChanel from './createWebSocketChanel';
 
@@ -38,9 +33,7 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
                 case 'noRoom':
                     alert('Не удалось начать трансляцию, попробуйте еще раз.');
                     yield put(changeMediaStreamLoader(false));
-                    yield put(cleanMediaStreamId());
-                    streamStore.clean();
-                    break;
+                    return;
                 case 'StreamError':
                     alert('Ошибка. Трансляция будет перезапущена.');
                     delay(2000);
