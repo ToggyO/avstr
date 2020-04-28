@@ -44,6 +44,27 @@ class DeviceMonitoringPage extends Component {
         changeMediaStreamLoaderAction(false);
     }
 
+    handleCloseVideoBtn = () => {
+        const {
+            mediaStreamId,
+            cleanMediaStreamIdAction,
+            changeMediaStreamLoaderAction,
+        } = this.props;
+
+        const connection = streamStore.getConnection(mediaStreamId);
+        if (connection) {
+            connection.closeSocket();
+            connection.onstream = null;
+            connection.onstreamended = null;
+            connection.onMediaError = null;
+            connection.error = null;
+        }
+
+        cleanMediaStreamIdAction();
+        streamStore.clean();
+        changeMediaStreamLoaderAction(false);
+    };
+
     handleShowTranslationClick = () => {
         const {
             serialNumber,
@@ -79,6 +100,13 @@ class DeviceMonitoringPage extends Component {
                     {mediaStreamId
                         ? (
                             <div className={styles.videoWrap}>
+                                <Button
+                                    size="small"
+                                    className={styles.closeVideoBtn}
+                                    onClick={this.handleCloseVideoBtn}
+                                >
+                                    х
+                                </Button>
                                 <DeviceMonitoringVideo mediaStreamId={mediaStreamId} />
                             </div>
                         )

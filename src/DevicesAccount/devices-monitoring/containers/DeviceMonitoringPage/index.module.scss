@@ -24,6 +24,7 @@
         }
 
         .videoWrap {
+            position: relative;
             display: flex;
             flex: 1 0 auto;
             justify-content: center;
@@ -32,6 +33,13 @@
 
             .video {
                 flex: 0 0 50%;
+            }
+
+            .closeVideoBtn {
+                position: absolute;
+                z-index: 9998;
+                top: 20px;
+                right: 20px;
             }
         }
 
