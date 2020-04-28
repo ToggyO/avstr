@@ -22,6 +22,27 @@ import styles from './index.module.scss';
 
 class DeviceMonitoringPage extends Component {
     componentWillUnmount() {
+        this.closeTranslation();
+    }
+
+    handleCloseVideoBtnClick = () => {
+        this.closeTranslation();
+    };
+
+    handleShowTranslationClick = () => {
+        const {
+            serialNumber,
+            id,
+            startMediaStreamAction,
+        } = this.props;
+
+        startMediaStreamAction({
+            serialNumber,
+            id,
+        });
+    };
+
+    closeTranslation = () => {
         const {
             cancelMediaStreamAction,
             mediaStreamId,
@@ -42,19 +63,6 @@ class DeviceMonitoringPage extends Component {
         cleanMediaStreamIdAction();
         streamStore.clean();
         changeMediaStreamLoaderAction(false);
-    }
-
-    handleShowTranslationClick = () => {
-        const {
-            serialNumber,
-            id,
-            startMediaStreamAction,
-        } = this.props;
-
-        startMediaStreamAction({
-            serialNumber,
-            id,
-        });
     };
 
     render() {
@@ -79,6 +87,13 @@ class DeviceMonitoringPage extends Component {
                     {mediaStreamId
                         ? (
                             <div className={styles.videoWrap}>
+                                <Button
+                                    size="small"
+                                    className={styles.closeVideoBtn}
+                                    onClick={this.handleCloseVideoBtnClick}
+                                >
+                                    х
+                                </Button>
                                 <DeviceMonitoringVideo mediaStreamId={mediaStreamId} />
                             </div>
                         )
