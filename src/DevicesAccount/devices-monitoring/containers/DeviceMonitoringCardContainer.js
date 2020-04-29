@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
 import {
     requestDeviceContent,
-    toggleAdvertisingOnDevice,
+    startAdvertising,
+    stopAdvertising,
     activateDevice,
     deactivateDevice,
     cleanMediaStreamId,
@@ -25,7 +26,8 @@ class DeviceMonitoringCardContainer extends Component {
         const {
             currentDevice,
             showAdvertisingLoader,
-            toggleAdvertisingOnDeviceAction,
+            startAdvertisingAction,
+            stopAdvertisingAction,
             showDeviceStatusLoader,
             mediaStreamId,
             activateDeviceAction,
@@ -37,7 +39,8 @@ class DeviceMonitoringCardContainer extends Component {
             <DeviceMonitoringCard
                 content={currentDevice}
                 showAdvertisingLoader={showAdvertisingLoader}
-                toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+                startAdvertising={startAdvertisingAction}
+                stopAdvertising={stopAdvertisingAction}
                 showDeviceStatusLoader={showDeviceStatusLoader}
                 activateDevice={activateDeviceAction}
                 deactivateDevice={deactivateDeviceAction}
@@ -63,7 +66,8 @@ DeviceMonitoringCardContainer.propTypes = {
     }).isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
     showAdvertisingLoader: PropTypes.bool.isRequired,
-    toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
+    startAdvertisingAction: PropTypes.func.isRequired,
+    stopAdvertisingAction: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     activateDeviceAction: PropTypes.func.isRequired,
     deactivateDeviceAction: PropTypes.func.isRequired,
@@ -91,7 +95,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
-    toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
+    startAdvertisingAction: startAdvertising,
+    stopAdvertisingAction: stopAdvertising,
     activateDeviceAction: activateDevice,
     deactivateDeviceAction: deactivateDevice,
     cleanMediaStreamIdAction: cleanMediaStreamId,

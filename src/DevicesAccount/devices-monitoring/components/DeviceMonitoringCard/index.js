@@ -18,7 +18,8 @@ const DeviceMonitoringCard = ({
         id,
     },
     showAdvertisingLoader,
-    toggleAdvertisingHandler,
+    startAdvertising,
+    stopAdvertising,
     showDeviceStatusLoader,
     activateDevice,
     deactivateDevice,
@@ -29,12 +30,17 @@ const DeviceMonitoringCard = ({
     };
 
     const handleStopAdvertisingBtnClick = () => {
-        toggleAdvertisingHandler(id);
+        if (isAdvertisementsDisabled) {
+            startAdvertising({ id });
+        } else {
+            stopAdvertising({ id });
+        }
     };
 
     const handleActivateDeactivateBtnClick = () => {
         cleanMediaStreamId();
         streamStore.clean();
+
         if (isActive) {
             deactivateDevice({ id });
         } else {
@@ -131,7 +137,8 @@ DeviceMonitoringCard.propTypes = {
         id: PropTypes.number,
     }),
     showAdvertisingLoader: PropTypes.bool.isRequired,
-    toggleAdvertisingHandler: PropTypes.func.isRequired,
+    startAdvertising: PropTypes.func.isRequired,
+    stopAdvertising: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
     activateDevice: PropTypes.func.isRequired,
     deactivateDevice: PropTypes.func.isRequired,
