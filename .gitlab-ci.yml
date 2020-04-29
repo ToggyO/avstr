@@ -31,7 +31,13 @@ stable:deploy:
     - yc config set folder-id $FOLDER_ID
     - yc config set cloud-id $CLOUD_ID
     - yc managed-kubernetes cluster get-credentials $CLUSTER_NAME --external
+    - >
+      kubectl create secret docker-registry gitlab-auth-${CI_COMMIT_SHORT_SHA}
+      --docker-server="https://registry-gitlab.smarthead.ru"
+      --docker-username="gitlab-ci-token"
+      --docker-password="$CI_JOB_TOKEN"
   script:
-    - kubectl create secret docker-registry --dry-run=true gitlab-auth --docker-server="https://registry-gitlab.smarthead.ru" --docker-username="gitlab-ci-token" --docker-password="$CI_JOB_TOKEN" -o yaml | kubectl apply -f -
-    - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | kubectl apply -f -
-
+    - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | sed "s/{{CI_COMMIT_SHORT_SHA}}/$CI_COMMIT_SHORT_SHA/g" | kubectl apply -f -
+    - kubectl wait --for=condition=ready --timeout=600s deployment/avastar-frontend
+  after_script:
+    - kubectl delete secret gitlab-auth-${CI_COMMIT_SHORT_SHA}
