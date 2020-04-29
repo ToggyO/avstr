@@ -20,7 +20,8 @@ const DeviceMonitoringCard = ({
     showAdvertisingLoader,
     toggleAdvertisingHandler,
     showDeviceStatusLoader,
-    toggleDeviceStatus,
+    activateDevice,
+    deactivateDevice,
     cleanMediaStreamId,
 }) => {
     const handleBackBtn = () => {
@@ -31,10 +32,14 @@ const DeviceMonitoringCard = ({
         toggleAdvertisingHandler(id);
     };
 
-    const handleDeactivateBtnClick = () => {
+    const handleActivateDeactivateBtnClick = () => {
         cleanMediaStreamId();
         streamStore.clean();
-        toggleDeviceStatus({ id, isDeactivate: isActive });
+        if (isActive) {
+            deactivateDevice({ id });
+        } else {
+            activateDevice({ id });
+        }
     };
 
     const calcMessage = () => {
@@ -96,7 +101,7 @@ const DeviceMonitoringCard = ({
             <Button
                 disabled={showDeviceStatusLoader || showAdvertisingLoader}
                 size="small"
-                onClick={handleDeactivateBtnClick}
+                onClick={handleActivateDeactivateBtnClick}
                 className={styles.deactivateBtn}
             >
                 {isActive
@@ -128,7 +133,8 @@ DeviceMonitoringCard.propTypes = {
     showAdvertisingLoader: PropTypes.bool.isRequired,
     toggleAdvertisingHandler: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
-    toggleDeviceStatus: PropTypes.func.isRequired,
+    activateDevice: PropTypes.func.isRequired,
+    deactivateDevice: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
 };
 

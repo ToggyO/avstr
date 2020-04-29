@@ -7,7 +7,8 @@ import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
 import {
     requestDeviceContent,
     toggleAdvertisingOnDevice,
-    toggleDeviceStatus,
+    activateDevice,
+    deactivateDevice,
     cleanMediaStreamId,
     cancelMediaStream,
 } from '../action-creators';
@@ -27,7 +28,8 @@ class DeviceMonitoringCardContainer extends Component {
             toggleAdvertisingOnDeviceAction,
             showDeviceStatusLoader,
             mediaStreamId,
-            toggleDeviceStatusAction,
+            activateDeviceAction,
+            deactivateDeviceAction,
             cleanMediaStreamIdAction,
             cancelMediaStreamAction,
         } = this.props;
@@ -37,7 +39,8 @@ class DeviceMonitoringCardContainer extends Component {
                 showAdvertisingLoader={showAdvertisingLoader}
                 toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
                 showDeviceStatusLoader={showDeviceStatusLoader}
-                toggleDeviceStatus={toggleDeviceStatusAction}
+                activateDevice={activateDeviceAction}
+                deactivateDevice={deactivateDeviceAction}
                 cleanMediaStreamId={cleanMediaStreamIdAction}
                 cancelMediaStream={cancelMediaStreamAction}
                 mediaStreamId={mediaStreamId}
@@ -62,7 +65,8 @@ DeviceMonitoringCardContainer.propTypes = {
     showAdvertisingLoader: PropTypes.bool.isRequired,
     toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
-    toggleDeviceStatusAction: PropTypes.func.isRequired,
+    activateDeviceAction: PropTypes.func.isRequired,
+    deactivateDeviceAction: PropTypes.func.isRequired,
     cleanMediaStreamIdAction: PropTypes.func.isRequired,
     cancelMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
@@ -88,7 +92,8 @@ const mapStateToProps = ({
 const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
     toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
-    toggleDeviceStatusAction: toggleDeviceStatus,
+    activateDeviceAction: activateDevice,
+    deactivateDeviceAction: deactivateDevice,
     cleanMediaStreamIdAction: cleanMediaStreamId,
     cancelMediaStreamAction: cancelMediaStream,
 };
