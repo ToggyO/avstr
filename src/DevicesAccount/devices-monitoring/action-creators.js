@@ -3,7 +3,8 @@ import {
     RECEIVE_DEVICE_CONTENT,
     TOGGLE_ADVERTISING_ON_DEVICE,
     CHANGE_ADVERTISING_LOADER_STATUS,
-    TOGGLE_DEVICE_STATUS,
+    ACTIVATE_DEVICE,
+    DEACTIVATE_DEVICE,
     CHANGE_DEVICE_STATUS_LOADER,
     START_MEDIA_STREAM,
     RECEIVE_MEDIA_STREAM_ID,
@@ -34,8 +35,12 @@ export const changeAdvertisingLoaderStatus = (data) => ({
 });
 
 
-export const toggleDeviceStatus = (data) => ({
-    type: TOGGLE_DEVICE_STATUS,
+export const activateDevice = (data) => ({
+    type: ACTIVATE_DEVICE,
+    data,
+});
+export const deactivateDevice = (data) => ({
+    type: DEACTIVATE_DEVICE,
     data,
 });
 export const changeDeviceStatusLoader = (data) => ({
