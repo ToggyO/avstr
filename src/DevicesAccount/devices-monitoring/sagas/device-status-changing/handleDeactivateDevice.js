@@ -17,7 +17,6 @@ function* deactivateDevice({ data: { id } }) {
         } else {
             alert('Устройство не деактивировано, попробуйте еще раз');
         }
-        yield put(changeDeviceStatusLoader(false));
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
@@ -29,6 +28,8 @@ function* deactivateDevice({ data: { id } }) {
             default:
                 break;
         }
+    } finally {
+        yield put(changeDeviceStatusLoader(false));
     }
 }
 

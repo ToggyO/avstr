@@ -34,7 +34,6 @@ function* activateDevice({ data: { id } }) {
         } else {
             alert('Устройство не активировано. Проверьте, что оно включено и попробуйте еще раз');
         }
-        yield put(changeDeviceStatusLoader(false));
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
@@ -46,6 +45,8 @@ function* activateDevice({ data: { id } }) {
             default:
                 break;
         }
+    } finally {
+        yield put(changeDeviceStatusLoader(false));
     }
 }
 
