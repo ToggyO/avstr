@@ -38,6 +38,6 @@ stable:deploy:
       --docker-password="$CI_JOB_TOKEN"
   script:
     - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | sed "s/{{CI_COMMIT_SHORT_SHA}}/$CI_COMMIT_SHORT_SHA/g" | kubectl apply -f -
-    - kubectl wait --for=condition=available --timeout=120s deployment/avastar-frontend
+    - kubectl rollout status deployment/avastar-frontend
   after_script:
     - kubectl delete secret gitlab-auth-${CI_COMMIT_SHORT_SHA}
