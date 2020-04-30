@@ -1,7 +1,8 @@
 import {
     REQUEST_DEVICE_CONTENT,
     RECEIVE_DEVICE_CONTENT,
-    TOGGLE_ADVERTISING_ON_DEVICE,
+    START_ADVERTISING,
+    STOP_ADVERTISING,
     CHANGE_ADVERTISING_LOADER_STATUS,
     ACTIVATE_DEVICE,
     DEACTIVATE_DEVICE,
@@ -25,8 +26,12 @@ export const receiveDeviceContent = (data) => ({
 });
 
 
-export const toggleAdvertisingOnDevice = (data) => ({
-    type: TOGGLE_ADVERTISING_ON_DEVICE,
+export const startAdvertising = (data) => ({
+    type: START_ADVERTISING,
+    data,
+});
+export const stopAdvertising = (data) => ({
+    type: STOP_ADVERTISING,
     data,
 });
 export const changeAdvertisingLoaderStatus = (data) => ({

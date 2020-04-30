@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
-import { changeDeviceStatusLoader, receiveDeviceContent } from '../action-creators';
+import { changeDeviceStatusLoader, receiveDeviceContent } from '../../action-creators';
 
 
 const { REACT_APP_DEVICE_API } = process.env;
@@ -17,7 +17,6 @@ function* deactivateDevice({ data: { id } }) {
         } else {
             alert('Устройство не деактивировано, попробуйте еще раз');
         }
-        yield put(changeDeviceStatusLoader(false));
     } catch ({ type }) {
         switch (type) {
             case 'AuthorizationError':
@@ -29,6 +28,8 @@ function* deactivateDevice({ data: { id } }) {
             default:
                 break;
         }
+    } finally {
+        yield put(changeDeviceStatusLoader(false));
     }
 }
 

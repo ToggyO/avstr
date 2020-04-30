@@ -7,11 +7,15 @@ import { changeAdvertisingLoaderStatus } from '../action-creators';
 const { REACT_APP_DEVICE_API } = process.env;
 
 
-function* handleAdvertisingOnDevice({ data }) {
+function* handleToggleAdvertising(isAdvertisementsDisabled, { data }) {
+    let advertisingFlag = 'DisableAdvertisements';
+    if (isAdvertisementsDisabled) {
+        advertisingFlag = 'EnableAdvertisements';
+    }
+
     try {
         yield put(changeAdvertisingLoaderStatus(true));
-        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/ChangeAdvertisementsState`, { id: data });
-        yield put(changeAdvertisingLoaderStatus(false));
+        yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${advertisingFlag}`, { id: data });
         yield* handleRequestDeviceContent({ data });
     } catch ({ type }) {
         switch (type) {
@@ -24,7 +28,9 @@ function* handleAdvertisingOnDevice({ data }) {
             default:
                 break;
         }
+    } finally {
+        yield put(changeAdvertisingLoaderStatus(false));
     }
 }
 
-export default handleAdvertisingOnDevice;
+export default handleToggleAdvertising;
