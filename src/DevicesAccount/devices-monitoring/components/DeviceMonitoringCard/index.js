@@ -31,9 +31,9 @@ const DeviceMonitoringCard = ({
 
     const handleStopAdvertisingBtnClick = () => {
         if (isAdvertisementsDisabled) {
-            startAdvertising(id);
-        } else {
             stopAdvertising(id);
+        } else {
+            startAdvertising(id);
         }
     };
 
