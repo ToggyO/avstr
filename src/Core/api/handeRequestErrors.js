@@ -2,7 +2,6 @@ import RequestError from './requestError';
 
 export default function handleRequestErrors(status, err) {
     const { errorContent } = err;
-    console.log(errorContent);
     switch (status) {
         case 400:
             throw new RequestError(`BadRequest (${status})`, 'BadRequest', errorContent);
