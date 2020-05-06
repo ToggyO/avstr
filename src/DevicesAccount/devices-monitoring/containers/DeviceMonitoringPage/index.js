@@ -101,6 +101,7 @@ class DeviceMonitoringPage extends Component {
                             isActive && !isRevokeRequired
                             && (
                                 <Button
+                                    disabled={showMediaStreamLoader}
                                     className={styles.btn}
                                     type="dark"
                                     onClick={this.handleShowTranslationClick}
