@@ -22,8 +22,8 @@ async function sendRequest(url, options, successCode) {
             handleRequestErrors(status, error);
         }
     } catch (err) {
-        const error = await res.json();
-        handleRequestErrors(status, error);
+        if (err.type === 'BadRequest') throw err;
+        handleRequestErrors(status, err);
     }
     return result;
 }
