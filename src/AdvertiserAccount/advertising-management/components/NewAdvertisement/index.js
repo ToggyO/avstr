@@ -67,6 +67,11 @@ const NewAdvertisement = ({
         if (fileStatus !== 'Success') return;
         changeFileStatus('');
         history.push('/advertiser');
+
+        // eslint-disable-next-line consistent-return
+        return () => {
+            changeFileStatus('');
+        };
     });
 
     const renderBtns = () => (
@@ -83,7 +88,11 @@ const NewAdvertisement = ({
             <Button
                 type="main"
                 size="medium"
-                disabled={advertisementText === '' || !file}
+                disabled={
+                    advertisementText === ''
+                    || !file
+                    || (fileStatus !== '' && fileStatus !== 'FileAdded' && fileStatus !== 'Success')
+                }
                 className={styles.saveBtn}
                 onClick={handleSaveClick}
             >
