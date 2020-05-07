@@ -45,7 +45,8 @@ function createWebSocketChanel({
         };
 
         const onStreamEnded = () => {
-            // alert('Трансляция прервалась, пожалуйста проверьте, что устройство включено и активировано');
+            alert('streamEnded - channel');
+            emitter({ streamEnded: true });
             closeConnection();
         };
 

@@ -7,7 +7,12 @@ import {
 
 import api from 'Core/api';
 import streamStore from 'Core/streamStoreService';
-import { receiveMediaStreamId, changeMediaStreamLoader, changeCurrentDeviceStatus } from '../../action-creators';
+import {
+    receiveMediaStreamId,
+    cleanMediaStreamId,
+    changeMediaStreamLoader,
+    changeCurrentDeviceStatus,
+} from '../../action-creators';
 
 import createWebSocketChanel from './createWebSocketChanel';
 
@@ -28,7 +33,13 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
 
         const webSocketChannel = yield call(createWebSocketChanel, options);
         while (true) {
-            const { stream, connection, error } = yield take(webSocketChannel);
+            const {
+                stream,
+                connection,
+                error,
+                streamEnded,
+            } = yield take(webSocketChannel);
+
             switch (error) {
                 case 'noRoom':
                     alert('Не удалось начать трансляцию, попробуйте еще раз.');
@@ -43,8 +54,13 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
                     break;
             }
 
-            const streamId = streamStore.saveTranslation(stream, connection);
-            yield put(receiveMediaStreamId(streamId));
+            if (streamEnded) {
+                alert('stream ended');
+                yield put(cleanMediaStreamId());
+            } else {
+                const streamId = streamStore.saveTranslation(stream, connection);
+                yield put(receiveMediaStreamId(streamId));
+            }
             yield put(changeMediaStreamLoader(false));
         }
     } catch (err) {
