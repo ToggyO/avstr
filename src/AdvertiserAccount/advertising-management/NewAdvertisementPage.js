@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NewAdvertisement from './components/NewAdvertisement';
 
-import { changeUploadStatus, uploadFile } from './action-creators';
+import { changeUploadStatus, uploadFile, cleanXhr } from './action-creators';
 
 
 const NewAdvertisementPage = ({
@@ -12,15 +12,23 @@ const NewAdvertisementPage = ({
     uploadedFileContent,
     uploadFileAction,
     changeUploadStatusAction,
+    xhr,
+    cleanXhrAction,
 }) => (
     <NewAdvertisement
         fileStatus={fileUploadStatus}
         content={uploadedFileContent}
         saveClick={uploadFileAction}
         changeFileStatus={changeUploadStatusAction}
+        uploadingConnection={xhr}
+        cleanUploadConnection={cleanXhrAction}
     />
 );
 
+
+NewAdvertisementPage.defaultProps = {
+    xhr: null,
+};
 
 NewAdvertisementPage.propTypes = {
     fileUploadStatus: PropTypes.string.isRequired,
@@ -33,18 +41,25 @@ NewAdvertisementPage.propTypes = {
     }).isRequired,
     uploadFileAction: PropTypes.func.isRequired,
     changeUploadStatusAction: PropTypes.func.isRequired,
+    xhr: PropTypes.shape(),
+    cleanXhrAction: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = ({
     advertiserAccountReducer: {
-        advertisingManagementReducer: { fileUploadStatus, uploadedFileContent },
+        advertisingManagementReducer: {
+            fileUploadStatus,
+            uploadedFileContent,
+            xhr,
+        },
     },
-}) => ({ fileUploadStatus, uploadedFileContent });
+}) => ({ fileUploadStatus, uploadedFileContent, xhr });
 
 const mapDispatchToProps = {
     uploadFileAction: uploadFile,
     changeUploadStatusAction: changeUploadStatus,
+    cleanXhrAction: cleanXhr,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewAdvertisementPage);

@@ -15,6 +15,11 @@ function createUploadChanel(xhr, file) {
             emitter(END);
         };
 
+        const onAbort = () => {
+            emitter({ abort: true });
+            emitter(END);
+        };
+
         const onSuccess = () => {
             try {
                 const { status, response } = xhr;
@@ -40,7 +45,7 @@ function createUploadChanel(xhr, file) {
 
         xhr.upload.addEventListener('progress', onProgress);
         xhr.upload.addEventListener('error', onFailure);
-        xhr.upload.addEventListener('abort', onFailure);
+        xhr.upload.addEventListener('abort', onAbort);
         xhr.addEventListener('loadend', onSuccess);
 
         xhr.send(file);
