@@ -12,6 +12,7 @@ import {
     deactivateDevice,
     cleanMediaStreamId,
     cancelMediaStream,
+    cancelDeviceActivation,
 } from '../action-creators';
 
 
@@ -34,6 +35,7 @@ class DeviceMonitoringCardContainer extends Component {
             deactivateDeviceAction,
             cleanMediaStreamIdAction,
             cancelMediaStreamAction,
+            cancelDeviceActivationAction,
         } = this.props;
         return (
             <DeviceMonitoringCard
@@ -47,6 +49,7 @@ class DeviceMonitoringCardContainer extends Component {
                 cleanMediaStreamId={cleanMediaStreamIdAction}
                 cancelMediaStream={cancelMediaStreamAction}
                 mediaStreamId={mediaStreamId}
+                cancelDeviceActivation={cancelDeviceActivationAction}
             />
         );
     }
@@ -74,6 +77,7 @@ DeviceMonitoringCardContainer.propTypes = {
     cleanMediaStreamIdAction: PropTypes.func.isRequired,
     cancelMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
+    cancelDeviceActivationAction: PropTypes.func.isRequired,
 };
 
 
@@ -101,6 +105,7 @@ const mapDispatchToProps = {
     deactivateDeviceAction: deactivateDevice,
     cleanMediaStreamIdAction: cleanMediaStreamId,
     cancelMediaStreamAction: cancelMediaStream,
+    cancelDeviceActivationAction: cancelDeviceActivation,
 };
 
 

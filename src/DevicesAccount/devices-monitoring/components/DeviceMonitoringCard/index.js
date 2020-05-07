@@ -24,9 +24,11 @@ const DeviceMonitoringCard = ({
     activateDevice,
     deactivateDevice,
     cleanMediaStreamId,
+    cancelDeviceActivation,
 }) => {
     const handleBackBtn = () => {
         history.push('/devices/main/list');
+        cancelDeviceActivation();
     };
 
     const handleStopAdvertisingBtnClick = () => {
@@ -143,6 +145,7 @@ DeviceMonitoringCard.propTypes = {
     activateDevice: PropTypes.func.isRequired,
     deactivateDevice: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
+    cancelDeviceActivation: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;
