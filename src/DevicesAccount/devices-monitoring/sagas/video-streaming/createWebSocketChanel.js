@@ -41,12 +41,12 @@ function createWebSocketChanel({
 
         const onStream = ({ stream }) => {
             emitter({ stream, connection });
-            emitter(END);
         };
 
         const onStreamEnded = () => {
-            // alert('Трансляция прервалась, пожалуйста проверьте, что устройство включено и активировано');
             closeConnection();
+            emitter({ streamEnded: true });
+            emitter(END);
         };
 
         const onError = () => {
