@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
@@ -9,27 +9,26 @@ import Button from 'Core/common/Button';
 import styles from './index.module.scss';
 
 
-const DeviceMonitoringCard = ({
-    content: {
-        name,
-        serialNumber,
-        isActive,
-        isAdvertisementsDisabled,
-        id,
-    },
-    showAdvertisingLoader,
-    startAdvertising,
-    stopAdvertising,
-    showDeviceStatusLoader,
-    activateDevice,
-    deactivateDevice,
-    cleanMediaStreamId,
-}) => {
-    const handleBackBtn = () => {
+class DeviceMonitoringCard extends Component {
+    componentWillUnmount() {
+        const { cancelDeviceActivation } = this.props;
+        cancelDeviceActivation();
+    }
+
+    handleBackBtn = () => {
         history.push('/devices/main/list');
     };
 
-    const handleStopAdvertisingBtnClick = () => {
+    handleStopAdvertisingBtnClick = () => {
+        const {
+            content: {
+                isAdvertisementsDisabled,
+                id,
+            },
+            stopAdvertising,
+            startAdvertising,
+        } = this.props;
+
         if (isAdvertisementsDisabled) {
             stopAdvertising(id);
         } else {
@@ -37,7 +36,17 @@ const DeviceMonitoringCard = ({
         }
     };
 
-    const handleActivateDeactivateBtnClick = () => {
+    handleActivateDeactivateBtnClick = () => {
+        const {
+            content: {
+                isActive,
+                id,
+            },
+            cleanMediaStreamId,
+            deactivateDevice,
+            activateDevice,
+        } = this.props;
+
         cleanMediaStreamId();
         streamStore.clean();
 
@@ -48,8 +57,17 @@ const DeviceMonitoringCard = ({
         }
     };
 
-    const calcMessage = () => {
+    calcMessage = () => {
         let message;
+        const {
+            content: {
+                isActive,
+                isAdvertisementsDisabled,
+            },
+            showAdvertisingLoader,
+            showDeviceStatusLoader,
+        } = this.props;
+
         if (showAdvertisingLoader || showDeviceStatusLoader) {
             message = 'Загрузка';
         } else if (!isActive) {
@@ -60,63 +78,76 @@ const DeviceMonitoringCard = ({
         return message;
     };
 
-    return (
-        <div className={styles.wrap}>
-            <Button
-                disabled={showDeviceStatusLoader || showAdvertisingLoader}
-                size="small"
-                onClick={handleBackBtn}
-                className={styles.backBtn}
-            >
-                Назад
-            </Button>
+    render() {
+        const {
+            content: {
+                name,
+                serialNumber,
+                isActive,
+                isAdvertisementsDisabled,
+            },
+            showDeviceStatusLoader,
+            showAdvertisingLoader,
+        } = this.props;
+        return (
+            <div className={styles.wrap}>
+                <Button
+                    // disabled={showDeviceStatusLoader || showAdvertisingLoader}
+                    size="small"
+                    onClick={this.handleBackBtn}
+                    className={styles.backBtn}
+                >
+                    Назад
+                </Button>
 
-            <div className={styles.title}>Мониторинг устройства</div>
-            <div>{calcMessage()}</div>
-            <div className={styles.divider} />
+                <div className={styles.title}>Мониторинг устройства</div>
+                <div>{this.calcMessage()}</div>
+                <div className={styles.divider} />
 
-            <div className={styles.listPoint}>
-                <div className={styles.description}>Название:</div>
-                <div className={styles.value}>{name}</div>
-            </div>
-
-            <div className={styles.divider} />
-
-            <div className={styles.listPoint}>
-                <div className={styles.description}>Устройство:</div>
-                <div className={styles.value}>
-                    {serialNumber}
+                <div className={styles.listPoint}>
+                    <div className={styles.description}>Название:</div>
+                    <div className={styles.value}>{name}</div>
                 </div>
+
+                <div className={styles.divider} />
+
+                <div className={styles.listPoint}>
+                    <div className={styles.description}>Устройство:</div>
+                    <div className={styles.value}>
+                        {serialNumber}
+                    </div>
+                </div>
+
+                <div className={styles.divider} />
+
+                <Button
+                    disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
+                    size="small"
+                    onClick={this.handleStopAdvertisingBtnClick}
+                    className={styles.stopAdvBtn}
+                >
+                    {isAdvertisementsDisabled
+                        ? 'Запустить показ рекламы'
+                        : 'Приостановить показ рекламы'}
+                </Button>
+
+                <div className={styles.divider} />
+
+                <Button
+                    disabled={showDeviceStatusLoader || showAdvertisingLoader}
+                    size="small"
+                    onClick={this.handleActivateDeactivateBtnClick}
+                    className={styles.deactivateBtn}
+                >
+                    {isActive
+                        ? 'Деактивировать устройство'
+                        : 'Активировать устройство'}
+                </Button>
             </div>
+        );
+    }
+}
 
-            <div className={styles.divider} />
-
-            <Button
-                disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
-                size="small"
-                onClick={handleStopAdvertisingBtnClick}
-                className={styles.stopAdvBtn}
-            >
-                {isAdvertisementsDisabled
-                    ? 'Запустить показ рекламы'
-                    : 'Приостановить показ рекламы'}
-            </Button>
-
-            <div className={styles.divider} />
-
-            <Button
-                disabled={showDeviceStatusLoader || showAdvertisingLoader}
-                size="small"
-                onClick={handleActivateDeactivateBtnClick}
-                className={styles.deactivateBtn}
-            >
-                {isActive
-                    ? 'Деактивировать устройство'
-                    : 'Активировать устройство'}
-            </Button>
-        </div>
-    );
-};
 
 DeviceMonitoringCard.defaultProps = {
     content: {
@@ -143,6 +174,7 @@ DeviceMonitoringCard.propTypes = {
     activateDevice: PropTypes.func.isRequired,
     deactivateDevice: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
+    cancelDeviceActivation: PropTypes.func.isRequired,
 };
 
 export default DeviceMonitoringCard;

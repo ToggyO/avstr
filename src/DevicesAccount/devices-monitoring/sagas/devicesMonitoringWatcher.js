@@ -11,7 +11,7 @@ import {
 
 import handleRequestDeviceContent from './handleRequestDeviceContent';
 import handleToggleAdvertising from './handleToggleAdvertising';
-import handleActivateDevice from './device-status-changing/handleActivateDevice';
+import handleStartDeviceActivation from './device-status-changing/handleStartDeviceActivation';
 import handleDeactivateDevice from './device-status-changing/handleDeactivateDevice';
 import handleStartMediaStream from './video-streaming/handleStartMediaStream';
 
@@ -22,7 +22,7 @@ export default function* devicesMonitoringWatcher() {
     yield takeLatest(START_ADVERTISING, handleToggleAdvertising, false);
     yield takeLatest(STOP_ADVERTISING, handleToggleAdvertising, true);
 
-    yield takeLatest(ACTIVATE_DEVICE, handleActivateDevice);
+    yield takeLatest(ACTIVATE_DEVICE, handleStartDeviceActivation);
     yield takeLatest(DEACTIVATE_DEVICE, handleDeactivateDevice);
 
     yield takeLatest(START_MEDIA_STREAM, handleStartMediaStream);
