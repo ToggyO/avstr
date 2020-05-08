@@ -55,7 +55,6 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
             }
 
             if (streamEnded) {
-                alert('stream ended');
                 yield put(cleanMediaStreamId());
             } else {
                 const streamId = streamStore.saveTranslation(stream, connection);
@@ -64,7 +63,6 @@ function* requestMediaStream({ data: { id, serialNumber } }) {
             yield put(changeMediaStreamLoader(false));
         }
     } catch (err) {
-        // console.dir(err);
         const { type } = err;
         switch (type) {
             case 'BadRequest':

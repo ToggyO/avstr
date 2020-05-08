@@ -41,13 +41,12 @@ function createWebSocketChanel({
 
         const onStream = ({ stream }) => {
             emitter({ stream, connection });
-            emitter(END);
         };
 
         const onStreamEnded = () => {
-            alert('streamEnded - channel');
-            emitter({ streamEnded: true });
             closeConnection();
+            emitter({ streamEnded: true });
+            emitter(END);
         };
 
         const onError = () => {
