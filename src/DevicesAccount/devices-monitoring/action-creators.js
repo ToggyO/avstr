@@ -5,6 +5,7 @@ import {
     STOP_ADVERTISING,
     CHANGE_ADVERTISING_LOADER_STATUS,
     ACTIVATE_DEVICE,
+    CANCEL_DEVICE_ACTIVATION,
     DEACTIVATE_DEVICE,
     CHANGE_DEVICE_STATUS_LOADER,
     START_MEDIA_STREAM,
@@ -42,6 +43,10 @@ export const changeAdvertisingLoaderStatus = (data) => ({
 
 export const activateDevice = (data) => ({
     type: ACTIVATE_DEVICE,
+    data,
+});
+export const cancelDeviceActivation = (data) => ({
+    type: CANCEL_DEVICE_ACTIVATION,
     data,
 });
 export const deactivateDevice = (data) => ({
