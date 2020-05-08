@@ -2,34 +2,61 @@ import { put, call, take } from 'redux-saga/effects';
 import api from 'Core/api';
 
 import createUploadChanel from './createUploadChanel';
-import { changeUploadStatus, receiveUploadedContent } from '../action-creators';
+import {
+    changeUploadStatus,
+    receiveUploadedContent,
+    saveXhr,
+} from '../action-creators';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
 
 function* handleUploadFile({ data: { advertisementText, file } }) {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', advertisementText);
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('name', advertisementText);
 
-    const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/promotions`, 'json');
+        const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/promotions`, 'json');
 
-    const channel = yield call(createUploadChanel, configuredRequest, formData);
+        const channel = yield call(createUploadChanel, configuredRequest, formData);
+        yield put(saveXhr(configuredRequest));
+        while (true) {
+            const {
+                progress = 0,
+                err,
+                success,
+                abort,
+            } = yield take(channel);
 
-    while (true) {
-        const { progress = 0, err, success } = yield take(channel);
-        if (success) {
-            const { response } = success;
+            if (success) {
+                const { response } = success;
+                yield put(changeUploadStatus('Success'));
+                yield put(receiveUploadedContent(response.content));
+                return;
+            }
+            if (abort) {
+                yield put(changeUploadStatus(''));
+                return;
+            }
+            if (err) {
+                yield put(changeUploadStatus('Error'));
+                return;
+            }
 
-            yield put(changeUploadStatus('Success'));
-            yield put(receiveUploadedContent(response.content));
-            return;
+            yield put(changeUploadStatus(progress));
         }
-        if (err) {
-            yield put(changeUploadStatus('Error'));
-            return;
+    } catch ({ type }) {
+        switch (type) {
+            case 'AuthorizationError':
+                window.location = '/';
+                break;
+            case 'ServerError':
+                alert('На сервере произошла ошибка.');
+                break;
+            default:
+                break;
         }
-        yield put(changeUploadStatus(progress));
     }
 }
 

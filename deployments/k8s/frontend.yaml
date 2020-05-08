@@ -24,7 +24,7 @@ spec:
             exec:
               command: ["/usr/sbin/nginx","-s","quit"]
       imagePullSecrets:
-      - name: gitlab-auth
+      - name: gitlab-auth-{{CI_COMMIT_SHORT_SHA}}
 ---
 apiVersion: v1
 kind: Service
@@ -39,3 +39,28 @@ spec:
     protocol: TCP
     port: 80
     targetPort: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: avastar-frontend-vs
+spec:
+  hosts:
+  - "avastar.smartheadtest.ru"
+  gateways:
+  - avastar-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: avastar-frontend
+        port:
+          number: 80
+    headers:
+      response:
+        add:
+          Strict-Transport-Security: "max-age=31536000"
+        remove:
+        - x-envoy-upstream-service-time

@@ -17,7 +17,6 @@ const DevicesList = ({ pagination, devices, requestDevices }) => (
         <table className={styles.table}>
             <thead>
                 <tr className={styles.head}>
-                    <th className={styles.num}>№</th>
                     <th className={styles.name}>Название</th>
                     <th className={styles.serial}>Серийный номер</th>
                     <th className={styles.status}>Статус</th>
@@ -25,12 +24,11 @@ const DevicesList = ({ pagination, devices, requestDevices }) => (
                 </tr>
             </thead>
             <tbody className={styles.body}>
-                {devices.map((device, i) => {
+                {devices.map((device) => {
                     const { id } = device;
                     return (
                         <DeviceItem
                             content={device}
-                            number={i + 1}
                             key={id}
                         />
                     );

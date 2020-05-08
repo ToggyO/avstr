@@ -2,6 +2,10 @@ import {
     RECEIVE_DEVICE_CONTENT,
     CHANGE_ADVERTISING_LOADER_STATUS,
     CHANGE_DEVICE_STATUS_LOADER,
+    RECEIVE_MEDIA_STREAM_ID,
+    CLEAN_MEDIA_STREAM_ID,
+    CHANGE_MEDIA_STREAM_LOADER,
+    CHANGE_CURRENT_DEVICE_STATUS,
 } from './actions';
 
 
@@ -10,11 +14,15 @@ const initialState = {
         name: '',
         serialNumber: '',
         isActive: true,
+        isRevokeRequired: false,
         isAdvertisementsDisabled: false,
         id: null,
     },
     showAdvertisingLoader: false,
     showDeviceStatusLoader: false,
+    mediaStreamId: null,
+    showMediaStreamLoader: false,
+    currentDeviceStatus: null,
 };
 
 
@@ -34,6 +42,27 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 showDeviceStatusLoader: data,
+            };
+
+        case RECEIVE_MEDIA_STREAM_ID:
+            return {
+                ...state,
+                mediaStreamId: data,
+            };
+        case CLEAN_MEDIA_STREAM_ID:
+            return {
+                ...state,
+                mediaStreamId: null,
+            };
+        case CHANGE_MEDIA_STREAM_LOADER:
+            return {
+                ...state,
+                showMediaStreamLoader: data,
+            };
+        case CHANGE_CURRENT_DEVICE_STATUS:
+            return {
+                ...state,
+                currentDeviceStatus: data,
             };
         default:
             return state;

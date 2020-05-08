@@ -1,9 +1,4 @@
-import React, {
-    useState,
-    useRef,
-    memo,
-    useEffect,
-} from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
@@ -20,21 +15,49 @@ import UploadedFileCard from '../UploadedFileCard';
 import ProgressBar from '../ProgressBar';
 
 
-const NewAdvertisement = ({
-    fileStatus,
-    saveClick,
-    changeFileStatus,
-}) => {
-    const [advertisementText, setAdvertisementText] = useState('');
-    const [file, setFile] = useState(null);
-    const [thumbnail, setThumbnail] = useState(null);
-    const dropZoneRef = useRef();
+class NewAdvertisement extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            advertisementText: '',
+            file: null,
+            thumbnail: null,
+        };
+        this.dropZoneRef = createRef();
+    }
 
-    const handleAdvertisementTextChange = ({ target: { value } }) => {
-        setAdvertisementText(value);
+    componentDidMount() {
+        this.handleSuccessUploading();
+    }
+
+    componentDidUpdate() {
+        this.handleSuccessUploading();
+    }
+
+    componentWillUnmount() {
+        const { changeFileStatus, uploadingConnection, cleanUploadConnection } = this.props;
+        changeFileStatus('');
+
+        if (uploadingConnection) {
+            uploadingConnection.abort();
+            cleanUploadConnection();
+        }
+    }
+
+    handleSuccessUploading = () => {
+        const { fileStatus, changeFileStatus } = this.props;
+        if (fileStatus !== 'Success') return;
+        changeFileStatus('');
+        history.push('/advertiser');
     };
 
-    const handleDrop = (accepted, rejected) => {
+    handleAdvertisementTextChange = ({ target: { value } }) => {
+        this.setState({
+            advertisementText: value,
+        });
+    };
+
+    handleDrop = (accepted, rejected) => {
         if (rejected.length) {
             alert('Размер файла или его расширение не соответсвует требованиям');
         }
@@ -43,66 +66,87 @@ const NewAdvertisement = ({
             const reader = new FileReader();
             reader.onload = ({ target: { result } }) => {
                 if (data.type === 'video/mp4') {
-                    setThumbnail('../stub2.jpg');
+                    this.setState({
+                        thumbnail: '../stub2.jpg',
+                    });
                 } else {
-                    setThumbnail(result);
+                    this.setState({
+                        thumbnail: result,
+                    });
                 }
+                const { changeFileStatus } = this.props;
                 changeFileStatus('FileAdded');
-                setFile(data);
+                this.saveFile(data);
             };
             reader.readAsDataURL(accepted[0]);
         }
     };
 
-    const handleSaveClick = () => {
+    handleSaveClick = () => {
+        const { saveClick } = this.props;
+        const { advertisementText, file } = this.state;
         saveClick({ advertisementText, file });
     };
 
-    const handleCancelClick = () => {
+    handleCancelClick = () => {
+        const { changeFileStatus } = this.props;
         changeFileStatus('');
         history.push('/advertiser');
     };
 
-    useEffect(() => {
-        if (fileStatus !== 'Success') return;
-        changeFileStatus('');
-        history.push('/advertiser');
-    });
 
-    const renderBtns = () => (
-        <div>
-            <Button
-                type="outline"
-                size="medium"
-                className={styles.declineBtn}
-                onClick={handleCancelClick}
-            >
-                Отменить
-            </Button>
+    saveFile = (data) => {
+        this.setState({
+            file: data,
+        });
+    };
 
-            <Button
-                type="main"
-                size="medium"
-                disabled={advertisementText === '' || !file}
-                className={styles.saveBtn}
-                onClick={handleSaveClick}
-            >
-                Сохранить
-            </Button>
-        </div>
-    );
+    renderBtns = () => {
+        const { advertisementText, file } = this.state;
+        const { fileStatus } = this.props;
+        return (
+            <div>
+                <Button
+                    type="outline"
+                    size="medium"
+                    className={styles.declineBtn}
+                    onClick={this.handleCancelClick}
+                >
+                    Отменить
+                </Button>
 
-    const renderDropzoneContent = (status) => {
+                <Button
+                    type="main"
+                    size="medium"
+                    disabled={
+                        advertisementText === ''
+                        || !file
+                        || (fileStatus !== ''
+                            && fileStatus !== 'FileAdded'
+                            && fileStatus !== 'Success')
+                    }
+                    className={styles.saveBtn}
+                    onClick={this.handleSaveClick}
+                >
+                    Сохранить
+                </Button>
+            </div>
+        );
+    };
+
+    renderDropzoneContent = (status) => {
+        const { thumbnail } = this.state;
+        const { fileStatus } = this.props;
         switch (status) {
             case '':
                 return (
                     <>
                         <Dropzone
-                            onDrop={handleDrop}
+                            onDrop={this.handleDrop}
                             accept="image/jpeg, image/png, image/jpg, video/mp4"
                             maxSize={524288000}
                             multiple={false}
-                            ref={dropZoneRef}
+                            ref={this.dropZoneRef}
                         >
                             {({ getRootProps, getInputProps }) => (
                                 <div
@@ -116,14 +160,14 @@ const NewAdvertisement = ({
                                 </div>
                             )}
                         </Dropzone>
-                        {renderBtns()}
+                        {this.renderBtns()}
                     </>
                 );
             case 'FileAdded':
                 return (
                     <>
                         <UploadedFileCard pathToImg={thumbnail} />
-                        {renderBtns()}
+                        {this.renderBtns()}
                     </>
                 );
             default:
@@ -133,27 +177,35 @@ const NewAdvertisement = ({
         }
     };
 
-    return (
-        <Container className={styles.newAdvertisement}>
-            <Title
-                className={styles.title}
-                text="Новое объявление"
-            />
-            <Input
-                className={styles.input}
-                placeholder="Название"
-                value={advertisementText}
-                onChange={handleAdvertisementTextChange}
-            />
+    render() {
+        const { advertisementText } = this.state;
+        const { fileStatus } = this.props;
+        return (
+            <Container className={styles.newAdvertisement}>
+                <Title
+                    className={styles.title}
+                    text="Новое объявление"
+                />
+                <Input
+                    className={styles.input}
+                    placeholder="Название"
+                    value={advertisementText}
+                    onChange={this.handleAdvertisementTextChange}
+                />
 
-            <div className={styles.description}>
-                Максимальный размер файла 500&nbsp;МБ (jpg, jpeg, png, mp4), рекомендуемое разрешение
-                1920&times;1080&nbsp;px
-            </div>
+                <div className={styles.description}>
+                    Максимальный размер файла 500&nbsp;МБ (jpg, jpeg, png, mp4), рекомендуемое разрешение
+                    1920&times;1080&nbsp;px
+                </div>
 
-            {renderDropzoneContent(fileStatus)}
-        </Container>
-    );
+                {this.renderDropzoneContent(fileStatus)}
+            </Container>
+        );
+    }
+}
+
+NewAdvertisement.defaultProps = {
+    uploadingConnection: null,
 };
 
 NewAdvertisement.propTypes = {
@@ -167,6 +219,8 @@ NewAdvertisement.propTypes = {
     }).isRequired,
     saveClick: PropTypes.func.isRequired,
     changeFileStatus: PropTypes.func.isRequired,
+    uploadingConnection: PropTypes.shape(),
+    cleanUploadConnection: PropTypes.func.isRequired,
 };
 
-export default memo(NewAdvertisement);
+export default NewAdvertisement;

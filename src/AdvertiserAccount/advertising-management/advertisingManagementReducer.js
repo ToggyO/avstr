@@ -2,11 +2,14 @@ import {
     CHANGE_UPLOAD_STATUS,
     RECEIVE_UPLOADED_CONTENT,
     RECEIVE_ADVERTISEMENTS,
+    SAVE_XHR,
+    CLEAN_XHR,
 } from './actions';
 
 
 const initialState = {
     fileUploadStatus: '',
+    xhr: null,
     uploadedFileContent: {
         name: '',
         creationTime: '',
@@ -24,6 +27,16 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
             return {
                 ...state,
                 fileUploadStatus: data,
+            };
+        case SAVE_XHR:
+            return {
+                ...state,
+                xhr: data,
+            };
+        case CLEAN_XHR:
+            return {
+                ...state,
+                xhr: null,
             };
         case RECEIVE_UPLOADED_CONTENT:
             return {

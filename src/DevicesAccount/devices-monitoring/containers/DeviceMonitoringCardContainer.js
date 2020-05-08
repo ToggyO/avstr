@@ -4,7 +4,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
-import { requestDeviceContent, toggleAdvertisingOnDevice, toggleDeviceStatus } from '../action-creators';
+import {
+    requestDeviceContent,
+    startAdvertising,
+    stopAdvertising,
+    activateDevice,
+    deactivateDevice,
+    cleanMediaStreamId,
+    cancelMediaStream,
+    cancelDeviceActivation,
+} from '../action-creators';
 
 
 class DeviceMonitoringCardContainer extends Component {
@@ -18,22 +27,38 @@ class DeviceMonitoringCardContainer extends Component {
         const {
             currentDevice,
             showAdvertisingLoader,
-            toggleAdvertisingOnDeviceAction,
+            startAdvertisingAction,
+            stopAdvertisingAction,
             showDeviceStatusLoader,
-            toggleDeviceStatusAction,
+            mediaStreamId,
+            activateDeviceAction,
+            deactivateDeviceAction,
+            cleanMediaStreamIdAction,
+            cancelMediaStreamAction,
+            cancelDeviceActivationAction,
         } = this.props;
         return (
             <DeviceMonitoringCard
                 content={currentDevice}
                 showAdvertisingLoader={showAdvertisingLoader}
-                toggleAdvertisingHandler={toggleAdvertisingOnDeviceAction}
+                startAdvertising={startAdvertisingAction}
+                stopAdvertising={stopAdvertisingAction}
                 showDeviceStatusLoader={showDeviceStatusLoader}
-                toggleDeviceStatus={toggleDeviceStatusAction}
+                activateDevice={activateDeviceAction}
+                deactivateDevice={deactivateDeviceAction}
+                cleanMediaStreamId={cleanMediaStreamIdAction}
+                cancelMediaStream={cancelMediaStreamAction}
+                mediaStreamId={mediaStreamId}
+                cancelDeviceActivation={cancelDeviceActivationAction}
             />
         );
     }
 }
 
+
+DeviceMonitoringCardContainer.defaultProps = {
+    mediaStreamId: null,
+};
 
 DeviceMonitoringCardContainer.propTypes = {
     currentDevice: PropTypes.shape({
@@ -44,9 +69,15 @@ DeviceMonitoringCardContainer.propTypes = {
     }).isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
     showAdvertisingLoader: PropTypes.bool.isRequired,
-    toggleAdvertisingOnDeviceAction: PropTypes.func.isRequired,
+    startAdvertisingAction: PropTypes.func.isRequired,
+    stopAdvertisingAction: PropTypes.func.isRequired,
     showDeviceStatusLoader: PropTypes.bool.isRequired,
-    toggleDeviceStatusAction: PropTypes.func.isRequired,
+    activateDeviceAction: PropTypes.func.isRequired,
+    deactivateDeviceAction: PropTypes.func.isRequired,
+    cleanMediaStreamIdAction: PropTypes.func.isRequired,
+    cancelMediaStreamAction: PropTypes.func.isRequired,
+    mediaStreamId: PropTypes.number,
+    cancelDeviceActivationAction: PropTypes.func.isRequired,
 };
 
 
@@ -56,18 +87,25 @@ const mapStateToProps = ({
             currentDevice,
             showAdvertisingLoader,
             showDeviceStatusLoader,
+            mediaStreamId,
         },
     },
 }) => ({
     currentDevice,
     showAdvertisingLoader,
     showDeviceStatusLoader,
+    mediaStreamId,
 });
 
 const mapDispatchToProps = {
     requestDeviceContentAction: requestDeviceContent,
-    toggleAdvertisingOnDeviceAction: toggleAdvertisingOnDevice,
-    toggleDeviceStatusAction: toggleDeviceStatus,
+    startAdvertisingAction: startAdvertising,
+    stopAdvertisingAction: stopAdvertising,
+    activateDeviceAction: activateDevice,
+    deactivateDeviceAction: deactivateDevice,
+    cleanMediaStreamIdAction: cleanMediaStreamId,
+    cancelMediaStreamAction: cancelMediaStream,
+    cancelDeviceActivationAction: cancelDeviceActivation,
 };
 
 
