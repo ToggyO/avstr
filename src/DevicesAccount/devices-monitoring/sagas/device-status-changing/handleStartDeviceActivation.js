@@ -1,9 +1,9 @@
 import { cancel, fork, take } from 'redux-saga/effects';
 import { CANCEL_DEVICE_ACTIVATION } from '../../actions';
-import handleActivateDevice from './handleActivateDevice';
+import activateDevice from './activateDevice';
 
 function* handleStartDeviceActivation(action) {
-    const deviceActivation = yield fork(handleActivateDevice, action);
+    const deviceActivation = yield fork(activateDevice, action);
     yield take(CANCEL_DEVICE_ACTIVATION);
     yield cancel(deviceActivation);
 }
