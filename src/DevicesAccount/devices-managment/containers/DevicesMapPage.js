@@ -9,13 +9,11 @@ import { requestGeoPoints } from '../action-creators';
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
-
         requestGeoPointsAction();
     }
 
     render() {
         const { geoPoints, requestGeoPointsAction } = this.props;
-
         return (
             <DeviceMap
                 getGeoPoints={requestGeoPointsAction}
