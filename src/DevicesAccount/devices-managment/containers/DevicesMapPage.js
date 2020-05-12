@@ -9,22 +9,17 @@ import { requestGeoPoints } from '../action-creators';
 class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestGeoPointsAction } = this.props;
-
         requestGeoPointsAction();
     }
 
     render() {
         const { geoPoints, requestGeoPointsAction } = this.props;
-
-        // Необходимо передать полученный стейт geoPoints в компонент map,
-        // так как метод onLoad библиотеки react-yandex-maps может сработать один раз и не отрендерить изменный стейт
-        return geoPoints.length
-            && (
-                <DeviceMap
-                    getGeoPoints={requestGeoPointsAction}
-                    geoPoints={geoPoints}
-                />
-            );
+        return (
+            <DeviceMap
+                getGeoPoints={requestGeoPointsAction}
+                geoPoints={geoPoints}
+            />
+        );
     }
 }
 

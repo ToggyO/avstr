@@ -21,12 +21,20 @@ import styles from './index.module.scss';
 
 
 class DeviceMonitoringPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isMapSizeChanged: false,
+        };
+    }
+
     componentWillUnmount() {
         this.closeTranslation();
     }
 
     handleCloseVideoBtnClick = () => {
         this.closeTranslation();
+        this.updateMapSize();
     };
 
     handleShowTranslationClick = () => {
@@ -40,6 +48,7 @@ class DeviceMonitoringPage extends Component {
             serialNumber,
             id,
         });
+        this.updateMapSize();
     };
 
     closeTranslation = () => {
@@ -65,7 +74,18 @@ class DeviceMonitoringPage extends Component {
         changeMediaStreamLoaderAction(false);
     };
 
+    updateMapSize = () => {
+        this.setState({
+            isMapSizeChanged: false,
+        }, () => {
+            this.setState({
+                isMapSizeChanged: true,
+            });
+        });
+    };
+
     render() {
+        const { isMapSizeChanged } = this.state;
         const {
             showMediaStreamLoader,
             mediaStreamId,
@@ -77,8 +97,8 @@ class DeviceMonitoringPage extends Component {
                 <DeviceMonitoringCardContainer />
                 <div className={styles.mediaWrap}>
                     <Map
-                        mapHeight={mediaStreamId ? '50%' : '100%'}
-                        wrapClassName={mediaStreamId
+                        isSizeChanged={isMapSizeChanged}
+                        className={mediaStreamId
                             ? cn(styles.map, styles.map__splitted)
                             : styles.map}
                         geoPoints={[]}

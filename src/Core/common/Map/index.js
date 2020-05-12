@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { YMaps, Map as YaMap } from 'react-yandex-maps';
+import yaMaps from 'ymaps';
 
 import isEqual from 'Core/utils/isEqual';
 
@@ -14,7 +14,7 @@ import {
 
 import styles from './index.module.scss';
 
-const mapState = {
+const mapOptions = {
     center: [55.751574, 37.573856],
     zoom: 11,
     controls: [],
@@ -24,36 +24,62 @@ class Map extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            map: null,
+        };
         this.ymaps = null;
         this.balloonIsActive = false;
         this.balloonIndex = false;
+        this.isFirstUpdate = true;
+    }
+
+    componentDidMount() {
+        this.loadYaMap();
     }
 
     componentDidUpdate(prevProps) {
-        const { geoPoints } = this.props;
+        if (prevProps === this.props) return;
 
-        if (!isEqual(geoPoints, prevProps.geoPoints)) {
-            this.updateCollection();
+        const { geoPoints, isSizeChanged } = this.props;
+        const { map } = this.state;
+
+        if (map && geoPoints.length && this.isFirstUpdate) {
+            this.initPoints();
+            this.isFirstUpdate = false;
+        }
+
+        if (isSizeChanged) {
+            map.container.fitToViewport();
+        }
+
+        if (prevProps.geoPoints.length && !isEqual(geoPoints, prevProps.geoPoints)) {
+            this.updatePoints();
         }
     }
 
-    setMapInstanceRef = (ref) => {
-        this.map = ref;
+    loadYaMap = () => {
+        yaMaps
+            .load()
+            .then((ymaps) => {
+                this.ymaps = ymaps;
+                const map = new ymaps.Map(
+                    'yaMap',
+                    mapOptions, {
+                        suppressMapOpenBlock: true,
+                        yandexMapDisablePoiInteractivity: true,
+                    },
+                );
+                this.setState({ map });
+            })
+            .catch((error) => {
+                console.log('Failed to load Yandex Maps', error);
+            });
     };
 
-    loadYaMap = (ymaps) => {
+    createPoints = () => {
+        const { map } = this.state;
         const { geoPoints } = this.props;
-
-        if (ymaps && geoPoints.length) {
-            this.ymaps = ymaps;
-
-            this.initCollection();
-        }
-    };
-
-    createCollection = () => {
-        const { map, ymaps } = this;
-        const { geoPoints } = this.props;
+        const { ymaps } = this;
         let placeMarks = [];
 
         geoPoints.forEach((point, index) => {
@@ -81,57 +107,42 @@ class Map extends Component {
         }
     };
 
-    initCollection = () => {
-        const { map } = this;
+    initPoints = () => {
+        const { map } = this.state;
 
-        this.createCollection();
+        this.createPoints();
         map.setBounds(map.geoObjects.getBounds(), {
             checkZoomRange: true,
         });
     };
 
-    updateCollection = () => {
-        const { map } = this;
+    updatePoints = () => {
+        const { map } = this.state;
 
         this.balloonIsActive = map.balloon.isOpen();
         map.geoObjects.removeAll();
-        this.createCollection();
+        this.createPoints();
     };
 
     render() {
-        const { wrapClassName, mapWidth, mapHeight } = this.props;
+        const { className } = this.props;
 
         return (
-            <div className={cn(styles.wrap, wrapClassName)}>
-                <YMaps query={{ load: 'package.full' }}>
-                    <YaMap
-                        onLoad={this.loadYaMap}
-                        defaultState={mapState}
-                        options={{
-                            suppressMapOpenBlock: true,
-                            yandexMapDisablePoiInteractivity: true,
-                        }}
-                        width={mapWidth}
-                        height={mapHeight}
-                        modules={['templateLayoutFactory']}
-                        instanceRef={this.setMapInstanceRef}
-                    />
-                </YMaps>
-            </div>
+            <div
+                id="yaMap"
+                className={cn(styles.wrap, className)}
+            />
         );
     }
 }
 
 Map.defaultProps = {
-    wrapClassName: '',
-    mapWidth: '100%',
-    mapHeight: '100%',
+    className: '',
+    isSizeChanged: false,
 };
 
 Map.propTypes = {
-    wrapClassName: PropTypes.string,
-    mapWidth: PropTypes.string,
-    mapHeight: PropTypes.string,
+    className: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -139,6 +150,7 @@ Map.propTypes = {
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
     ).isRequired,
+    isSizeChanged: PropTypes.bool,
 };
 
 export default Map;
