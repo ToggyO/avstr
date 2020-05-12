@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import streamStore from 'Core/streamStoreService';
 
 import Button from 'Core/common/Button';
-import Map from 'Core/common/Map';
+import DeviceMonitoringMapContainer from '../DeviceMonitoringMapContainer';
 import DeviceMonitoringCardContainer from '../DeviceMonitoringCardContainer';
 import DeviceMonitoringVideo from '../../components/DeviceMonitoringVideo';
 
@@ -96,7 +96,7 @@ class DeviceMonitoringPage extends Component {
             <div className={styles.wrap}>
                 <DeviceMonitoringCardContainer />
                 <div className={styles.mediaWrap}>
-                    <Map
+                    <DeviceMonitoringMapContainer
                         isSizeChanged={isMapSizeChanged}
                         className={mediaStreamId
                             ? cn(styles.map, styles.map__splitted)
