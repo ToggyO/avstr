@@ -14,7 +14,7 @@ import {
 
 import styles from './index.module.scss';
 
-const mapState = {
+const mapOptions = {
     center: [55.751574, 37.573856],
     zoom: 11,
     controls: [],
@@ -24,17 +24,30 @@ class Map extends Component {
     constructor(props) {
         super(props);
 
-        this.map = null;
+        this.state = {
+            map: null,
+        };
         this.ymaps = null;
         this.balloonIsActive = false;
         this.balloonIndex = false;
     }
 
-    componentDidUpdate(prevProps) {
-        const { geoPoints } = this.props;
+    componentDidMount() {
+        this.loadYaMap();
+    }
 
-        if (!prevProps.geoPoints.length) {
-            this.loadYaMap();
+    componentDidUpdate(prevProps) {
+        if (prevProps === this.props) return;
+
+        const { geoPoints, isSizeChanged } = this.props;
+        const { map } = this.state;
+
+        if (map && geoPoints.length) {
+            this.initCollection();
+        }
+
+        if (isSizeChanged) {
+            map.container.fitToViewport();
         }
 
         if (prevProps.geoPoints.length && !isEqual(geoPoints, prevProps.geoPoints)) {
@@ -43,23 +56,18 @@ class Map extends Component {
     }
 
     loadYaMap = () => {
-        const { geoPoints } = this.props;
-
         yaMaps
             .load()
             .then((ymaps) => {
                 this.ymaps = ymaps;
-                this.map = new ymaps.Map(
+                const map = new ymaps.Map(
                     'yaMap',
-                    mapState, {
+                    mapOptions, {
                         suppressMapOpenBlock: true,
                         yandexMapDisablePoiInteractivity: true,
                     },
                 );
-
-                if (geoPoints.length) {
-                    this.initCollection();
-                }
+                this.setState({ map });
             })
             .catch((error) => {
                 console.log('Failed to load Yandex Maps', error);
@@ -67,8 +75,9 @@ class Map extends Component {
     };
 
     createCollection = () => {
-        const { map, ymaps } = this;
+        const { map } = this.state;
         const { geoPoints } = this.props;
+        const { ymaps } = this;
         let placeMarks = [];
 
         geoPoints.forEach((point, index) => {
@@ -97,7 +106,7 @@ class Map extends Component {
     };
 
     initCollection = () => {
-        const { map } = this;
+        const { map } = this.state;
 
         this.createCollection();
         map.setBounds(map.geoObjects.getBounds(), {
@@ -106,7 +115,7 @@ class Map extends Component {
     };
 
     updateCollection = () => {
-        const { map } = this;
+        const { map } = this.state;
 
         this.balloonIsActive = map.balloon.isOpen();
         map.geoObjects.removeAll();
@@ -114,28 +123,24 @@ class Map extends Component {
     };
 
     render() {
-        const {
-            wrapClassName,
-            // mapWidth,
-            // mapHeight,
-        } = this.props;
+        const { className } = this.props;
 
         return (
-            <div id="yaMap" className={cn(styles.wrap, wrapClassName)} />
+            <div
+                id="yaMap"
+                className={cn(styles.wrap, className)}
+            />
         );
     }
 }
 
 Map.defaultProps = {
-    wrapClassName: '',
-    // mapWidth: '100%',
-    // mapHeight: '100%',
+    className: '',
+    isSizeChanged: false,
 };
 
 Map.propTypes = {
-    wrapClassName: PropTypes.string,
-    // mapWidth: PropTypes.string,
-    // mapHeight: PropTypes.string,
+    className: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -143,6 +148,7 @@ Map.propTypes = {
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
     ).isRequired,
+    isSizeChanged: PropTypes.bool,
 };
 
 export default Map;

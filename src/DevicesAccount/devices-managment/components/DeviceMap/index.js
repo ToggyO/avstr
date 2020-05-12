@@ -29,6 +29,7 @@ class DeviceMap extends Component {
 
         return (
             <Map
+                className={styles.map}
                 wrapClassName={styles.map}
                 geoPoints={geoPoints}
             />
