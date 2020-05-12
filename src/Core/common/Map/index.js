@@ -30,6 +30,7 @@ class Map extends Component {
         this.ymaps = null;
         this.balloonIsActive = false;
         this.balloonIndex = false;
+        this.isFirstUpdate = true;
     }
 
     componentDidMount() {
@@ -42,8 +43,9 @@ class Map extends Component {
         const { geoPoints, isSizeChanged } = this.props;
         const { map } = this.state;
 
-        if (map && geoPoints.length) {
+        if (map && geoPoints.length && this.isFirstUpdate) {
             this.initCollection();
+            this.isFirstUpdate = false;
         }
 
         if (isSizeChanged) {
