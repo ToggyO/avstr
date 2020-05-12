@@ -44,7 +44,7 @@ class Map extends Component {
         const { map } = this.state;
 
         if (map && geoPoints.length && this.isFirstUpdate) {
-            this.initCollection();
+            this.initPoints();
             this.isFirstUpdate = false;
         }
 
@@ -53,7 +53,7 @@ class Map extends Component {
         }
 
         if (prevProps.geoPoints.length && !isEqual(geoPoints, prevProps.geoPoints)) {
-            this.updateCollection();
+            this.updatePoints();
         }
     }
 
@@ -76,7 +76,7 @@ class Map extends Component {
             });
     };
 
-    createCollection = () => {
+    createPoints = () => {
         const { map } = this.state;
         const { geoPoints } = this.props;
         const { ymaps } = this;
@@ -107,21 +107,21 @@ class Map extends Component {
         }
     };
 
-    initCollection = () => {
+    initPoints = () => {
         const { map } = this.state;
 
-        this.createCollection();
+        this.createPoints();
         map.setBounds(map.geoObjects.getBounds(), {
             checkZoomRange: true,
         });
     };
 
-    updateCollection = () => {
+    updatePoints = () => {
         const { map } = this.state;
 
         this.balloonIsActive = map.balloon.isOpen();
         map.geoObjects.removeAll();
-        this.createCollection();
+        this.createPoints();
     };
 
     render() {
