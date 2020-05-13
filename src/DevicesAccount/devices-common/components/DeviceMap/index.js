@@ -6,12 +6,23 @@ import styles from './index.module.scss';
 
 
 class DeviceMap extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isMapLoaded: false,
+        };
+    }
+
     componentDidMount() {
-        this.updateGeoPoints();
         this.timer = setInterval(
-            () => this.updateGeoPoints(),
-            5000,
+            () => this.updateGeoPoints(), 5000,
         );
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const { isMapLoaded } = this.state;
+        if (prevState.isMapLoaded === isMapLoaded) return;
+        this.updateGeoPoints();
     }
 
     componentWillUnmount() {
@@ -20,7 +31,6 @@ class DeviceMap extends Component {
 
     updateGeoPoints = () => {
         const { getGeoPoints } = this.props;
-        console.log('UPDATE GEO POINTS');
 
         const deviceIdArr = window.location.pathname.match(/\d+/);
         if (deviceIdArr) {
@@ -28,6 +38,13 @@ class DeviceMap extends Component {
         } else {
             getGeoPoints();
         }
+    };
+
+    handleMapLoaded = (flag) => {
+        if (!flag) return;
+        this.setState({
+            isMapLoaded: true,
+        });
     };
 
     render() {
@@ -40,6 +57,7 @@ class DeviceMap extends Component {
                 isSizeChanged={isSizeChanged}
                 className={mapClass}
                 geoPoints={geoPoints}
+                handleMapLoaded={this.handleMapLoaded}
             />
         );
     }

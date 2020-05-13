@@ -70,6 +70,9 @@ class Map extends Component {
                     },
                 );
                 this.setState({ map });
+
+                const { handleMapLoaded } = this.props;
+                handleMapLoaded(true);
             })
             .catch((error) => {
                 console.log('Failed to load Yandex Maps', error);
@@ -151,6 +154,7 @@ Map.propTypes = {
         }),
     ).isRequired,
     isSizeChanged: PropTypes.bool,
+    handleMapLoaded: PropTypes.func.isRequired,
 };
 
 export default Map;
