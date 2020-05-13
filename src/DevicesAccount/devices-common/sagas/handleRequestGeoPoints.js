@@ -1,7 +1,9 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { receiveGeoPoint, receiveAllGeoPoints } from '../action-creators';
+import { receiveAllGeoPoints } from '../../devices-managment/action-creators';
+import { receiveGeoPoint } from '../../devices-monitoring/action-creators';
+
 
 const { REACT_APP_DEVICE_API } = process.env;
 

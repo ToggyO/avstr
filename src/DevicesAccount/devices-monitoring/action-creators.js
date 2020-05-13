@@ -14,6 +14,8 @@ import {
     CHANGE_MEDIA_STREAM_LOADER,
     CANCEL_MEDIA_STREAM,
     CHANGE_CURRENT_DEVICE_STATUS,
+    RECEIVE_GEO_POINT,
+    REQUEST_GEO_POINT,
 } from './actions';
 
 
@@ -81,5 +83,14 @@ export const changeMediaStreamLoader = (data) => ({
 });
 export const changeCurrentDeviceStatus = (data) => ({
     type: CHANGE_CURRENT_DEVICE_STATUS,
+    data,
+});
+
+export const requestGeoPoint = (data) => ({
+    type: REQUEST_GEO_POINT,
+    data,
+});
+export const receiveGeoPoint = (data) => ({
+    type: RECEIVE_GEO_POINT,
     data,
 });

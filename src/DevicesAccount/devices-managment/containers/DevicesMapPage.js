@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMap from '../../devices-common/components/DeviceMap';
-import { requestAllGeoPoints } from '../../devices-common/action-creators';
+import { requestAllGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
@@ -36,7 +36,7 @@ DevicesMapPage.propTypes = {
 
 const mapStateToProps = ({
     devicesReducer: {
-        devicesCommonReducer: {
+        devicesManagementReducer: {
             allGeoPoints,
         },
     },
