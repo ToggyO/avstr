@@ -1,17 +1,25 @@
-import { RECEIVE_GEO_POINTS } from './actions';
+import {
+    RECEIVE_GEO_POINT,
+    RECEIVE_ALL_GEO_POINTS,
+} from './actions';
 
 
 const initialState = {
-    geoPoints: [],
+    currentGeoPoint: [],
+    allGeoPoints: [],
 };
-
 
 const devicesCommonReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
-        case RECEIVE_GEO_POINTS:
+        case RECEIVE_GEO_POINT:
             return {
                 ...state,
-                geoPoints: data,
+                currentGeoPoint: data,
+            };
+        case RECEIVE_ALL_GEO_POINTS:
+            return {
+                ...state,
+                allGeoPoints: data,
             };
         default:
             return state;

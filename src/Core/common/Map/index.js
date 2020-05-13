@@ -71,6 +71,11 @@ class Map extends Component {
                 );
                 this.setState({ map });
 
+                const { geoPoints } = this.props;
+                if (geoPoints.length) {
+                    this.initPoints();
+                }
+
                 const { handleMapLoaded } = this.props;
                 handleMapLoaded(true);
             })

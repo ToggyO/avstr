@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMap from '../../devices-common/components/DeviceMap';
-import { requestGeoPoints } from '../../devices-common/action-creators';
+import { requestGeoPoint } from '../../devices-common/action-creators';
 
 
 const DeviceMonitoringMapContainer = ({
-    geoPoints,
-    requestGeoPointsAction,
+    currentGeoPoint,
+    requestGeoPointAction,
     isMapSizeChanged,
     className,
 }) => (
     <DeviceMap
+        geoPoint={currentGeoPoint}
+        getGeoPoint={requestGeoPointAction}
         isSizeChanged={isMapSizeChanged}
-        geoPoints={geoPoints}
-        getGeoPoints={requestGeoPointsAction}
         className={className}
     />
 );
@@ -26,8 +26,8 @@ DeviceMonitoringMapContainer.defaultProps = {
 };
 
 DeviceMonitoringMapContainer.propTypes = {
-    requestGeoPointsAction: PropTypes.func.isRequired,
-    geoPoints: PropTypes.arrayOf(
+    requestGeoPointAction: PropTypes.func.isRequired,
+    currentGeoPoint: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
             descr: PropTypes.string.isRequired,
@@ -41,13 +41,13 @@ DeviceMonitoringMapContainer.propTypes = {
 const mapStateToProps = ({
     devicesReducer: {
         devicesCommonReducer: {
-            geoPoints,
+            currentGeoPoint,
         },
     },
-}) => ({ geoPoints });
+}) => ({ currentGeoPoint });
 
 const mapDispatchToProps = {
-    requestGeoPointsAction: requestGeoPoints,
+    requestGeoPointAction: requestGeoPoint,
 };
 
 

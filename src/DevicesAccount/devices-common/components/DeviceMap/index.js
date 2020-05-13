@@ -30,13 +30,13 @@ class DeviceMap extends Component {
     }
 
     updateGeoPoints = () => {
-        const { getGeoPoints } = this.props;
+        const { getGeoPoint, getAllGeoPoints } = this.props;
 
         const deviceIdArr = window.location.pathname.match(/\d+/);
         if (deviceIdArr) {
-            getGeoPoints(deviceIdArr[0]);
+            getGeoPoint(deviceIdArr[0]);
         } else {
-            getGeoPoints();
+            getAllGeoPoints();
         }
     };
 
@@ -48,7 +48,16 @@ class DeviceMap extends Component {
     };
 
     render() {
-        const { geoPoints, isSizeChanged, className } = this.props;
+        const {
+            geoPoint,
+            allGeoPoints,
+            isSizeChanged,
+            className,
+        } = this.props;
+
+        let resultGeoPoints = geoPoint;
+        if (allGeoPoints.length) resultGeoPoints = allGeoPoints;
+
         let mapClass = className;
         if (!className) mapClass = styles.map;
 
@@ -56,7 +65,7 @@ class DeviceMap extends Component {
             <Map
                 isSizeChanged={isSizeChanged}
                 className={mapClass}
-                geoPoints={geoPoints}
+                geoPoints={resultGeoPoints}
                 handleMapLoaded={this.handleMapLoaded}
             />
         );
@@ -66,18 +75,30 @@ class DeviceMap extends Component {
 DeviceMap.defaultProps = {
     isSizeChanged: false,
     className: '',
+    geoPoint: [],
+    allGeoPoints: [],
+    getGeoPoint: () => {},
+    getAllGeoPoints: () => {},
 };
 
 
 DeviceMap.propTypes = {
-    getGeoPoints: PropTypes.func.isRequired,
-    geoPoints: PropTypes.arrayOf(
+    geoPoint: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
             descr: PropTypes.string.isRequired,
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
-    ).isRequired,
+    ),
+    getGeoPoint: PropTypes.func,
+    allGeoPoints: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            descr: PropTypes.string.isRequired,
+            coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+        }),
+    ),
+    getAllGeoPoints: PropTypes.func,
     isSizeChanged: PropTypes.bool,
     className: PropTypes.string,
 };
