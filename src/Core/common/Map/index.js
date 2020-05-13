@@ -124,7 +124,11 @@ class Map extends Component {
 
         this.balloonIsActive = map.balloon.isOpen();
         map.geoObjects.removeAll();
+
         this.createPoints();
+        map.setBounds(map.geoObjects.getBounds(), {
+            checkZoomRange: true,
+        });
     };
 
     render() {
