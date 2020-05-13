@@ -1,7 +1,6 @@
 import {
     RECEIVE_DEVICES,
     RECEIVE_PAGINATION,
-    RECEIVE_GEO_POINTS,
     CHANGE_DEVICE_STATUS,
 } from './actions';
 
@@ -25,11 +24,6 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 devices: data,
-            };
-        case RECEIVE_GEO_POINTS:
-            return {
-                ...state,
-                geoPoints: data,
             };
         case CHANGE_DEVICE_STATUS:
             return {

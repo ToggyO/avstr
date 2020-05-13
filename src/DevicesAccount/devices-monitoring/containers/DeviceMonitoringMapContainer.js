@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import DeviceMap from '../../devices-managment/components/DeviceMap';
-import { requestGeoPoints } from '../../devices-managment/action-creators';
+import DeviceMap from '../../devices-common/components/DeviceMap';
+import { requestGeoPoints } from '../../devices-common/action-creators';
 
 
 const DeviceMonitoringMapContainer = ({
@@ -40,7 +40,7 @@ DeviceMonitoringMapContainer.propTypes = {
 
 const mapStateToProps = ({
     devicesReducer: {
-        devicesManagementReducer: {
+        devicesCommonReducer: {
             geoPoints,
         },
     },
