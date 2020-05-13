@@ -97,11 +97,10 @@ class DeviceMonitoringPage extends Component {
                 <DeviceMonitoringCardContainer />
                 <div className={styles.mediaWrap}>
                     <DeviceMonitoringMapContainer
-                        isSizeChanged={isMapSizeChanged}
+                        isMapSizeChanged={isMapSizeChanged}
                         className={mediaStreamId
                             ? cn(styles.map, styles.map__splitted)
                             : styles.map}
-                        geoPoints={[]}
                     />
 
                     {mediaStreamId

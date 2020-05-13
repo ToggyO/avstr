@@ -21,20 +21,34 @@ class DeviceMap extends Component {
     updateGeoPoints = () => {
         const { getGeoPoints } = this.props;
         console.log('UPDATE GEO POINTS');
-        getGeoPoints();
+
+        const deviceIdArr = window.location.pathname.match(/\d+/);
+        if (deviceIdArr) {
+            getGeoPoints(deviceIdArr[0]);
+        } else {
+            getGeoPoints();
+        }
     };
 
     render() {
-        const { geoPoints } = this.props;
+        const { geoPoints, isSizeChanged, className } = this.props;
+        let mapClass = className;
+        if (!className) mapClass = styles.map;
+
         return (
             <Map
-                className={styles.map}
-                wrapClassName={styles.map}
+                isSizeChanged={isSizeChanged}
+                className={mapClass}
                 geoPoints={geoPoints}
             />
         );
     }
 }
+
+DeviceMap.defaultProps = {
+    isSizeChanged: false,
+    className: '',
+};
 
 
 DeviceMap.propTypes = {
@@ -46,6 +60,8 @@ DeviceMap.propTypes = {
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
     ).isRequired,
+    isSizeChanged: PropTypes.bool,
+    className: PropTypes.string,
 };
 
 export default DeviceMap;
