@@ -27,6 +27,9 @@ class DeviceMap extends Component {
 
     componentWillUnmount() {
         clearInterval(this.timer);
+        const { cleanGeoPoint, cleanAllGeoPoints } = this.props;
+        cleanGeoPoint();
+        cleanAllGeoPoints();
     }
 
     updateGeoPoints = () => {
@@ -73,12 +76,14 @@ class DeviceMap extends Component {
 }
 
 DeviceMap.defaultProps = {
+    geoPoint: [],
+    getGeoPoint: () => {},
+    cleanGeoPoint: () => {},
+    allGeoPoints: [],
+    getAllGeoPoints: () => {},
+    cleanAllGeoPoints: () => {},
     isSizeChanged: false,
     className: '',
-    geoPoint: [],
-    allGeoPoints: [],
-    getGeoPoint: () => {},
-    getAllGeoPoints: () => {},
 };
 
 
@@ -91,6 +96,7 @@ DeviceMap.propTypes = {
         }),
     ),
     getGeoPoint: PropTypes.func,
+    cleanGeoPoint: PropTypes.func,
     allGeoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -99,6 +105,7 @@ DeviceMap.propTypes = {
         }),
     ),
     getAllGeoPoints: PropTypes.func,
+    cleanAllGeoPoints: PropTypes.func,
     isSizeChanged: PropTypes.bool,
     className: PropTypes.string,
 };

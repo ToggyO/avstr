@@ -7,6 +7,7 @@ import {
     CANCEL_DEVICE_REGISTRATION,
     REQUEST_ALL_GEO_POINTS,
     RECEIVE_ALL_GEO_POINTS,
+    CLEAN_ALL_GEO_POINTS,
 } from './actions';
 
 
@@ -32,6 +33,10 @@ export const requestAllGeoPoints = (data) => ({
 });
 export const receiveAllGeoPoints = (data) => ({
     type: RECEIVE_ALL_GEO_POINTS,
+    data,
+});
+export const cleanAllGeoPoints = (data) => ({
+    type: CLEAN_ALL_GEO_POINTS,
     data,
 });
 

@@ -7,6 +7,7 @@ import {
     CHANGE_MEDIA_STREAM_LOADER,
     CHANGE_CURRENT_DEVICE_STATUS,
     RECEIVE_GEO_POINT,
+    CLEAN_GEO_POINT,
 } from './actions';
 
 
@@ -71,6 +72,11 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 currentGeoPoint: data,
+            };
+        case CLEAN_GEO_POINT:
+            return {
+                ...state,
+                currentGeoPoint: [],
             };
         default:
             return state;

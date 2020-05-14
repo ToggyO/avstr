@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DeviceMap from '../../devices-common/components/DeviceMap';
-import { requestAllGeoPoints } from '../action-creators';
+import { requestAllGeoPoints, cleanAllGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
@@ -13,18 +13,18 @@ class DevicesMapPage extends Component {
     }
 
     render() {
-        const { allGeoPoints, requestAllGeoPointsAction } = this.props;
+        const { allGeoPoints, requestAllGeoPointsAction, cleanAllGeoPointsAction } = this.props;
         return (
             <DeviceMap
                 getAllGeoPoints={requestAllGeoPointsAction}
                 allGeoPoints={allGeoPoints}
+                cleanAllGeoPoints={cleanAllGeoPointsAction}
             />
         );
     }
 }
 
 DevicesMapPage.propTypes = {
-    requestAllGeoPointsAction: PropTypes.func.isRequired,
     allGeoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
@@ -32,6 +32,8 @@ DevicesMapPage.propTypes = {
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
     ).isRequired,
+    requestAllGeoPointsAction: PropTypes.func.isRequired,
+    cleanAllGeoPointsAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
@@ -44,6 +46,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {
     requestAllGeoPointsAction: requestAllGeoPoints,
+    cleanAllGeoPointsAction: cleanAllGeoPoints,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicesMapPage);

@@ -16,6 +16,7 @@ import {
     CHANGE_CURRENT_DEVICE_STATUS,
     RECEIVE_GEO_POINT,
     REQUEST_GEO_POINT,
+    CLEAN_GEO_POINT,
 } from './actions';
 
 
@@ -92,5 +93,9 @@ export const requestGeoPoint = (data) => ({
 });
 export const receiveGeoPoint = (data) => ({
     type: RECEIVE_GEO_POINT,
+    data,
+});
+export const cleanGeoPoint = (data) => ({
+    type: CLEAN_GEO_POINT,
     data,
 });
