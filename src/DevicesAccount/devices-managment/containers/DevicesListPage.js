@@ -48,6 +48,7 @@ DevicesListPage.propTypes = {
             name: PropTypes.string.isRequired,
             serialNumber: PropTypes.string.isRequired,
             isActive: PropTypes.bool.isRequired,
+            isRevokeRequired: PropTypes.bool,
         }),
     ).isRequired,
     requestDevicesAction: PropTypes.func.isRequired,
