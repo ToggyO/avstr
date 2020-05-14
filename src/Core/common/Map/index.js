@@ -87,12 +87,13 @@ class Map extends Component {
 
         geoPoints.forEach((point, index) => {
             const { descr } = point;
+            const { pointsWithBaloons } = this.props;
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
             const placeMark = createPlaceMark(
                 ymaps,
                 point,
-                createBalloonLayoutTemplate(ymaps),
-                createBalloonContentTemplate(ymaps, point),
+                pointsWithBaloons && createBalloonLayoutTemplate(ymaps),
+                pointsWithBaloons && createBalloonContentTemplate(ymaps, point),
             );
 
             placeMarks = [...placeMarks, placeMark];
@@ -100,9 +101,11 @@ class Map extends Component {
             map.geoObjects.add(collection);
             collection.add(placeMark);
 
-            placeMark.events.add('balloonopen', () => {
-                this.balloonIndex = index;
-            });
+            if (pointsWithBaloons) {
+                placeMark.events.add('balloonopen', () => {
+                    this.balloonIndex = index;
+                });
+            }
         });
 
         if (this.balloonIsActive) {
@@ -159,6 +162,7 @@ Map.propTypes = {
     ).isRequired,
     isSizeChanged: PropTypes.bool,
     handleMapLoaded: PropTypes.func.isRequired,
+    pointsWithBaloons: PropTypes.bool.isRequired,
 };
 
 export default Map;

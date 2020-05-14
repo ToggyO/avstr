@@ -32,10 +32,12 @@ class DeviceMap extends Component {
         cleanAllGeoPoints();
     }
 
+    getDeviceIdArr = () => window.location.pathname.match(/\d+/);
+
     updateGeoPoints = () => {
         const { getGeoPoint, getAllGeoPoints } = this.props;
 
-        const deviceIdArr = window.location.pathname.match(/\d+/);
+        const deviceIdArr = this.getDeviceIdArr();
         if (deviceIdArr) {
             getGeoPoint(deviceIdArr[0]);
         } else {
@@ -64,11 +66,14 @@ class DeviceMap extends Component {
         let mapClass = className;
         if (!className) mapClass = styles.map;
 
+        const isDevicesMapPage = !this.getDeviceIdArr();
+
         return (
             <Map
                 isSizeChanged={isSizeChanged}
                 className={mapClass}
                 geoPoints={resultGeoPoints}
+                pointsWithBaloons={isDevicesMapPage}
                 handleMapLoaded={this.handleMapLoaded}
             />
         );
