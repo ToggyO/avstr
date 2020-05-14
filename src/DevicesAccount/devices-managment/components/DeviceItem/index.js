@@ -16,6 +16,7 @@ const DeviceItem = ({
         serialNumber,
         isActive,
         isAdvertisementsDisabled,
+        isRevokeRequired,
         id,
     },
 }) => {
@@ -36,6 +37,18 @@ const DeviceItem = ({
         history.push(`/devices/monitoring/${id}`);
     };
 
+    const calculateStatus = () => {
+        let message;
+        if (!isActive && !isRevokeRequired) {
+            message = 'Деактивировано';
+        } else if (!isActive && isRevokeRequired) {
+            message = 'Активация...';
+        } else if (isAdvertisementsDisabled) {
+            message = 'Отключен показ рекламы';
+        }
+        return message;
+    };
+
     return (
         <tr
             className={cn(styles.row, deviceItemClasses)}
@@ -47,10 +60,7 @@ const DeviceItem = ({
             <td>{name}</td>
             <td>{serialNumber}</td>
             <td>
-                {!isActive
-                    ? <div>Деактивировано</div>
-                    : isAdvertisementsDisabled
-                    && <div>Отключен показ рекламы</div>}
+                <div>{calculateStatus()}</div>
             </td>
             <td className={styles.iconWrap}>
                 {isHighlighted
@@ -75,6 +85,7 @@ DeviceItem.propTypes = {
         serialNumber: PropTypes.string.isRequired,
         isActive: PropTypes.bool.isRequired,
         isAdvertisementsDisabled: PropTypes.bool.isRequired,
+        isRevokeRequired: PropTypes.bool,
     }).isRequired,
 };
 
