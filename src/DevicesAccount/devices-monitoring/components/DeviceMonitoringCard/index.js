@@ -40,17 +40,21 @@ class DeviceMonitoringCard extends Component {
         const {
             content: {
                 isActive,
+                isRevokeRequired,
                 id,
             },
             cleanMediaStreamId,
             deactivateDevice,
             activateDevice,
+            cancelDeviceActivation,
         } = this.props;
 
+        cancelDeviceActivation();
         cleanMediaStreamId();
         streamStore.clean();
 
-        if (isActive) {
+        const isDeactivation = (isActive && !isRevokeRequired) || (!isActive && isRevokeRequired);
+        if (isDeactivation) {
             deactivateDevice({ id });
         } else {
             activateDevice({ id });
@@ -58,20 +62,22 @@ class DeviceMonitoringCard extends Component {
     };
 
     calcMessage = () => {
-        let message;
         const {
             content: {
                 isActive,
                 isAdvertisementsDisabled,
+                isRevokeRequired,
             },
             showAdvertisingLoader,
-            showDeviceStatusLoader,
         } = this.props;
 
-        if (showAdvertisingLoader || showDeviceStatusLoader) {
-            message = 'Загрузка';
-        } else if (!isActive) {
+        let message;
+        if (showAdvertisingLoader) {
+            message = 'Загрузка...';
+        } else if (!isActive && !isRevokeRequired) {
             message = 'Деактивировано';
+        } else if (!isActive && isRevokeRequired) {
+            message = 'Активация...';
         } else if (isAdvertisementsDisabled) {
             message = 'Отключен показ рекламы';
         }
@@ -85,6 +91,7 @@ class DeviceMonitoringCard extends Component {
                 serialNumber,
                 isActive,
                 isAdvertisementsDisabled,
+                isRevokeRequired,
             },
             showDeviceStatusLoader,
             showAdvertisingLoader,
@@ -134,12 +141,12 @@ class DeviceMonitoringCard extends Component {
                 <div className={styles.divider} />
 
                 <Button
-                    disabled={showDeviceStatusLoader || showAdvertisingLoader}
+                    disabled={showAdvertisingLoader || (showDeviceStatusLoader && !isRevokeRequired)}
                     size="small"
                     onClick={this.handleActivateDeactivateBtnClick}
                     className={styles.deactivateBtn}
                 >
-                    {isActive
+                    {(isActive && !isRevokeRequired) || (!isActive && isRevokeRequired)
                         ? 'Деактивировать устройство'
                         : 'Активировать устройство'}
                 </Button>
@@ -165,6 +172,7 @@ DeviceMonitoringCard.propTypes = {
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
         isAdvertisementsDisabled: PropTypes.bool,
+        isRevokeRequired: PropTypes.bool,
         id: PropTypes.number,
     }),
     showAdvertisingLoader: PropTypes.bool.isRequired,

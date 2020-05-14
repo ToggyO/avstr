@@ -11,8 +11,6 @@ function* activateDevice({ data: { id } }) {
         yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/activate`, { id });
 
         let isRequestsFinish = false;
-        let isToggled = false;
-        let result = null;
 
         setTimeout(() => {
             isRequestsFinish = true;
@@ -20,19 +18,10 @@ function* activateDevice({ data: { id } }) {
 
         while (!isRequestsFinish) {
             const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${id}`);
+            yield put(receiveDeviceContent(content));
             const { isActive } = content;
-            isToggled = isActive;
-            if (isToggled) {
-                isRequestsFinish = true;
-                result = content;
-            }
+            if (isActive) return;
             yield delay(1000);
-        }
-
-        if (isToggled) {
-            yield put(receiveDeviceContent(result));
-        } else {
-            alert('Устройство не активировано. Проверьте, что оно включено и попробуйте еще раз');
         }
     } catch ({ type }) {
         switch (type) {
