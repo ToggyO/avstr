@@ -66,6 +66,8 @@ DeviceMonitoringCardContainer.propTypes = {
         name: PropTypes.string,
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
+        isAdvertisementsDisabled: PropTypes.bool,
+        isRevokeRequired: PropTypes.bool,
     }).isRequired,
     requestDeviceContentAction: PropTypes.func.isRequired,
     showAdvertisingLoader: PropTypes.bool.isRequired,

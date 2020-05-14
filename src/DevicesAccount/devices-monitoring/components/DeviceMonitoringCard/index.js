@@ -58,20 +58,22 @@ class DeviceMonitoringCard extends Component {
     };
 
     calcMessage = () => {
-        let message;
         const {
             content: {
                 isActive,
                 isAdvertisementsDisabled,
+                isRevokeRequired,
             },
             showAdvertisingLoader,
-            showDeviceStatusLoader,
         } = this.props;
 
-        if (showAdvertisingLoader || showDeviceStatusLoader) {
-            message = 'Загрузка';
-        } else if (!isActive) {
+        let message;
+        if (showAdvertisingLoader) {
+            message = 'Загрузка...';
+        } else if (!isActive && !isRevokeRequired) {
             message = 'Деактивировано';
+        } else if (!isActive && isRevokeRequired) {
+            message = 'Активация...';
         } else if (isAdvertisementsDisabled) {
             message = 'Отключен показ рекламы';
         }
@@ -165,6 +167,7 @@ DeviceMonitoringCard.propTypes = {
         serialNumber: PropTypes.string,
         isActive: PropTypes.bool,
         isAdvertisementsDisabled: PropTypes.bool,
+        isRevokeRequired: PropTypes.bool,
         id: PropTypes.number,
     }),
     showAdvertisingLoader: PropTypes.bool.isRequired,
