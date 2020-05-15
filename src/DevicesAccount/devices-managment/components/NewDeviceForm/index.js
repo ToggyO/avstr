@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useWillUnmount } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
@@ -79,6 +80,10 @@ const NewDeviceForm = ({
             isFromPopup: true,
         });
     };
+
+    useWillUnmount(() => {
+        handleCloseErrPopup();
+    });
 
     return (
         <>
