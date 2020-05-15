@@ -81,12 +81,9 @@ function createWebSocketChanel({
                 setTimeout(joinRoomIfExists, 3000);
             });
         };
-
         joinRoomIfExists();
 
-        return () => {
-            //
-        };
+        return () => {};
     });
 }
 
