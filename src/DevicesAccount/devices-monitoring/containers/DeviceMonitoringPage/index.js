@@ -58,6 +58,7 @@ class DeviceMonitoringPage extends Component {
             cleanMediaStreamIdAction,
             changeMediaStreamLoaderAction,
         } = this.props;
+
         cancelMediaStreamAction();
 
         const connection = streamStore.getConnection(mediaStreamId);
