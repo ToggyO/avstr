@@ -23,8 +23,14 @@ function* handleRegisterDevice({ data: { name, serialNumberCrc, isFromPopup } })
             return;
         }
         yield* handleDeviceStatusRequest(id);
-    } catch ({ type }) {
+    } catch (err) {
+        const { type, content } = err;
         switch (type) {
+            case 'BadRequest':
+                if (content[0] === 'DeviceAlreadyConnected') {
+                    alert('Это устройство уже зарегестрировано.');
+                }
+                break;
             case 'AuthorizationError':
                 window.location = '/';
                 break;
