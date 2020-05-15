@@ -3,47 +3,50 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import DeviceMap from '../components/DeviceMap';
-import { requestGeoPoints } from '../action-creators';
+import DeviceMap from '../../devices-common/components/DeviceMap';
+import { requestAllGeoPoints, cleanAllGeoPoints } from '../action-creators';
 
 class DevicesMapPage extends Component {
     componentDidMount() {
-        const { requestGeoPointsAction } = this.props;
-        requestGeoPointsAction();
+        const { requestAllGeoPointsAction } = this.props;
+        requestAllGeoPointsAction();
     }
 
     render() {
-        const { geoPoints, requestGeoPointsAction } = this.props;
+        const { allGeoPoints, requestAllGeoPointsAction, cleanAllGeoPointsAction } = this.props;
         return (
             <DeviceMap
-                getGeoPoints={requestGeoPointsAction}
-                geoPoints={geoPoints}
+                getAllGeoPoints={requestAllGeoPointsAction}
+                allGeoPoints={allGeoPoints}
+                cleanAllGeoPoints={cleanAllGeoPointsAction}
             />
         );
     }
 }
 
 DevicesMapPage.propTypes = {
-    requestGeoPointsAction: PropTypes.func.isRequired,
-    geoPoints: PropTypes.arrayOf(
+    allGeoPoints: PropTypes.arrayOf(
         PropTypes.shape({
             title: PropTypes.string.isRequired,
             descr: PropTypes.string.isRequired,
             coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
         }),
     ).isRequired,
+    requestAllGeoPointsAction: PropTypes.func.isRequired,
+    cleanAllGeoPointsAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
     devicesReducer: {
         devicesManagementReducer: {
-            geoPoints,
+            allGeoPoints,
         },
     },
-}) => ({ geoPoints });
+}) => ({ allGeoPoints });
 
 const mapDispatchToProps = {
-    requestGeoPointsAction: requestGeoPoints,
+    requestAllGeoPointsAction: requestAllGeoPoints,
+    cleanAllGeoPointsAction: cleanAllGeoPoints,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicesMapPage);

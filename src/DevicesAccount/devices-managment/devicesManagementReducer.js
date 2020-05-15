@@ -1,18 +1,17 @@
 import {
     RECEIVE_DEVICES,
     RECEIVE_PAGINATION,
-    RECEIVE_GEO_POINTS,
     CHANGE_DEVICE_STATUS,
+    RECEIVE_ALL_GEO_POINTS,
 } from './actions';
 
 
 const initialState = {
     pagination: {},
     devices: [],
-    geoPoints: [],
+    allGeoPoints: [],
     lastDeviceStatus: '',
 };
-
 
 const devicesManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
@@ -26,15 +25,15 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 devices: data,
             };
-        case RECEIVE_GEO_POINTS:
-            return {
-                ...state,
-                geoPoints: data,
-            };
         case CHANGE_DEVICE_STATUS:
             return {
                 ...state,
                 lastDeviceStatus: data,
+            };
+        case RECEIVE_ALL_GEO_POINTS:
+            return {
+                ...state,
+                allGeoPoints: data,
             };
         default:
             return state;
