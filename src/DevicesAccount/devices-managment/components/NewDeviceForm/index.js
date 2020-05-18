@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useWillUnmount } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
@@ -82,10 +81,6 @@ const NewDeviceForm = ({
             isFromPopup: true,
         });
     };
-
-    useWillUnmount(() => {
-        handleCloseErrPopup();
-    });
 
     useEffect(() => {
         if (isFieldsCleanNeeded) {

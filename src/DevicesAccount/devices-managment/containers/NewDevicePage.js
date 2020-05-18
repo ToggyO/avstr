@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useWillUnmount } from 'beautiful-react-hooks';
 
 import { connect } from 'react-redux';
 import {
@@ -19,16 +20,23 @@ const NewDevicePage = ({
     cancelDeviceRegistrationAction,
     isFieldsCleanNeeded,
     changeFieldsCleanNeededFlagAction,
-}) => (
-    <NewDevice
-        deviceStatus={lastDeviceStatus}
-        registerDevice={registerDeviceAction}
-        changeDeviceStatus={changeDeviceStatusAction}
-        cancelRegistration={cancelDeviceRegistrationAction}
-        isFieldsCleanNeeded={isFieldsCleanNeeded}
-        changeFieldsCleanNeededFlag={changeFieldsCleanNeededFlagAction}
-    />
-);
+}) => {
+    useWillUnmount(() => {
+        changeDeviceStatusAction('');
+        cancelDeviceRegistrationAction();
+    });
+
+    return (
+        <NewDevice
+            deviceStatus={lastDeviceStatus}
+            registerDevice={registerDeviceAction}
+            changeDeviceStatus={changeDeviceStatusAction}
+            cancelRegistration={cancelDeviceRegistrationAction}
+            isFieldsCleanNeeded={isFieldsCleanNeeded}
+            changeFieldsCleanNeededFlag={changeFieldsCleanNeededFlagAction}
+        />
+    );
+};
 
 
 NewDevicePage.defaultProps = {
