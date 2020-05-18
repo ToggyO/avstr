@@ -3,6 +3,7 @@ import {
     RECEIVE_PAGINATION,
     CHANGE_DEVICE_STATUS,
     RECEIVE_ALL_GEO_POINTS,
+    CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
 } from './actions';
 
 
@@ -11,6 +12,7 @@ const initialState = {
     devices: [],
     allGeoPoints: [],
     lastDeviceStatus: '',
+    isFieldsCleanNeeded: false,
 };
 
 const devicesManagementReducer = (state = { ...initialState }, { type, data }) => {
@@ -20,6 +22,7 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 pagination: data,
             };
+
         case RECEIVE_DEVICES:
             return {
                 ...state,
@@ -30,6 +33,13 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
                 ...state,
                 lastDeviceStatus: data,
             };
+
+        case CHANGE_FIELDS_CLEAN_NEEDED_FLAG:
+            return {
+                ...state,
+                isFieldsCleanNeeded: data,
+            };
+
         case RECEIVE_ALL_GEO_POINTS:
             return {
                 ...state,

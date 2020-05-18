@@ -10,6 +10,8 @@ const NewDevice = ({
     registerDevice,
     changeDeviceStatus,
     cancelRegistration,
+    isFieldsCleanNeeded,
+    changeFieldsCleanNeededFlag,
 }) => (
     deviceStatus === 'connected'
         ? <NewDeviceSuccess changeDeviceStatus={changeDeviceStatus} />
@@ -19,6 +21,8 @@ const NewDevice = ({
                 registerDevice={registerDevice}
                 changeDeviceStatus={changeDeviceStatus}
                 cancelRegistration={cancelRegistration}
+                isFieldsCleanNeeded={isFieldsCleanNeeded}
+                changeFieldsCleanNeededFlag={changeFieldsCleanNeededFlag}
             />
         )
 );
@@ -33,6 +37,8 @@ NewDevice.propTypes = {
     registerDevice: PropTypes.func.isRequired,
     changeDeviceStatus: PropTypes.func.isRequired,
     cancelRegistration: PropTypes.func.isRequired,
+    isFieldsCleanNeeded: PropTypes.bool.isRequired,
+    changeFieldsCleanNeededFlag: PropTypes.func.isRequired,
 };
 
 export default NewDevice;

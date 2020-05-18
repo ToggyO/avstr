@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { changeDeviceStatus } from '../action-creators';
+import { changeDeviceStatus, changeFieldsCleanNeededFlag } from '../action-creators';
 import handleDeviceStatusRequest from './handleDeviceStatusRequest';
 
 
@@ -23,8 +23,15 @@ function* handleRegisterDevice({ data: { name, serialNumberCrc, isFromPopup } })
             return;
         }
         yield* handleDeviceStatusRequest(id);
-    } catch ({ type }) {
+    } catch (err) {
+        const { type, content } = err;
         switch (type) {
+            case 'BadRequest':
+                if (content[0] === 'DeviceAlreadyConnected') {
+                    alert('Это устройство уже зарегестрировано.');
+                    yield put(changeFieldsCleanNeededFlag(true));
+                }
+                break;
             case 'AuthorizationError':
                 window.location = '/';
                 break;

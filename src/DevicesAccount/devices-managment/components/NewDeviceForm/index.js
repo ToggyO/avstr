@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useWillUnmount } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
@@ -22,6 +21,8 @@ const NewDeviceForm = ({
     registerDevice,
     changeDeviceStatus,
     cancelRegistration,
+    isFieldsCleanNeeded,
+    changeFieldsCleanNeededFlag,
 }) => {
     const [codeText, setCodeText] = useState('');
     const [showCodeError, setShowCodeError] = useState(false);
@@ -81,9 +82,13 @@ const NewDeviceForm = ({
         });
     };
 
-    useWillUnmount(() => {
-        handleCloseErrPopup();
-    });
+    useEffect(() => {
+        if (isFieldsCleanNeeded) {
+            setCodeText('');
+            setDeviceNameText('');
+            changeFieldsCleanNeededFlag(false);
+        }
+    }, [isFieldsCleanNeeded]);
 
     return (
         <>
@@ -186,6 +191,8 @@ NewDeviceForm.propTypes = {
     registerDevice: PropTypes.func.isRequired,
     changeDeviceStatus: PropTypes.func.isRequired,
     cancelRegistration: PropTypes.func.isRequired,
+    isFieldsCleanNeeded: PropTypes.bool.isRequired,
+    changeFieldsCleanNeededFlag: PropTypes.func.isRequired,
 };
 
 export default NewDeviceForm;
