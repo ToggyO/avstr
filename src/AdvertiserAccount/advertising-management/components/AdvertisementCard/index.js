@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 
 import formatDate from 'Core/utils/formatDate';
@@ -21,8 +21,12 @@ const AdvertisementCard = ({
     },
     deleteAdvertisement,
 }) => {
+    const [isDelBtnDisabled, setIsDelBtnDisabled] = useState(false);
+
     const handleDeleteIconClick = () => {
+        if (isDelBtnDisabled) return;
         deleteAdvertisement(id);
+        setIsDelBtnDisabled(true);
     };
 
     return (
