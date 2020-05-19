@@ -58,6 +58,7 @@ class DeviceMap extends Component {
             allGeoPoints,
             isSizeChanged,
             className,
+            zoomWithUpdate,
         } = this.props;
 
         let resultGeoPoints = geoPoint;
@@ -75,6 +76,7 @@ class DeviceMap extends Component {
                 geoPoints={resultGeoPoints}
                 pointsWithBaloons={isDevicesMapPage}
                 handleMapLoaded={this.handleMapLoaded}
+                zoomWithUpdate={zoomWithUpdate}
             />
         );
     }
@@ -89,6 +91,7 @@ DeviceMap.defaultProps = {
     cleanAllGeoPoints: () => {},
     isSizeChanged: false,
     className: '',
+    zoomWithUpdate: false,
 };
 
 
@@ -113,6 +116,7 @@ DeviceMap.propTypes = {
     cleanAllGeoPoints: PropTypes.func,
     isSizeChanged: PropTypes.bool,
     className: PropTypes.string,
+    zoomWithUpdate: PropTypes.bool,
 };
 
 export default DeviceMap;

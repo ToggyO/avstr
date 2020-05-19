@@ -129,9 +129,13 @@ class Map extends Component {
         map.geoObjects.removeAll();
 
         this.createPoints();
-        map.setBounds(map.geoObjects.getBounds(), {
-            checkZoomRange: true,
-        });
+
+        const { zoomWithUpdate } = this.props;
+        if (zoomWithUpdate) {
+            map.setBounds(map.geoObjects.getBounds(), {
+                checkZoomRange: true,
+            });
+        }
     };
 
     render() {
@@ -149,6 +153,7 @@ class Map extends Component {
 Map.defaultProps = {
     className: '',
     isSizeChanged: false,
+    zoomWithUpdate: false,
 };
 
 Map.propTypes = {
@@ -163,6 +168,7 @@ Map.propTypes = {
     isSizeChanged: PropTypes.bool,
     handleMapLoaded: PropTypes.func.isRequired,
     pointsWithBaloons: PropTypes.bool.isRequired,
+    zoomWithUpdate: PropTypes.bool,
 };
 
 export default Map;
