@@ -1,54 +1,61 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon } from 'semantic-ui-react';
 import Container from 'Core/common/Container';
-import Title from 'Core/common/Title';
-import Button from 'Core/common/Button';
+import { Typography, Button, Radio } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 import styles from './index.module.scss';
+
+const { Title } = Typography;
+
 
 const DevicesHeader = ({
     text,
     handleListBtn,
     handleMapBtn,
     handleAddBtn,
-}) => (
-    <Container>
-        <div className={styles.wrap}>
-            <Title
-                className={styles.title}
-                text={text}
-            />
-            <div>
-                <Button
-                    type="outline"
-                    className={styles.btn}
-                    onClick={handleListBtn}
+}) => {
+    const handleRadioChange = ({ target: { value } }) => {
+        switch (value) {
+            case 'list':
+                handleListBtn();
+                break;
+            case 'map':
+                handleMapBtn();
+                break;
+            default:
+                break;
+        }
+    };
+
+    return (
+        <Container>
+            <div className={styles.wrap}>
+                <Title className={styles.title}>{text}</Title>
+                <Radio.Group
+                    defaultValue="list"
+                    buttonStyle="solid"
+                    size="large"
+                    onChange={handleRadioChange}
                 >
-                    Списком
-                </Button>
+                    <Radio.Button value="list">Списком</Radio.Button>
+                    <Radio.Button value="map">На карте</Radio.Button>
+                </Radio.Group>
+
                 <Button
-                    type="outline"
+                    size="large"
+                    type="primary"
+                    icon={<PlusOutlined />}
                     className={styles.btn}
-                    onClick={handleMapBtn}
+                    onClick={handleAddBtn}
                 >
-                    На карте
+                    Добавить
                 </Button>
             </div>
-
-            <Button
-                type="main"
-                withIcon
-                className={styles.btn}
-                onClick={handleAddBtn}
-            >
-                <Icon name="plus" />
-                Добавить
-            </Button>
-        </div>
-    </Container>
-);
+        </Container>
+    );
+};
 
 
 DevicesHeader.defaultProps = {
