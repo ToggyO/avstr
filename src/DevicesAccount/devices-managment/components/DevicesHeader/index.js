@@ -38,9 +38,20 @@ const DevicesHeader = ({
                     buttonStyle="solid"
                     size="large"
                     onChange={handleRadioChange}
+                    className={styles.radioGroup}
                 >
-                    <Radio.Button value="list">Списком</Radio.Button>
-                    <Radio.Button value="map">На карте</Radio.Button>
+                    <Radio.Button
+                        value="list"
+                        className={styles.radio}
+                    >
+                        Списком
+                    </Radio.Button>
+                    <Radio.Button
+                        value="map"
+                        className={styles.radio}
+                    >
+                        На карте
+                    </Radio.Button>
                 </Radio.Group>
 
                 <Button

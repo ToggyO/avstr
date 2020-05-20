@@ -20,14 +20,39 @@
     }
 
     .title {
+        @include headlineH1bold20;
+
         align-self: center;
-        margin-bottom: 0;
+        margin-bottom: 10px;
+
+        @media (min-width: $screen-w--m) {
+            margin-top: 0;
+        }
+    }
+
+    .radioGroup {
+        width: 100%;
+
+        @media (min-width: $screen-w--s) {
+            width: auto;
+        }
+
+        .radio {
+            width: 50%;
+            text-align: center;
+
+            @media (min-width: $screen-w--s) {
+                width: auto;
+                text-align: left;
+            }
+        }
     }
 
     .btn {
-        align-self: flex-start;
+        //width: 126px;
+        margin-top: 10px;
 
-        @media (min-width: $screen-w--m) {
+        @media (min-width: $screen-w--s) {
             margin-top: 0;
         }
     }
