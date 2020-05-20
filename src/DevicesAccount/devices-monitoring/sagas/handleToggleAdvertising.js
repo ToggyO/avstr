@@ -15,6 +15,7 @@ function* handleToggleAdvertising(isAdvertisementsDisabled, { data }) {
 
     try {
         yield put(changeAdvertisingLoaderStatus(true));
+        yield* handleRequestDeviceContent({ data });
         yield call(api.post, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${advertisingFlag}`, { id: data });
         yield* handleRequestDeviceContent({ data });
     } catch ({ type }) {
