@@ -1,6 +1,7 @@
+//todo(nn): выяснить какие шрифты будем использовать и убрать лишние комменты/раскомментить
 //Caption
 @mixin caption {
-    @include fontFamily;
+    //@include fontFamily;
 
     font-size: 12px;
     line-height: 16px;

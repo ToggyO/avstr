@@ -1,6 +1,7 @@
+//todo(nn): выяснить какие шрифты будем использовать и убрать лишние комменты/раскомментить
 // Body
 @mixin body14Regular {
-    @include fontFamily;
+    //@include fontFamily;
 
     font-size: 14px;
     line-height: 20px;
