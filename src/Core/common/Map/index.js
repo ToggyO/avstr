@@ -29,7 +29,7 @@ class Map extends Component {
         };
         this.ymaps = null;
         this.balloonIsActive = false;
-        this.balloonIndex = false;
+        this.balloonIndex = null;
         this.isFirstUpdate = true;
     }
 
@@ -85,7 +85,7 @@ class Map extends Component {
         const { ymaps } = this;
         let placeMarks = [];
 
-        geoPoints.forEach((point, index) => {
+        geoPoints.forEach((point) => {
             const { descr } = point;
             const { pointsWithBaloons } = this.props;
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
@@ -96,6 +96,9 @@ class Map extends Component {
                 pointsWithBaloons && createBalloonContentTemplate(ymaps, point),
             );
 
+            const { deviceId } = point;
+            placeMark.id = deviceId;
+
             placeMarks = [...placeMarks, placeMark];
 
             map.geoObjects.add(collection);
@@ -103,13 +106,14 @@ class Map extends Component {
 
             if (pointsWithBaloons) {
                 placeMark.events.add('balloonopen', () => {
-                    this.balloonIndex = index;
+                    this.balloonIndex = deviceId;
                 });
             }
         });
 
         if (this.balloonIsActive) {
-            placeMarks[this.balloonIndex].balloon.open();
+            const openedPlaceMark = placeMarks.filter(({ id }) => id === this.balloonIndex)[0];
+            openedPlaceMark.balloon.open();
         }
     };
 
