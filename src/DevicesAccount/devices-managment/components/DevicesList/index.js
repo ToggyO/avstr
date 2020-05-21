@@ -14,10 +14,6 @@ import DevicesPagination from '../DevicesPagination';
 
 
 const DevicesList = ({ pagination, devices, requestDevices }) => {
-    const handleArrowClick = (id) => {
-        history.push(`/devices/monitoring/${id}`);
-    };
-
     const columns = [
         {
             title: 'Название',
@@ -33,15 +29,32 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
             title: 'Статус',
             dataIndex: 'status',
             key: 'status',
+            render: (_, device) => {
+                const { isActive, isAdvertisementsDisabled, isRevokeRequired } = device;
+                let message;
+                if (!isActive && !isRevokeRequired) {
+                    message = 'Деактивировано';
+                } else if (!isActive && isRevokeRequired) {
+                    message = 'Активация...';
+                } else if (isAdvertisementsDisabled) {
+                    message = 'Отключен показ рекламы';
+                }
+                return message;
+            },
         },
         {
             title: '',
-            dataIndex: 'arrow',
-            key: 'arrow',
+            dataIndex: 'id',
+            key: 'id',
             render: (id) => {
-                console.log(id);
+                const handleArrowClick = () => {
+                    history.push(`/devices/monitoring/${id}`);
+                };
                 return (
-                    <RightOutlined onClick={handleArrowClick} />
+                    <RightOutlined
+                        onClick={handleArrowClick}
+                        key={id}
+                    />
                 );
             },
         },
@@ -58,6 +71,7 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
                 dataSource={devices}
                 columns={columns}
                 pagination={false}
+                scroll={{ x: true }}
             />
 
             {/* <table className={styles.table}>
