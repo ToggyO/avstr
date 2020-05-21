@@ -1,19 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useWindowResize, useThrottledFn } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
-// import Icon from 'Core/common/Icon';
-
-import { Table } from 'antd';
+import { Table, List, Avatar } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-// import DeviceItem from '../DeviceItem';
-
-// import styles from './index.module.scss';
 import DevicesPagination from '../DevicesPagination';
+
+// import Icon from 'Core/common/Icon';
+// import DeviceItem from '../DeviceItem';
+// import styles from './index.module.scss';
 
 
 const DevicesList = ({ pagination, devices, requestDevices }) => {
+    const [width, setWidth] = useState(window.innerWidth);
+    useWindowResize(useThrottledFn(() => {
+        setWidth(window.innerWidth);
+    }));
+
     const columns = [
         {
             title: 'Название',
@@ -46,17 +51,27 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
             title: '',
             dataIndex: 'id',
             key: 'id',
-            render: (id) => {
-                const handleArrowClick = () => {
-                    history.push(`/devices/monitoring/${id}`);
-                };
-                return (
-                    <RightOutlined
-                        onClick={handleArrowClick}
-                        key={id}
-                    />
-                );
-            },
+            render: (id) => <RightOutlined key={id} />,
+        },
+    ];
+
+    const handleRowClick = (id) => {
+        history.push(`/devices/monitoring/${id}`);
+    };
+    console.log(width);
+
+    const data = [
+        {
+            title: 'Ant Design Title 1',
+        },
+        {
+            title: 'Ant Design Title 2',
+        },
+        {
+            title: 'Ant Design Title 3',
+        },
+        {
+            title: 'Ant Design Title 4',
         },
     ];
 
@@ -67,12 +82,38 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
                 requestDevices={requestDevices}
             />
 
-            <Table
-                dataSource={devices}
-                columns={columns}
-                pagination={false}
-                scroll={{ x: true }}
-            />
+            {width > 768
+                ? (
+                    <Table
+                        dataSource={devices}
+                        columns={columns}
+                        pagination={false}
+                        // scroll={{ x: true }}
+                        onRow={({ id }) => ({
+                            onClick: handleRowClick.bind(this, id),
+                            // onMouseEnter: event => {},
+                            // onMouseLeave: event => {},
+                        })}
+                        rowKey={(record) => record.id}
+                    />
+                )
+                : (
+                    // <div>тынц</div>
+                    <List
+                        dataSource={data}
+                        renderItem={(item) => (
+                            <List.Item>
+                                <List.Item.Meta
+                                    avatar={
+                                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    }
+                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                />
+                            </List.Item>
+                        )}
+                    />
+                )}
 
             {/* <table className={styles.table}>
                 <thead>
