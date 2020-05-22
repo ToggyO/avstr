@@ -4,20 +4,42 @@ import { useWindowResize, useThrottledFn } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
-import { Table, List, Avatar } from 'antd';
+import { Table, List, Typography } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-import DevicesPagination from '../DevicesPagination';
+// import DevicesPagination from '../DevicesPagination';
 
 // import Icon from 'Core/common/Icon';
 // import DeviceItem from '../DeviceItem';
-// import styles from './index.module.scss';
 
+import styles from './index.module.scss';
 
-const DevicesList = ({ pagination, devices, requestDevices }) => {
+const { Text } = Typography;
+
+const DevicesList = ({
+    pagination: {
+        page,
+        // total,
+        size,
+        itemsTotal,
+    }, devices,
+    requestDevices,
+}) => {
     const [width, setWidth] = useState(window.innerWidth);
     useWindowResize(useThrottledFn(() => {
         setWidth(window.innerWidth);
     }));
+
+    const calculateStatus = (isActive, isAdvertisementsDisabled, isRevokeRequired) => {
+        let message;
+        if (!isActive && !isRevokeRequired) {
+            message = 'Деактивировано';
+        } else if (!isActive && isRevokeRequired) {
+            message = 'Активация...';
+        } else if (isAdvertisementsDisabled) {
+            message = 'Отключен показ рекламы';
+        }
+        return message;
+    };
 
     const columns = [
         {
@@ -34,8 +56,7 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
             title: 'Статус',
             dataIndex: 'status',
             key: 'status',
-            render: (_, device) => {
-                const { isActive, isAdvertisementsDisabled, isRevokeRequired } = device;
+            render: (_, { isActive, isAdvertisementsDisabled, isRevokeRequired }) => {
                 let message;
                 if (!isActive && !isRevokeRequired) {
                     message = 'Деактивировано';
@@ -55,99 +76,97 @@ const DevicesList = ({ pagination, devices, requestDevices }) => {
         },
     ];
 
-    const handleRowClick = (id) => {
+    const handleRowClick = (id) => () => {
         history.push(`/devices/monitoring/${id}`);
     };
-    console.log(width);
 
-    const data = [
-        {
-            title: 'Ant Design Title 1',
-        },
-        {
-            title: 'Ant Design Title 2',
-        },
-        {
-            title: 'Ant Design Title 3',
-        },
-        {
-            title: 'Ant Design Title 4',
-        },
-    ];
+    const handlePageChange = (currentPage, pageSize) => {
+        requestDevices({
+            page: currentPage,
+            size: pageSize,
+        });
+    };
+
+    const amountOfVisibleDevices = itemsTotal > size ? size : itemsTotal;
+
+    const paginationTableOptions = {
+        position: ['topRight', 'bottomRight'],
+        current: page,
+        pageSize: size,
+        total: itemsTotal,
+        showSizeChanger: true,
+        responsive: true,
+        onChange: handlePageChange,
+        onShowSizeChange: handlePageChange,
+        className: styles.pagination,
+    };
+
+    const paginationListOptions = {
+        ...paginationTableOptions,
+        position: 'both',
+    };
 
     return (
-        <>
-            <DevicesPagination
-                pagination={pagination}
-                requestDevices={requestDevices}
-            />
+        <div className={styles.wrap}>
+            <Text className={styles.text}>
+                {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
+            </Text>
 
             {width > 768
                 ? (
                     <Table
                         dataSource={devices}
                         columns={columns}
-                        pagination={false}
-                        // scroll={{ x: true }}
+                        rowClassName={styles.tableRow}
                         onRow={({ id }) => ({
-                            onClick: handleRowClick.bind(this, id),
-                            // onMouseEnter: event => {},
-                            // onMouseLeave: event => {},
+                            onClick: handleRowClick(id),
                         })}
                         rowKey={(record) => record.id}
+                        pagination={paginationTableOptions}
                     />
                 )
                 : (
-                    // <div>тынц</div>
                     <List
-                        dataSource={data}
-                        renderItem={(item) => (
-                            <List.Item>
-                                <List.Item.Meta
-                                    avatar={
-                                        <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                                    }
-                                    title={<a href="https://ant.design">{item.title}</a>}
-                                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                />
+                        className={styles.list}
+                        dataSource={devices}
+                        itemLayout="vertical"
+                        pagination={paginationListOptions}
+                        renderItem={({
+                            name,
+                            serialNumber,
+                            isActive,
+                            isAdvertisementsDisabled,
+                            isRevokeRequired,
+                            id,
+                        }) => (
+                            // eslint-disable-next-line react/jsx-no-bind
+                            <List.Item
+                                onClick={handleRowClick(id)}
+                                className={styles.listItem}
+                            >
+                                <div className={styles.listText}>{name}</div>
+                                <div className={styles.listText}>{serialNumber}</div>
+                                <div className={styles.listText}>
+                                    {calculateStatus(isActive, isAdvertisementsDisabled, isRevokeRequired)}
+                                </div>
                             </List.Item>
                         )}
                     />
                 )}
-
-            {/* <table className={styles.table}>
-                <thead>
-                    <tr className={styles.head}>
-                        <th className={styles.name}>Название</th>
-                        <th className={styles.serial}>Серийный номер</th>
-                        <th className={styles.status}>Статус</th>
-                        <th>{}</th>
-                    </tr>
-                </thead>
-                <tbody className={styles.body}>
-                    {devices.map((device) => {
-                        const { id } = device;
-                        return (
-                            <DeviceItem
-                                content={device}
-                                key={id}
-                            />
-                        );
-                    })}
-                </tbody>
-            </table> */}
-        </>
+            <Text className={styles.text}>
+                {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
+            </Text>
+        </div>
     );
 };
 
 
 DevicesList.propTypes = {
     pagination: PropTypes.shape({
-        page: PropTypes.number,
-        total: PropTypes.number,
-        size: PropTypes.number,
-        hasPrevious: PropTypes.bool,
-        hasNext: PropTypes.bool,
+        page: PropTypes.number.isRequired,
+        total: PropTypes.number.isRequired,
+        size: PropTypes.number.isRequired,
+        itemsTotal: PropTypes.number.isRequired,
     }).isRequired,
     devices: PropTypes.arrayOf(
         PropTypes.shape({
