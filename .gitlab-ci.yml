@@ -1,43 +1,77 @@
 stages:
   - build
+  - push
   - deploy
+
+image: docker:19.03.8
 
 services:
   - docker:dind
 
-stable:build:
-  image: docker:stable
+variables:
+  APP_NAME: avastar-frontend
+  APP_DOMAIN: avastar.smartheadtest.ru
+
+Build:
   tags: [csharp]
   stage: build
   variables:
     DOCKER_FILE_PATH: deployments/docker/Dockerfile
-    IMAGE: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
   only:
     - master
   before_script:
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry-gitlab.smarthead.ru
+    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
-    - docker build -t $IMAGE -f $DOCKER_FILE_PATH .
-    - docker push $IMAGE
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+    - >
+        docker build
+        --pull
+        --cache-from ${CI_REGISTRY_IMAGE}:latest
+        --tag ${IMAGE_TAG}
+        -f ${DOCKER_FILE_PATH}
+        .
+    - docker push ${IMAGE_TAG}
 
-stable:deploy:
-  stage: deploy
-  only: 
+
+Push master:
+  stage: push
+  tags: [csharp,net]
+  allow_failure: false
+  variables:
+    GIT_STRATEGY: none
+  only:
     - master
-  image: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:47
+  script:
+    - docker pull ${IMAGE_TAG}
+    - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+    - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+    - docker push ${CI_REGISTRY_IMAGE}:latest
+
+Deploy.Staging:
+  stage: deploy
+  environment:
+    name: staging
+    url: https://avastar.smartheadtest.ru
+  variables:
+    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+  only:
+    - master
+  image: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:50-master
   before_script:
     - yc config profile create deployment
-    - yc config set service-account-key $SERVICE_ACCOUNT_FILE
-    - yc config set folder-id $FOLDER_ID
-    - yc config set cloud-id $CLOUD_ID
-    - yc managed-kubernetes cluster get-credentials $CLUSTER_NAME --external
+    - yc config set service-account-key ${SERVICE_ACCOUNT_FILE}
+    - yc config set folder-id ${FOLDER_ID}
+    - yc config set cloud-id ${CLOUD_ID}
+    - yc managed-kubernetes cluster get-credentials ${CLUSTER_NAME} --external
     - >
       kubectl create secret docker-registry gitlab-auth-${CI_COMMIT_SHORT_SHA}
-      --docker-server="https://registry-gitlab.smarthead.ru"
+      --docker-server="${CI_REGISTRY}"
       --docker-username="gitlab-ci-token"
-      --docker-password="$CI_JOB_TOKEN"
+      --docker-password="${CI_JOB_TOKEN}"
   script:
-    - cat deployments/k8s/frontend.yaml | sed "s/{{CI_PIPELINE_IID}}/$CI_PIPELINE_IID/g" | sed "s/{{CI_COMMIT_SHORT_SHA}}/$CI_COMMIT_SHORT_SHA/g" | kubectl apply -f -
-    - kubectl rollout status deployment/avastar-frontend
+    - envsubst < deployments/k8s/frontend.yaml | kubectl apply -f -
+    - kubectl rollout status deployment/${APP_NAME} -n ${KUBE_NAMESPACE}
   after_script:
     - kubectl delete secret gitlab-auth-${CI_COMMIT_SHORT_SHA}
