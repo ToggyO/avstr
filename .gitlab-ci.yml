@@ -41,6 +41,8 @@ Push master:
     GIT_STRATEGY: none
   only:
     - master
+  before_script:
+    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker pull ${IMAGE_TAG}
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
