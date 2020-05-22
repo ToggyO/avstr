@@ -107,7 +107,7 @@ const DevicesList = ({
             title: '',
             dataIndex: 'id',
             key: 'id',
-            render: (id) => <RightOutlined key={id} />,
+            render: (id) => <RightOutlined className={styles.arrow} key={id} />,
         },
     ];
 

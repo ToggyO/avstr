@@ -39,8 +39,18 @@ $border: 1px solid $secondary-light-50;
     .tableRow {
         cursor: pointer;
 
+        &:hover {
+            .arrow {
+                display: block;
+            }
+        }
+
         .badge {
             @include useBadge;
+        }
+
+        .arrow {
+            display: none;
         }
     }
 
