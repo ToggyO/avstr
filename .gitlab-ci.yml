@@ -11,13 +11,12 @@ services:
 variables:
   APP_NAME: avastar-frontend
   APP_DOMAIN: avastar.smartheadtest.ru
+  DOCKER_FILE_PATH: deployments/docker/Dockerfile
+  IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
 
 Build:
   tags: [csharp]
   stage: build
-  variables:
-    DOCKER_FILE_PATH: deployments/docker/Dockerfile
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
   only:
     - master
   before_script:
