@@ -2,6 +2,19 @@
 
 $border: 1px solid $secondary-light-50;
 
+@mixin useBadge {
+    @include caption12Regular;
+
+    padding-left: 20px;
+
+    sup {
+        top: 50%;
+        right: unset;
+        left: 0;
+        transform: translateY(-50%);
+    }
+}
+
 .wrap {
     position: relative;
     margin: 28px 0;
@@ -27,14 +40,7 @@ $border: 1px solid $secondary-light-50;
         cursor: pointer;
 
         .badge {
-            padding-left: 20px;
-
-            sup {
-                top: 50%;
-                right: unset;
-                left: 0;
-                transform: translateY(-50%);
-            }
+            @include useBadge;
         }
     }
 
@@ -47,6 +53,12 @@ $border: 1px solid $secondary-light-50;
 
             .listText {
                 @include caption12Regular;
+
+                margin: 16px 0;
+            }
+
+            .badge {
+                @include useBadge;
 
                 margin: 16px 0;
             }

@@ -36,44 +36,31 @@ const DevicesList = ({
     }));
 
     const calculateDeviceStatus = (isActive, isRevokeRequired) => {
-        let message = 'Активно';
+        let deviceMessage = 'Активно';
         let status = 'success';
         if (!isActive && !isRevokeRequired) {
-            message = 'Деактивировано';
+            deviceMessage = 'Деактивировано';
             status = 'error';
         } else if (!isActive && isRevokeRequired) {
-            message = 'Активация...';
+            deviceMessage = 'Активация...';
             status = 'warning';
         }
         return {
-            message,
+            deviceMessage,
             status,
         };
     };
-
     const calculateAdvertisementStatus = (isAdvertisementsDisabled) => {
-        let message = 'Запущена';
+        let advertMessage = 'Запущена';
         let color = 'green';
         if (isAdvertisementsDisabled) {
-            message = 'Приостановлена';
+            advertMessage = 'Приостановлена';
             color = 'red';
         }
         return {
-            message,
+            advertMessage,
             color,
         };
-    };
-
-    const calculateStatus = (isActive, isAdvertisementsDisabled, isRevokeRequired) => {
-        let message;
-        if (!isActive && !isRevokeRequired) {
-            message = 'Деактивировано';
-        } else if (!isActive && isRevokeRequired) {
-            message = 'Активация...';
-        } else if (isAdvertisementsDisabled) {
-            message = 'Отключен показ рекламы';
-        }
-        return message;
     };
 
     const columns = [
@@ -92,10 +79,10 @@ const DevicesList = ({
             dataIndex: 'advertStatus',
             key: 'advertStatus',
             render: (_, { isAdvertisementsDisabled }) => {
-                const { message, color } = calculateAdvertisementStatus(isAdvertisementsDisabled);
+                const { advertMessage, color } = calculateAdvertisementStatus(isAdvertisementsDisabled);
                 return (
                     <Tag color={color}>
-                        {message}
+                        {advertMessage}
                     </Tag>
                 );
             },
@@ -105,13 +92,13 @@ const DevicesList = ({
             dataIndex: 'deviceStatus',
             key: 'deviceStatus',
             render: (_, { isActive, isRevokeRequired }) => {
-                const { message, status } = calculateDeviceStatus(isActive, isRevokeRequired);
+                const { deviceMessage, status } = calculateDeviceStatus(isActive, isRevokeRequired);
                 return (
                     <Badge
                         className={styles.badge}
                         status={status}
                     >
-                        {message}
+                        {deviceMessage}
                     </Badge>
                 );
             },
@@ -127,7 +114,6 @@ const DevicesList = ({
     const handleRowClick = (id) => () => {
         history.push(`/devices/monitoring/${id}`);
     };
-
     const handlePageChange = (currentPage, pageSize) => {
         requestDevices({
             page: currentPage,
@@ -148,7 +134,6 @@ const DevicesList = ({
         onShowSizeChange: handlePageChange,
         className: styles.pagination,
     };
-
     const paginationListOptions = {
         ...paginationTableOptions,
         position: 'both',
@@ -186,19 +171,34 @@ const DevicesList = ({
                             isAdvertisementsDisabled,
                             isRevokeRequired,
                             id,
-                        }) => (
-                            // eslint-disable-next-line react/jsx-no-bind
-                            <List.Item
-                                onClick={handleRowClick(id)}
-                                className={styles.listItem}
-                            >
-                                <div className={styles.listText}>{name}</div>
-                                <div className={styles.listText}>{serialNumber}</div>
-                                <div className={styles.listText}>
-                                    {calculateStatus(isActive, isAdvertisementsDisabled, isRevokeRequired)}
-                                </div>
-                            </List.Item>
-                        )}
+                        }) => {
+                            const { deviceMessage, status } = calculateDeviceStatus(isActive, isRevokeRequired);
+                            const { advertMessage, color } = calculateAdvertisementStatus(isAdvertisementsDisabled);
+                            const devMessage = `Устройство ${deviceMessage.toLocaleLowerCase()}`;
+                            const adMessage = `Реклама ${advertMessage.toLocaleLowerCase()}`;
+                            return (
+                                <List.Item
+                                    onClick={handleRowClick(id)}
+                                    className={styles.listItem}
+                                >
+                                    <div className={styles.listText}>{name}</div>
+                                    <div className={styles.listText}>{serialNumber}</div>
+                                    <div>
+                                        <Tag color={color}>
+                                            {adMessage}
+                                        </Tag>
+                                    </div>
+                                    <div>
+                                        <Badge
+                                            className={styles.badge}
+                                            status={status}
+                                        >
+                                            {devMessage}
+                                        </Badge>
+                                    </div>
+                                </List.Item>
+                            );
+                        }}
                     />
                 )}
             <Text className={styles.text}>
