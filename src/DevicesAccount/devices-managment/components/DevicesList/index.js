@@ -4,7 +4,13 @@ import { useWindowResize, useThrottledFn } from 'beautiful-react-hooks';
 
 import history from 'Core/history';
 
-import { Table, List, Typography } from 'antd';
+import {
+    Table,
+    List,
+    Typography,
+    Tag,
+    Badge,
+} from 'antd';
 import { RightOutlined } from '@ant-design/icons';
 // import DevicesPagination from '../DevicesPagination';
 
@@ -28,6 +34,35 @@ const DevicesList = ({
     useWindowResize(useThrottledFn(() => {
         setWidth(window.innerWidth);
     }));
+
+    const calculateDeviceStatus = (isActive, isRevokeRequired) => {
+        let message = 'Активно';
+        let status = 'success';
+        if (!isActive && !isRevokeRequired) {
+            message = 'Деактивировано';
+            status = 'error';
+        } else if (!isActive && isRevokeRequired) {
+            message = 'Активация...';
+            status = 'warning';
+        }
+        return {
+            message,
+            status,
+        };
+    };
+
+    const calculateAdvertisementStatus = (isAdvertisementsDisabled) => {
+        let message = 'Запущена';
+        let color = 'green';
+        if (isAdvertisementsDisabled) {
+            message = 'Приостановлена';
+            color = 'red';
+        }
+        return {
+            message,
+            color,
+        };
+    };
 
     const calculateStatus = (isActive, isAdvertisementsDisabled, isRevokeRequired) => {
         let message;
@@ -53,19 +88,32 @@ const DevicesList = ({
             key: 'serialNumber',
         },
         {
-            title: 'Статус',
-            dataIndex: 'status',
-            key: 'status',
-            render: (_, { isActive, isAdvertisementsDisabled, isRevokeRequired }) => {
-                let message;
-                if (!isActive && !isRevokeRequired) {
-                    message = 'Деактивировано';
-                } else if (!isActive && isRevokeRequired) {
-                    message = 'Активация...';
-                } else if (isAdvertisementsDisabled) {
-                    message = 'Отключен показ рекламы';
-                }
-                return message;
+            title: 'Статус рекламы',
+            dataIndex: 'advertStatus',
+            key: 'advertStatus',
+            render: (_, { isAdvertisementsDisabled }) => {
+                const { message, color } = calculateAdvertisementStatus(isAdvertisementsDisabled);
+                return (
+                    <Tag color={color}>
+                        {message}
+                    </Tag>
+                );
+            },
+        },
+        {
+            title: 'Статус устройства',
+            dataIndex: 'deviceStatus',
+            key: 'deviceStatus',
+            render: (_, { isActive, isRevokeRequired }) => {
+                const { message, status } = calculateDeviceStatus(isActive, isRevokeRequired);
+                return (
+                    <Badge
+                        className={styles.badge}
+                        status={status}
+                    >
+                        {message}
+                    </Badge>
+                );
             },
         },
         {

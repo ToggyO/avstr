@@ -25,6 +25,17 @@ $border: 1px solid $secondary-light-50;
 
     .tableRow {
         cursor: pointer;
+
+        .badge {
+            padding-left: 20px;
+
+            sup {
+                top: 50%;
+                right: unset;
+                left: 0;
+                transform: translateY(-50%);
+            }
+        }
     }
 
     .list {
