@@ -48,19 +48,27 @@ $border: 1px solid $secondary-light-50;
         .listItem {
             @include caption12Regular;
 
-            padding: 0;
+            padding: 16px;
             cursor: pointer;
+
+            &:hover {
+                background: #fafafa;
+            }
 
             .listText {
                 @include caption12Regular;
 
                 margin: 16px 0;
+
+                &:first-child, {
+                    margin: 0;
+                }
             }
 
             .badge {
                 @include useBadge;
 
-                margin: 16px 0;
+                margin-top: 16px;
             }
         }
     }
