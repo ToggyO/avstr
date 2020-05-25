@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ${APP_NAME}
+  name: ${CI_ENVIRONMENT_SLUG}-${APP_NAME}
 spec:
   selector:
     matchLabels:
