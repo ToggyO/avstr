@@ -5,15 +5,7 @@
 
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 13px;
     color: $secondary-main-300;
-
-    .controls {
-        display: flex;
-        align-items: center;
-
-        .text {
-            margin: 0 44px;
-        }
-    }
 }

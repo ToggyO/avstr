@@ -2,34 +2,99 @@
 
 $border: 1px solid $secondary-light-50;
 
-.table {
-    display: block;
-    width: 100%;
-    border-collapse: collapse;
+@mixin useBadge {
+    @include caption12Regular;
 
-    .head {
+    padding-left: 20px;
+
+    sup {
+        top: 50%;
+        right: unset;
+        left: 0;
+        transform: translateY(-50%);
+    }
+}
+
+.wrap {
+    position: relative;
+    margin: 28px 0;
+
+    @media (min-width: $screen-w--s) {
+        margin-bottom: 84px;
+    }
+
+    .text {
         @include caption12Regular;
 
-        width: 100%;
-        padding: 9px 0;
-        border-top: $border;
-        border-bottom: $border;
-    }
-
-    th,
-    td {
-        padding: 0 44px;
-    }
-
-    th {
-        padding-top: 9px;
-        padding-bottom: 9px;
+        position: absolute;
+        top: 5px;
+        left: 0;
         color: $secondary-main-300;
+
+        @media (min-width: $screen-w--s) {
+            top: 19px;
+        }
     }
 
-    td {
-        padding-top: 17px;
-        padding-bottom: 17px;
-        color: $secondary-dark-900;
+    .tableRow {
+        cursor: pointer;
+
+        &:hover {
+            .arrowWrap {
+                .arrow {
+                    display: block;
+                }
+            }
+        }
+
+        .badge {
+            @include useBadge;
+        }
+
+        .arrowWrap {
+            position: relative;
+
+            .arrow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                display: none;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
+
+    .list {
+        .listItem {
+            @include caption12Regular;
+
+            padding: 16px;
+            cursor: pointer;
+
+            &:first-child {
+                margin-top: 30px;
+                border-top: 1px solid #f0f0f0;
+            }
+
+            &:hover {
+                background: #fafafa;
+            }
+
+            .listText {
+                @include caption12Regular;
+
+                margin: 16px 0;
+
+                &:first-child {
+                    margin: 0;
+                }
+            }
+
+            .badge {
+                @include useBadge;
+
+                margin-top: 16px;
+            }
+        }
     }
 }

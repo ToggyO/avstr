@@ -1,6 +1,7 @@
+//todo(nn): выяснить какие шрифты будем использовать и убрать лишние комменты/раскомментить
 //Headlines
 @mixin headline {
-    @include fontFamily;
+    //@include fontFamily;
 
     font-weight: bold;
     font-style: normal;

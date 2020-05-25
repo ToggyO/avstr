@@ -1,73 +1,44 @@
+// todo(nn): разобраться для чего нужен параметр total в объекте пагинации
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from 'Core/common/Icon';
+import { Pagination, Typography } from 'antd';
 
 import styles from './index.module.scss';
+
+const { Text } = Typography;
 
 const DevicesPagination = ({
     pagination: {
         page,
-        total,
+        // total,
         size,
-        hasPrevious,
-        hasNext,
         itemsTotal,
     },
     requestDevices,
 }) => {
-    const handlePageChange = (e) => {
-        const icon = e.target.closest('svg[name]');
-        const name = icon.getAttribute('name');
-        if (!icon || !name) return;
-        switch (name) {
-            case 'arrowLeft':
-                if (!hasPrevious) return;
-                requestDevices({
-                    page: page - 1,
-                });
-                break;
-            case 'arrowRight':
-                if (!hasNext) return;
-                requestDevices({
-                    page: page + 1,
-                });
-                break;
-            case 'arrowRightDouble':
-                if (!hasNext) return;
-                requestDevices({
-                    page: total,
-                });
-                break;
-            default:
-                break;
-        }
+    const handlePageChange = (currentPage, pageSize) => {
+        requestDevices({
+            page: currentPage,
+            size: pageSize,
+        });
     };
+
     const amountOfVisibleDevices = itemsTotal > size ? size : itemsTotal;
 
     return (
         <div className={styles.wrap}>
-            <div>
+            <Text className={styles.text}>
                 {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
-            </div>
-            <div className={styles.controls}>
-                <Icon
-                    name="arrowLeft"
-                    onClick={handlePageChange}
-                />
+            </Text>
 
-                <div className={styles.text}>
-                    {`Страница ${page} из ${total}`}
-                </div>
-
-                <Icon
-                    name="arrowRight"
-                    onClick={handlePageChange}
-                />
-                <Icon
-                    name="arrowRightDouble"
-                    onClick={handlePageChange}
-                />
-            </div>
+            <Pagination
+                current={page}
+                total={itemsTotal}
+                showSizeChanger
+                responsive
+                onChange={handlePageChange}
+                onShowSizeChange={handlePageChange}
+            />
         </div>
     );
 };
