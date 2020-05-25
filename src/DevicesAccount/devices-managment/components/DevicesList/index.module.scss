@@ -40,8 +40,10 @@ $border: 1px solid $secondary-light-50;
         cursor: pointer;
 
         &:hover {
-            .arrow {
-                display: block;
+            .arrowWrap {
+                .arrow {
+                    display: block;
+                }
             }
         }
 
@@ -49,8 +51,16 @@ $border: 1px solid $secondary-light-50;
             @include useBadge;
         }
 
-        .arrow {
-            display: none;
+        .arrowWrap {
+            position: relative;
+
+            .arrow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                display: none;
+                transform: translate(-50%, -50%);
+            }
         }
     }
 

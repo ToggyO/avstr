@@ -42,7 +42,7 @@ const DevicesList = ({
             deviceMessage = 'Деактивировано';
             status = 'error';
         } else if (!isActive && isRevokeRequired) {
-            deviceMessage = 'Активация...';
+            deviceMessage = 'Активируется...';
             status = 'warning';
         }
         return {
@@ -107,7 +107,14 @@ const DevicesList = ({
             title: '',
             dataIndex: 'id',
             key: 'id',
-            render: (id) => <RightOutlined className={styles.arrow} key={id} />,
+            render: (id) => (
+                <div className={styles.arrowWrap}>
+                    <RightOutlined
+                        className={styles.arrow}
+                        key={id}
+                    />
+                </div>
+            ),
         },
     ];
 
