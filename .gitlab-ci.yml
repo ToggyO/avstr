@@ -70,6 +70,6 @@ Deploy.Staging:
       --docker-password="${CI_JOB_TOKEN}"
   script:
     - envsubst < deployments/k8s/frontend.yaml | kubectl apply -f -
-    - kubectl rollout status deployment/${APP_NAME} -n ${KUBE_NAMESPACE}
+    - kubectl rollout status deployment/${CI_ENVIRONMENT_SLUG}-${APP_NAME} -n ${KUBE_NAMESPACE}
   after_script:
     - kubectl delete secret gitlab-auth-${CI_COMMIT_SHORT_SHA}
