@@ -1,3 +1,4 @@
+// todo(nn):выяснить понадобится ли total
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useWindowResize, useThrottledFn } from 'beautiful-react-hooks';
@@ -12,10 +13,6 @@ import {
     Badge,
 } from 'antd';
 import { RightOutlined } from '@ant-design/icons';
-// import DevicesPagination from '../DevicesPagination';
-
-// import Icon from 'Core/common/Icon';
-// import DeviceItem from '../DeviceItem';
 
 import styles from './index.module.scss';
 
