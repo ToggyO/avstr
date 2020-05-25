@@ -1,7 +1,7 @@
 import React from 'react';
-// import { hot } from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
-// import { setConfig } from 'react-hot-loader';
+
 
 import io from 'socket.io-client';
 import 'semantic-ui-css/semantic.min.css';
@@ -17,9 +17,6 @@ import './App.scss';
 
 window.io = io;
 
-/* setConfig({
-    reloadHooks: false,
-}); */
 
 const App = () => (
     <Provider store={store}>
@@ -27,4 +24,4 @@ const App = () => (
     </Provider>
 );
 
-export default /* process.env.NODE_ENV === 'development' ? hot(App) : */ App;
+export default process.env.NODE_ENV === 'development' ? hot(App) : App;
