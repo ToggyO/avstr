@@ -14,47 +14,69 @@ const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserA
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
-const RootRouter = () => (
-    <Router history={history}>
-        <Switch>
-            <Route
-                exact
-                path="/"
-                component={AuthorizationPage}
-            />
-            <Route
-                path="/callback"
-                component={CallbackPage}
-            />
-            <Route
-                exact
-                path="/logout"
-                component={LogoutPage}
-            />
-            <Route
-                exact
-                path="/silentRenew"
-                component={SilentRenewPage}
-            />
+const RootRouter = () => {
+    if (window.location.pathname === '/callback') {
+        return <CallbackPage />;
+    }
 
-            <Suspense fallback={<Loader />}>
+    let redirect;
+    if (!window.location.search) {
+        if (window.location.pathname === '/') {
+            redirect = '/devices/main/list';
+        } else {
+            redirect = window.location.pathname;
+        }
+    }
+
+    return (
+        <Router history={history}>
+            <Switch>
                 <Route
-                    path="/token"
-                    component={TokenPage}
+                    exact
+                    path="/"
+                    render={() => (
+                        <AuthorizationPage redirect={redirect} />
+                    )}
+                />
+                {/* <Route
+                    exact
+                    path="/"
+                    component={AuthorizationPage}
+                /> */}
+                {/* <Route
+                    path="/callback"
+                    component={CallbackPage}
+                /> */}
+                <Route
+                    exact
+                    path="/logout"
+                    component={LogoutPage}
+                />
+                <Route
+                    exact
+                    path="/silentRenew"
+                    component={SilentRenewPage}
                 />
 
-                <Route
-                    path="/advertiser"
-                    component={AdvertiserAccountRouter}
-                />
+                <Suspense fallback={<Loader />}>
+                    <Route
+                        path="/token"
+                        component={TokenPage}
+                    />
 
-                <Route
-                    path="/devices"
-                    component={DevicesRouter}
-                />
-            </Suspense>
-        </Switch>
-    </Router>
-);
+                    <Route
+                        path="/advertiser"
+                        component={AdvertiserAccountRouter}
+                    />
+
+                    <Route
+                        path="/devices"
+                        component={DevicesRouter}
+                    />
+                </Suspense>
+            </Switch>
+        </Router>
+    );
+};
 
 export default RootRouter;

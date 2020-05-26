@@ -12,19 +12,18 @@ function* handleLogin({ data }) {
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
         const ReturnUrl = searchParam.pathname + searchParam.search + searchParam.hash;
 
-        const { content } = yield call(api.post, `${REACT_APP_AUTH_API}/account/login`, {
-            ...data,
-            ReturnUrl,
-            /* Username: 'avastar-test@smarthead.ru',
-            Password: 'Qwe123!',
-            RememberLogin: true, */
-        }, {
-            credentials: 'include',
-        });
+        yield call(api.post, `${REACT_APP_AUTH_API}/account/login`,
+            {
+                ...data,
+                ReturnUrl,
+            }, {
+                credentials: 'include',
+            });
 
-        localStorage.setItem('redirectPath', content);
-        window.location = content;
-    } catch ({ type }) {
+        // localStorage.setItem('redirectPath', content);
+        window.location = '/';
+    } catch (err) {
+        const { type } = err;
         switch (type) {
             case 'AuthorizationError':
                 yield put(setErrMessage('Неверное имя пользователя или пароль'));
@@ -33,7 +32,7 @@ function* handleLogin({ data }) {
                 yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));
                 break;
             default:
-                break;
+                throw err;
         }
     }
 }

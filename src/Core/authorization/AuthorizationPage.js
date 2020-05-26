@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from './action-creators';
-import history from '../history';
+// import history from '../history';
 
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
@@ -10,15 +10,14 @@ import userManager from './utils/userManager';
 
 class AuthorizationPage extends Component {
     componentDidMount() {
+        const { redirect } = this.props;
         if (!window.location.search) {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
                     userManager.signinRedirect({
-                        data: { path: '' },
+                        // data: { path: '/devices/main/list' },
+                        data: { path: redirect },
                     });
-                } else {
-                    const redirectPath = localStorage.getItem('redirectPath');
-                    history.push(redirectPath);
                 }
             });
         }
@@ -35,10 +34,14 @@ class AuthorizationPage extends Component {
     }
 }
 
+AuthorizationPage.defaultProps = {
+    redirect: '',
+};
 
 AuthorizationPage.propTypes = {
     authErrMessage: PropTypes.string.isRequired,
     loginAction: PropTypes.func.isRequired,
+    redirect: PropTypes.string,
 };
 
 
