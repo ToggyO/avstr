@@ -1,6 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
 import { setErrMessage } from '../action-creators';
+import userManager from '../utils/userManager';
 
 
 const { REACT_APP_AUTH_API } = process.env;
@@ -21,7 +22,14 @@ function* handleLogin({ data }) {
             });
 
         // localStorage.setItem('redirectPath', content);
-        window.location = '/';
+        userManager.getUser().then((user) => {
+            if (!user || user.expired) {
+                userManager.signinRedirect({
+                    // data: { path: '/devices/main/list' },
+                    data: { path: '/devices/main/list' },
+                });
+            }
+        });
     } catch (err) {
         const { type } = err;
         switch (type) {

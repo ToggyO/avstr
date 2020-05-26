@@ -12,13 +12,11 @@ function useIsLoggedIn() {
             return;
         }
         userManager.getUser().then((user) => {
-            if (!user || user.expired) {
-                userManager.signinRedirect({
-                    data: { path: '' },
-                });
-            } else {
+            if (user || !user.expired) {
                 setIsLoggedIn(true);
                 api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
+            } else {
+                window.location = '/';
             }
         });
     }, [isFirstRender]);

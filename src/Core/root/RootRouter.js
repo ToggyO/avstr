@@ -19,30 +19,30 @@ const RootRouter = () => {
         return <CallbackPage />;
     }
 
-    let redirect;
+    /* let redirect;
     if (!window.location.search) {
         if (window.location.pathname === '/') {
             redirect = '/devices/main/list';
         } else {
             redirect = window.location.pathname;
         }
-    }
+    } */
 
     return (
         <Router history={history}>
             <Switch>
-                <Route
+                {/* <Route
                     exact
                     path="/"
                     render={() => (
                         <AuthorizationPage redirect={redirect} />
                     )}
-                />
-                {/* <Route
+                /> */}
+                <Route
                     exact
                     path="/"
                     component={AuthorizationPage}
-                /> */}
+                />
                 {/* <Route
                     path="/callback"
                     component={CallbackPage}

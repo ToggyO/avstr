@@ -10,13 +10,13 @@ import userManager from './utils/userManager';
 
 class AuthorizationPage extends Component {
     componentDidMount() {
-        const { redirect } = this.props;
+        // const { redirect } = this.props;
         if (!window.location.search) {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
                     userManager.signinRedirect({
                         // data: { path: '/devices/main/list' },
-                        data: { path: redirect },
+                        data: { path: '' },
                     });
                 }
             });
@@ -34,14 +34,10 @@ class AuthorizationPage extends Component {
     }
 }
 
-AuthorizationPage.defaultProps = {
-    redirect: '',
-};
 
 AuthorizationPage.propTypes = {
     authErrMessage: PropTypes.string.isRequired,
     loginAction: PropTypes.func.isRequired,
-    redirect: PropTypes.string,
 };
 
 
