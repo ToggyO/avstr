@@ -19,14 +19,17 @@ const RootRouter = () => {
         return <CallbackPage />;
     }
 
-    /* let redirect;
     if (!window.location.search) {
+        let redirect;
         if (window.location.pathname === '/') {
             redirect = '/devices/main/list';
+            alert(redirect);
         } else {
             redirect = window.location.pathname;
+            alert(redirect);
         }
-    } */
+        localStorage.setItem('abc', redirect);
+    }
 
     return (
         <Router history={history}>

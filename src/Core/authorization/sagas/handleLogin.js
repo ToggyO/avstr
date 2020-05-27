@@ -22,13 +22,10 @@ function* handleLogin({ data }) {
             });
 
         // localStorage.setItem('redirectPath', content);
-        userManager.getUser().then((user) => {
-            if (!user || user.expired) {
-                userManager.signinRedirect({
-                    // data: { path: '/devices/main/list' },
-                    data: { path: '/devices/main/list' },
-                });
-            }
+        const redirect = localStorage.getItem('abc');
+        userManager.signinRedirect({
+            // data: { path: '/devices/main/list' },
+            data: { path: redirect },
         });
     } catch (err) {
         const { type } = err;
