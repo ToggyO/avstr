@@ -10,13 +10,13 @@ import userManager from './utils/userManager';
 
 class AuthorizationPage extends Component {
     componentDidMount() {
-        // const { redirect } = this.props;
+        const redirect = localStorage.getItem('redirect');
         if (!window.location.search) {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
                     userManager.signinRedirect({
                         // data: { path: '/devices/main/list' },
-                        data: { path: '' },
+                        data: { path: redirect },
                     });
                 }
             });

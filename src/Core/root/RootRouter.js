@@ -1,3 +1,4 @@
+// todo(nn): Вынести пути в переменные окружения;
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -20,16 +21,22 @@ const RootRouter = ({ isAuthorized }) => {
         return <CallbackPage />;
     }
 
+    let redirect;
     if (!window.location.search) {
-        let redirect;
         if (window.location.pathname === '/') {
-            redirect = '/devices/main/list';
+            redirect = '/devices/main/list'; // отдельный сервис для получения пути в зависимости от роли
             // alert(redirect);
         } else {
             redirect = window.location.pathname;
             // alert(redirect);
         }
         localStorage.setItem('redirect', redirect);
+    } else {
+        const redirectKey = localStorage.getItem('redirect');
+        if (!redirectKey) {
+            redirect = '/devices/main/list';
+            localStorage.setItem('redirect', redirect);
+        }
     }
 
     if (!isAuthorized) {
