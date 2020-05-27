@@ -1,4 +1,5 @@
 import React, { Suspense, lazy } from 'react';
+import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
 import history from '../history';
@@ -14,7 +15,7 @@ const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserA
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
-const RootRouter = () => {
+const RootRouter = ({ isAuthorized }) => {
     if (window.location.pathname === '/callback') {
         return <CallbackPage />;
     }
@@ -23,12 +24,16 @@ const RootRouter = () => {
         let redirect;
         if (window.location.pathname === '/') {
             redirect = '/devices/main/list';
-            alert(redirect);
+            // alert(redirect);
         } else {
             redirect = window.location.pathname;
-            alert(redirect);
+            // alert(redirect);
         }
-        localStorage.setItem('abc', redirect);
+        localStorage.setItem('redirect', redirect);
+    }
+
+    if (!isAuthorized) {
+        return <AuthorizationPage />;
     }
 
     return (
@@ -37,15 +42,8 @@ const RootRouter = () => {
                 {/* <Route
                     exact
                     path="/"
-                    render={() => (
-                        <AuthorizationPage redirect={redirect} />
-                    )}
-                /> */}
-                <Route
-                    exact
-                    path="/"
                     component={AuthorizationPage}
-                />
+                /> */}
                 {/* <Route
                     path="/callback"
                     component={CallbackPage}
@@ -80,6 +78,14 @@ const RootRouter = () => {
             </Switch>
         </Router>
     );
+};
+
+RootRouter.defaultProps = {
+    isAuthorized: false,
+};
+
+RootRouter.propTypes = {
+    isAuthorized: PropTypes.bool,
 };
 
 export default RootRouter;
