@@ -21,10 +21,8 @@ function* handleLogin({ data }) {
                 credentials: 'include',
             });
 
-        // localStorage.setItem('redirectPath', content);
         const redirect = localStorage.getItem('redirect');
         userManager.signinRedirect({
-            // data: { path: '/devices/main/list' },
             data: { path: redirect },
         });
     } catch (err) {

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { login } from './action-creators';
-// import history from '../history';
 
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
@@ -15,7 +14,6 @@ class AuthorizationPage extends Component {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
                     userManager.signinRedirect({
-                        // data: { path: '/devices/main/list' },
                         data: { path: redirect },
                     });
                 }

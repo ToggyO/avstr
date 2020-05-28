@@ -12,7 +12,8 @@ function* handleLogout() {
         });
 
         window.location = '/';
-    } catch ({ type }) {
+    } catch (err) {
+        const { type } = err;
         switch (type) {
             case 'BadRequest':
                 window.location = '/';
@@ -21,7 +22,7 @@ function* handleLogout() {
                 yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));
                 break;
             default:
-                break;
+                throw err;
         }
     }
 }

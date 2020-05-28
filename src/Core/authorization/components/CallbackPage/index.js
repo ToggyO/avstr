@@ -21,9 +21,6 @@ class CallbackPage extends Component {
 
     errorCallback = () => {
         console.log('-----------ERROR-----------');
-        /* userManager.signoutRedirect();
-        userManager.removeUser();
-        logout(); */
         window.location = '/';
     };
 

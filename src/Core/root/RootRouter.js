@@ -1,4 +1,7 @@
-// todo(nn): Вынести пути в переменные окружения;
+// todo(nn):
+//  1.Вынести пути в переменные окружения
+//  2.Переписать код с получением путей для редиректа и вынести его
+
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
@@ -24,7 +27,7 @@ const RootRouter = ({ isAuthorized }) => {
     let redirect;
     if (!window.location.search) {
         if (window.location.pathname === '/') {
-            redirect = '/devices/main/list'; // отдельный сервис для получения пути в зависимости от роли
+            redirect = '/devices/main/list';
             // alert(redirect);
         } else {
             redirect = window.location.pathname;
