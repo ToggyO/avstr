@@ -64,12 +64,11 @@ Deploy.Staging:
     - yc config set cloud-id ${CLOUD_ID}
     - yc managed-kubernetes cluster get-credentials ${CLUSTER_NAME} --external
     - >
-      kubectl create secret docker-registry gitlab-auth-${CI_COMMIT_SHORT_SHA}
+      kubectl create secret docker-registry gitlab-auth
       --docker-server="${CI_REGISTRY}"
       --docker-username="gitlab-ci-token"
       --docker-password="${CI_JOB_TOKEN}"
+      --dry-run=client -o yaml | kubectl apply -f -
   script:
     - envsubst < deployments/k8s/frontend.yaml | kubectl apply -f -
     - kubectl rollout status deployment/${CI_ENVIRONMENT_SLUG}-${APP_NAME} -n ${KUBE_NAMESPACE}
-  after_script:
-    - kubectl delete secret gitlab-auth-${CI_COMMIT_SHORT_SHA}
