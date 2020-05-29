@@ -24,7 +24,7 @@ spec:
             exec:
               command: ["/usr/sbin/nginx","-s","quit"]
       imagePullSecrets:
-      - name: gitlab-auth-${CI_COMMIT_SHORT_SHA}
+      - name: gitlab-auth
 ---
 apiVersion: v1
 kind: Service
