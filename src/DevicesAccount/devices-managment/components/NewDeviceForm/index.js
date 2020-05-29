@@ -88,7 +88,7 @@ const NewDeviceForm = ({
             setDeviceNameText('');
             changeFieldsCleanNeededFlag(false);
         }
-    }, [isFieldsCleanNeeded]);
+    }, [isFieldsCleanNeeded, changeFieldsCleanNeededFlag]);
 
     return (
         <>
