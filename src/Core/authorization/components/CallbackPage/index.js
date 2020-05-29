@@ -15,12 +15,10 @@ class CallbackPage extends Component {
     }
 
     successCallback = (user) => {
-        console.log('-----------SUCCESS-----------');
         window.location = user.state.path;
     };
 
     errorCallback = () => {
-        console.log('-----------ERROR-----------');
         window.location = '/';
     };
 
