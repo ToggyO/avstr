@@ -20,11 +20,22 @@ const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
 const RootRouter = ({ isAuthorized }) => {
-    const { REACT_APP_CALLBACK_PATH } = process.env;
+    const {
+        REACT_APP_CALLBACK_PATH,
+        REACT_APP_LOGOUT_PATH,
+        REACT_APP_SILENT_RENEW_PATH,
+    } = process.env;
     const { pathname } = window.location;
 
-    if (pathname === REACT_APP_CALLBACK_PATH) {
-        return <CallbackPage />;
+    switch (pathname) {
+        case REACT_APP_CALLBACK_PATH:
+            return <CallbackPage />;
+        case REACT_APP_LOGOUT_PATH:
+            return <LogoutPage />;
+        case REACT_APP_SILENT_RENEW_PATH:
+            return <SilentRenewPage />;
+        default:
+            break;
     }
 
     let redirect;
@@ -52,23 +63,7 @@ const RootRouter = ({ isAuthorized }) => {
     return (
         <Router history={history}>
             <Switch>
-                <Route
-                    exact
-                    path="/logout"
-                    component={LogoutPage}
-                />
-                <Route
-                    exact
-                    path="/silentRenew"
-                    component={SilentRenewPage}
-                />
-
                 <Suspense fallback={<Loader />}>
-                    <Route
-                        path="/token"
-                        component={TokenPage}
-                    />
-
                     <Route
                         path="/advertiser"
                         component={AdvertiserAccountRouter}
@@ -77,6 +72,11 @@ const RootRouter = ({ isAuthorized }) => {
                     <Route
                         path="/devices"
                         component={DevicesRouter}
+                    />
+
+                    <Route
+                        path="/token"
+                        component={TokenPage}
                     />
                 </Suspense>
             </Switch>
