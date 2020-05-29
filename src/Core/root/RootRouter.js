@@ -1,7 +1,3 @@
-// todo(nn):
-//  1.Вынести пути в переменные окружения
-//  2.Переписать код с получением путей для редиректа и вынести его
-
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
