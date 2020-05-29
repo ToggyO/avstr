@@ -7,8 +7,10 @@ import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
-import Loader from '../common/Loader';
 import SilentRenewPage from '../authorization/components/SilentRenewPage';
+import AdvertiserRegistrationPage from '../registration/advertiser-registration/AdvertiserRegistrationPage';
+
+import Loader from '../common/Loader';
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
@@ -20,6 +22,7 @@ const RootRouter = ({ isAuthorized }) => {
         REACT_APP_CALLBACK_PATH,
         REACT_APP_LOGOUT_PATH,
         REACT_APP_SILENT_RENEW_PATH,
+        REACT_APP_ADVERTISER_REGISTRATION_PATH,
     } = process.env;
     const { pathname } = window.location;
 
@@ -30,6 +33,8 @@ const RootRouter = ({ isAuthorized }) => {
             return <LogoutPage />;
         case REACT_APP_SILENT_RENEW_PATH:
             return <SilentRenewPage />;
+        case REACT_APP_ADVERTISER_REGISTRATION_PATH:
+            return <AdvertiserRegistrationPage />;
         default:
             break;
     }
