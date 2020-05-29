@@ -1,4 +1,9 @@
+// todo(nn):
+//  1.Вынести пути в переменные окружения
+//  2.Переписать код с получением путей для редиректа и вынести его
+
 import React, { Suspense, lazy } from 'react';
+import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
 import history from '../history';
@@ -14,47 +19,77 @@ const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserA
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
-const RootRouter = () => (
-    <Router history={history}>
-        <Switch>
-            <Route
-                exact
-                path="/"
-                component={AuthorizationPage}
-            />
-            <Route
-                path="/callback"
-                component={CallbackPage}
-            />
-            <Route
-                exact
-                path="/logout"
-                component={LogoutPage}
-            />
-            <Route
-                exact
-                path="/silentRenew"
-                component={SilentRenewPage}
-            />
+const RootRouter = ({ isAuthorized }) => {
+    const { REACT_APP_CALLBACK_PATH } = process.env;
+    const { pathname } = window.location;
 
-            <Suspense fallback={<Loader />}>
+    if (pathname === REACT_APP_CALLBACK_PATH) {
+        return <CallbackPage />;
+    }
+
+    let redirect;
+    const usersStartPageUrl = '/advertiser';
+    const { search } = window.location;
+
+    if (!search) {
+        if (pathname === '/') {
+            redirect = usersStartPageUrl;
+        } else {
+            redirect = pathname;
+        }
+        localStorage.setItem('redirect', redirect);
+    } else {
+        const redirectKey = localStorage.getItem('redirect');
+        if (!redirectKey) {
+            localStorage.setItem('redirect', usersStartPageUrl);
+        }
+    }
+
+    if (!isAuthorized) {
+        return <AuthorizationPage />;
+    }
+
+    return (
+        <Router history={history}>
+            <Switch>
                 <Route
-                    path="/token"
-                    component={TokenPage}
+                    exact
+                    path="/logout"
+                    component={LogoutPage}
+                />
+                <Route
+                    exact
+                    path="/silentRenew"
+                    component={SilentRenewPage}
                 />
 
-                <Route
-                    path="/advertiser"
-                    component={AdvertiserAccountRouter}
-                />
+                <Suspense fallback={<Loader />}>
+                    <Route
+                        path="/token"
+                        component={TokenPage}
+                    />
 
-                <Route
-                    path="/devices"
-                    component={DevicesRouter}
-                />
-            </Suspense>
-        </Switch>
-    </Router>
-);
+                    <Route
+                        path="/advertiser"
+                        component={AdvertiserAccountRouter}
+                    />
+
+                    <Route
+                        path="/devices"
+                        component={DevicesRouter}
+                    />
+                </Suspense>
+            </Switch>
+        </Router>
+    );
+};
+
+RootRouter.defaultProps = {
+    isAuthorized: false,
+};
+
+RootRouter.propTypes = {
+    isAuthorized: PropTypes.bool,
+};
 
 export default RootRouter;

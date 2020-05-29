@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Loader from 'Core/common/Loader';
 import userManager from 'Core/authorization/utils/userManager';
 
-import { logout } from '../../action-creators';
+// import { logout } from '../../action-creators';
 
 
 class CallbackPage extends Component {
@@ -14,14 +14,11 @@ class CallbackPage extends Component {
             .catch((error) => this.errorCallback(error));
     }
 
-    successCallback = () => {
-        window.location = localStorage.getItem('redirectPath');
+    successCallback = (user) => {
+        window.location = user.state.path;
     };
 
     errorCallback = () => {
-        userManager.signoutRedirect();
-        userManager.removeUser();
-        logout();
         window.location = '/';
     };
 
