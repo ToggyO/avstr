@@ -20,25 +20,28 @@ const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
 
 const RootRouter = ({ isAuthorized }) => {
-    if (window.location.pathname === '/callback') {
+    const { REACT_APP_CALLBACK_PATH } = process.env;
+    const { pathname } = window.location;
+
+    if (pathname === REACT_APP_CALLBACK_PATH) {
         return <CallbackPage />;
     }
 
     let redirect;
-    if (!window.location.search) {
-        if (window.location.pathname === '/') {
-            redirect = '/devices/main/list';
-            // alert(redirect);
+    const usersStartPageUrl = '/advertiser';
+    const { search } = window.location;
+
+    if (!search) {
+        if (pathname === '/') {
+            redirect = usersStartPageUrl;
         } else {
-            redirect = window.location.pathname;
-            // alert(redirect);
+            redirect = pathname;
         }
         localStorage.setItem('redirect', redirect);
     } else {
         const redirectKey = localStorage.getItem('redirect');
         if (!redirectKey) {
-            redirect = '/devices/main/list';
-            localStorage.setItem('redirect', redirect);
+            localStorage.setItem('redirect', usersStartPageUrl);
         }
     }
 
@@ -49,15 +52,6 @@ const RootRouter = ({ isAuthorized }) => {
     return (
         <Router history={history}>
             <Switch>
-                {/* <Route
-                    exact
-                    path="/"
-                    component={AuthorizationPage}
-                /> */}
-                {/* <Route
-                    path="/callback"
-                    component={CallbackPage}
-                /> */}
                 <Route
                     exact
                     path="/logout"
