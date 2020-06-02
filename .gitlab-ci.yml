@@ -3,13 +3,13 @@ stages:
   - push
   - deploy
 
-image: docker:19.03.8
+image: docker:19.03
 
 variables:
   APP_NAME: avastar-frontend
-  APP_DOMAIN: avastar.smartheadtest.ru
   DOCKER_FILE_PATH: deployments/docker/Dockerfile
   IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
+  KUBECTL_IMAGE: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:50-master
 
 Build:
   tags: [csharp]
@@ -47,22 +47,19 @@ Push master:
     - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
-Deploy.Staging:
+.deploy_template: &deploy
+  tags: [csharp,net]
   stage: deploy
-  environment:
-    name: staging
-    url: https://avastar.smartheadtest.ru
-  variables:
-    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
   only:
     - master
-  image: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:50-master
+  image: ${KUBECTL_IMAGE}
   before_script:
     - yc config profile create deployment
     - yc config set service-account-key ${SERVICE_ACCOUNT_FILE}
     - yc config set folder-id ${FOLDER_ID}
     - yc config set cloud-id ${CLOUD_ID}
     - yc managed-kubernetes cluster get-credentials ${CLUSTER_NAME} --external
+    - kubectl create ns ${KUBE_NAMESPACE} || true
     - >
       kubectl create secret docker-registry gitlab-auth
       --docker-server="${CI_REGISTRY}"
@@ -72,3 +69,14 @@ Deploy.Staging:
   script:
     - envsubst < deployments/k8s/frontend.yaml | kubectl apply -f -
     - kubectl rollout status deployment/${CI_ENVIRONMENT_SLUG}-${APP_NAME} -n ${KUBE_NAMESPACE}
+
+Deploy.Staging:
+  <<: *deploy
+  environment:
+    name: staging
+    url: https://${APP_DOMAIN}
+  variables:
+    APP_DOMAIN: avastar.smartheadtest.ru
+    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+  only:
+    - master
