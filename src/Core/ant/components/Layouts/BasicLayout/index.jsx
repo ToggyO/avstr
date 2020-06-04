@@ -86,8 +86,17 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 };
 
 BasicLayout.propTypes = {
-    location: PropTypes.object,
+    location: PropTypes.shape({
+        pathname: PropTypes.string.isRequired,
+    }),
     logoutAction: PropTypes.func,
+};
+
+BasicLayout.defaultProps = {
+    location: {
+        pathname: '/',
+    },
+    logoutAction: Function.prototype,
 };
 
 const mapDispatchToProps = {
