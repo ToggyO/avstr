@@ -5,7 +5,6 @@ import { Route, Switch } from 'react-router-dom';
 import useIsLoggedIn from 'Core/authorization/utils/useIsLoggedIn';
 
 import Loader from 'Core/common/Loader';
-import NavBar from 'Core/common/NavBar';
 
 
 const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRouter'));
@@ -16,31 +15,28 @@ const DeviceMonitoringPage = lazy(() => import('./devices-monitoring/containers/
 const DevicesRouter = ({ match: { path } }) => {
     const isLoggedIn = useIsLoggedIn();
     return (
-        <div>
+        <>
             {isLoggedIn
                 ? (
-                    <div>
-                        <NavBar />
-                        <Suspense fallback={<Loader />}>
-                            <Switch>
-                                <Route
-                                    path={`${path}/main`}
-                                    component={DevicesPageRouter}
-                                />
-                                <Route
-                                    path={`${path}/add`}
-                                    component={NewDevicePage}
-                                />
-                                <Route
-                                    path={`${path}/monitoring`}
-                                    component={DeviceMonitoringPage}
-                                />
-                            </Switch>
-                        </Suspense>
-                    </div>
+                    <Suspense fallback={<Loader />}>
+                        <Switch>
+                            <Route
+                                path={`${path}/main`}
+                                component={DevicesPageRouter}
+                            />
+                            <Route
+                                path={`${path}/add`}
+                                component={NewDevicePage}
+                            />
+                            <Route
+                                path={`${path}/monitoring`}
+                                component={DeviceMonitoringPage}
+                            />
+                        </Switch>
+                    </Suspense>
                 )
                 : <Loader />}
-        </div>
+        </>
     );
 };
 

@@ -1,0 +1,30 @@
+@import 'variables';
+
+.header {
+    @include flex-centered;
+
+    box-shadow: $shadow-header;
+
+    &__container {
+        @include flex-space-between;
+        @include max-w-1440;
+
+        padding: 0 50px;
+    }
+
+    &__logo {
+        @include flex-centered;
+    }
+}
+
+.content {
+    @include flex-centered;
+
+    background-color: $gray-bg;
+}
+
+.children_container {
+    @include max-w-1440;
+
+    height: 100%;
+}

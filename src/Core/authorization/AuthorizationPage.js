@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from './action-creators';
 
+import { LoginLayout } from '@Core/ant/components';
+import { login } from './action-creators';
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
 
@@ -24,10 +25,12 @@ class AuthorizationPage extends Component {
     render() {
         const { authErrMessage, loginAction } = this.props;
         return (
-            <Authorization
-                errMessage={authErrMessage}
-                formSubmitHandler={loginAction}
-            />
+            <LoginLayout>
+                <Authorization
+                    errMessage={authErrMessage}
+                    formSubmitHandler={loginAction}
+                />
+            </LoginLayout>
         );
     }
 }

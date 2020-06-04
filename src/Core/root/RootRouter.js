@@ -2,8 +2,8 @@ import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
+import { BasicLayout, AccessRecoveryLayout } from '@Core/ant';
 import history from '../history';
-
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
@@ -30,6 +30,9 @@ const RootRouter = ({ isAuthorized }) => {
             return <LogoutPage />;
         case REACT_APP_SILENT_RENEW_PATH:
             return <SilentRenewPage />;
+        // FIXME: temporary solution
+        case '/recovery':
+            return <AccessRecoveryLayout>111</AccessRecoveryLayout>;
         default:
             break;
     }
@@ -58,24 +61,26 @@ const RootRouter = ({ isAuthorized }) => {
 
     return (
         <Router history={history}>
-            <Switch>
-                <Suspense fallback={<Loader />}>
-                    <Route
-                        path="/advertiser"
-                        component={AdvertiserAccountRouter}
-                    />
+            <BasicLayout>
+                <Switch>
+                    <Suspense fallback={<Loader />}>
+                        <Route
+                            path="/advertiser"
+                            component={AdvertiserAccountRouter}
+                        />
 
-                    <Route
-                        path="/devices"
-                        component={DevicesRouter}
-                    />
+                        <Route
+                            path="/devices"
+                            component={DevicesRouter}
+                        />
 
-                    <Route
-                        path="/token"
-                        component={TokenPage}
-                    />
-                </Suspense>
-            </Switch>
+                        <Route
+                            path="/token"
+                            component={TokenPage}
+                        />
+                    </Suspense>
+                </Switch>
+            </BasicLayout>
         </Router>
     );
 };

@@ -1,0 +1,16 @@
+@mixin max-w-1440 {
+    width: 100%;
+    max-width: 1440px;
+}
+
+@mixin flex-centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

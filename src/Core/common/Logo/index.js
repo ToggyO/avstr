@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import { ReactComponent as IconLogo } from './logo.svg';
+import { ReactComponent as IconLogo } from '../../ant/components/Layouts/LoginLayout/_components/_assets/logo.svg';
 
 import styles from './index.module.scss';
 
