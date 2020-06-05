@@ -25,7 +25,7 @@ export const StandardForm = ({
 
     useEffect(() => {
         if (asyncInitValues) form.resetFields();
-    }, [asyncInitValues]);
+    }, [asyncInitValues, form]);
 
     useBackendErrors(errorsFromBackend, form);
 

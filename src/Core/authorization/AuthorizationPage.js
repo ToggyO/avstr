@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { LoginLayout } from '@Core/ant/components';
+import { getFromLocalState } from '@Core/utils/ls';
 import { login } from './action-creators';
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
@@ -10,7 +11,7 @@ import userManager from './utils/userManager';
 
 class AuthorizationPage extends Component {
     componentDidMount() {
-        const redirect = localStorage.getItem('redirect');
+        const redirect = getFromLocalState('redirect');
         if (!window.location.search) {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
