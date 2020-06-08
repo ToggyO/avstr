@@ -26,3 +26,6 @@ export const getHeaderTitle = ({
     const splittedPathname = pathname.split('/');
     return `${splittedPathname[splittedPathname.length - 1]}`;
 };
+
+// TODO: реализовать функцию обработки ошибок с бэкэнда
+export const transformErrorToForm = () => {};

@@ -10,33 +10,32 @@ const { Header, Content } = Layout;
 
 const LoginLayout = ({ children }) => {
     return (
-      <>
-          <Helmet>
-              <title>AVAStar - Login</title>
-              <meta name="description" content="AVAStar - Login" />
-          </Helmet>
+        <>
+            <Helmet>
+                <title>AVAStar - Login</title>
+                <meta name="description" content="AVAStar - Login" />
+            </Helmet>
 
-          <Layout>
-              <Header className={s.header}>
-                  <div className={s.header__container}>
-                      <a href="/" className={s.header__logo}>
-                          <AvaLogo />
-                      </a>
-                      <div className={s.header__buttons}>
-                          <Button type="default" ghost>Регистрация</Button>
-                          <Button type="primary">Вход</Button>
-                      </div>
-                  </div>
-              </Header>
-              <Content className={s.content}>
-                  <div className={s.children_container}>
-                      {children}
-                  </div>
-              </Content>
-          </Layout>
-      </>
+            <Layout>
+                <Header className={s.header}>
+                    <div className={s.header__container}>
+                        <a href="/" className={s.header__logo}>
+                            <AvaLogo />
+                        </a>
+                        <div className={s.header__buttons}>
+                            <Button type="default" ghost>Регистрация</Button>
+                            <Button type="primary">Вход</Button>
+                        </div>
+                    </div>
+                </Header>
+                <Content className={s.content}>
+                    <div className={s.children_container}>
+                        {children}
+                    </div>
+                </Content>
+            </Layout>
+        </>
     );
 };
 
 export default LoginLayout;
-

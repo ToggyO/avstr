@@ -1,0 +1,56 @@
+import React, { useEffect } from 'react';
+import { Form } from 'antd';
+import PropTypes from 'prop-types';
+
+import { useBackendErrors } from '@Core/ant/helpers';
+
+export const StandardFormContext = React.createContext({
+    form: {},
+    options: {},
+});
+
+export const StandardForm = ({
+    // eslint-disable-next-line react/prop-types
+    children,
+    onFinish,
+    onFinishFailed,
+    options,
+    outerFormInstance,
+    asyncInitValues,
+    errorsFromBackend,
+    ...rest
+}) => {
+    const [form] = Form.useForm(outerFormInstance);
+    const contextValue = { form, options };
+
+    useEffect(() => {
+        if (asyncInitValues) form.resetFields();
+    }, [asyncInitValues]);
+
+    useBackendErrors(errorsFromBackend, form);
+
+    return (
+        <Form onFinish={onFinish} onFinishFailed={onFinishFailed} form={form} {...rest}>
+            <StandardFormContext.Provider value={contextValue}>{children}</StandardFormContext.Provider>
+        </Form>
+    );
+};
+
+StandardForm.propTypes = {
+    onFinish: PropTypes.func.isRequired,
+    onFinishFailed: PropTypes.func,
+    options: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    outerFormInstance: PropTypes,
+    asyncInitValues: PropTypes,
+    errorsFromBackend: PropTypes,
+};
+
+StandardForm.defaultProps = {
+    onFinishFailed: Function.prototype,
+    options: {},
+    outerFormInstance: undefined,
+    asyncInitValues: undefined,
+    errorsFromBackend: [],
+};
