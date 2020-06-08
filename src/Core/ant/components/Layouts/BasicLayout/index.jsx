@@ -1,3 +1,4 @@
+// TODO(toleg): заменить s на style в импорте стилей
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';

@@ -66,7 +66,6 @@ export const FormItemWrapper = ({
                     </Select>
                 );
             case 'phoneNumber':
-            // @ts-ignore
                 return <MaskedInput {...componentProps} {...propsToChild} />;
             case 'custom-component':
                 return component({ ...componentProps, ...propsToChild });

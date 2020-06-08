@@ -1,3 +1,8 @@
+@mixin max-w-346 {
+    width: 100%;
+    max-width: 346px;
+}
+
 @mixin max-w-1440 {
     width: 100%;
     max-width: 1440px;
@@ -13,4 +18,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+@mixin form-base-container {
+    padding: 40px 32px 16px 32px;
+    background-color: $white;
+    border-radius: 2px;
 }

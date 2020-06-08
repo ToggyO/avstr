@@ -1,3 +1,4 @@
+// TODO(toleg): заменить s на style в импорте стилей
 import React, { useState } from 'react';
 import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
@@ -22,8 +23,8 @@ export const AntDropdown = ({
 
     const renderMenu = menuItems => (
         <Menu>
-            {menuItems.map(item => (
-                <Menu.Item>
+            {menuItems.map((item, index) => (
+                <Menu.Item key={`${item.href}_${index + 1}`}>
                     <Button
                         type="link"
                         href={item.href}

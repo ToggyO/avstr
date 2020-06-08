@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 const { REACT_APP_PREFIX } = process.env;
-console.log(REACT_APP_PREFIX);
+
 export function writeToLocalState(key, state) {
     try {
         localStorage.setItem(`${REACT_APP_PREFIX}_${key}`, JSON.stringify(state));

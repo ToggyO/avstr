@@ -1,0 +1,14 @@
+@import 'variables';
+
+.wrapper {
+    @include flex-centered;
+
+    width: 100%;
+    height: calc(100vh - 190px);
+    background-color: $white;
+    border-radius: 2px;
+}
+
+.title {
+    margin-bottom: 8px;
+}

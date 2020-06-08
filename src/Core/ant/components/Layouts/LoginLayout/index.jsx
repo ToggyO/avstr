@@ -1,3 +1,4 @@
+// TODO(toleg): заменить s на style в импорте стилей
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Layout, Button } from 'antd';

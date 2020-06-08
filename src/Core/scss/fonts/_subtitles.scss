@@ -1,5 +1,30 @@
 //todo(nn): выяснить какие шрифты будем использовать и убрать лишние комменты/раскомментить
 //Subtitles
+@mixin subtitle14Regular {
+    //@include fontFamily;
+
+    font-size: 14px;
+    line-height: 22px;
+}
+
+@mixin subtitle14Medium {
+    @include subtitle14Regular;
+
+    font-weight: 500;
+}
+
+@mixin subtitle14Bold {
+    @include subtitle14Regular;
+
+    font-weight: bold;
+}
+
+@mixin subtitle14RegularUnderline {
+    @include subtitle14Regular;
+
+    text-decoration: underline;
+}
+
 @mixin subtitle16Regular {
     //@include fontFamily;
 

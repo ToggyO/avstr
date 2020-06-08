@@ -42,9 +42,15 @@ StandardForm.propTypes = {
     options: PropTypes.shape({
         [PropTypes.string]: PropTypes.any,
     }),
-    outerFormInstance: PropTypes,
-    asyncInitValues: PropTypes,
-    errorsFromBackend: PropTypes,
+    outerFormInstance: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+
+    asyncInitValues: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    // eslint-disable-next-line react/forbid-prop-types
+    errorsFromBackend: PropTypes.array,
 };
 
 StandardForm.defaultProps = {

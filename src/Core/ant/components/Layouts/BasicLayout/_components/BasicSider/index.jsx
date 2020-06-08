@@ -1,3 +1,4 @@
+// TODO(toleg): заменить s на style в импорте стилей
 import React from 'react';
 import { Menu, Layout } from 'antd';
 import PropTypes from 'prop-types';
