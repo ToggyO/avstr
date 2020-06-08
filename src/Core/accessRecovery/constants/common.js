@@ -1,4 +1,4 @@
-export const SUCCESS_RESULT_TYPES = {
+export default {
     RECOVERY: 'RecoverySuccess',
-    CHANGE_PASSWORD: 'ChangePasswordSuccess',
+    RESTORE_PASSWORD: 'RestorePasswordSuccess',
 };

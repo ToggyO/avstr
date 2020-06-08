@@ -1,4 +1,4 @@
-export const BREAKPOINTS = {
+export default {
     // XS = 576,
     SM: 576,
     MD: 768,

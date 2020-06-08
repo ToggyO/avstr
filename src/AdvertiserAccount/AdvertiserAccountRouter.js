@@ -2,8 +2,8 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import Loader from '@Core/common/Loader';
-import useIsLoggedIn from '@Core/authorization/utils/useIsLoggedIn';
+import Loader from 'Core/common/Loader';
+import useIsLoggedIn from 'Core/authorization/utils/useIsLoggedIn';
 
 const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
 const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));

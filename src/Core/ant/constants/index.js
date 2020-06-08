@@ -1,2 +1,2 @@
-export * from './breakpoints';
-export * from './errorCodes';
+export { default as BREAKPOINTS } from './breakpoints';
+export { default as ERROR_CODES } from './errorCodes';

@@ -1,17 +1,16 @@
-// TODO(toleg): заменить s на style в импорте стилей
 import React from 'react';
 import { Menu, Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useGlobalEvent } from 'beautiful-react-hooks';
 
-import { AnimationWrapper } from '@Core/common/AnimationWrapper';
+import { AnimationWrapper } from 'Core/common';
 import { AvaSystemsLogo } from '../_assets';
 
-import s from './style.module.scss';
+import style from './style.module.scss';
 
 const { Sider } = Layout;
 
-export const BasicSider = ({
+const BasicSider = ({
     siderState,
     setSiderState,
 }) => {
@@ -21,7 +20,7 @@ export const BasicSider = ({
     function collapseSiderByClick(e) {
         const { classList } = e.target;
         if (isFixed && classList.contains(targetClass)) {
-            setSiderState(prevState => ({
+            setSiderState((prevState) => ({
                 ...prevState,
                 isCollapsed: true,
             }));
@@ -29,7 +28,7 @@ export const BasicSider = ({
     }
 
     const onWindowClick = useGlobalEvent('click');
-    onWindowClick(e => collapseSiderByClick(e));
+    onWindowClick((e) => collapseSiderByClick(e));
 
     return (
         <>
@@ -39,11 +38,11 @@ export const BasicSider = ({
                 hideAnimName="fadeOut"
                 restAnimationProps={{ duration: '0.5s' }}
             >
-                <div className={`${s.sider__overlay} ${targetClass}`} />
+                <div className={`${style.sider__overlay} ${targetClass}`} />
             </AnimationWrapper>
 
             <Sider
-                className={s.sider}
+                className={style.sider}
                 theme="light"
                 collapsedWidth={0}
                 collapsed={isCollapsed}
@@ -53,7 +52,7 @@ export const BasicSider = ({
                     zIndex: 10,
                 }}
             >
-                <div className={s.sider__logo}>
+                <div className={style.sider__logo}>
                     <AvaSystemsLogo />
                 </div>
                 <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
@@ -91,3 +90,5 @@ BasicSider.defaultProps = {
     siderState: {},
     setSiderState: Function.prototype,
 };
+
+export default BasicSider;

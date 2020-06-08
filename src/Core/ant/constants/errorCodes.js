@@ -1,1 +1,1 @@
-export const ERROR_CODES = {};
+export default {};

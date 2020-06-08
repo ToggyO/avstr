@@ -1,3 +1,4 @@
+// TODO(Негодов Никита): с после errors в редьюсере нет необходимости в обратке ошибок внутри клиента fetch
 import handleRequestErrors from './handeRequestErrors';
 
 async function sendRequest(url, options, successCode) {

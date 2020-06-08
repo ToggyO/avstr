@@ -1,5 +1,5 @@
-export const RECOVERY_ROUTES = {
+export default {
     SEND_LINK: '/recovery/send-link',
-    CHANGE_PASSWORD: '/recovery/change-password',
-    RECOVERY_SUCCESS: '/recovery/success',
+    RESTORE_PASSWORD: '/recovery/restore-password',
+    SUCCESS: '/recovery/success',
 };

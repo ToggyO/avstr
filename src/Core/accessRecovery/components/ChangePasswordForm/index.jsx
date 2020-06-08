@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Badge, Button, notification } from 'antd';
 import PropTypes from 'prop-types';
 
-import { StandardForm, FormItemWrapper } from '@Core/ant';
-import { restorePasswordRequest } from '@Core/accessRecovery/action-creators';
-import { getProp } from '@Core/utils/getProp';
+import { StandardForm, FormItemWrapper } from 'Core/ant';
+import { restorePasswordRequest } from 'Core/accessRecovery/action-creators';
+import { getProp } from 'Core/utils/getProp';
 
 import options from './options';
 
@@ -43,7 +43,7 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
         showHelp();
     }, []);
 
-    const onSubmit = values => {
+    const onSubmit = (values) => {
         restorePassword(values);
     };
 
@@ -65,7 +65,7 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                     <FormItemWrapper
                         type="custom-component"
                         name="submit"
-                        component={props => (
+                        component={(props) => (
                             <Button
                                 loading={loading}
                                 {...props}
@@ -94,7 +94,7 @@ const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading', false),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     restorePassword: bindActionCreators(restorePasswordRequest, dispatch),
 });
 

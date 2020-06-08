@@ -1,44 +1,43 @@
-// TODO(toleg): заменить s на style в импорте стилей
 import React from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
 import PropTypes from 'prop-types';
 
-import { AntDropdown } from '@Core/ant/components';
+import { AntDropdown } from 'Core/ant/components';
 
-import s from './style.module.scss';
+import style from './style.module.scss';
 
 const { Header } = Layout;
 
-export const BasicHeader = ({
+const BasicHeader = ({
     siderState,
     setSiderState,
     dropdownItems,
     handleLogout,
     userName,
 }) => (
-    <Header className={s.header}>
-        <div className={s.header__container}>
+    <Header className={style.header}>
+        <div className={style.header__container}>
             {React.createElement(
                 siderState.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
-                    className: s.sider_trigger,
-                    onClick: () => setSiderState(prevState => ({
+                    className: style.sider_trigger,
+                    onClick: () => setSiderState((prevState) => ({
                         ...prevState,
                         isCollapsed: !siderState.isCollapsed,
                     })),
                 },
             )}
-            <div className={s.header__container__dropdown}>
+            <div className={style.header__container__dropdown}>
                 <AntDropdown items={dropdownItems}>
-                    <div className={s.dropdown_button}>
+                    <div className={style.dropdown_button}>
                         {userName}
                     </div>
                 </AntDropdown>
                 <Button
                     type="primary"
                     ghost
-                    className={s.btn}
+                    className={style.btn}
                     onClick={handleLogout}
                 >
                     Выйти
@@ -71,3 +70,5 @@ BasicHeader.defaultProps = {
     handleLogout: Function.prototype,
     userName: '',
 };
+
+export default BasicHeader;

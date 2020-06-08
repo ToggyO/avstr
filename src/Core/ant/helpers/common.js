@@ -12,6 +12,7 @@ export const getPageTitle = ({
     const splittedPathname = pathname.split('/');
     return splittedPathname.reduce((acc, curr) => {
         if (!curr.length) return acc;
+        // eslint-disable-next-line no-param-reassign
         acc += ` - ${curr[0].toUpperCase()}${curr.slice(1)}`;
         return acc;
     }, '');

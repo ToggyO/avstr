@@ -1,3 +1,5 @@
+// TODO(Негодов Никита): результаты данной функции возможно отправлять в форму. Но, нужно переработать функция
+//  чтобы возвращала в нужном для формы формате (Олег)
 import RequestError from './requestError';
 
 export default function handleRequestErrors(status, err) {

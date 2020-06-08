@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { writeToLocalState, getFromLocalState } from '@Core/utils/ls';
+import { writeToLocalState, getFromLocalState } from 'Core/utils/ls';
 import { setErrMessage } from '../action-creators';
 import userManager from '../utils/userManager';
 

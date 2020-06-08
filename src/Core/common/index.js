@@ -1,1 +1,2 @@
-export { AnimationWrapper } from './AnimationWrapper';
+// eslint-disable-next-line import/prefer-default-export
+export { default as AnimationWrapper } from './AnimationWrapper';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { AccessRecoveryLayout } from '@Core/ant';
+import { AccessRecoveryLayout } from 'Core/ant';
 import AccessRecoveryRouter from './AccessRecoveryRouter';
 
 import style from './style.module.scss';

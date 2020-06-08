@@ -7,8 +7,8 @@ import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
-import { BasicLayout } from '@Core/ant';
-import { writeToLocalState, getFromLocalState } from '@Core/utils/ls';
+import { BasicLayout } from 'Core/ant';
+import { writeToLocalState, getFromLocalState } from 'Core/utils/ls';
 import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
@@ -37,8 +37,7 @@ const RootRouter = ({ isAuthorized }) => {
             return <LogoutPage />;
         case REACT_APP_SILENT_RENEW_PATH:
             return <SilentRenewPage />;
-        // FIXME:
-        case '/recovery':
+        case '/recovery': // FIXME:
             return <AccessRecoveryPage />;
         default:
             break;
