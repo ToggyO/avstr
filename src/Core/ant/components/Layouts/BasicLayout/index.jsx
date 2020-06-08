@@ -7,11 +7,12 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'beautiful-react-hooks';
 
-import { BasicHeader, BasicSider } from './_components';
 import { getPageTitle, getHeaderTitle } from '@Core/ant/helpers';
+import { getFromLocalState } from '@Core/utils/ls';
 import userManager from '@Core/authorization/utils/userManager';
 import { logout } from '@Core/authorization/action-creators';
 import { BREAKPOINTS } from '@Core/ant/constants';
+import { BasicHeader, BasicSider } from './_components';
 
 import s from './style.module.scss';
 
@@ -49,7 +50,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
         },
     ];
 
-    const userName = localStorage.getItem('userName');
+    const userName = getFromLocalState('userName');
 
     const handleLogout = () => {
         userManager.signoutRedirect();

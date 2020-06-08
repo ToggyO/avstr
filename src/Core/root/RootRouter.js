@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
 import { BasicLayout, AccessRecoveryLayout } from '@Core/ant';
+import { writeToLocalState, getFromLocalState } from '@Core/utils/ls';
 import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
@@ -47,11 +48,11 @@ const RootRouter = ({ isAuthorized }) => {
         } else {
             redirect = pathname;
         }
-        localStorage.setItem('redirect', redirect);
+        writeToLocalState('redirect', redirect);
     } else {
-        const redirectKey = localStorage.getItem('redirect');
+        const redirectKey = getFromLocalState('redirect');
         if (!redirectKey) {
-            localStorage.setItem('redirect', usersStartPageUrl);
+            writeToLocalState('redirect', usersStartPageUrl);
         }
     }
 
