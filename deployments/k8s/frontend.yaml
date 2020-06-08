@@ -48,7 +48,7 @@ spec:
   hosts:
   - ${APP_DOMAIN}
   gateways:
-  - istio-system/avastar-gateway
+  - istio-system/avastar-gateway-${CI_ENVIRONMENT_SLUG}
   http:
   - match:
     - uri:
