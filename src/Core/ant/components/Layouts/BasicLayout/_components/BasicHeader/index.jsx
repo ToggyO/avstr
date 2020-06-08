@@ -1,3 +1,4 @@
+// TODO(toleg): заменить s на style в импорте стилей
 import React from 'react';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';

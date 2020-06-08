@@ -1,0 +1,6 @@
+@import 'variables';
+
+.routes_wrapper {
+    @include flex-centered;
+    //height: 100%;
+}

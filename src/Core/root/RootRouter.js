@@ -1,8 +1,13 @@
+// TODO(RootRouter): сделать общий роутинг для всех страниц приложения
+// страницы вне роутинга не будут иметь доступ к withRouter, соответственно к объектам history и location
+// явный импорт history из файла с history.js, вероятнее всего, будет возвращать другой инстанс
+// (не тот, что прокинут в <Router history={history}>)
+// FIXME: заменить хардкодный путь /recovery на константу
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
-import { BasicLayout, AccessRecoveryLayout } from '@Core/ant';
+import { BasicLayout } from '@Core/ant';
 import { writeToLocalState, getFromLocalState } from '@Core/utils/ls';
 import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
@@ -10,6 +15,7 @@ import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
 import Loader from '../common/Loader';
 import SilentRenewPage from '../authorization/components/SilentRenewPage';
+import { AccessRecoveryPage } from '../accessRecovery';
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
@@ -31,9 +37,9 @@ const RootRouter = ({ isAuthorized }) => {
             return <LogoutPage />;
         case REACT_APP_SILENT_RENEW_PATH:
             return <SilentRenewPage />;
-        // FIXME: temporary solution
+        // FIXME:
         case '/recovery':
-            return <AccessRecoveryLayout>111</AccessRecoveryLayout>;
+            return <AccessRecoveryPage />;
         default:
             break;
     }
