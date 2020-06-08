@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
 
-import { StandardForm, FormItemWrapper } from '@Core/ant';
-import { getProp } from '@Core/utils/getProp';
-import { forgotPasswordRequest } from '@Core/accessRecovery/action-creators';
+import { StandardForm, FormItemWrapper } from 'Core/ant';
+import { getProp } from 'Core/utils/getProp';
+import { forgotPasswordRequest } from 'Core/accessRecovery/action-creators';
 
 import options from './options';
 
@@ -56,7 +56,7 @@ const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading', false),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
     sendLink: bindActionCreators(forgotPasswordRequest, dispatch),
 });
 

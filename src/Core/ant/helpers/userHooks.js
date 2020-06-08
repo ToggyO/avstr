@@ -9,6 +9,7 @@ import { transformErrorToForm } from './common';
  * @return {object} formInstance - инстанс формы
  * @return {void}
  */
+// eslint-disable-next-line import/prefer-default-export
 export const useBackendErrors = (errorsFromBackend = [], formInstance = {}) => {
     useEffect(() => {
         if (errorsFromBackend.length && formInstance) {

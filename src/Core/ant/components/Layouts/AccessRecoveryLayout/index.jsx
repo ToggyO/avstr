@@ -1,13 +1,13 @@
-// TODO(toleg): заменить s на style в импорте стилей, добавить prop-types
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { Layout, message } from 'antd';
+import PropTypes from 'prop-types';
 
-import { getProp } from '@Core/utils/getProp';
+import { getProp } from 'Core/utils/getProp';
 import { AvaLogo } from '../LoginLayout/_components/_assets';
 
-import s from './style.module.scss';
+import style from './style.module.scss';
 
 const { Header, Content } = Layout;
 
@@ -42,21 +42,34 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
             </Helmet>
 
             <Layout>
-                <Header className={s.header}>
-                    <div className={s.header__container}>
-                        <a href="/" className={s.header__logo}>
+                <Header className={style.header}>
+                    <div className={style.header__container}>
+                        <a href="/" className={style.header__logo}>
                             <AvaLogo />
                         </a>
                     </div>
                 </Header>
-                <Content className={s.content}>
-                    <div className={s.children_container}>
+                <Content className={style.content}>
+                    <div className={style.children_container}>
                         {children}
                     </div>
                 </Content>
             </Layout>
         </>
     );
+};
+
+AccessRecoveryLayout.propTypes = {
+    children: PropTypes.element,
+    loading: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
+    errorsFromBackend: PropTypes.array,
+};
+
+AccessRecoveryLayout.defaultProps = {
+    children: null,
+    loading: false,
+    errorsFromBackend: [],
 };
 
 const mapStateToProps = ({ accessRecoveryReducer }) => ({

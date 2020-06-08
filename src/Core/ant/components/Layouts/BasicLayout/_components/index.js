@@ -1,3 +1,3 @@
 export * from './_assets';
-export { BasicHeader } from './BasicHeader';
-export { BasicSider } from './BasicSider';
+export { default as BasicHeader } from './BasicHeader';
+export { default as BasicSider } from './BasicSider';

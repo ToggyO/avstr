@@ -1,7 +1,7 @@
-// TODO(toleg): добавить prop-types
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const restAnimationPropsToString = animProps => {
+const restAnimationPropsToString = (animProps) => {
     let animPropsArray = [];
     const values = Object.values(animProps);
     if (values.length) {
@@ -14,10 +14,10 @@ const restAnimationPropsToString = animProps => {
     return '';
 };
 
-export const AnimationWrapper = ({
+const AnimationWrapper = ({
     show,
-    showAnimName = 'fadeIn',
-    hideAnimName = 'fadeOut',
+    showAnimName,
+    hideAnimName,
     restAnimationProps = {},
     style = {},
     children,
@@ -46,3 +46,26 @@ export const AnimationWrapper = ({
         </div>
     ) : null;
 };
+
+AnimationWrapper.propTypes = {
+    children: PropTypes.element,
+    show: PropTypes.bool.isRequired,
+    showAnimName: PropTypes.string,
+    hideAnimName: PropTypes.string,
+    restAnimationProps: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    style: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+};
+
+AnimationWrapper.defaultProps = {
+    children: null,
+    showAnimName: 'fadeIn',
+    hideAnimName: 'fadeOut',
+    restAnimationProps: {},
+    style: {},
+};
+
+export default AnimationWrapper;

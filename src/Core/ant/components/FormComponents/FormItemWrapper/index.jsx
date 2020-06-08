@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 
 import { StandardFormContext } from '../ContextForm';
 
-export const FormItemWrapper = ({
+const FormItemWrapper = ({
     type,
     name,
     dataSource = [],
@@ -48,7 +48,7 @@ export const FormItemWrapper = ({
             case 'select':
                 return (
                     <Select {...componentProps} {...propsToChild}>
-                        {selectOptions.map(option => (
+                        {selectOptions.map((option) => (
                             <Select.Option value={option.key} key={option.key}>
                                 {option.label}
                             </Select.Option>
@@ -58,7 +58,7 @@ export const FormItemWrapper = ({
             case 'async-load-select':
                 return (
                     <Select {...componentProps} {...propsToChild}>
-                        {dataSource.map(data => (
+                        {dataSource.map((data) => (
                             <Select.Option value={data.key} key={data.key}>
                                 {data.label}
                             </Select.Option>
@@ -118,3 +118,5 @@ FormItemWrapper.defaultProps = {
     formItemStyle: undefined,
     propsToChild: undefined,
 };
+
+export default FormItemWrapper;

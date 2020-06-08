@@ -5,8 +5,8 @@ $font-montserrat: montserrat, sans-serif;
     font-family: $font-montserrat;
 }
 
-@import '_body';
-@import '_btnsAndLinks';
-@import '_captions';
-@import '_headlines';
-@import '_subtitles';
+@import 'body';
+@import 'btnsAndLinks';
+@import 'captions';
+@import 'headlines';
+@import 'subtitles';

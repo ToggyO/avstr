@@ -1,34 +1,33 @@
-// TODO(toleg): заменить s на style в импорте стилей
 import React, { useState } from 'react';
 import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { DownOutlined } from '@ant-design/icons';
 
-import s from './style.module.scss';
+import style from './style.module.scss';
 
-export const AntDropdown = ({
+const AntDropdown = ({
     children,
-    items = [],
+    items,
     icon: Icon,
-    trigger = 'click',
-    style = {},
+    trigger,
+    inlineStyle,
     ...rest
 }) => {
     const {
         triggerContainerStyle = {},
         iconStyle = {},
-        menuItemStyle = {}
-    } = style;
+        menuItemStyle = {},
+    } = inlineStyle;
     const [state, setState] = useState(false);
 
-    const renderMenu = menuItems => (
+    const renderMenu = (menuItems) => (
         <Menu>
             {menuItems.map((item, index) => (
                 <Menu.Item key={`${item.href}_${index + 1}`}>
                     <Button
                         type="link"
                         href={item.href}
-                        className={s.menuItem}
+                        className={style.menuItem}
                         style={menuItemStyle}
                     >
                         {item.text}
@@ -45,41 +44,55 @@ export const AntDropdown = ({
             onVisibleChange={() => setState(!state)}
             {...rest}
         >
-            <div className={s.trigger_container} style={triggerContainerStyle}>
-                {children ? children : <Button type="link">Show menu</Button>}
+            <div className={style.trigger_container} style={triggerContainerStyle}>
+                {children || <Button type="link">Show menu</Button>}
                 {Icon
-                    ? <Icon
-                        className={s.icon}
-                        style={{
-                            ...iconStyle,
-                            transform: state ? 'rotate(180deg)' : 'rotate(0)'
-                        }}
-                      />
-                    : <DownOutlined
-                        className={s.icon}
-                        style={{
-                            ...iconStyle,
-                            transform: state ? 'rotate(180deg)' : 'rotate(0)'
-                        }}
-                      />
-                }
+                    ? (
+                        <Icon
+                            className={style.icon}
+                            style={{
+                                ...iconStyle,
+                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                            }}
+                        />
+                    )
+                    : (
+                        <DownOutlined
+                            className={style.icon}
+                            style={{
+                                ...iconStyle,
+                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                            }}
+                        />
+                    )}
             </div>
         </Dropdown>
     );
 };
 
 AntDropdown.propTypes = {
+    children: PropTypes.element,
     items: PropTypes.arrayOf(
-      PropTypes.shape({
-          href: PropTypes.string,
-          text: PropTypes.string,
-      }),
+        PropTypes.shape({
+            href: PropTypes.string,
+            text: PropTypes.string,
+        }),
     ),
     icon: PropTypes.element,
     trigger: PropTypes.oneOf(['hover', 'click', 'contextMenu']),
-    style: PropTypes.shape({
+    inlineStyle: PropTypes.shape({
         triggerContainerStyle: PropTypes.object,
         iconStyle: PropTypes.object,
         menuItemStyle: PropTypes.object,
     }),
 };
+
+AntDropdown.defaultProps = {
+    children: null,
+    items: [],
+    icon: PropTypes.element,
+    trigger: 'click',
+    inlineStyle: {},
+};
+
+export default AntDropdown;

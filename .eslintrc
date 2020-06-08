@@ -20,9 +20,6 @@
   },
   "rules": {
       "import/no-unresolved": "off",
-      "import/prefer-default-export": "off",
-      "arrow-parens": "off",
-      "no-param-reassign": "off",
       "react/jsx-props-no-spreading": "off",
       "prefer-promise-reject-errors": "off"
   }

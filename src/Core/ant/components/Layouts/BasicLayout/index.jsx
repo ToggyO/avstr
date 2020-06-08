@@ -1,4 +1,3 @@
-// TODO(toleg): заменить s на style в импорте стилей
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -8,14 +7,14 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'beautiful-react-hooks';
 
-import { getPageTitle, getHeaderTitle } from '@Core/ant/helpers';
-import { getFromLocalState } from '@Core/utils/ls';
-import userManager from '@Core/authorization/utils/userManager';
-import { logout } from '@Core/authorization/action-creators';
-import { BREAKPOINTS } from '@Core/ant/constants';
+import userManager from 'Core/authorization/utils/userManager';
+import { getFromLocalState } from 'Core/utils/ls';
+import { logout } from 'Core/authorization/action-creators';
 import { BasicHeader, BasicSider } from './_components';
+import { getPageTitle } from '../../../helpers';
+import { BREAKPOINTS } from '../../../constants';
 
-import s from './style.module.scss';
+import style from './style.module.scss';
 
 const { Content } = Layout;
 
@@ -28,7 +27,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     });
 
     useEffect(() => {
-        setSiderState(prevState => ({
+        setSiderState((prevState) => ({
             ...prevState,
             isFixed: isMobile,
         }));
@@ -76,8 +75,8 @@ const BasicLayout = ({ children, location, logoutAction }) => {
                         handleLogout={handleLogout}
                         userName={userName}
                     />
-                    <Content className={s.content}>
-                        <div className={s.children_container}>
+                    <Content className={style.content}>
+                        <div className={style.children_container}>
                             {children}
                         </div>
                     </Content>
@@ -88,6 +87,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 };
 
 BasicLayout.propTypes = {
+    children: PropTypes.element,
     location: PropTypes.shape({
         pathname: PropTypes.string.isRequired,
     }),
@@ -95,6 +95,7 @@ BasicLayout.propTypes = {
 };
 
 BasicLayout.defaultProps = {
+    children: null,
     location: {
         pathname: '/',
     },
