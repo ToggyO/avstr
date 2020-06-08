@@ -1,0 +1,23 @@
+@keyframes fadeIn {
+    0% {
+        z-index: 0;
+        opacity: 0;
+    }
+
+    100% {
+        z-index: 9;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        z-index: 9;
+        opacity: 1;
+    }
+
+    100% {
+        z-index: 0;
+        opacity: 0;
+    }
+}

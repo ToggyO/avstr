@@ -1,0 +1,39 @@
+@import 'variables';
+
+.header {
+    @include flex-centered;
+
+    box-shadow: $shadow-header;
+
+    &__container {
+        @include flex-space-between;
+        @include max-w-1440;
+
+        padding: 0 50px;
+    }
+
+    &__logo {
+        @include flex-centered;
+    }
+
+    &__buttons {
+        display: flex;
+
+        button:last-child {
+            margin-left: 26px;
+        }
+    }
+}
+
+.content {
+    @include flex-centered;
+
+    background: url('./_components/_assets/MoscowCity.jpg'), no-repeat center;
+    background-size: cover;
+}
+
+.children_container {
+    @include max-w-1440;
+
+    height: 100%;
+}

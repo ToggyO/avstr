@@ -1,5 +1,8 @@
-@import './colors';
-@import './screens';
+@import './_animations';
+@import './_colors';
+@import './_mixins';
+@import './_screens';
+@import './_shadows';
 @import './fonts/index';
 
 $atom: 4px;
