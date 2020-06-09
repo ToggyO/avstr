@@ -1,3 +1,4 @@
+// todo(nn): Добавить ссылки на документы, когда они появятся
 import React from 'react';
 // import { connect } from 'react-redux';
 import { Button } from 'antd';
@@ -40,6 +41,13 @@ const AdvRegisterForm = () => {
                     )}
                 />
             </StandardForm>
+            <p className={styles.description}>
+                Нажимая на&nbsp;кнопку &laquo;Зарегистрироваться&raquo;, вы&nbsp;
+                соглашаетесь с&nbsp;
+                <a href="/" target="_blank">Политикой конфиденциальности</a>
+                &thinsp;и&nbsp;
+                <a href="/" target="_blank">Обработкой персональных данных</a>
+            </p>
         </div>
     );
 };
