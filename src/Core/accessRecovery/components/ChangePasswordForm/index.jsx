@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Badge, Button, notification } from 'antd';
 import PropTypes from 'prop-types';

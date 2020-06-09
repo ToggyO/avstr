@@ -1,5 +1,4 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import PropTypes from 'prop-types';
@@ -56,7 +55,7 @@ const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading', false),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = () => ({
     sendLink: forgotPasswordRequest,
 });
 
