@@ -2,14 +2,14 @@ import React from 'react';
 import { Result } from 'antd';
 import PropTypes from 'prop-types';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const RecoverySuccess = ({ recoveredEmail }) => (
-    <div className={style.wrapper}>
+    <div className={styles.wrapper}>
         <Result
             status="success"
             title={(
-                <p className={style.title}>
+                <p className={styles.title}>
                     Ссылка для смены пароля
                     <br />
                     отправлена на почту

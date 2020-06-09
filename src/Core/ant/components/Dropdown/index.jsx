@@ -3,7 +3,7 @@ import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { DownOutlined } from '@ant-design/icons';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const AntDropdown = ({
     children,
@@ -27,7 +27,7 @@ const AntDropdown = ({
                     <Button
                         type="link"
                         href={item.href}
-                        className={style.menuItem}
+                        className={styles.menuItem}
                         style={menuItemStyle}
                     >
                         {item.text}
@@ -44,12 +44,12 @@ const AntDropdown = ({
             onVisibleChange={() => setState(!state)}
             {...rest}
         >
-            <div className={style.trigger_container} style={triggerContainerStyle}>
+            <div className={styles.trigger_container} style={triggerContainerStyle}>
                 {children || <Button type="link">Show menu</Button>}
                 {Icon
                     ? (
                         <Icon
-                            className={style.icon}
+                            className={styles.icon}
                             style={{
                                 ...iconStyle,
                                 transform: state ? 'rotate(180deg)' : 'rotate(0)',
@@ -58,7 +58,7 @@ const AntDropdown = ({
                     )
                     : (
                         <DownOutlined
-                            className={style.icon}
+                            className={styles.icon}
                             style={{
                                 ...iconStyle,
                                 transform: state ? 'rotate(180deg)' : 'rotate(0)',
@@ -90,7 +90,7 @@ AntDropdown.propTypes = {
 AntDropdown.defaultProps = {
     children: null,
     items: [],
-    icon: PropTypes.element,
+    icon: null,
     trigger: 'click',
     inlineStyle: {},
 };

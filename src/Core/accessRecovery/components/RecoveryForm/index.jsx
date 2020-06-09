@@ -10,16 +10,16 @@ import { forgotPasswordRequest } from 'Core/accessRecovery/action-creators';
 
 import options from './options';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const RecoveryForm = ({ loading, sendLink }) => {
-    const onSubmit = values => {
+    const onSubmit = (values) => {
         sendLink(values);
     };
 
     return (
-        <div className={style.container}>
-            <div className={style.headlines}>
+        <div className={styles.container}>
+            <div className={styles.headlines}>
                 <h1>Восстановление доступа</h1>
                 <p>Укажите почту, мы вышлем вам ссылку для изменения пароля.</p>
             </div>
@@ -28,7 +28,7 @@ const RecoveryForm = ({ loading, sendLink }) => {
                 <FormItemWrapper
                     type="custom-component"
                     name="submit"
-                    component={props => (
+                    component={(props) => (
                         <Button
                             loading={loading}
                             {...props}
@@ -57,7 +57,7 @@ const mapStateToProps = ({ accessRecoveryReducer }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    sendLink: bindActionCreators(forgotPasswordRequest, dispatch),
+    sendLink: forgotPasswordRequest,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecoveryForm);

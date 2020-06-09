@@ -7,6 +7,7 @@ const formOptions = {
         rules: [
             {
                 required: true,
+                // при устростве кастомной валидации нужно оставлять проблем в поле message
                 message: ' ',
             },
             {
@@ -55,6 +56,7 @@ const formOptions = {
         props: {
             size: 'large',
             type: 'primary',
+            // обязательно поле htmlType 'submit' для кнопки сабмита
             htmlType: 'submit',
             style: {
                 width: '100%',

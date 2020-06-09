@@ -1,2 +1,7 @@
-export { default as BREAKPOINTS } from './breakpoints';
-export { default as ERROR_CODES } from './errorCodes';
+import BREAKPOINTS from './breakpoints';
+import ERROR_CODES from './errorCodes';
+
+export {
+    BREAKPOINTS,
+    ERROR_CODES,
+};

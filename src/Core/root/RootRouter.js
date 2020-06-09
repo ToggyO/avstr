@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
 import { BasicLayout } from 'Core/ant';
-import { writeToLocalState, getFromLocalState } from 'Core/utils/ls';
+import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';

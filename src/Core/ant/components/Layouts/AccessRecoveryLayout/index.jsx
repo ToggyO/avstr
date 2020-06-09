@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { getProp } from 'Core/utils/getProp';
 import { AvaLogo } from '../LoginLayout/_components/_assets';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const { Header, Content } = Layout;
 
@@ -42,15 +42,15 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
             </Helmet>
 
             <Layout>
-                <Header className={style.header}>
-                    <div className={style.header__container}>
-                        <a href="/" className={style.header__logo}>
+                <Header className={styles.header}>
+                    <div className={styles.header__container}>
+                        <a href="/" className={styles.header__logo}>
                             <AvaLogo />
                         </a>
                     </div>
                 </Header>
-                <Content className={style.content}>
-                    <div className={style.children_container}>
+                <Content className={styles.content}>
+                    <div className={styles.children_container}>
                         {children}
                     </div>
                 </Content>

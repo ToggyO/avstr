@@ -3,9 +3,9 @@ import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
 import PropTypes from 'prop-types';
 
-import { AntDropdown } from 'Core/ant/components';
+import AntDropdown from 'Core/ant/components/Dropdown';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const { Header } = Layout;
 
@@ -16,28 +16,28 @@ const BasicHeader = ({
     handleLogout,
     userName,
 }) => (
-    <Header className={style.header}>
-        <div className={style.header__container}>
+    <Header className={styles.header}>
+        <div className={styles.header__container}>
             {React.createElement(
                 siderState.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
-                    className: style.sider_trigger,
+                    className: styles.sider_trigger,
                     onClick: () => setSiderState((prevState) => ({
                         ...prevState,
                         isCollapsed: !siderState.isCollapsed,
                     })),
                 },
             )}
-            <div className={style.header__container__dropdown}>
+            <div className={styles.header__container__dropdown}>
                 <AntDropdown items={dropdownItems}>
-                    <div className={style.dropdown_button}>
+                    <div className={styles.dropdown_button}>
                         {userName}
                     </div>
                 </AntDropdown>
                 <Button
                     type="primary"
                     ghost
-                    className={style.btn}
+                    className={styles.btn}
                     onClick={handleLogout}
                 >
                     Выйти
