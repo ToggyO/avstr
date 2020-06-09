@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from './action-creators';
 
+import { LoginLayout } from 'Core/ant/components';
+import { getFromLocalState } from 'Core/utils/local-storage';
+import { login } from './action-creators';
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
 
 
 class AuthorizationPage extends Component {
     componentDidMount() {
-        const redirect = localStorage.getItem('redirect');
+        const redirect = getFromLocalState('redirect');
         if (!window.location.search) {
             userManager.getUser().then((user) => {
                 if (!user || user.expired) {
@@ -24,10 +26,12 @@ class AuthorizationPage extends Component {
     render() {
         const { authErrMessage, loginAction } = this.props;
         return (
-            <Authorization
-                errMessage={authErrMessage}
-                formSubmitHandler={loginAction}
-            />
+            <LoginLayout>
+                <Authorization
+                    errMessage={authErrMessage}
+                    formSubmitHandler={loginAction}
+                />
+            </LoginLayout>
         );
     }
 }

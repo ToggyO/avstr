@@ -1,0 +1,34 @@
+@import 'variables';
+
+.header {
+    @include flex-centered;
+
+    background-color: $white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+    &__container {
+        @include flex-space-between;
+        @include max-w-1440;
+
+        &__dropdown {
+            @include flex-centered;
+        }
+    }
+}
+
+.btn {
+    margin-left: 40px;
+}
+
+.dropdown_button {
+    color: $dark-gray-text;
+
+    @include flex-centered;
+}
+
+.sider_trigger {
+    svg {
+        width: 19px;
+        height: 17px;
+    }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { getFromLocalState } from 'Core/utils/local-storage';
 import { logout } from 'Core/authorization/action-creators';
 import userManager from 'Core/authorization/utils/userManager';
 
@@ -20,7 +21,7 @@ const NavBar = ({ logoutAction }) => {
         logoutAction();
     };
 
-    const userName = localStorage.getItem('userName');
+    const userName = getFromLocalState('userName');
 
     return (
         <nav className={styles.navbar}>

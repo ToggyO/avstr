@@ -54,9 +54,8 @@
         }
 
         .btnWrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            @include flex-space-between;
+
             margin-top: 6*$atom;
         }
 

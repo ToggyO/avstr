@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects';
+
 import api from 'Core/api';
+import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import { setErrMessage } from '../action-creators';
 import userManager from '../utils/userManager';
 
@@ -7,7 +9,7 @@ import userManager from '../utils/userManager';
 const { REACT_APP_AUTH_API } = process.env;
 
 function* handleLogin({ data }) {
-    localStorage.setItem('userName', data.username);
+    writeToLocalState('userName', data.username);
     try {
         const url = new URL(window.location);
         const searchParam = new URL(url.searchParams.get('ReturnUrl'));
@@ -21,7 +23,7 @@ function* handleLogin({ data }) {
                 credentials: 'include',
             });
 
-        const redirect = localStorage.getItem('redirect');
+        const redirect = getFromLocalState('redirect');
         userManager.signinRedirect({
             data: { path: redirect },
         });

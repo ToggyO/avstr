@@ -15,9 +15,8 @@ $circleDiameter: 104px;
     }
 
     .circle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        @include flex-centered;
+
         width: $circleDiameter;
         height: $circleDiameter;
         margin-bottom: 32px;

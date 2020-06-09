@@ -1,16 +1,23 @@
+// TODO(RootRouter): сделать общий роутинг для всех страниц приложения
+// страницы вне роутинга не будут иметь доступ к withRouter, соответственно к объектам history и location
+// явный импорт history из файла с history.js, вероятнее всего, будет возвращать другой инстанс
+// (не тот, что прокинут в <Router history={history}>)
+// FIXME: заменить хардкодный путь /recovery на константу
 import React, { Suspense, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { Router, Route, Switch } from 'react-router-dom';
 
+import { BasicLayout } from 'Core/ant';
+import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import history from '../history';
 
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
-import SilentRenewPage from '../authorization/components/SilentRenewPage';
-import AdvertiserRegistrationPage from '../registration/advertiser-registration/AdvertiserRegistrationPage';
-
 import Loader from '../common/Loader';
+import SilentRenewPage from '../authorization/components/SilentRenewPage';
+import { AccessRecoveryPage } from '../accessRecovery';
+import AdvertiserRegistrationPage from '../registration/advertiser-registration/AdvertiserRegistrationPage';
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
@@ -33,6 +40,8 @@ const RootRouter = ({ isAuthorized }) => {
             return <LogoutPage />;
         case REACT_APP_SILENT_RENEW_PATH:
             return <SilentRenewPage />;
+        case '/recovery': // FIXME:
+            return <AccessRecoveryPage />;
         case REACT_APP_ADVERTISER_REGISTRATION_PATH:
             return <AdvertiserRegistrationPage />;
         default:
@@ -49,11 +58,11 @@ const RootRouter = ({ isAuthorized }) => {
         } else {
             redirect = pathname;
         }
-        localStorage.setItem('redirect', redirect);
+        writeToLocalState('redirect', redirect);
     } else {
-        const redirectKey = localStorage.getItem('redirect');
+        const redirectKey = getFromLocalState('redirect');
         if (!redirectKey) {
-            localStorage.setItem('redirect', usersStartPageUrl);
+            writeToLocalState('redirect', usersStartPageUrl);
         }
     }
 
@@ -63,24 +72,26 @@ const RootRouter = ({ isAuthorized }) => {
 
     return (
         <Router history={history}>
-            <Switch>
-                <Suspense fallback={<Loader />}>
-                    <Route
-                        path="/advertiser"
-                        component={AdvertiserAccountRouter}
-                    />
+            <BasicLayout>
+                <Switch>
+                    <Suspense fallback={<Loader />}>
+                        <Route
+                            path="/advertiser"
+                            component={AdvertiserAccountRouter}
+                        />
 
-                    <Route
-                        path="/devices"
-                        component={DevicesRouter}
-                    />
+                        <Route
+                            path="/devices"
+                            component={DevicesRouter}
+                        />
 
-                    <Route
-                        path="/token"
-                        component={TokenPage}
-                    />
-                </Suspense>
-            </Switch>
+                        <Route
+                            path="/token"
+                            component={TokenPage}
+                        />
+                    </Suspense>
+                </Switch>
+            </BasicLayout>
         </Router>
     );
 };

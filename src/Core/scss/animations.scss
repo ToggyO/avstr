@@ -1,0 +1,43 @@
+@keyframes fadeIn {
+    0% {
+        z-index: 0;
+        opacity: 0;
+    }
+
+    100% {
+        z-index: 9;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        z-index: 9;
+        opacity: 1;
+    }
+
+    100% {
+        z-index: 0;
+        opacity: 0;
+    }
+}
+
+@keyframes notification_left_show {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes notification_left_hide {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}

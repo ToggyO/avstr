@@ -5,3 +5,12 @@ $screen-w--m:                   1024px !default;
 $screen-w--l:                   1200px !default;
 $screen-w--xl:                  1400px !default;
 $screen-w--xxl:                 1600px !default;
+
+// Ant Breakpoints
+
+// ant-breakpoint-xs < 576
+$ant-breakpoint-sm: 576;
+$ant-breakpoint-md: 768;
+$ant-breakpoint-lg: 992;
+$ant-breakpoint-xl: 1200;
+$ant-breakpoint-xxl: 1600;
