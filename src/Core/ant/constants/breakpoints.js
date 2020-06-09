@@ -1,4 +1,4 @@
-export default {
+const BREAKPOINTS = {
     // XS = 576,
     SM: 576,
     MD: 768,
@@ -6,3 +6,5 @@ export default {
     XL: 1200,
     XXL: 1600,
 };
+
+export default BREAKPOINTS;

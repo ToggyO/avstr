@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { LoginLayout } from 'Core/ant/components';
-import { getFromLocalState } from 'Core/utils/ls';
+import { getFromLocalState } from 'Core/utils/local-storage';
 import { login } from './action-creators';
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';

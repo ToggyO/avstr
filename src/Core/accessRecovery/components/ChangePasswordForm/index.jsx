@@ -10,7 +10,7 @@ import { getProp } from 'Core/utils/getProp';
 
 import options from './options';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const RenderValidationStatus = () => (
     <div>
@@ -49,8 +49,8 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
 
     return (
         <>
-            <div className={style.container}>
-                <div className={style.headlines}>
+            <div className={styles.container}>
+                <div className={styles.headlines}>
                     <h1>Изменение пароля</h1>
                 </div>
                 <StandardForm onFinish={onSubmit} options={options}>
@@ -94,8 +94,8 @@ const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading', false),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    restorePassword: bindActionCreators(restorePasswordRequest, dispatch),
-});
+const mapDispatchToProps = {
+    restorePassword: restorePasswordRequest,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordForm);

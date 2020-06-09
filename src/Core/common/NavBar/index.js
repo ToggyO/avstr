@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getFromLocalState } from 'Core/utils/ls';
+import { getFromLocalState } from 'Core/utils/local-storage';
 import { logout } from 'Core/authorization/action-creators';
 import userManager from 'Core/authorization/utils/userManager';
 

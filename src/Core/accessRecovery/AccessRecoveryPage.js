@@ -3,11 +3,11 @@ import React from 'react';
 import { AccessRecoveryLayout } from 'Core/ant';
 import AccessRecoveryRouter from './AccessRecoveryRouter';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const AccessRecoveryPage = () => (
     <AccessRecoveryLayout>
-        <div className={style.routes_wrapper}>
+        <div className={styles.routes_wrapper}>
             <AccessRecoveryRouter />
         </div>
     </AccessRecoveryLayout>

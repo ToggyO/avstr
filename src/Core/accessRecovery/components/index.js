@@ -1,3 +1,9 @@
-export { default as ChangePasswordForm } from './ChangePasswordForm';
-export { default as RecoveryForm } from './RecoveryForm';
-export { default as SuccessResult } from './Success';
+import ChangePasswordForm from './ChangePasswordForm';
+import RecoveryForm from './RecoveryForm';
+import SuccessResult from './Success';
+
+export {
+    ChangePasswordForm,
+    RecoveryForm,
+    SuccessResult,
+};

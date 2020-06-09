@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import { useMediaQuery } from 'beautiful-react-hooks';
 
 import userManager from 'Core/authorization/utils/userManager';
-import { getFromLocalState } from 'Core/utils/ls';
+import { BREAKPOINTS } from 'Core/ant/constants';
+import { getFromLocalState } from 'Core/utils/local-storage';
 import { logout } from 'Core/authorization/action-creators';
 import { BasicHeader, BasicSider } from './_components';
 import { getPageTitle } from '../../../helpers';
-import { BREAKPOINTS } from '../../../constants';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const { Content } = Layout;
 
@@ -75,8 +75,8 @@ const BasicLayout = ({ children, location, logoutAction }) => {
                         handleLogout={handleLogout}
                         userName={userName}
                     />
-                    <Content className={style.content}>
-                        <div className={style.children_container}>
+                    <Content className={styles.content}>
+                        <div className={styles.children_container}>
                             {children}
                         </div>
                     </Content>

@@ -3,10 +3,10 @@ import { Menu, Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useGlobalEvent } from 'beautiful-react-hooks';
 
-import { AnimationWrapper } from 'Core/common';
+import AnimationWrapper from 'Core/common';
 import { AvaSystemsLogo } from '../_assets';
 
-import style from './style.module.scss';
+import styles from './index.module.scss';
 
 const { Sider } = Layout;
 
@@ -38,11 +38,11 @@ const BasicSider = ({
                 hideAnimName="fadeOut"
                 restAnimationProps={{ duration: '0.5s' }}
             >
-                <div className={`${style.sider__overlay} ${targetClass}`} />
+                <div className={`${styles.sider__overlay} ${targetClass}`} />
             </AnimationWrapper>
 
             <Sider
-                className={style.sider}
+                className={styles.sider}
                 theme="light"
                 collapsedWidth={0}
                 collapsed={isCollapsed}
@@ -52,7 +52,7 @@ const BasicSider = ({
                     zIndex: 10,
                 }}
             >
-                <div className={style.sider__logo}>
+                <div className={styles.sider__logo}>
                     <AvaSystemsLogo />
                 </div>
                 <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Button, Result } from 'antd';
 
-import style from '../RecoverySuccess/style.module.scss';
+import styles from '../RecoverySuccess/index.module.scss';
 
 const ChangePasswordSuccess = () => (
-    <div className={style.wrapper}>
+    <div className={styles.wrapper}>
         <Result
             status="success"
             title="Ваш пароль успешно изменен"
