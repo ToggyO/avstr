@@ -17,7 +17,7 @@ import LogoutPage from '../authorization/components/LogoutPage';
 import Loader from '../common/Loader';
 import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
-import AdvertiserRegistrationPage from '../registration/advertiser-registration/AdvertiserRegistrationPage';
+import AdvertiserRegistrationPage from '../advertiserRegistration/AdvertiserRegistrationPage';
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));

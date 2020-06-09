@@ -1,0 +1,27 @@
+@import 'variables';
+
+.container {
+    @include max-w-346;
+    @include form-base-container;
+    //box-shadow: $shadow-header;
+}
+
+.headlines {
+    text-align: center;
+
+    h1 {
+        @include headlineH1bold20;
+
+        padding-bottom: 8px;
+    }
+
+    p {
+        @include subtitle14Regular;
+
+        padding-bottom: 24px;
+    }
+}
+
+.submit {
+    width: 100%; // напомнить Олегу
+}
