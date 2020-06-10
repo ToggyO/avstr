@@ -1,3 +1,4 @@
+// todo(nn): При переделке стр не забыть перенести айдишники для автотестов
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -76,6 +77,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                     value={loginText}
                     onChange={handleLoginChange}
                     error={errMessage !== ''}
+                    id="emailAuth" // Для автотестов
                 />
                 <div className={styles.passwordWrap}>
                     <Input
@@ -88,6 +90,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                         onChange={handlePasswordChange}
                         onFocus={handlePasswordFocus}
                         ref={passwordRef}
+                        id="passwordAuth" // Для автотестов
                     />
                     {errMessage !== '' && (
                         <ErrMessage
@@ -110,6 +113,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                         size="medium"
                         className={styles.btn}
                         onClick={handleBtnClick}
+                        id="signIn" // Для автотестов
                     >
                         Войти
                     </Button>
