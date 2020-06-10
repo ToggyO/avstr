@@ -24,8 +24,8 @@ const TokenPage = () => {
             <div id="token" style={{ marginBottom: '20px' }}>
                 {text}
             </div>
-            <Button onClick={handleBtnClick}>Получить токен</Button>
-            <Button onClick={handleCopyBtn}>Копировать токен</Button>
+            <Button onClick={handleBtnClick} id="getToken">Получить токен</Button>
+            <Button onClick={handleCopyBtn} id="copyToken">Копировать токен</Button>
         </Container>
     );
 };
