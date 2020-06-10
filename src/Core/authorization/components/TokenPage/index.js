@@ -21,7 +21,7 @@ const TokenPage = () => {
     return (
         <Container>
             <h1>Сервисная страничка</h1>
-            <div style={{ marginBottom: '20px' }}>
+            <div id="token" style={{ marginBottom: '20px' }}>
                 {text}
             </div>
             <Button onClick={handleBtnClick}>Получить токен</Button>
