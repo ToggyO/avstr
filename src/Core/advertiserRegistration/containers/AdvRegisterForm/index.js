@@ -1,18 +1,49 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { getProp } from 'Core/utils/getProp';
 
-import { Button } from 'antd';
+import { Badge, Button, notification } from 'antd';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
 import options from './options';
 import { registerAdvertiser } from '../../action-creators';
 
 import styles from './index.module.scss';
 
+// todo(nn): Вынести эту ф-ность, т.к юзается такая же на стр Recovery
+const RenderValidationStatus = () => (
+    <div>
+        <Badge status="default" text="8 и более символов" />
+        <Badge status="default" text="прописные латинские буквы от A до Z" />
+        <Badge status="default" text="строчные латинские буквы от a до z" />
+        <Badge status="default" text="цифры от 0 до 9" />
+        <Badge
+            status="default"
+            text={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'}
+        />
+    </div>
+);
+
 const AdvRegisterForm = ({ registerAdvertiserAction, loading }) => {
+    const showHelp = () => {
+        notification.info({
+            key: 'passwordHelp',
+            message: 'Требования для безопасного пароля',
+            description: <RenderValidationStatus />,
+            duration: null,
+            top: '45%',
+            style: {
+                width: 400,
+            },
+        });
+    };
+
+    useEffect(() => {
+        showHelp();
+    }, []);
+
     const onFinishFailed = () => {
 
     };

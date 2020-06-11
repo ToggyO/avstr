@@ -11,6 +11,7 @@ import options from './options';
 
 import styles from './index.module.scss';
 
+// todo(nn): Вынести эту ф-ность, т.к юзается такая же на стр AdRegistration
 const RenderValidationStatus = () => (
     <div>
         <Badge status="default" text="8 и более символов" />
