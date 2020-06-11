@@ -18,6 +18,7 @@ export const StandardForm = ({
     outerFormInstance,
     asyncInitValues,
     errorsFromBackend,
+    wrappedRef,
     ...rest
 }) => {
     const [form] = Form.useForm(outerFormInstance);
@@ -30,7 +31,7 @@ export const StandardForm = ({
     useBackendErrors(errorsFromBackend, form);
 
     return (
-        <Form onFinish={onFinish} onFinishFailed={onFinishFailed} form={form} {...rest}>
+        <Form onFinish={onFinish} onFinishFailed={onFinishFailed} form={form} ref={wrappedRef} {...rest}>
             <StandardFormContext.Provider value={contextValue}>{children}</StandardFormContext.Provider>
         </Form>
     );

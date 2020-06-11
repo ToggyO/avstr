@@ -11,11 +11,15 @@ import {
 const { REACT_APP_ADVERTISER_API } = process.env;
 
 
-function* handleUploadFile({ data: { advertisementText, file } }) {
+function* handleUploadFile({ data }) {
     try {
         const formData = new FormData();
-        formData.append('file', file);
-        formData.append('name', advertisementText);
+        Object.entries(data)
+            .forEach(([key, val]) => {
+                if (val) {
+                    formData.append(key, val);
+                }
+            });
 
         const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/promotions`, 'json');
 

@@ -1,37 +1,71 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
+import {
+    Button, Col, Row, Upload, Progress, message,
+} from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 
 import history from 'Core/history';
-
-import Dropzone from 'react-dropzone';
-import Container from 'Core/common/Container';
-import Title from 'Core/common/Title';
-import Button from 'Core/common/Button';
-import Input from 'Core/common/Input';
+import { StandardForm, FormItemWrapper } from 'Core/ant';
+import options from './options';
 
 import styles from './index.module.scss';
 
-import UploadedFileCard from '../UploadedFileCard';
-import ProgressBar from '../ProgressBar';
-
-
 class NewAdvertisement extends Component {
+    acceptedMediaTypes = ['image/jpeg', 'image/png', 'image/jpg', 'video/mp4'];
+
+    maxFileSize = 524288000;
+
+    formItemLayout = {
+        labelCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 24,
+            },
+            md: {
+                span: 24,
+            },
+            lg: {
+                span: 6,
+            },
+            xl: {
+                span: 6,
+            },
+        },
+        wrapperCol: {
+            xs: {
+                span: 24,
+            },
+            sm: {
+                span: 24,
+            },
+            md: {
+                span: 24,
+            },
+            lg: {
+                span: 18,
+            },
+            xl: {
+                span: 18,
+            },
+        },
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            advertisementText: '',
-            file: null,
-            thumbnail: null,
+            controlledFileList: [],
+            isUploadedToFileSystem: false,
+            showError: false,
         };
-        this.dropZoneRef = createRef();
+        this.formRef = createRef();
     }
 
-    componentDidMount() {
-        this.handleSuccessUploading();
-    }
-
-    componentDidUpdate() {
-        this.handleSuccessUploading();
+    componentDidUpdate(prevProps) {
+        const { fileStatus } = this.props;
+        if (prevProps.fileStatus !== fileStatus) this.handleSuccessUploading();
     }
 
     componentWillUnmount() {
@@ -48,44 +82,24 @@ class NewAdvertisement extends Component {
         const { fileStatus, changeFileStatus } = this.props;
         if (fileStatus !== 'Success') return;
         changeFileStatus('');
+        message.success('Объявление успешно добавлено');
         history.push('/advertiser');
     };
 
-    handleAdvertisementTextChange = ({ target: { value } }) => {
-        this.setState({
-            advertisementText: value,
-        });
-    };
-
-    handleDrop = (accepted, rejected) => {
-        if (rejected.length) {
-            alert('Размер файла или его расширение не соответсвует требованиям');
-        }
-        if (accepted && accepted.length !== 0) {
-            const data = accepted[0];
-            const reader = new FileReader();
-            reader.onload = ({ target: { result } }) => {
-                if (data.type === 'video/mp4') {
-                    this.setState({
-                        thumbnail: '../stub2.jpg',
-                    });
-                } else {
-                    this.setState({
-                        thumbnail: result,
-                    });
-                }
-                const { changeFileStatus } = this.props;
-                changeFileStatus('FileAdded');
-                this.saveFile(data);
-            };
-            reader.readAsDataURL(accepted[0]);
-        }
-    };
-
-    handleSaveClick = () => {
+    handleSaveClick = (values) => {
         const { saveClick } = this.props;
-        const { advertisementText, file } = this.state;
-        saveClick({ advertisementText, file });
+        const { controlledFileList } = this.state;
+
+        const formattedValues = {
+            advertiserId: values.advertiserId,
+            name: values.name,
+            startDate: values.rangeDate[0].toISOString(),
+            endDate: values.rangeDate[1].toISOString(),
+            file: controlledFileList[0].originFileObj,
+            frequency: values.frequency,
+            ticketId: values.ticketId,
+        };
+        saveClick(formattedValues);
     };
 
     handleCancelClick = () => {
@@ -94,112 +108,175 @@ class NewAdvertisement extends Component {
         history.push('/advertiser');
     };
 
+    validateFile = (file) => {
+        if (file) {
+            if (!this.acceptedMediaTypes.includes(file.type)) {
+                message.error('Неверный формат файла', 6);
+                return false;
+            }
 
-    saveFile = (data) => {
-        this.setState({
-            file: data,
-        });
-    };
+            if (file.size > this.maxFileSize) {
+                message.error('Размер файла первышает допустымое значение', 6);
+                return false;
+            }
 
-    renderBtns = () => {
-        const { advertisementText, file } = this.state;
-        const { fileStatus } = this.props;
-        return (
-            <div>
-                <Button
-                    type="outline"
-                    size="medium"
-                    className={styles.declineBtn}
-                    onClick={this.handleCancelClick}
-                >
-                    Отменить
-                </Button>
-
-                <Button
-                    type="main"
-                    size="medium"
-                    disabled={
-                        advertisementText === ''
-                        || !file
-                        || (fileStatus !== ''
-                            && fileStatus !== 'FileAdded'
-                            && fileStatus !== 'Success')
-                    }
-                    className={styles.saveBtn}
-                    onClick={this.handleSaveClick}
-                >
-                    Сохранить
-                </Button>
-            </div>
-        );
-    };
-
-    renderDropzoneContent = (status) => {
-        const { thumbnail } = this.state;
-        const { fileStatus } = this.props;
-        switch (status) {
-            case '':
-                return (
-                    <>
-                        <Dropzone
-                            onDrop={this.handleDrop}
-                            accept="image/jpeg, image/png, image/jpg, video/mp4"
-                            maxSize={524288000}
-                            multiple={false}
-                            ref={this.dropZoneRef}
-                        >
-                            {({ getRootProps, getInputProps }) => (
-                                <div
-                                    className={styles.dropZone}
-                                    {...getRootProps()}
-                                >
-                                    <input {...getInputProps()} />
-                                    <div className={styles.text}>
-                                        Щелкните здесь, чтобы выбрать файл на&nbsp;компьютере или перетащите сюда
-                                    </div>
-                                </div>
-                            )}
-                        </Dropzone>
-                        {this.renderBtns()}
-                    </>
-                );
-            case 'FileAdded':
-                return (
-                    <>
-                        <UploadedFileCard pathToImg={thumbnail} />
-                        {this.renderBtns()}
-                    </>
-                );
-            default:
-                return (
-                    <ProgressBar status={fileStatus} />
-                );
+            return true;
         }
+        return false;
+    };
+
+    handleDrop = ({ file, fileList, event }) => {
+        if (event) event.preventDefault();
+        const { controlledFileList } = this.state;
+
+        if (!this.validateFile(file)) return;
+
+        this.toggleShowDragger();
+        this.setState((prevState) => ({
+            ...prevState,
+            controlledFileList: controlledFileList.concat(fileList),
+        }));
+    };
+
+    handleRemove = (file) => {
+        const { controlledFileList } = this.state;
+        const filteredList = controlledFileList.filter(() => !file.uid);
+        this.setState((prevState) => ({
+            ...prevState,
+            controlledFileList: filteredList,
+        }));
+    };
+
+    toggleShowDragger = () => {
+        const { isUploadedToFileSystem } = this.state;
+        this.setState((prevState) => ({
+            ...prevState,
+            isUploadedToFileSystem: !isUploadedToFileSystem,
+        }));
+    };
+
+    transformToPercent = (status) => {
+        const [loaded, total] = status.split('/');
+        return Math.ceil((loaded / total) * 100);
     };
 
     render() {
-        const { advertisementText } = this.state;
+        const { isUploadedToFileSystem, controlledFileList } = this.state;
         const { fileStatus } = this.props;
+
         return (
-            <Container className={styles.newAdvertisement}>
-                <Title
-                    className={styles.title}
-                    text="Новое объявление"
-                />
-                <Input
-                    className={styles.input}
-                    placeholder="Название"
-                    value={advertisementText}
-                    onChange={this.handleAdvertisementTextChange}
-                />
+            <Row justify="center">
+                <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
+                    <div className={styles.progress_container}>
+                        {fileStatus && (
+                            <Progress percent={this.transformToPercent(fileStatus)} />
+                        )}
+                    </div>
+                    <StandardForm
+                        onFinish={this.handleSaveClick}
+                        options={options}
+                        test="test"
+                        wrappedRef={this.formRef}
+                        {...this.formItemLayout}
+                    >
+                        <FormItemWrapper type="text-input" name="advertiserId" />
+                        <FormItemWrapper type="text-input" name="name" />
+                        <FormItemWrapper
+                            type="range-picker"
+                            name="rangeDate"
+                            propsToChild={{
+                                className: styles.input__range_picker,
+                            }}
+                        />
+                        <FormItemWrapper
+                            type="number-input"
+                            name="frequency"
+                            propsToChild={{
+                                className: styles.input__number,
+                            }}
+                        />
+                        <FormItemWrapper
+                            type="text-input"
+                            name="ticketId"
+                            propsToChild={{
+                                className: styles.input__number,
+                            }}
+                        />
 
-                <div className={styles.description}>
-                    Максимальный размер файла 500&nbsp;МБ (jpg, jpeg, png, mp4), рекомендуемое разрешение
-                    1920&times;1080&nbsp;px
-                </div>
+                        <FormItemWrapper
+                            type="custom-component"
+                            name="fileList"
+                            rules={[
+                                {
+                                    validator: () => {
+                                        if (controlledFileList.length) {
+                                            return Promise.resolve();
+                                        }
+                                        return Promise.reject('Выберите изображение илил видео');
+                                    },
+                                },
+                            ]}
+                            component={(props) => (
+                                <>
+                                    <Upload.Dragger
+                                        accept={this.acceptedMediaTypes.join(', ')}
+                                        fileList={controlledFileList}
+                                        listType="picture-card"
+                                        showUploadList={{ showPreviewIcon: false }}
+                                        beforeUpload={() => false}
+                                        onChange={this.handleDrop}
+                                        onRemove={this.handleRemove}
+                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
+                                        {...props}
+                                    >
+                                        <p className="ant-upload-drag-icon">
+                                            <InboxOutlined />
+                                        </p>
+                                        <p className="ant-upload-text">Нажмите или перетащите файл в эту область</p>
+                                    </Upload.Dragger>
+                                </>
+                            )}
+                        />
 
-                {this.renderDropzoneContent(fileStatus)}
-            </Container>
+                        <Row justify="start">
+                            <Col
+                                xs={{ offset: 0 }}
+                                sm={{ offset: 8 }}
+                                md={{ offset: 6 }}
+                                className={styles.buttons_block}
+                            >
+                                <FormItemWrapper
+                                    type="custom-component"
+                                    name="cancel"
+                                    component={(props) => (
+                                        <Button
+                                            className={styles.declineBtn}
+                                            onClick={this.handleCancelClick}
+                                            {...props}
+                                        >
+                                            Отменить
+                                        </Button>
+                                    )}
+                                />
+                                <FormItemWrapper
+                                    type="custom-component"
+                                    name="submit"
+                                    component={(props) => (
+                                        <Button
+                                            type="primary"
+                                            htmlType="submit"
+                                            className={styles.saveBtn}
+                                            {...props}
+                                        >
+                                            Сохранить
+                                        </Button>
+                                    )}
+                                />
+                            </Col>
+                        </Row>
+                    </StandardForm>
+                </Col>
+            </Row>
         );
     }
 }
