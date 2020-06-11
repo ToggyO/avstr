@@ -6,6 +6,7 @@ const formOptions = {
         props: {
             size: 'large',
             placeholder: 'Имя',
+            maxLength: 35,
         },
         rules: [
             {
@@ -30,6 +31,7 @@ const formOptions = {
         props: {
             size: 'large',
             placeholder: 'Фамилия',
+            maxLength: 35,
         },
         rules: [
             {
@@ -53,6 +55,7 @@ const formOptions = {
         props: {
             size: 'large',
             placeholder: 'Организация',
+            maxLength: 300,
         },
         rules: [
             {

@@ -20,7 +20,6 @@ const AdvRegisterForm = ({ registerAdvertiserAction, loading }) => {
     const onSubmit = (values) => {
         const data = values;
         delete data.submit;
-        console.log(data); // спросить у Олега
         registerAdvertiserAction(data);
     };
 
@@ -45,7 +44,6 @@ const AdvRegisterForm = ({ registerAdvertiserAction, loading }) => {
                     name="submit"
                     component={(props) => (
                         <Button
-                            // disabled={isBtnDisabled()}
                             loading={loading}
                             className={styles.submit}
                             {...props}
