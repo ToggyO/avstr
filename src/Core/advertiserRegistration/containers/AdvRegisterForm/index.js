@@ -33,7 +33,7 @@ const AdvRegisterForm = ({ registerAdvertiserAction, loading }) => {
             message: 'Требования для безопасного пароля',
             description: <RenderValidationStatus />,
             duration: null,
-            top: '45%',
+            top: '62%',
             style: {
                 width: 400,
             },
