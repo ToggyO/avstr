@@ -2,6 +2,7 @@ import * as actions from './actions';
 
 const initialState = {
     loading: false,
+    isRegisterReqSuccess: false,
 };
 
 const advertiserRegistrationReducer = (state = { ...initialState }, { type, data }) => {
@@ -13,6 +14,11 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
                 loading: true,
             };
         case actions.REGISTER_ADVERTISER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isRegisterReqSuccess: true,
+            };
         case actions.CONFIRM_ADV_REGISTRATION_SUCCESS:
             return {
                 ...state,
