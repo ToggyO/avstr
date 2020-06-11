@@ -49,7 +49,7 @@ const formOptions = {
             },
         ],
     },
-    organisation: {
+    organization: {
         props: {
             size: 'large',
             placeholder: 'Организация',
@@ -125,11 +125,10 @@ const formOptions = {
         ],
     },
     submit: {
-        size: 'large',
-        type: 'primary',
-        htmlType: 'submit',
-        style: {
-            width: '100%',
+        props: {
+            size: 'large',
+            type: 'primary',
+            htmlType: 'submit',
         },
     },
 };

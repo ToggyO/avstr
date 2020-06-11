@@ -1,15 +1,29 @@
-import { CHANGE_REGISTER_LOADER } from './actions';
+import * as actions from './actions';
 
 const initialState = {
-    showRegisterLoader: false,
+    loading: false,
 };
 
 const advertiserRegistrationReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
-        case CHANGE_REGISTER_LOADER:
+        case actions.REGISTER_ADVERTISER:
+        case actions.CONFIRM_ADV_REGISTRATION:
             return {
                 ...state,
-                showRegisterLoader: data,
+                loading: true,
+            };
+        case actions.REGISTER_ADVERTISER_SUCCESS:
+        case actions.CONFIRM_ADV_REGISTRATION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+            };
+        case actions.REGISTER_ADVERTISER_ERROR:
+        case actions.CONFIRM_ADV_REGISTRATION_ERROR:
+            return {
+                ...state,
+                loading: false,
+                errors: data,
             };
         default:
             return state;

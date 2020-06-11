@@ -1,40 +1,28 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
-// import { connect } from 'react-redux';
-// import { getProp } from 'Core/utils/getProp';
+import { connect } from 'react-redux';
+import { getProp } from 'Core/utils/getProp';
 
-import { Form, Button } from 'antd';
+import { Button } from 'antd';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
 import options from './options';
+import { registerAdvertiser } from '../../action-creators';
 
 import styles from './index.module.scss';
 
-const AdvRegisterForm = () => {
-    const [form] = Form.useForm();
-    const [, forceUpdate] = useState(); // To disable submit button at the beginning.
-
-    useEffect(() => {
-        forceUpdate({});
-    }, []);
-
-
+const AdvRegisterForm = ({ registerAdvertiserAction, loading }) => {
     const onFinishFailed = () => {
 
     };
 
-    const onSubmit = () => {
-        // sendLink(values);
+    const onSubmit = (values) => {
+        const data = values;
+        delete data.submit;
+        console.log(data); // спросить у Олега
+        registerAdvertiserAction(data);
     };
-
-    const isBtnDisabled = () => {
-        console.log(!form.isFieldsTouched());
-        console.log(form.getFieldsError().filter(({ errors }) => errors.length).length);
-        return (form.isFieldsTouched()
-            || form.getFieldsError().filter(({ errors }) => errors.length).length);
-    };
-
 
     return (
         <div className={styles.container}>
@@ -42,14 +30,13 @@ const AdvRegisterForm = () => {
                 <h1>Регистрация рекламодателя</h1>
             </div>
             <StandardForm
-                outerFormInstance={form}
                 options={options}
                 onFinish={onSubmit}
                 onFinishFailed={onFinishFailed}
             >
                 <FormItemWrapper type="text-input" name="name" />
                 <FormItemWrapper type="text-input" name="surname" />
-                <FormItemWrapper type="text-input" name="organisation" />
+                <FormItemWrapper type="text-input" name="organization" />
                 <FormItemWrapper type="text-input" name="email" />
                 <FormItemWrapper type="password-input" name="password" />
                 <FormItemWrapper
@@ -58,8 +45,8 @@ const AdvRegisterForm = () => {
                     name="submit"
                     component={(props) => (
                         <Button
-                            disabled={isBtnDisabled()}
-                            // loading={loading}
+                            // disabled={isBtnDisabled()}
+                            loading={loading}
                             className={styles.submit}
                             {...props}
                         >
@@ -81,21 +68,21 @@ const AdvRegisterForm = () => {
 
 AdvRegisterForm.defaultProps = {
     loading: false,
-    sendLink: Function.prototype,
+    registerAdvertiserAction: Function.prototype,
 };
 
 AdvRegisterForm.propTypes = {
     loading: PropTypes.bool,
-    sendLink: PropTypes.func,
+    registerAdvertiserAction: PropTypes.func,
 };
 
 
-/* const mapStateToProps = ({ accessRecoveryReducer }) => ({
-    // loading: getProp(accessRecoveryReducer, 'loading', false),
+const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
+    loading: getProp(advertiserRegistrationReducer, 'loading', false),
 });
 
-const mapDispatchToProps = () => ({
-    // sendLink: forgotPasswordRequest,
-}); */
+const mapDispatchToProps = {
+    registerAdvertiserAction: registerAdvertiser,
+};
 
-export default /* connect(mapStateToProps, mapDispatchToProps)( */AdvRegisterForm/* ) */;
+export default connect(mapStateToProps, mapDispatchToProps)(AdvRegisterForm);

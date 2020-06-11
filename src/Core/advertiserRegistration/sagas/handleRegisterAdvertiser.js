@@ -1,16 +1,27 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
-import { changeRegisterLoader } from '../action-creators';
+import API_URLS_ADV_REGISTRATION from '../constants/api-urls';
+// import history from '../../history';
 
+import * as actions from '../actions';
 
 const { REACT_APP_AUTH_API } = process.env;
 
+
 function* handleRegisterAdvertiser({ data }) {
-    yield put(changeRegisterLoader(true));
     try {
-        yield call(api.post, `${REACT_APP_AUTH_API}/Registration/RegisterAdvertiser`, { data }, {
+        yield call(api.post, `${REACT_APP_AUTH_API}${API_URLS_ADV_REGISTRATION.REGISTER}`, data, {
             credentials: 'include',
         });
+        yield put({ type: actions.REGISTER_ADVERTISER_SUCCESS });
+
+        /* yield history.push({
+            pathname: RECOVERY_ROUTES.SUCCESS,
+            state: {
+                resultType: SUCCESS_RESULT_TYPES.RECOVERY,
+                recoveredEmail: payload,
+            },
+        }); */
     } catch (err) {
         const { type } = err;
         switch (type) {
@@ -21,8 +32,6 @@ function* handleRegisterAdvertiser({ data }) {
             default:
                 throw err;
         }
-    } finally {
-        yield put(changeRegisterLoader(false));
     }
 }
 
