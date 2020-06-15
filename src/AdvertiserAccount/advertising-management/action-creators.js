@@ -1,47 +1,37 @@
-import {
-    UPLOAD_FILE,
-    CHANGE_UPLOAD_STATUS,
-    RECEIVE_UPLOADED_CONTENT,
-    SAVE_XHR,
-    CLEAN_XHR,
-    REQUEST_ADVERTISEMENTS,
-    RECEIVE_ADVERTISEMENTS,
-    DELETE_ADVERTISEMENT,
-} from './actions';
-
+import * as actions from './actions';
 
 export const uploadFile = (data) => ({
-    type: UPLOAD_FILE,
+    type: actions.UPLOAD_FILE,
     data,
 });
 export const changeUploadStatus = (data) => ({
-    type: CHANGE_UPLOAD_STATUS,
+    type: actions.CHANGE_UPLOAD_STATUS,
     data,
 });
 export const receiveUploadedContent = (data) => ({
-    type: RECEIVE_UPLOADED_CONTENT,
+    type: actions.RECEIVE_UPLOADED_CONTENT,
     data,
 });
 export const saveXhr = (data) => ({
-    type: SAVE_XHR,
+    type: actions.SAVE_XHR,
     data,
 });
 export const cleanXhr = (data) => ({
-    type: CLEAN_XHR,
+    type: actions.CLEAN_XHR,
     data,
 });
 
 
 export const requestAdvertisements = () => ({
-    type: REQUEST_ADVERTISEMENTS,
+    type: actions.REQUEST_ADVERTISEMENTS,
 });
 
 export const receiveAdvertisements = (data) => ({
-    type: RECEIVE_ADVERTISEMENTS,
+    type: actions.RECEIVE_ADVERTISEMENTS,
     data,
 });
 
 export const deleteAdvertisement = (data) => ({
-    type: DELETE_ADVERTISEMENT,
+    type: actions.DELETE_ADVERTISEMENT,
     data,
 });

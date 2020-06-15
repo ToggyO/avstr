@@ -14,6 +14,7 @@ const NewAdvertisementPage = ({
     changeUploadStatusAction,
     xhr,
     cleanXhrAction,
+    loading,
 }) => (
     <NewAdvertisement
         fileStatus={fileUploadStatus}
@@ -22,12 +23,14 @@ const NewAdvertisementPage = ({
         changeFileStatus={changeUploadStatusAction}
         uploadingConnection={xhr}
         cleanUploadConnection={cleanXhrAction}
+        loading={loading}
     />
 );
 
 
 NewAdvertisementPage.defaultProps = {
     xhr: null,
+    loading: false,
 };
 
 NewAdvertisementPage.propTypes = {
@@ -43,6 +46,7 @@ NewAdvertisementPage.propTypes = {
     changeUploadStatusAction: PropTypes.func.isRequired,
     xhr: PropTypes.shape(),
     cleanXhrAction: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
 };
 
 
@@ -52,9 +56,15 @@ const mapStateToProps = ({
             fileUploadStatus,
             uploadedFileContent,
             xhr,
+            loading,
         },
     },
-}) => ({ fileUploadStatus, uploadedFileContent, xhr });
+}) => ({
+    fileUploadStatus,
+    uploadedFileContent,
+    xhr,
+    loading,
+});
 
 const mapDispatchToProps = {
     uploadFileAction: uploadFile,

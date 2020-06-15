@@ -83,7 +83,7 @@ class NewAdvertisement extends Component {
         if (fileStatus !== 'Success') return;
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
-        history.push('/advertiser');
+        history.push('/ad-manager');
     };
 
     handleSaveClick = (values) => {
@@ -105,7 +105,7 @@ class NewAdvertisement extends Component {
     handleCancelClick = () => {
         const { changeFileStatus } = this.props;
         changeFileStatus('');
-        history.push('/advertiser');
+        history.push('/ad-manager');
     };
 
     validateFile = (file) => {
@@ -162,7 +162,7 @@ class NewAdvertisement extends Component {
 
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
-        const { fileStatus } = this.props;
+        const { fileStatus, loading } = this.props;
 
         return (
             <Row justify="center">
@@ -175,7 +175,6 @@ class NewAdvertisement extends Component {
                     <StandardForm
                         onFinish={this.handleSaveClick}
                         options={options}
-                        test="test"
                         wrappedRef={this.formRef}
                         {...this.formItemLayout}
                     >
@@ -266,6 +265,7 @@ class NewAdvertisement extends Component {
                                             type="primary"
                                             htmlType="submit"
                                             className={styles.saveBtn}
+                                            loading={loading}
                                             {...props}
                                         >
                                             Сохранить
@@ -283,6 +283,7 @@ class NewAdvertisement extends Component {
 
 NewAdvertisement.defaultProps = {
     uploadingConnection: null,
+    loading: false,
 };
 
 NewAdvertisement.propTypes = {
@@ -298,6 +299,7 @@ NewAdvertisement.propTypes = {
     changeFileStatus: PropTypes.func.isRequired,
     uploadingConnection: PropTypes.shape(),
     cleanUploadConnection: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
 };
 
 export default NewAdvertisement;

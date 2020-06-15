@@ -52,6 +52,10 @@ StandardForm.propTypes = {
     }),
     // eslint-disable-next-line react/forbid-prop-types
     errorsFromBackend: PropTypes.array,
+    wrappedRef: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+    ]),
 };
 
 StandardForm.defaultProps = {
@@ -60,4 +64,5 @@ StandardForm.defaultProps = {
     outerFormInstance: undefined,
     asyncInitValues: undefined,
     errorsFromBackend: [],
+    wrappedRef: null,
 };

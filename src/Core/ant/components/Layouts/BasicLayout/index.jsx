@@ -41,7 +41,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 
     const dropdownItems = [
         {
-            href: '/advertiser',
+            href: '/ad-manager',
             text: 'Рекламодатель',
         },
         {

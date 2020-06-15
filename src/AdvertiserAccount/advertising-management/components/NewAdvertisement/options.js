@@ -34,7 +34,7 @@ const formOptions = {
             {
                 type: 'array',
                 required: true,
-                message: 'Выберите дату начал и дату окончания',
+                message: 'Выберите дату начала и дату окончания',
             },
         ],
     },
