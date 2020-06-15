@@ -1,17 +1,21 @@
-import { LOGIN, LOGOUT, SET_AUTH_ERR_MESSAGE } from './actions';
+import * as actions from './actions';
 
+export const setAuthorized = (data) => ({
+    type: actions.SET_AUTHORIZED,
+    data,
+});
 
 export const login = (data) => ({
-    type: LOGIN,
+    type: actions.LOGIN,
     data,
 });
 
 export const logout = (data) => ({
-    type: LOGOUT,
+    type: actions.LOGOUT,
     data,
 });
 
 export const setErrMessage = (data) => ({
-    type: SET_AUTH_ERR_MESSAGE,
+    type: actions.SET_AUTH_ERR_MESSAGE,
     data,
 });

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
 import history from 'Core/history';
+import { ROOT_ROUTES } from 'Core/constants';
 import { requestAdvertisements, deleteAdvertisement } from './advertising-management/action-creators';
 
 import Advertisements from './advertising-management/components/Advertisements';
@@ -15,7 +16,7 @@ class AdvertiserAccountPage extends Component {
     }
 
     handleAddBtn = () => {
-        history.push('/ad-manager/add');
+        history.push(`${ROOT_ROUTES.AD_MANAGER}/add`);
     };
 
     render() {
