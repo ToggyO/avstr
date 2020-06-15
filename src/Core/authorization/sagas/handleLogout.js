@@ -4,7 +4,6 @@ import { setErrMessage } from '../action-creators';
 
 const { REACT_APP_AUTH_API } = process.env;
 
-
 function* handleLogout() {
     try {
         yield call(api.post, `${REACT_APP_AUTH_API}/account/logout`, {}, {

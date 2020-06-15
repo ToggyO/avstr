@@ -1,11 +1,10 @@
-import React, { Suspense, lazy } from 'react';
-import { Router, Switch } from 'react-router-dom';
+import React, { Suspense, lazy, memo } from 'react';
+import { Switch } from 'react-router-dom';
 
 import { BasicLayout } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
-import history from '../history';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
@@ -16,7 +15,6 @@ import { AccessRecoveryPage } from '../accessRecovery';
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
-
 
 const RootRouter = () => {
     const {
@@ -45,40 +43,35 @@ const RootRouter = () => {
     }
 
     return (
-        <Router history={history}>
+        <Switch>
+            <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
+            <UnAuthRoute exact path="/" component={AuthorizationPage} />
+            <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
+            <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
+            <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
+            <BasicLayout>
+                <Suspense fallback={<Loader />}>
+                    <AuthRoute
+                        path={ROOT_ROUTES.AD_MANAGER}
+                        component={AdvertiserAccountRouter}
+                    />
 
-            <Switch>
-                <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
-                <UnAuthRoute exact path="/" component={AuthorizationPage} />
-                <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
-                <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
-                <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
-                <BasicLayout>
-                    <Switch>
-                        <Suspense fallback={<Loader />}>
-                            <AuthRoute
-                                path={ROOT_ROUTES.AD_MANAGER}
-                                component={AdvertiserAccountRouter}
-                            />
+                    <AuthRoute
+                        path={ROOT_ROUTES.DEVICES}
+                        component={DevicesRouter}
+                    />
 
-                            <AuthRoute
-                                path={ROOT_ROUTES.DEVICES}
-                                component={DevicesRouter}
-                            />
-
-                            <AuthRoute
-                                path={ROOT_ROUTES.TOKEN}
-                                component={TokenPage}
-                            />
-                        </Suspense>
-                    </Switch>
-                </BasicLayout>
-            </Switch>
-        </Router>
+                    <AuthRoute
+                        path={ROOT_ROUTES.TOKEN}
+                        component={TokenPage}
+                    />
+                </Suspense>
+            </BasicLayout>
+        </Switch>
     );
 };
 
-export default RootRouter;
+export default memo(RootRouter);
 
 // {!isAuthorized
 //     ? (

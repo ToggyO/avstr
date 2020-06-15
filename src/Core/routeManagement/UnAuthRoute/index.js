@@ -14,7 +14,11 @@ const UnAuthRoute = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) => {
-                if (!isAuthorized) return CreateComponent(Component, props);
+                if (!isAuthorized) {
+                    // debugger;
+                    return CreateComponent(Component, props);
+                }
+                // debugger;
                 return <Redirect to={ROOT_ROUTES.AD_MANAGER} />;
             }}
         />

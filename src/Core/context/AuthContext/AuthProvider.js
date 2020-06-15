@@ -5,13 +5,17 @@ import PropTypes from 'prop-types';
 import userManager from 'Core/authorization/utils/userManager';
 import { getProp } from 'Core/utils/getProp';
 import { setAuthorized } from 'Core/authorization/action-creators';
+import api from 'Core/api';
 import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children, isAuthorized, setAuthorizedFunc }) => {
     userManager.getUser().then((user) => {
-        if (user !== null && !user.expired) setAuthorizedFunc(true);
+        if (user !== null && !user.expired) {
+            setAuthorizedFunc(true);
+            api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
+        }
     });
-    // console.log(isAuthorized);
+
     return <AuthContext.Provider value={isAuthorized}>{children}</AuthContext.Provider>;
 };
 
