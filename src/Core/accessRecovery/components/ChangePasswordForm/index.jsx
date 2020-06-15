@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Badge, Button, notification } from 'antd';
+import {
+    Badge,
+    Button,
+    notification,
+    Form,
+} from 'antd';
 import PropTypes from 'prop-types';
 
 import { StandardForm, FormItemWrapper } from 'Core/ant';
@@ -47,13 +52,15 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
         restorePassword(values);
     };
 
+    const [form] = Form.useForm();
+
     return (
         <>
             <div className={styles.container}>
                 <div className={styles.headlines}>
                     <h1>Изменение пароля</h1>
                 </div>
-                <StandardForm onFinish={onSubmit} options={options}>
+                <StandardForm onFinish={onSubmit} options={options} outerFormInstance={form}>
                     <FormItemWrapper
                         type="password-input"
                         name="password"
@@ -62,18 +69,22 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                         }}
                     />
                     <FormItemWrapper type="password-input" name="passwordConfirm" />
-                    <FormItemWrapper
-                        type="custom-component"
-                        name="submit"
-                        component={(props) => (
+                    <Form.Item shouldUpdate>
+                        {() => (
                             <Button
+                                type="primary"
+                                htmlType="submit"
                                 loading={loading}
-                                {...props}
+                                disabled={
+                                    !form.isFieldsTouched(true)
+                                    || form.getFieldsError()
+                                        .filter(({ errors }) => errors.length).length
+                                }
                             >
-                                Сохранить
+                                Log in
                             </Button>
                         )}
-                    />
+                    </Form.Item>
                 </StandardForm>
             </div>
         </>

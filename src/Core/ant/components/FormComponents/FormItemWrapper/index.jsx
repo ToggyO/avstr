@@ -4,11 +4,14 @@ import {
     Input,
     InputNumber,
     Select,
+    DatePicker,
 } from 'antd';
 import MaskedInput from 'antd-mask-input';
 import PropTypes from 'prop-types';
 
 import { StandardFormContext } from '../ContextForm';
+
+const { RangePicker } = DatePicker;
 
 const FormItemWrapper = ({
     type,
@@ -17,6 +20,7 @@ const FormItemWrapper = ({
     component = () => <div />,
     formItemStyle,
     propsToChild,
+    children,
     ...restFormItemProps
 }) => {
     let getOptions;
@@ -65,10 +69,18 @@ const FormItemWrapper = ({
                         ))}
                     </Select>
                 );
+            case 'date-picker':
+                return <DatePicker {...componentProps} {...propsToChild} />;
+            case 'range-picker':
+                return <RangePicker {...componentProps} {...propsToChild} />;
             case 'phoneNumber':
                 return <MaskedInput {...componentProps} {...propsToChild} />;
             case 'custom-component':
                 return component({ ...componentProps, ...propsToChild });
+            case 'render-component':
+                return typeof children === 'function'
+                    ? children({ ...componentProps, ...propsToChild })
+                    : children;
             default:
                 return <Input {...componentProps} {...propsToChild} />;
         }
@@ -95,8 +107,10 @@ FormItemWrapper.propTypes = {
         'async-load-select',
         'text-area',
         'date-picker',
+        'range-picker',
         'phoneNumber',
         'custom-component',
+        'render-component',
     ]).isRequired,
     name: PropTypes.string.isRequired,
     dataSource: PropTypes.shape({
@@ -110,6 +124,7 @@ FormItemWrapper.propTypes = {
     propsToChild: PropTypes.shape({
         [PropTypes.string]: PropTypes.any,
     }),
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 };
 
 FormItemWrapper.defaultProps = {
@@ -117,6 +132,7 @@ FormItemWrapper.defaultProps = {
     component: () => <div />,
     formItemStyle: undefined,
     propsToChild: undefined,
+    children: null,
 };
 
 export default FormItemWrapper;

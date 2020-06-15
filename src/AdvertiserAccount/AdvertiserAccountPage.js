@@ -15,7 +15,7 @@ class AdvertiserAccountPage extends Component {
     }
 
     handleAddBtn = () => {
-        history.push('/advertiser/add');
+        history.push('/ad-manager/add');
     };
 
     render() {

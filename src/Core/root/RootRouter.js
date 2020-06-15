@@ -49,7 +49,7 @@ const RootRouter = ({ isAuthorized }) => {
     }
 
     let redirect;
-    const usersStartPageUrl = '/advertiser';
+    const usersStartPageUrl = '/ad-manager';
     const { search } = window.location;
 
     if (!search) {
@@ -76,7 +76,7 @@ const RootRouter = ({ isAuthorized }) => {
                 <Switch>
                     <Suspense fallback={<Loader />}>
                         <Route
-                            path="/advertiser"
+                            path="/ad-manager"
                             component={AdvertiserAccountRouter}
                         />
 
