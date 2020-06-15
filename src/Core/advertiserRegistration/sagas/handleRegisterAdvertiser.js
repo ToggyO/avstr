@@ -14,14 +14,6 @@ function* handleRegisterAdvertiser({ data }) {
             credentials: 'include',
         });
         yield put({ type: actions.REGISTER_ADVERTISER_SUCCESS });
-
-        /* yield history.push({
-            pathname: RECOVERY_ROUTES.SUCCESS,
-            state: {
-                resultType: SUCCESS_RESULT_TYPES.RECOVERY,
-                recoveredEmail: payload,
-            },
-        }); */
     } catch (err) {
         const { type } = err;
         switch (type) {

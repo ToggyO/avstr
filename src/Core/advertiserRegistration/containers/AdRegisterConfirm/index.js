@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-const AdRegisterConfirm = () => {
+import { connect } from 'react-redux';
+import { getProp } from 'Core/utils/getProp';
+import { confirmAdRegistration } from '../../action-creators';
+
+
+const AdRegisterConfirm = ({ confirmAdRegistrationAction }) => {
     const url = new URL(window.location);
     const user = url.searchParams.get('user');
     const code = url.searchParams.get('code');
 
-    console.log(user);
-    console.log(code);
-
     useEffect(() => {
-        // api
+        confirmAdRegistrationAction({ email: user, code });
     });
 
     return (
@@ -19,8 +22,20 @@ const AdRegisterConfirm = () => {
     );
 };
 
-AdRegisterConfirm.propTypes = {
-
+AdRegisterConfirm.defaultProps = {
+    confirmAdRegistrationAction: Function.prototype,
 };
 
-export default AdRegisterConfirm;
+AdRegisterConfirm.propTypes = {
+    confirmAdRegistrationAction: PropTypes.func,
+};
+
+const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
+    loading: getProp(advertiserRegistrationReducer, 'loading', false),
+});
+
+const mapDispatchToProps = {
+    confirmAdRegistrationAction: confirmAdRegistration,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdRegisterConfirm);

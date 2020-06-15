@@ -6,7 +6,7 @@ export const registerAdvertiser = (data) => ({
     data,
 });
 
-export const confirmAdvertiserRegistration = (data) => ({
+export const confirmAdRegistration = (data) => ({
     type: actions.CONFIRM_ADV_REGISTRATION,
     data,
 });
