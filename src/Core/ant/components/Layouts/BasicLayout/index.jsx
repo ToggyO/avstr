@@ -11,6 +11,7 @@ import userManager from 'Core/authorization/utils/userManager';
 import { BREAKPOINTS } from 'Core/ant/constants';
 import { getFromLocalState } from 'Core/utils/local-storage';
 import { logout } from 'Core/authorization/action-creators';
+import { ROOT_ROUTES } from 'Core/constants';
 import { BasicHeader, BasicSider } from './_components';
 import { getPageTitle } from '../../../helpers';
 
@@ -41,11 +42,11 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 
     const dropdownItems = [
         {
-            href: '/advertiser',
+            href: ROOT_ROUTES.AD_MANAGER,
             text: 'Рекламодатель',
         },
         {
-            href: '/devices/main/list',
+            href: `${ROOT_ROUTES.DEVICES}/main/list`,
             text: 'Администрирование',
         },
     ];

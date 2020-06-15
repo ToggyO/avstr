@@ -8,6 +8,7 @@ import Container from 'Core/common/Container';
 import Title from 'Core/common/Title';
 import Button from 'Core/common/Button';
 import Input from 'Core/common/Input';
+import { ROOT_ROUTES } from 'Core/constants';
 
 import styles from './index.module.scss';
 
@@ -48,7 +49,7 @@ class NewAdvertisement extends Component {
         const { fileStatus, changeFileStatus } = this.props;
         if (fileStatus !== 'Success') return;
         changeFileStatus('');
-        history.push('/advertiser');
+        history.push(ROOT_ROUTES.AD_MANAGER);
     };
 
     handleAdvertisementTextChange = ({ target: { value } }) => {
@@ -91,7 +92,7 @@ class NewAdvertisement extends Component {
     handleCancelClick = () => {
         const { changeFileStatus } = this.props;
         changeFileStatus('');
-        history.push('/advertiser');
+        history.push(ROOT_ROUTES.AD_MANAGER);
     };
 
 

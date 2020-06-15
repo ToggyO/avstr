@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getFromLocalState } from 'Core/utils/local-storage';
 import { logout } from 'Core/authorization/action-creators';
 import userManager from 'Core/authorization/utils/userManager';
+import { ROOT_ROUTES } from 'Core/constants';
 
 import { NavLink } from 'react-router-dom';
 import { Dropdown } from 'semantic-ui-react';
@@ -31,7 +32,7 @@ const NavBar = ({ logoutAction }) => {
                     <Dropdown text={userName}>
                         <Dropdown.Menu className={styles.menu}>
                             <NavLink
-                                to="/advertiser"
+                                to={ROOT_ROUTES.AD_MANAGER}
                                 activeClassName={styles.itemActive}
                             >
                                 <Dropdown.Item
@@ -40,7 +41,7 @@ const NavBar = ({ logoutAction }) => {
                                 />
                             </NavLink>
                             <NavLink
-                                to="/devices/main/list"
+                                to={`${ROOT_ROUTES.DEVICES}/main/list`}
                             >
                                 <Dropdown.Item
                                     text="Администрирование"
