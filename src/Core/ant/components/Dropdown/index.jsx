@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { DownOutlined } from '@ant-design/icons';
@@ -24,14 +25,13 @@ const AntDropdown = ({
         <Menu>
             {menuItems.map((item, index) => (
                 <Menu.Item key={`${item.href}_${index + 1}`}>
-                    <Button
-                        type="link"
-                        href={item.href}
+                    <Link
+                        to={item.href}
                         className={styles.menuItem}
                         style={menuItemStyle}
                     >
                         {item.text}
-                    </Button>
+                    </Link>
                 </Menu.Item>
             ))}
         </Menu>

@@ -7,6 +7,7 @@ import { InboxOutlined } from '@ant-design/icons';
 
 import history from 'Core/history';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
+import { ROOT_ROUTES } from 'Core/constants';
 import options from './options';
 
 import styles from './index.module.scss';
@@ -83,7 +84,7 @@ class NewAdvertisement extends Component {
         if (fileStatus !== 'Success') return;
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
-        history.push('/ad-manager');
+        history.push(ROOT_ROUTES.AD_MANAGER);
     };
 
     handleSaveClick = (values) => {
@@ -105,7 +106,7 @@ class NewAdvertisement extends Component {
     handleCancelClick = () => {
         const { changeFileStatus } = this.props;
         changeFileStatus('');
-        history.push('/ad-manager');
+        history.push(ROOT_ROUTES.AD_MANAGER);
     };
 
     validateFile = (file) => {

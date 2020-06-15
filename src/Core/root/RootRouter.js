@@ -1,15 +1,10 @@
-// TODO(RootRouter): сделать общий роутинг для всех страниц приложения
-// страницы вне роутинга не будут иметь доступ к withRouter, соответственно к объектам history и location
-// явный импорт history из файла с history.js, вероятнее всего, будет возвращать другой инстанс
-// (не тот, что прокинут в <Router history={history}>)
-// FIXME: заменить хардкодный путь /recovery на константу
-import React, { Suspense, lazy } from 'react';
-import PropTypes from 'prop-types';
-import { Router, Route, Switch } from 'react-router-dom';
+import React, { Suspense, lazy, memo } from 'react';
+import { Switch } from 'react-router-dom';
 
 import { BasicLayout } from 'Core/ant';
+import { ROOT_ROUTES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
-import history from '../history';
+import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
@@ -21,8 +16,7 @@ const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
 
-
-const RootRouter = ({ isAuthorized }) => {
+const RootRouter = () => {
     const {
         REACT_APP_CALLBACK_PATH,
         REACT_APP_LOGOUT_PATH,
@@ -30,21 +24,8 @@ const RootRouter = ({ isAuthorized }) => {
     } = process.env;
     const { pathname } = window.location;
 
-    switch (pathname) {
-        case REACT_APP_CALLBACK_PATH:
-            return <CallbackPage />;
-        case REACT_APP_LOGOUT_PATH:
-            return <LogoutPage />;
-        case REACT_APP_SILENT_RENEW_PATH:
-            return <SilentRenewPage />;
-        case '/recovery': // FIXME:
-            return <AccessRecoveryPage />;
-        default:
-            break;
-    }
-
     let redirect;
-    const usersStartPageUrl = '/ad-manager';
+    const usersStartPageUrl = ROOT_ROUTES.AD_MANAGER;
     const { search } = window.location;
 
     if (!search) {
@@ -61,42 +42,66 @@ const RootRouter = ({ isAuthorized }) => {
         }
     }
 
-    if (!isAuthorized) {
-        return <AuthorizationPage />;
-    }
-
     return (
-        <Router history={history}>
+        <Switch>
+            <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
+            <UnAuthRoute exact path="/" component={AuthorizationPage} />
+            <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
+            <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
+            <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
             <BasicLayout>
-                <Switch>
-                    <Suspense fallback={<Loader />}>
-                        <Route
-                            path="/ad-manager"
-                            component={AdvertiserAccountRouter}
-                        />
+                <Suspense fallback={<Loader />}>
+                    <AuthRoute
+                        path={ROOT_ROUTES.AD_MANAGER}
+                        component={AdvertiserAccountRouter}
+                    />
 
-                        <Route
-                            path="/devices"
-                            component={DevicesRouter}
-                        />
+                    <AuthRoute
+                        path={ROOT_ROUTES.DEVICES}
+                        component={DevicesRouter}
+                    />
 
-                        <Route
-                            path="/token"
-                            component={TokenPage}
-                        />
-                    </Suspense>
-                </Switch>
+                    <AuthRoute
+                        path={ROOT_ROUTES.TOKEN}
+                        component={TokenPage}
+                    />
+                </Suspense>
             </BasicLayout>
-        </Router>
+        </Switch>
     );
 };
 
-RootRouter.defaultProps = {
-    isAuthorized: false,
-};
+export default memo(RootRouter);
 
-RootRouter.propTypes = {
-    isAuthorized: PropTypes.bool,
-};
-
-export default RootRouter;
+// {!isAuthorized
+//     ? (
+//         <Switch>
+//             <Route exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
+//             <Route exact path="/" component={AuthorizationPage} />
+//             <Route exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
+//             <Route exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
+//             <UnAuthRoute isAuthorized={isAuthorized} path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
+//         </Switch>
+//     )
+//     : (
+//         <BasicLayout>
+//             <Switch>
+//                 <Suspense fallback={<Loader />}>
+//                     <Route
+//                         path={ROOT_ROUTES.AD_MANAGER}
+//                         component={AdvertiserAccountRouter}
+//                     />
+//
+//                     <Route
+//                         path={ROOT_ROUTES.DEVICES}
+//                         component={DevicesRouter}
+//                     />
+//
+//                     <Route
+//                         path={ROOT_ROUTES.TOKEN}
+//                         component={TokenPage}
+//                     />
+//                 </Suspense>
+//             </Switch>
+//         </BasicLayout>
+//     )}
