@@ -31,7 +31,7 @@ const NavBar = ({ logoutAction }) => {
                     <Dropdown text={userName}>
                         <Dropdown.Menu className={styles.menu}>
                             <NavLink
-                                to="/advertiser"
+                                to="/ad-manager"
                                 activeClassName={styles.itemActive}
                             >
                                 <Dropdown.Item

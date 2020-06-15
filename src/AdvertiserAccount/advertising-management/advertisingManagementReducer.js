@@ -1,13 +1,7 @@
-import {
-    CHANGE_UPLOAD_STATUS,
-    RECEIVE_UPLOADED_CONTENT,
-    RECEIVE_ADVERTISEMENTS,
-    SAVE_XHR,
-    CLEAN_XHR,
-} from './actions';
-
+import * as actions from './actions';
 
 const initialState = {
+    loading: false,
     fileUploadStatus: '',
     xhr: null,
     uploadedFileContent: {
@@ -20,30 +14,35 @@ const initialState = {
     advertisements: [],
 };
 
-
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
-        case CHANGE_UPLOAD_STATUS:
+        case actions.UPLOAD_FILE:
+            return {
+                ...state,
+                loading: true,
+            };
+        case actions.CHANGE_UPLOAD_STATUS:
             return {
                 ...state,
                 fileUploadStatus: data,
             };
-        case SAVE_XHR:
+        case actions.SAVE_XHR:
             return {
                 ...state,
                 xhr: data,
             };
-        case CLEAN_XHR:
+        case actions.CLEAN_XHR:
             return {
                 ...state,
                 xhr: null,
             };
-        case RECEIVE_UPLOADED_CONTENT:
+        case actions.RECEIVE_UPLOADED_CONTENT:
             return {
                 ...state,
+                loading: false,
                 uploadedFileContent: data,
             };
-        case RECEIVE_ADVERTISEMENTS:
+        case actions.RECEIVE_ADVERTISEMENTS:
             return {
                 ...state,
                 advertisements: data,

@@ -1,47 +1,58 @@
 @import "variables.scss";
 
-.newAdvertisement {
-    .title {
-        margin-bottom: 24px;
+.title {
+    margin-bottom: 24px;
+}
+
+.input {
+    margin-bottom: 24px;
+}
+
+.description {
+    margin-bottom: 8px;
+    color: $secondary-main-300;
+
+    @include caption12Regular;
+}
+
+.dropZone {
+    @include flex-centered;
+
+    width: 100%;
+    height: 144px;
+    border: 1px dashed $primary-light-100;
+    border-radius: 6px;
+
+    .text {
+        margin-left: 7px;
+        color: $primary-main-600;
+
+        @include body14Regular;
     }
+}
 
-    .input {
-        margin-bottom: 24px;
+.declineBtn {
+    margin-right: 8px;
+}
 
-        @media (min-width: $screen-w--s) {
-            width: 716px;
-        }
+.input__number {
+    width: 100%;
+    max-width: 170px;
+
+    @media screen and (max-width: $ant-breakpoint-lg) {
+        max-width: 1000px;
     }
+}
 
-    .description {
-        margin-bottom: 8px;
-        color: $secondary-main-300;
+.input__range_picker {
+    width: 100%;
+}
 
-        @include caption12Regular;
-    }
+.buttons_block {
+    display: flex;
+}
 
-    .dropZone {
-        @include flex-centered;
-
-        width: 100%;
-        height: 144px;
-        margin-bottom: 40px;
-        border: 1px dashed $primary-light-100;
-        border-radius: 6px;
-
-        @media (min-width: $screen-w--s) {
-            width: 716px;
-        }
-
-        .text {
-            margin-left: 7px;
-            color: $primary-main-600;
-
-            @include body14Regular;
-        }
-    }
-
-    .declineBtn {
-        margin-right: 16px;
-    }
+.progress_container {
+    height: 22px;
+    margin-bottom: 22px;
 }

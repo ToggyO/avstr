@@ -41,7 +41,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 
     const dropdownItems = [
         {
-            href: '/advertiser',
+            href: '/ad-manager',
             text: 'Рекламодатель',
         },
         {
@@ -66,7 +66,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
             </Helmet>
 
             <Layout>
-                <BasicSider siderState={siderState} setSiderState={setSiderState}/>
+                <BasicSider siderState={siderState} setSiderState={setSiderState} />
                 <Layout>
                     <BasicHeader
                         siderState={siderState}
