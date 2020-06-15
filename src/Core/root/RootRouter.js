@@ -5,7 +5,6 @@ import { BasicLayout } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
-import history from '../history';
 
 import AuthorizationPage from '../authorization/AuthorizationPage';
 import CallbackPage from '../authorization/components/CallbackPage';
@@ -24,7 +23,6 @@ const RootRouter = () => {
         REACT_APP_CALLBACK_PATH,
         REACT_APP_LOGOUT_PATH,
         REACT_APP_SILENT_RENEW_PATH,
-        REACT_APP_ADVERTISER_REGISTRATION_PATH,
     } = process.env;
     const { pathname } = window.location;
 
@@ -53,6 +51,7 @@ const RootRouter = () => {
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
             <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
+            <UnAuthRoute path={ROOT_ROUTES.AD_REGISTRATION} component={AdvertiserRegistrationPage} />
             <BasicLayout>
                 <Suspense fallback={<Loader />}>
                     <AuthRoute
