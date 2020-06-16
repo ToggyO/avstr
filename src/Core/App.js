@@ -17,7 +17,6 @@ import './App.scss';
 
 window.io = io;
 
-
 const App = () => (
     <Provider store={store}>
         <AuthProvider>

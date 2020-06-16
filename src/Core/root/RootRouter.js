@@ -1,5 +1,5 @@
 import React, { Suspense, lazy, memo } from 'react';
-import { Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { BasicLayout } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
@@ -44,6 +44,7 @@ const RootRouter = () => {
 
     return (
         <Switch>
+            <Route exact path="/null" render={() => <Redirect to={ROOT_ROUTES.AD_MANAGER} />} />
             <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
             <UnAuthRoute exact path="/" component={AuthorizationPage} />
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
