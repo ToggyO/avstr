@@ -9,6 +9,7 @@ class LogoutPage extends Component {
     componentDidMount() {
         const { logoutAction } = this.props;
         logoutAction();
+        localStorage.clear();
     }
 
     render() {

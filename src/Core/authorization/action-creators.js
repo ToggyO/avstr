@@ -1,5 +1,10 @@
 import * as actions from './actions';
 
+export const toggleGlobalLoading = (payload) => ({
+    type: actions.TOGGLE_GLOBAL_LOADING,
+    data: payload,
+});
+
 export const setAuthorized = (data) => ({
     type: actions.SET_AUTHORIZED,
     data,

@@ -13,7 +13,11 @@ const AuthRoute = ({ component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) => {
-                if (isAuthorized) return CreateComponent(Component, props);
+                if (isAuthorized) {
+                    // debugger
+                    return CreateComponent(Component, props);
+                }
+                // debugger;
                 return <Redirect to="/" />;
             }}
         />

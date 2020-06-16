@@ -1,3 +1,5 @@
+import history from 'Core/history';
+
 import styles from './index.module.scss';
 
 const { PUBLIC_URL } = process.env;
@@ -92,15 +94,25 @@ export const createBalloonLayoutTemplate = (ymaps) => (
 
 export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) => {
     const linkUrl = `/devices/monitoring/${deviceId}`;
+
+    function toDeviceMonitoring(e) {
+        if (e.target.id === 'balloon-link') {
+            history.push(linkUrl);
+        }
+    }
+
+    document.addEventListener('click', toDeviceMonitoring);
+
     return (
         ymaps.templateLayoutFactory.createClass(
-            `<div class=${styles.info}>
+            `
+            <div class=${styles.info}>
                 <div class=${styles.name}>${title}</div>
                 <div class=${styles.id}>${descr}</div>
-                <a href=${linkUrl} class=${styles.link}>
+                <div id="balloon-link" style="cursor:pointer;" class=${styles.link}>
                     Мониторинг устройства
                     <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
-                </a>
+                </div>
             </div>`,
         )
     );
