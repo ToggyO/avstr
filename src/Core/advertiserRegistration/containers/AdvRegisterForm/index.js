@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getProp } from 'Core/utils/getProp';
 
 import {
-    Badge, Button, Result, notification,
+    Badge, Button, Result, notification, message,
 } from 'antd';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
 import options from './options';
@@ -28,7 +28,12 @@ const RenderValidationStatus = () => (
     </div>
 );
 
-const AdvRegisterForm = ({ registerAdvertiserAction, loading, isRegisterReqSuccess }) => {
+const AdvRegisterForm = ({
+    registerAdvertiserAction,
+    loading,
+    isRegisterReqSuccess,
+    error,
+}) => {
     const showHelp = () => {
         notification.info({
             key: 'passwordHelp',
@@ -46,6 +51,11 @@ const AdvRegisterForm = ({ registerAdvertiserAction, loading, isRegisterReqSucce
         showHelp();
     }, []);
 
+    useEffect(() => {
+        if (!error) return;
+        message.error(error, 3);
+    }, [error]); // todo(nn): не выодится повторно, исправить
+
     const onFinishFailed = () => {
 
     };
@@ -58,7 +68,7 @@ const AdvRegisterForm = ({ registerAdvertiserAction, loading, isRegisterReqSucce
 
     return (
         <div className={styles.container}>
-            {isRegisterReqSuccess
+            {isRegisterReqSuccess && !error
                 ? (
                     <Result subTitle="Перейдите по ссылке в письме на электронной почте для завершения регистрации" />
                 )
@@ -109,18 +119,21 @@ AdvRegisterForm.defaultProps = {
     loading: false,
     isRegisterReqSuccess: false,
     registerAdvertiserAction: Function.prototype,
+    error: null,
 };
 
 AdvRegisterForm.propTypes = {
     loading: PropTypes.bool,
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
+    error: PropTypes.string,
 };
 
 
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     loading: getProp(advertiserRegistrationReducer, 'loading', false),
     isRegisterReqSuccess: getProp(advertiserRegistrationReducer, 'isRegisterReqSuccess', false),
+    error: getProp(advertiserRegistrationReducer, 'error', null),
 });
 
 const mapDispatchToProps = {

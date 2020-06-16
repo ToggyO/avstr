@@ -3,6 +3,7 @@ import * as actions from './actions';
 const initialState = {
     loading: false,
     isRegisterReqSuccess: false,
+    error: null,
 };
 
 const advertiserRegistrationReducer = (state = { ...initialState }, { type, data }) => {
@@ -29,7 +30,7 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
             return {
                 ...state,
                 loading: false,
-                errors: data,
+                error: data,
             };
         default:
             return state;

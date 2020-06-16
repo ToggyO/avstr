@@ -15,8 +15,18 @@ function* handleRegisterAdvertiser({ data }) {
         });
         yield put({ type: actions.REGISTER_ADVERTISER_SUCCESS });
     } catch (err) {
-        const { type } = err;
+        const { type, content } = err;
         switch (type) {
+            case 'BadRequest':
+                if (content && content[0] === 'DuplicateUserName') {
+                    yield put({
+                        type: actions.REGISTER_ADVERTISER_ERROR,
+                        data: 'Рекламодатель с такой почтой уже существует',
+                    });
+                } else {
+                    throw err;
+                }
+                break;
             case 'AuthorizationError':
                 break;
             case 'ServerError':
@@ -28,3 +38,10 @@ function* handleRegisterAdvertiser({ data }) {
 }
 
 export default handleRegisterAdvertiser;
+
+// "errorContent": [
+//     {
+//         "code": "DuplicateUserName",
+//         "description": "User name 'admin@test.ru' is already taken."
+//     }
+// ],
