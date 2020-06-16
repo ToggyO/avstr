@@ -3,6 +3,7 @@ import * as actions from './actions';
 const initialState = {
     loading: false,
     isRegisterReqSuccess: false,
+    isConfirmSuccess: false,
     error: null,
 };
 
@@ -24,6 +25,7 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
             return {
                 ...state,
                 loading: false,
+                isConfirmSuccess: true,
             };
         case actions.REGISTER_ADVERTISER_ERROR:
         case actions.CONFIRM_ADV_REGISTRATION_ERROR:

@@ -70,7 +70,7 @@ const AdvRegisterForm = ({
         <div className={styles.container}>
             {isRegisterReqSuccess && !error
                 ? (
-                    <Result subTitle="Перейдите по ссылке в письме на электронной почте для завершения регистрации" />
+                    <Result title="Перейдите по ссылке в письме на электронной почте для завершения регистрации" />
                 )
                 : (
                     <>
@@ -97,7 +97,7 @@ const AdvRegisterForm = ({
                                         className={styles.submit}
                                         {...props}
                                     >
-                                        Зарегестрироваться
+                                        Зарегистрироваться
                                     </Button>
                                 )}
                             />
@@ -114,6 +114,7 @@ const AdvRegisterForm = ({
         </div>
     );
 };
+
 
 AdvRegisterForm.defaultProps = {
     loading: false,
