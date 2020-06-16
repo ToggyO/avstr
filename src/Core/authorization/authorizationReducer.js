@@ -1,10 +1,8 @@
 import * as actions from './actions';
-import { getFromLocalState } from '../utils/local-storage';
 
 const initialState = {
     loading: true,
     isAuthorized: false,
-    tokens: getFromLocalState('userInfo') || {},
     authErrMessage: '',
 };
 
