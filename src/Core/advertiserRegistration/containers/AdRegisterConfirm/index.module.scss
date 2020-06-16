@@ -1,0 +1,10 @@
+@import 'variables';
+
+.container {
+    @include max-w-346;
+    @include form-base-container;
+
+    align-items: center;
+    min-height: 560px;
+    text-align: center;
+}

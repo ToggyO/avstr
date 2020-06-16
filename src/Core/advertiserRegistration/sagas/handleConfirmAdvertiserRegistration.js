@@ -13,17 +13,13 @@ function* handleConfirmAdvertiserRegistration({ data }) {
         });
         yield put({ type: actions.CONFIRM_ADV_REGISTRATION_SUCCESS });
     } catch (err) {
-        const { type, content } = err;
+        const { type } = err;
         switch (type) {
             case 'BadRequest':
-                if (content && content[0].code === 'InvalidToken') {
-                    yield put({
-                        type: actions.CONFIRM_ADV_REGISTRATION_ERROR,
-                        data: 'InvalidToken',
-                    });
-                } else {
-                    throw err;
-                }
+                yield put({
+                    type: actions.CONFIRM_ADV_REGISTRATION_ERROR,
+                    data: 'BadRequest',
+                });
                 break;
             case 'AuthorizationError':
                 break;
