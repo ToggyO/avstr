@@ -1,7 +1,8 @@
-const requiredFieldWarning = 'Обязательное поле';
-const lessThen2SymbolsWarning = 'Необходимо минимум 2 символа';
+import { VALIDATION_MESSAGES, REGEXPS } from 'Core/constants/clientValidation';
+
 const isLessThen2Symbols = (value) => value.length < 2;
-const isNameValidated = (value) => /^[a-zа-яё]+$/i.test(value);
+const isNameValidated = (value) => REGEXPS.NAME.test(value);
+
 
 const formOptions = {
     name: {
@@ -18,8 +19,8 @@ const formOptions = {
             },
             {
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(requiredFieldWarning);
-                    if (isLessThen2Symbols(value)) return Promise.reject(lessThen2SymbolsWarning);
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
+                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
                     if (!isNameValidated(value)) {
                         return Promise.reject('Имя не соответствует требованиям');
                     }
@@ -42,8 +43,8 @@ const formOptions = {
             },
             {
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(requiredFieldWarning);
-                    if (isLessThen2Symbols(value)) return Promise.reject(lessThen2SymbolsWarning);
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
+                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
                     if (!isNameValidated(value)) {
                         return Promise.reject('Фамилия не соответствует требованиям');
                     }
@@ -66,14 +67,8 @@ const formOptions = {
             },
             {
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(requiredFieldWarning);
-                    if (isLessThen2Symbols(value)) return Promise.reject(lessThen2SymbolsWarning);
-
-                    // const condition = /\w+/g.test(value);
-                    /* if (condition) {
-                        return Promise.reject('Имя организации не соответствует требованиям');
-                    } */
-
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
+                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
                     return Promise.resolve();
                 },
             },
@@ -91,8 +86,8 @@ const formOptions = {
             },
             {
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(requiredFieldWarning);
-                    const condition = /^[!#$%&'*+-/=?^_{|}~.\w]+@\w+\.\w+$/.test(value);
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
+                    const condition = REGEXPS.EMAIL.test(value);
                     if (!condition) {
                         return Promise.reject('Почта не соответствует требованиям');
                     }
@@ -114,12 +109,9 @@ const formOptions = {
             },
             {
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(requiredFieldWarning);
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
 
-                    const condition = (
-                        /(?=.*[0-9])(?=.*[!"#$%&'()*+,-.:;<=>?@^_`{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g
-                            .test(value)
-                    );
+                    const condition = REGEXPS.PASSWORD.test(value);
                     if (!condition) {
                         return Promise.reject('Пароль не соответствует требованиям');
                     }
