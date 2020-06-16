@@ -4,7 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import Loader from 'Core/common/Loader';
 
-const Page = () => (<div>Advertiser Page</div>);
+const Advertisements = () => (<div>Advertisements List Page</div>);
+const Advertisement = () => (<div>Advertisement Page</div>);
 
 const AdvertiserRouter = ({ match: { path } }) => (
     <Suspense fallback={<Loader />}>
@@ -12,7 +13,19 @@ const AdvertiserRouter = ({ match: { path } }) => (
             <Route
                 exact
                 path={`${path}`}
-                component={Page}
+                component={Advertisements}
+            />
+
+            <Route
+                exact
+                path={`${path}/advertisements`}
+                component={Advertisements}
+            />
+
+            <Route
+                exact
+                path={`${path}/advertisements/:id`}
+                component={Advertisement}
             />
         </Switch>
     </Suspense>
