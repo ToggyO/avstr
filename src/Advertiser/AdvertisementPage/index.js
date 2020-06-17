@@ -3,12 +3,12 @@ import React from 'react';
 
 // import styles from './index.module.scss';
 
-const Advertisement = () => (
+const AdvertisementPage = () => (
     <div>Advertisement Page</div>
 );
 
-// Advertisement.propTypes = {
+// AdvertisementPage.propTypes = {
 //
 // };
 
-export default Advertisement;
+export default AdvertisementPage;

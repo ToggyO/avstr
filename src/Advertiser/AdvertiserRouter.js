@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Loader from 'Core/common/Loader';
-import Advertisements from './Advertisements';
-import Advertisement from './Advertisement';
+import AdvertisementsListPage from './AdvertisementsListPage';
+import AdvertisementPage from './AdvertisementPage';
 
 const AdvertiserRouter = ({ match: { path } }) => (
     <Suspense fallback={<Loader />}>
@@ -14,13 +14,13 @@ const AdvertiserRouter = ({ match: { path } }) => (
             <Route
                 exact
                 path={`${path}/advertisements`}
-                component={Advertisements}
+                component={AdvertisementsListPage}
             />
 
             <Route
                 exact
                 path={`${path}/advertisements/:id`}
-                component={Advertisement}
+                component={AdvertisementPage}
             />
         </Switch>
     </Suspense>
