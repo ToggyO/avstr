@@ -16,7 +16,6 @@ const AdvRegisterConfirm = ({
     cleanErrorAction,
     isConfirmSuccess,
     loading,
-    error,
     location,
 }) => {
     const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
@@ -44,7 +43,7 @@ const AdvRegisterConfirm = ({
         if (loading) {
             component = <Loader />;
         } else {
-            const condition = isConfirmSuccess && !error;
+            const condition = isConfirmSuccess;
             const status = condition ? 'success' : 'error';
             const title = condition ? 'Регистрация завершена' : 'Истек срок действия ссылки';
             const subTitle = condition ? null : 'Для создания новой ссылки зарегистрируйтесь повторно';
@@ -85,7 +84,6 @@ const AdvRegisterConfirm = ({
 AdvRegisterConfirm.defaultProps = {
     isConfirmSuccess: false,
     loading: false,
-    error: null,
     confirmAdRegistrationAction: Function.prototype,
     cleanErrorAction: Function.prototype,
 };
@@ -93,7 +91,6 @@ AdvRegisterConfirm.defaultProps = {
 AdvRegisterConfirm.propTypes = {
     isConfirmSuccess: PropTypes.bool,
     loading: PropTypes.bool,
-    error: PropTypes.string,
     confirmAdRegistrationAction: PropTypes.func,
     cleanErrorAction: PropTypes.func,
     location: PropTypes.shape({
@@ -106,15 +103,3 @@ AdvRegisterConfirm.propTypes = {
 
 
 export default AdvRegisterConfirm;
-
-// useEffect(() => {
-//     let isShown = true;
-//     if (isShown && loading) {
-//         message.loading('Дождитесь завершения операции', 0);
-//     } else {
-//         message.destroy();
-//     }
-//     return () => {
-//         isShown = false;
-//     };
-// }, [loading]);

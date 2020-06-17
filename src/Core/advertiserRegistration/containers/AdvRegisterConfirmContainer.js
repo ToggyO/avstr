@@ -11,7 +11,6 @@ import AdvRegisterConfirm from '../components/AdvRegisterConfirm';
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     isConfirmSuccess: getProp(advertiserRegistrationReducer, 'isConfirmSuccess', false),
     loading: getProp(advertiserRegistrationReducer, 'loading', false),
-    error: getProp(advertiserRegistrationReducer, 'error', null),
 });
 
 const mapDispatchToProps = {

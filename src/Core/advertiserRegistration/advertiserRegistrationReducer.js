@@ -28,11 +28,15 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
                 isConfirmSuccess: true,
             };
         case actions.REGISTER_ADVERTISER_ERROR:
-        case actions.CONFIRM_ADV_REGISTRATION_ERROR:
             return {
                 ...state,
                 loading: false,
                 error: data,
+            };
+        case actions.CONFIRM_ADV_REGISTRATION_ERROR:
+            return {
+                ...state,
+                loading: false,
             };
         case actions.CLEAN_ERROR:
             return {

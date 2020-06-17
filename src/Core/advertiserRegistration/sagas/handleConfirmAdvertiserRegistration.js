@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
-import { API_URLS_ADV_REGISTRATION /* , ADV_REGISTER_ROUTES */ } from '../constants';
+import { API_URLS_ADV_REGISTRATION } from '../constants';
 
 import * as actions from '../actions';
 
@@ -16,10 +16,7 @@ function* handleConfirmAdvertiserRegistration({ data }) {
         const { type } = err;
         switch (type) {
             case 'BadRequest':
-                yield put({
-                    type: actions.CONFIRM_ADV_REGISTRATION_ERROR,
-                    data: 'BadRequest',
-                });
+                yield put({ type: actions.CONFIRM_ADV_REGISTRATION_ERROR });
                 break;
             case 'AuthorizationError':
                 break;
