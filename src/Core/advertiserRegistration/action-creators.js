@@ -10,3 +10,7 @@ export const confirmAdRegistration = (data) => ({
     type: actions.CONFIRM_ADV_REGISTRATION,
     data,
 });
+
+export const cleanError = () => ({
+    type: actions.CLEAN_ERROR,
+});

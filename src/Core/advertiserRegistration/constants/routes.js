@@ -1,5 +1,5 @@
 const ADV_REGISTER_ROUTES = {
-    SEND_LINK: '/advertiser-registration',
+    REGISTER: '/advertiser-registration',
     CONFIRM: '/advertiser-registration/confirm',
 };
 

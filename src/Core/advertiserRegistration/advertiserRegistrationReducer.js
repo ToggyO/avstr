@@ -34,6 +34,11 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
                 loading: false,
                 error: data,
             };
+        case actions.CLEAN_ERROR:
+            return {
+                ...state,
+                error: null,
+            };
         default:
             return state;
     }

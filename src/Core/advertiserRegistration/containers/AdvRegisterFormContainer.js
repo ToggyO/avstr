@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getProp } from 'Core/utils/getProp';
 
-import { registerAdvertiser } from '../action-creators';
+import { cleanError, registerAdvertiser } from '../action-creators';
 
 import AdvRegisterForm from '../components/AdvRegisterForm';
 
@@ -14,6 +14,7 @@ const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
 
 const mapDispatchToProps = {
     registerAdvertiserAction: registerAdvertiser,
+    cleanErrorAction: cleanError,
 };
 
 

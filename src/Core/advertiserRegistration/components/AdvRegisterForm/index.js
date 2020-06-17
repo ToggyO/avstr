@@ -29,6 +29,7 @@ const AdvRegisterForm = ({
     loading,
     isRegisterReqSuccess,
     error,
+    cleanErrorAction,
 }) => {
     const showHelp = () => {
         notification.info({
@@ -42,10 +43,16 @@ const AdvRegisterForm = ({
             },
         });
     };
+    const closeHelp = () => notification.close('passwordHelp');
 
     useEffect(() => {
         showHelp();
-    }, []);
+
+        return () => {
+            closeHelp();
+            cleanErrorAction();
+        };
+    }, [cleanErrorAction]);
 
     useEffect(() => {
         if (!error) return;
@@ -116,6 +123,7 @@ AdvRegisterForm.defaultProps = {
     loading: false,
     isRegisterReqSuccess: false,
     registerAdvertiserAction: Function.prototype,
+    cleanErrorAction: Function.prototype,
     error: null,
 };
 
@@ -123,6 +131,7 @@ AdvRegisterForm.propTypes = {
     loading: PropTypes.bool,
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
+    cleanErrorAction: PropTypes.func,
     error: PropTypes.string,
 };
 
