@@ -57,11 +57,8 @@ const AdvRegisterForm = ({
     useEffect(() => {
         if (!error) return;
         message.error(error, 3);
-    }, [error]); // todo(nn): не выодится повторно, исправить
-
-    const onFinishFailed = () => {
-
-    };
+        cleanErrorAction();
+    }, [error]);
 
     const onSubmit = (values) => {
         const data = values;
@@ -83,7 +80,6 @@ const AdvRegisterForm = ({
                         <StandardForm
                             options={options}
                             onFinish={onSubmit}
-                            onFinishFailed={onFinishFailed}
                         >
                             <FormItemWrapper type="text-input" name="name" />
                             <FormItemWrapper type="text-input" name="surname" />

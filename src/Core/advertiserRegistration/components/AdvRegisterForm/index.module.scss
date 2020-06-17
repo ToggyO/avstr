@@ -3,7 +3,9 @@
 .container {
     @include max-w-346;
     @include form-base-container;
-    //box-shadow: $shadow-header;
+
+    flex-direction: column;
+    min-height: 560px;
 }
 
 .headlines {

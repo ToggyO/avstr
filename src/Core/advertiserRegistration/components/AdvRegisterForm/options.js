@@ -1,7 +1,5 @@
-import { VALIDATION_MESSAGES, REGEXPS } from 'Core/constants/clientValidation';
-
-const isLessThen2Symbols = (value) => value.length < 2;
-const isNameValidated = (value) => REGEXPS.NAME.test(value);
+import VALIDATION_MESSAGES from 'Core/constants/clientValidation';
+import * as validation from 'Core/utils/validation';
 
 
 const formOptions = {
@@ -20,8 +18,10 @@ const formOptions = {
             {
                 validator: (_, value) => {
                     if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
-                    if (!isNameValidated(value)) {
+                    if (validation.isLessThen2Symbols(value)) {
+                        return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
+                    }
+                    if (!validation.isNameValid(value)) {
                         return Promise.reject('Имя не соответствует требованиям');
                     }
 
@@ -44,8 +44,10 @@ const formOptions = {
             {
                 validator: (_, value) => {
                     if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
-                    if (!isNameValidated(value)) {
+                    if (validation.isLessThen2Symbols(value)) {
+                        return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
+                    }
+                    if (!validation.isNameValid(value)) {
                         return Promise.reject('Фамилия не соответствует требованиям');
                     }
 
@@ -68,7 +70,9 @@ const formOptions = {
             {
                 validator: (_, value) => {
                     if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    if (isLessThen2Symbols(value)) return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
+                    if (validation.isLessThen2Symbols(value)) {
+                        return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
+                    }
                     return Promise.resolve();
                 },
             },
@@ -87,9 +91,8 @@ const formOptions = {
             {
                 validator: (_, value) => {
                     if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    const condition = REGEXPS.EMAIL.test(value);
-                    if (!condition) {
-                        return Promise.reject('Почта не соответствует требованиям');
+                    if (!validation.isEmailValid(value)) {
+                        return Promise.reject(VALIDATION_MESSAGES.INCORRECT_EMAIL);
                     }
 
                     return Promise.resolve();
@@ -110,12 +113,9 @@ const formOptions = {
             {
                 validator: (_, value) => {
                     if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-
-                    const condition = REGEXPS.PASSWORD.test(value);
-                    if (!condition) {
-                        return Promise.reject('Пароль не соответствует требованиям');
+                    if (!validation.isPasswordValid(value)) {
+                        return Promise.reject(VALIDATION_MESSAGES.EASY_PASSWORD);
                     }
-
                     return Promise.resolve();
                 },
             },

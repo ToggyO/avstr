@@ -1,6 +1,7 @@
 import ROOT_ROUTES from './rootRoutes';
+import VALIDATION_MESSAGES from './clientValidation';
 
 export {
-    // eslint-disable-next-line import/prefer-default-export
     ROOT_ROUTES,
+    VALIDATION_MESSAGES,
 };

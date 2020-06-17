@@ -3,8 +3,8 @@
 .container {
     @include max-w-346;
     @include form-base-container;
+    @include flex-centered;
 
-    align-items: center;
+    flex-direction: column;
     min-height: 560px;
-    text-align: center;
 }
