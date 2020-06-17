@@ -10,13 +10,13 @@ const { Text } = Typography;
 const AdsListPage = () => {
     const adsData = [
         {
-            id: '1',
+            key: '1',
             name: 'John Brown',
             creationTime: '2020-06-17T12:08:07.418Z',
             state: 0,
         },
         {
-            id: '2',
+            key: '2',
             name: 'Jim Green',
             creationTime: '2020-06-17T12:08:07.418Z',
             state: 1,
@@ -99,9 +99,9 @@ const AdsListPage = () => {
         },
     ];
 
-    function onChange(pagination, filters, sorter, extra) {
+    const onChange = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
-    }
+    };
 
     return (
         <>
