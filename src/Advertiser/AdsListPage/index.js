@@ -1,5 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Typography, Table, Tag } from 'antd';
 
 import formatDate from 'Core/utils/formatDate';
@@ -41,7 +42,7 @@ const AdsListPage = () => {
             dataIndex: 'name',
             defaultSortOrder: 'descend',
             sorter: (a, b) => a.name < b.name,
-            render: (name) => <a href="/">{name}</a>,
+            render: (name) => <Link to="/advertiser/advertisements/1">{name}</Link>,
         },
         {
             title: 'Статус',
