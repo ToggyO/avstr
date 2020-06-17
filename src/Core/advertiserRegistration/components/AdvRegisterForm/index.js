@@ -2,15 +2,11 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { connect } from 'react-redux';
-import { getProp } from 'Core/utils/getProp';
-
 import {
     Badge, Button, Result, notification, message,
 } from 'antd';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
 import options from './options';
-import { registerAdvertiser } from '../../action-creators';
 
 import styles from './index.module.scss';
 
@@ -130,15 +126,4 @@ AdvRegisterForm.propTypes = {
     error: PropTypes.string,
 };
 
-
-const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
-    loading: getProp(advertiserRegistrationReducer, 'loading', false),
-    isRegisterReqSuccess: getProp(advertiserRegistrationReducer, 'isRegisterReqSuccess', false),
-    error: getProp(advertiserRegistrationReducer, 'error', null),
-});
-
-const mapDispatchToProps = {
-    registerAdvertiserAction: registerAdvertiser,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(AdvRegisterForm);
+export default AdvRegisterForm;
