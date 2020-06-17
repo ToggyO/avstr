@@ -54,7 +54,7 @@ StandardForm.propTypes = {
     errorsFromBackend: PropTypes.array,
     wrappedRef: PropTypes.oneOfType([
         PropTypes.func,
-        PropTypes.shape({ current: PropTypes.instanceOf(Element) }),
+        PropTypes.shape({ current: PropTypes.any }),
     ]),
 };
 

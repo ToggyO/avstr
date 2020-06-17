@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';

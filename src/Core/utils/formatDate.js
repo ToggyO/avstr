@@ -7,7 +7,7 @@
 import formatNumLess10 from './formatNumLess10';
 
 
-export default function formatDate(date, withTime) {
+export function formatDate(date, withTime) {
     const dateObj = new Date(Date.parse(date));
 
     const day = dateObj.getDate();
@@ -22,4 +22,22 @@ export default function formatDate(date, withTime) {
         formattedDate = `${formattedDate} ${formatNumLess10(hours)}:${formatNumLess10(minutes)}`;
     }
     return formattedDate;
+}
+
+
+export function compareDateWithToday(currentDate) {
+    if (typeof currentDate === 'object') {
+        const now = new Date();
+        const today = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()));
+
+        if (Object.prototype.hasOwnProperty.call(currentDate, '_isAMomentObject')) {
+            return currentDate.unix() < (today.getTime() / 1000);
+        }
+
+        if (currentDate instanceof Date) {
+            // FIXME: не протестировано
+            return currentDate.getTime() < today.getTime();
+        }
+    }
+    return false;
 }

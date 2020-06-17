@@ -1,3 +1,5 @@
+import { compareDateWithToday } from 'Core/utils/formatDate';
+
 const formOptions = {
     advertiserId: {
         label: 'Рекламодатель',
@@ -29,6 +31,7 @@ const formOptions = {
         props: {
             size: 'large',
             placeholder: ['Дата начала', 'Дата окончания'],
+            disabledDate: (currentDate) => compareDateWithToday(currentDate),
         },
         rules: [
             {
@@ -42,6 +45,7 @@ const formOptions = {
         label: 'Частота показа в сутки',
         props: {
             size: 'large',
+            min: 1,
             parser: (value) => value.replace(/\.s?|(,*)[^-0-9]/gim, ''),
         },
         rules: [
