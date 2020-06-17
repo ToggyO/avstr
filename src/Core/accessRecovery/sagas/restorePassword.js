@@ -12,10 +12,10 @@ import * as types from '../actions';
 
 const { REACT_APP_AUTH_URL } = process.env;
 
-function* restorePassword({ payload }) {
+function* restorePassword({ data }) {
     try {
         yield call(api.post, `${REACT_APP_AUTH_URL}${API_URLS_RECOVERY.RESTORE_PASSWORD}`, {
-            ...payload,
+            ...data,
         }, {
             credentials: 'include',
         });
@@ -26,7 +26,7 @@ function* restorePassword({ payload }) {
             resultType: SUCCESS_RESULT_TYPES.RESTORE_PASSWORD,
         });
     } catch (error) {
-        yield put({ type: types.RESTORE_PASSWORD_ERROR, payload: error });
+        yield put({ type: types.RESTORE_PASSWORD_ERROR, data: error });
     }
 }
 

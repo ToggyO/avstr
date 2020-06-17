@@ -28,7 +28,6 @@ const AuthProvider = ({
                 globalLoading(false);
             }
         });
-        console.log('global auth render');
     }, [setAuthorizedFunc, globalLoading]);
 
     return (

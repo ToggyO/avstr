@@ -5,7 +5,7 @@ const initialState = {
     errors: [],
 };
 
-const reducer = (state = { ...initialState }, { type, payload }) => {
+const reducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
         case actions.FORGOT_PASSWORD_REQUEST:
         case actions.RESTORE_PASSWORD_REQUEST:
@@ -24,7 +24,7 @@ const reducer = (state = { ...initialState }, { type, payload }) => {
             return {
                 ...state,
                 loading: false,
-                errors: payload,
+                errors: data,
             };
         case actions.RECOVERY_CLEAR_ERRORS:
             return {
