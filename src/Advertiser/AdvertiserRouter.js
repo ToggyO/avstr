@@ -1,20 +1,15 @@
 import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Loader from 'Core/common/Loader';
-
-const Advertisements = () => (<div>Advertisements List Page</div>);
-const Advertisement = () => (<div>Advertisement Page</div>);
+import Advertisements from './Advertisements';
+import Advertisement from './Advertisement';
 
 const AdvertiserRouter = ({ match: { path } }) => (
     <Suspense fallback={<Loader />}>
         <Switch>
-            <Route
-                exact
-                path={`${path}`}
-                component={Advertisements}
-            />
+            <Redirect exact push from={`${path}`} to={`${path}/advertisements`} />
 
             <Route
                 exact
