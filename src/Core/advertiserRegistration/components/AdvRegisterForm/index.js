@@ -66,14 +66,29 @@ const AdvRegisterForm = ({
         registerAdvertiserAction(data);
     };
 
+    let date = new Date();
+    date.setDate(date.getDate() + 1);
+    date = date.toLocaleString('ru', {
+        month: 'long',
+        day: 'numeric',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+    });
     return (
         <div className={styles.container}>
             {isRegisterReqSuccess && !error
                 ? (
-                    <Result
-                        className={styles.info}
-                        title="Перейдите по ссылке в письме на электронной почте для завершения регистрации"
-                    />
+                    <>
+                        <Result
+                            className={styles.info}
+                            title="Перейдите по ссылке в письме на электронной почте для завершения регистрации"
+                        />
+                        <p className={styles.text}>
+                            Ссылка действительна в течении суток, до
+                            {date}
+                        </p>
+                    </>
                 )
                 : (
                     <>

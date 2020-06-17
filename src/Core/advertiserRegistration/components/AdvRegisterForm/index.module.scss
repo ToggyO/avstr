@@ -4,12 +4,8 @@
     @include max-w-346;
     @include form-base-container;
 
-    flex-direction: column;
     min-height: 560px;
-}
-
-.info {
-    padding-top: 76px;
+    text-align: center;
 }
 
 .headlines {
@@ -20,12 +16,6 @@
 
         padding-bottom: 8px;
     }
-
-    p {
-        @include subtitle14Regular;
-
-        padding-bottom: 24px;
-    }
 }
 
 .submit {
@@ -34,4 +24,9 @@
 
 .description {
     text-align: center;
+}
+
+.info {
+    padding-top: 76px;
+    padding-bottom: 8px;
 }
