@@ -5,6 +5,7 @@ import { Layout, message } from 'antd';
 import PropTypes from 'prop-types';
 
 import { getProp } from 'Core/utils/getProp';
+import { isEmptyObject } from 'Core/utils/isEmpty';
 import { AvaLogo } from '../LoginLayout/_components/_assets';
 
 import styles from './index.module.scss';
@@ -26,8 +27,12 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
 
     useEffect(() => {
         let isShown = true;
-        if (isShown && errorsFromBackend.length) {
-            message.error('Что-то пошло не так. Повторите попытку ', 5000);
+        if (isShown) {
+            if ((typeof errorsFromBackend === 'object' && !isEmptyObject(errorsFromBackend))
+                || errorsFromBackend.length
+            ) {
+                message.error('Что-то пошло не так. Повторите попытку ', 5);
+            }
         }
         return () => {
             isShown = false;

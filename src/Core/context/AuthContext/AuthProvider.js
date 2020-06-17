@@ -1,4 +1,4 @@
-// TODO(toleg): заменить Loader на антовсий
+// TODO(toleg): заменить Loader на антовский
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -28,7 +28,8 @@ const AuthProvider = ({
                 globalLoading(false);
             }
         });
-    }, [setAuthorizedFunc]);
+        console.log('global auth render');
+    }, [setAuthorizedFunc, globalLoading]);
 
     return (
         <AuthContext.Provider value={isAuthorized}>

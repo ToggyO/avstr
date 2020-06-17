@@ -6,6 +6,10 @@ export const forgotPasswordRequest = (email) => ({
 });
 
 export const restorePasswordRequest = (data) => ({
-    type: actions.FORGOT_PASSWORD_REQUEST,
+    type: actions.RESTORE_PASSWORD_REQUEST,
     payload: data,
+});
+
+export const recoveryClearErrors = () => ({
+    type: actions.RECOVERY_CLEAR_ERRORS,
 });

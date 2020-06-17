@@ -3,6 +3,7 @@ import handleRequestErrors from './handeRequestErrors';
 
 async function sendRequest(url, options, successCode) {
     const res = await fetch(url, options);
+
     const { status } = res;
     let result;
 

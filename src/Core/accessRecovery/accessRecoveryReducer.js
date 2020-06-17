@@ -26,6 +26,11 @@ const reducer = (state = { ...initialState }, { type, payload }) => {
                 loading: false,
                 errors: payload,
             };
+        case actions.RECOVERY_CLEAR_ERRORS:
+            return {
+                ...state,
+                errors: [],
+            };
         default:
             return state;
     }

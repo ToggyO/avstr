@@ -19,7 +19,7 @@ const formOptions = {
                             .test(value)
                     );
                     // const condition = /^[0-9a-zA-Z~!@#$%^&*_\-+=`|(){}[\]:;"'<>,.?/]+$/.test(value);
-                    if (condition) {
+                    if (!condition) {
                         return Promise.reject('Пароль не соответствует требованиям');
                     }
 
@@ -28,7 +28,7 @@ const formOptions = {
             },
         ],
     },
-    passwordConfirm: {
+    confirmPassword: {
         props: {
             size: 'large',
             placeholder: 'Повторите пароль',

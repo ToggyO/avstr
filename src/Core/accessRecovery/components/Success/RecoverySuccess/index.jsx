@@ -12,11 +12,15 @@ const RecoverySuccess = ({ recoveredEmail }) => (
                 <p className={styles.title}>
                     Ссылка для смены пароля
                     <br />
-                    отправлена на почту
+                    отправлена на почту&nbsp;
                     {recoveredEmail}
                 </p>
             )}
-            subTitle="Следуйте инструкциям в сообщении"
+            subTitle={(
+                <p className={styles.subtitle}>
+                    Следуйте инструкциям в сообщении
+                </p>
+            )}
         />
     </div>
 );

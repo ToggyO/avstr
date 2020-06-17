@@ -1,9 +1,11 @@
-import ChangePasswordForm from './ChangePasswordForm';
-import RecoveryForm from './RecoveryForm';
+import { ChangePasswordFormContainer, ChangePasswordFormView } from './ChangePasswordForm';
+import { RecoveryFormView, RecoveryFormContainer } from './RecoveryForm';
 import SuccessResult from './Success';
 
 export {
-    ChangePasswordForm,
-    RecoveryForm,
+    ChangePasswordFormContainer,
+    ChangePasswordFormView,
+    RecoveryFormView,
+    RecoveryFormContainer,
     SuccessResult,
 };

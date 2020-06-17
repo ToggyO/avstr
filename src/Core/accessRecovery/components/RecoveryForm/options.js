@@ -4,6 +4,16 @@ const formOptions = {
             size: 'large',
             placeholder: 'Электронная почта',
         },
+        rules: [
+            {
+                required: true,
+                message: 'Поле обязательно для заполнения',
+            },
+            {
+                pattern: /^[!#$%&'*+-/=?^_{|}~.\w]+@\w+\.\w+$/,
+                message: 'Невалидный адрес эелектронной почты',
+            },
+        ],
     },
     submit: {
         props: {
