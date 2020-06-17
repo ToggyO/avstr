@@ -10,25 +10,24 @@ import {
 } from 'Core/accessRecovery/constants';
 import * as types from '../actions';
 
-function* forgotPassword({ payload }) {
+const { REACT_APP_AUTH_URL } = process.env;
+
+function* forgotPassword({ data }) {
     try {
-        // debugger;
-        yield call(api.post, API_URLS_RECOVERY.FORGOT_PASSWORD, {
-            email: payload,
+        yield call(api.post, `${REACT_APP_AUTH_URL}${API_URLS_RECOVERY.FORGOT_PASSWORD}`, {
+            ...data,
         }, {
             credentials: 'include',
         });
         yield put({ type: types.FORGOT_PASSWORD_SUCCESS });
         yield history.push({
             pathname: RECOVERY_ROUTES.SUCCESS,
-            state: {
-                resultType: SUCCESS_RESULT_TYPES.RECOVERY,
-                recoveredEmail: payload,
-            },
+        }, {
+            resultType: SUCCESS_RESULT_TYPES.RECOVERY,
+            recoveredEmail: data.email,
         });
     } catch (error) {
-        // debugger; // FIXME: удалить после тестов
-        yield put({ type: types.FORGOT_PASSWORD_ERROR });
+        yield put({ type: types.FORGOT_PASSWORD_ERROR, data: error });
     }
 }
 

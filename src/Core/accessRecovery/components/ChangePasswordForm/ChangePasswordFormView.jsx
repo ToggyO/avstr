@@ -1,20 +1,18 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
 import {
     Badge,
     Button,
     notification,
     Form,
 } from 'antd';
+import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
 import { StandardForm, FormItemWrapper } from 'Core/ant';
-import { restorePasswordRequest } from 'Core/accessRecovery/action-creators';
-import { getProp } from 'Core/utils/getProp';
-
 import options from './options';
 
 import styles from './index.module.scss';
+import { Redirect } from 'react-router-dom';
 
 const RenderValidationStatus = () => (
     <div>
@@ -29,7 +27,12 @@ const RenderValidationStatus = () => (
     </div>
 );
 
-const ChangePasswordForm = ({ loading, restorePassword }) => {
+const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors }) => {
+    const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
+    const { user, code } = queries;
+
+    if (!code) return <Redirect to="/" />;
+
     const showHelp = () => {
         notification.info({
             key: 'passwordHelp',
@@ -43,12 +46,24 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
         });
     };
 
+    const closeHelp = () => notification.close('passwordHelp');
+
     useEffect(() => {
         showHelp();
-    }, []);
+        return () => {
+            closeHelp();
+            clearErrors();
+        };
+    }, [clearErrors]);
 
     const onSubmit = (values) => {
-        restorePassword(values);
+        const payload = {
+            email: user,
+            password: values.password,
+            confirmPassword: values.confirmPassword,
+            code,
+        };
+        restorePassword(payload);
     };
 
     const [form] = Form.useForm();
@@ -67,23 +82,19 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                             onFocus: () => showHelp(),
                         }}
                     />
-                    <FormItemWrapper type="password-input" name="passwordConfirm" />
-                    <Form.Item shouldUpdate>
-                        {() => (
+                    <FormItemWrapper type="password-input" name="confirmPassword" />
+                    <FormItemWrapper
+                        type="custom-component"
+                        name="submit"
+                        component={(props) => (
                             <Button
-                                type="primary"
-                                htmlType="submit"
                                 loading={loading}
-                                disabled={
-                                    !form.isFieldsTouched(true)
-                                    || form.getFieldsError()
-                                        .filter(({ errors }) => errors.length).length
-                                }
+                                {...props}
                             >
-                                Log in
+                                Сохранить
                             </Button>
                         )}
-                    </Form.Item>
+                    />
                 </StandardForm>
             </div>
         </>
@@ -93,19 +104,13 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
 ChangePasswordForm.propTypes = {
     loading: PropTypes.bool,
     restorePassword: PropTypes.func,
+    clearErrors: PropTypes.func,
 };
 
 ChangePasswordForm.defaultProps = {
     loading: false,
     restorePassword: Function.prototype,
+    clearErrors: Function.prototype,
 };
 
-const mapStateToProps = ({ accessRecoveryReducer }) => ({
-    loading: getProp(accessRecoveryReducer, 'loading', false),
-});
-
-const mapDispatchToProps = {
-    restorePassword: restorePasswordRequest,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordForm);
+export default ChangePasswordForm;
