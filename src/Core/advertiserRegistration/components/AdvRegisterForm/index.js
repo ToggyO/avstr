@@ -70,7 +70,10 @@ const AdvRegisterForm = ({
         <div className={styles.container}>
             {isRegisterReqSuccess && !error
                 ? (
-                    <Result title="Перейдите по ссылке в письме на электронной почте для завершения регистрации" />
+                    <Result
+                        className={styles.info}
+                        title="Перейдите по ссылке в письме на электронной почте для завершения регистрации"
+                    />
                 )
                 : (
                     <>

@@ -3,8 +3,15 @@
 .container {
     @include max-w-346;
     @include form-base-container;
-    @include flex-centered;
 
-    flex-direction: column;
     min-height: 560px;
+    text-align: center;
+}
+
+.success {
+    padding-top: 118px;
+}
+
+.error {
+    padding-top: 76px;
 }

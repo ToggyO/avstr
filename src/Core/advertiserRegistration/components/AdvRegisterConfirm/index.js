@@ -50,10 +50,12 @@ const AdvRegisterConfirm = ({
             const subTitle = condition ? null : 'Для создания новой ссылки зарегистрируйтесь повторно';
             const btnText = condition ? 'Начать работу' : 'Регистрация';
             const clickHandler = condition ? handleStartBtnClick : handleRegisterBtnClick;
+            const resultClass = condition ? styles.success : styles.error;
 
             component = (
                 <>
                     <Result
+                        className={resultClass}
                         status={status}
                         title={title}
                         subTitle={subTitle}
