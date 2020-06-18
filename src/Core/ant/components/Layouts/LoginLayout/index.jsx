@@ -1,9 +1,10 @@
-// TODO(nn): поправить обработчики, когда переработаем роутинг
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Layout, Button } from 'antd';
 import PropTypes from 'prop-types';
+import history from 'Core/history';
 
+import { ROOT_ROUTES } from 'Core/constants';
 import { AvaLogo } from './_components/_assets';
 
 import styles from './index.module.scss';
@@ -12,13 +13,11 @@ const { Header, Content } = Layout;
 
 const LoginLayout = ({ children }) => {
     const registerBtnHandler = () => {
-        // временно пока не переработан роутинг
-        window.location = '/advertiser-registration';
+        history.push(ROOT_ROUTES.AD_REGISTRATION);
     };
 
     const entryBtnHandler = () => {
-        // временно пока не переработан роутинг
-        window.location = '/';
+        history.push('/');
     };
     return (
         <>

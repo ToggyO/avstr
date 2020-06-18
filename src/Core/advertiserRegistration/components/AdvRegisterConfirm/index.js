@@ -7,7 +7,7 @@ import { Button, Result } from 'antd';
 import { parse } from 'qs';
 import { useDidMount } from 'beautiful-react-hooks';
 
-import ADV_REGISTER_ROUTES from '../../constants/routes';
+import { ROOT_ROUTES } from 'Core/constants';
 
 
 import styles from './index.module.scss';
@@ -31,7 +31,7 @@ const AdvRegisterConfirm = ({
     };
 
     const handleRegisterBtnClick = () => {
-        history.push(ADV_REGISTER_ROUTES.REGISTER);
+        history.push(ROOT_ROUTES.AD_REGISTRATION);
     };
 
     const renderContent = () => {

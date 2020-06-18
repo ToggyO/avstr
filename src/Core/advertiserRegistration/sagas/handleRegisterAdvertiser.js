@@ -1,8 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
 import API_URLS_ADV_REGISTRATION from '../constants/api-urls';
-// import history from '../../history';
-
 import * as actions from '../actions';
 
 const { REACT_APP_AUTH_API } = process.env;
@@ -38,10 +36,3 @@ function* handleRegisterAdvertiser({ data }) {
 }
 
 export default handleRegisterAdvertiser;
-
-// "errorContent": [
-//     {
-//         "code": "DuplicateUserName",
-//         "description": "User name 'admin@test.ru' is already taken."
-//     }
-// ],

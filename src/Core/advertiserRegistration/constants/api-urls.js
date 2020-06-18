@@ -1,5 +1,4 @@
 const API_URLS_ADV_REGISTRATION = {
-    REGISTER: '/Registration/RegisterAdvertiser',
     CONFIRM: '/Registration/ConfirmEmail',
 };
 
