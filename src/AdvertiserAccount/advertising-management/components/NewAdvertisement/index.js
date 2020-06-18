@@ -1,9 +1,10 @@
+// TODO: решить, необходим ли атрибут accept
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-    Button, Col, Row, Upload, Progress, message,
+    Button, Col, Row, Upload, Progress, message, Modal,
 } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import { InboxOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import history from 'Core/history';
 import { StandardForm, FormItemWrapper } from 'Core/ant';
@@ -105,8 +106,33 @@ class NewAdvertisement extends Component {
 
     handleCancelClick = () => {
         const { changeFileStatus } = this.props;
+        const form = this.formRef.current;
+        const values = form.getFieldsValue();
+
+        if (this.checkEnteredValues(values)) {
+            return Modal.confirm({
+                title: 'Покинуть страницу?',
+                icon: <ExclamationCircleOutlined />,
+                content: 'Все несохраненные данные будут потеряны.',
+                okText: 'Да',
+                cancelText: 'Нет',
+                maskClosable: false,
+                onOk: () => history.push(ROOT_ROUTES.AD_MANAGER),
+            });
+        }
         changeFileStatus('');
-        history.push(ROOT_ROUTES.AD_MANAGER);
+        return history.push(ROOT_ROUTES.AD_MANAGER);
+    };
+
+    checkEnteredValues = (values) => {
+        let flag = false;
+        // eslint-disable-next-line array-callback-return
+        Object.values(values).some((value) => {
+            if (value) {
+                flag = true;
+            }
+        });
+        return flag;
     };
 
     validateFile = (file) => {
@@ -132,11 +158,13 @@ class NewAdvertisement extends Component {
 
         if (!this.validateFile(file)) return;
 
+        const form = this.formRef.current;
+
         this.toggleShowDragger();
         this.setState((prevState) => ({
             ...prevState,
             controlledFileList: controlledFileList.concat(fileList),
-        }));
+        }), () => form.validateFields(['fileList']));
     };
 
     handleRemove = (file) => {
@@ -212,16 +240,23 @@ class NewAdvertisement extends Component {
                                         if (controlledFileList.length) {
                                             return Promise.resolve();
                                         }
-                                        return Promise.reject('Выберите изображение илил видео');
+                                        return Promise.reject('Выберите изображение или видео');
                                     },
                                 },
                             ]}
                             component={(props) => (
                                 <>
+                                    <p
+                                        className={styles.drop_description}
+                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
+                                    >
+                                        Максимальный размер файла - 50 МБ, фото - jpg, jpeg, png,
+                                        разрешение экрана - 1920×1080 px
+                                    </p>
                                     <Upload.Dragger
                                         accept={this.acceptedMediaTypes.join(', ')}
                                         fileList={controlledFileList}
-                                        listType="picture-card"
+                                        listType="picture"
                                         showUploadList={{ showPreviewIcon: false }}
                                         beforeUpload={() => false}
                                         onChange={this.handleDrop}

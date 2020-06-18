@@ -1,3 +1,4 @@
+// TODO(toleg): разобраться с prop-types для errorsFromBackend после создания механизма обработки ошибок с бэка
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';

@@ -1,7 +1,7 @@
 import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 
-import formatDate from 'Core/utils/formatDate';
+import { formatDate } from 'Core/utils/formatDate';
 import isEqual from 'Core/utils/isEqual';
 
 import { Icon } from 'semantic-ui-react';
