@@ -1,3 +1,5 @@
+import { validatePasswordBySteps } from 'Core/ant/helpers';
+
 const formOptions = {
     password: {
         props: {
@@ -7,25 +9,20 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                // при устростве кастомной валидации нужно оставлять проблем в поле message
-                message: ' ',
+                message: 'Поле обязательно для заполнения',
             },
-            {
+            (form) => ({
                 validator: (_, value) => {
-                    if (!value) return Promise.reject('Поле обязательно для заполнения');
-
-                    const condition = (
-                        /(?=.*[0-9])(?=.*[!"#$%&'()*+,-.:;<=>?@^_`{|}~])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}/g
-                            .test(value)
-                    );
-                    // const condition = /^[0-9a-zA-Z~!@#$%^&*_\-+=`|(){}[\]:;"'<>,.?/]+$/.test(value);
-                    if (!condition) {
-                        return Promise.reject('Пароль не соответствует требованиям');
-                    }
-
-                    return Promise.resolve();
+                    const validationObj = {
+                        patternMinLength: value && /.{8,}/.test(value),
+                        patternUppSyms: /[A-Z]+/.test(value),
+                        patternLowSyms: value && /[a-z]+/.test(value),
+                        patternNums: /[0-9]+/.test(value),
+                        patternSpecSymb: /[!"#$%&'()*+,-.:;<=>?@^_`[\]{|}~\\]/.test(value),
+                    };
+                    return validatePasswordBySteps(form, validationObj, 'password');
                 },
-            },
+            }),
         ],
     },
     confirmPassword: {
