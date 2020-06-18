@@ -13,7 +13,6 @@ import styles from './index.module.scss';
 
 const AdvRegisterConfirm = ({
     confirmAdRegistrationAction,
-    cleanErrorAction,
     isConfirmSuccess,
     loading,
     location,
@@ -23,11 +22,7 @@ const AdvRegisterConfirm = ({
 
     useEffect(() => {
         confirmAdRegistrationAction({ email: user, code });
-
-        return () => {
-            cleanErrorAction();
-        };
-    }, [cleanErrorAction]);
+    }, []);
 
 
     const handleStartBtnClick = () => {
@@ -85,14 +80,12 @@ AdvRegisterConfirm.defaultProps = {
     isConfirmSuccess: false,
     loading: false,
     confirmAdRegistrationAction: Function.prototype,
-    cleanErrorAction: Function.prototype,
 };
 
 AdvRegisterConfirm.propTypes = {
     isConfirmSuccess: PropTypes.bool,
     loading: PropTypes.bool,
     confirmAdRegistrationAction: PropTypes.func,
-    cleanErrorAction: PropTypes.func,
     location: PropTypes.shape({
         hash: PropTypes.string,
         pathname: PropTypes.string,
