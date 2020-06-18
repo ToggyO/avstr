@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
     Badge,
@@ -30,7 +30,7 @@ const RenderValidationStatus = () => (
 );
 
 const ChangePasswordForm = ({ loading, restorePassword }) => {
-    const showHelp = () => {
+    function showHelp() {
         notification.info({
             key: 'passwordHelp',
             message: 'Требования для безопасного пароля',
@@ -41,11 +41,13 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                 width: 400,
             },
         });
-    };
+    }
+
+    const memoizedShowHelp = useCallback(() => showHelp(), []);
 
     useEffect(() => {
-        showHelp();
-    }, []);
+        memoizedShowHelp();
+    }, [memoizedShowHelp]);
 
     const onSubmit = (values) => {
         restorePassword(values);
@@ -64,7 +66,7 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                         type="password-input"
                         name="password"
                         propsToChild={{
-                            onFocus: () => showHelp(),
+                            onFocus: () => memoizedShowHelp(),
                         }}
                     />
                     <FormItemWrapper type="password-input" name="passwordConfirm" />
