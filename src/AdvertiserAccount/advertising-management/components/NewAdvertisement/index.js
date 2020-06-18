@@ -93,7 +93,7 @@ class NewAdvertisement extends Component {
         const { controlledFileList } = this.state;
 
         const formattedValues = {
-            advertiserId: values.advertiserId,
+            advertiserEmail: values.advertiserEmail,
             name: values.name,
             startDate: values.rangeDate[0].toISOString(),
             endDate: values.rangeDate[1].toISOString(),
@@ -207,7 +207,7 @@ class NewAdvertisement extends Component {
                         wrappedRef={this.formRef}
                         {...this.formItemLayout}
                     >
-                        <FormItemWrapper type="text-input" name="advertiserId" />
+                        <FormItemWrapper type="text-input" name="advertiserEmail" />
                         <FormItemWrapper type="text-input" name="name" />
                         <FormItemWrapper
                             type="range-picker"
