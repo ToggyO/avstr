@@ -38,6 +38,7 @@ function createUploadChanel(xhr, file) {
                         alert('На сервере произошла ошибка');
                         break;
                     default:
+                        onFailure();
                         break;
                 }
             }
@@ -47,6 +48,7 @@ function createUploadChanel(xhr, file) {
         xhr.upload.addEventListener('error', onFailure);
         xhr.upload.addEventListener('abort', onAbort);
         xhr.addEventListener('loadend', onSuccess);
+
 
         xhr.send(file);
 
