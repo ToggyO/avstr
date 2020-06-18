@@ -1,31 +1,21 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import {
-    Badge,
     Button,
-    notification,
     Form,
 } from 'antd';
-import { Redirect } from 'react-router-dom';
 import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
-import { StandardForm, FormItemWrapper } from 'Core/ant';
+import {
+    StandardForm,
+    FormItemWrapper,
+    PasswordValidationRulesPopover,
+} from 'Core/ant';
+import { useValidationStatus } from 'Core/ant/helpers';
 import options from './options';
 
 import styles from './index.module.scss';
-
-const RenderValidationStatus = () => (
-    <div>
-        <Badge status="default" text="8 и более символов" />
-        <Badge status="default" text="прописные латинские буквы от A до Z" />
-        <Badge status="default" text="строчные латинские буквы от a до z" />
-        <Badge status="default" text="цифры от 0 до 9" />
-        <Badge
-            status="default"
-            text={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'}
-        />
-    </div>
-);
 
 const ChangePasswordForm = ({
     location,
@@ -38,30 +28,30 @@ const ChangePasswordForm = ({
 
     const [form] = Form.useForm();
 
-    const showHelp = () => {
-        notification.info({
-            key: 'passwordHelp',
-            message: 'Требования для безопасного пароля',
-            description: <RenderValidationStatus />,
-            duration: null,
-            top: '45%',
-            style: {
-                width: 400,
-            },
-        });
+    const validationObj = {
+        patternMinLength: /.{8,}/,
+        patternUppSyms: /[A-Z]+/,
+        patternLowSyms: /[a-z]+/,
+        patternNums: /[0-9]+/,
+        patternSpecSymb: /[!"#$%&'()*+,-.:;<=>?@^_`[\]{|}~\\]/,
     };
 
-    const closeHelp = () => notification.close('passwordHelp');
+    const {
+        validationStatus,
+        setValidationStatus,
+        checkPatterns,
+    } = useValidationStatus(form, validationObj, 'password');
 
-    const memoizedShowHelp = useCallback(() => showHelp(), []);
+    const [visible, setVisible] = useState(false);
 
-    useEffect(() => {
-        memoizedShowHelp();
-        return () => {
-            closeHelp();
-            clearErrors();
-        };
-    }, [clearErrors, memoizedShowHelp]);
+
+    useEffect(() => () => {
+        clearErrors();
+    }, [clearErrors]);
+
+    const toggleVisibility = (visibility) => {
+        setVisible(!visibility);
+    };
 
     const onSubmit = (values) => {
         const payload = {
@@ -73,6 +63,12 @@ const ChangePasswordForm = ({
         restorePassword(payload);
     };
 
+    const highlightPasswordOnSubmitFailure = () => {
+        const isFieldTouched = form.isFieldTouched('password');
+        const status = !isFieldTouched ? 'error' : validationStatus;
+        return setValidationStatus(status);
+    };
+
     if (!code) return <Redirect to="/" />;
 
     return (
@@ -81,15 +77,25 @@ const ChangePasswordForm = ({
                 <div className={styles.headlines}>
                     <h1>Изменение пароля</h1>
                 </div>
-                <StandardForm onFinish={onSubmit} options={options} outerFormInstance={form}>
+                <StandardForm
+                    onFinish={onSubmit}
+                    onFinishFailed={highlightPasswordOnSubmitFailure}
+                    options={options}
+                    outerFormInstance={form}
+                >
+                    <PasswordValidationRulesPopover visible={visible} />
                     <FormItemWrapper
                         type="password-input"
                         name="password"
                         propsToChild={{
-                            onFocus: () => memoizedShowHelp(),
+                            onChange: (e) => checkPatterns(e.target.value),
+                            onFocus: () => toggleVisibility(false),
+                            onBlur: () => toggleVisibility(true),
                         }}
+                        hasFeedback
+                        validateStatus={validationStatus}
                     />
-                    <FormItemWrapper type="password-input" name="confirmPassword" />
+                    <FormItemWrapper type="password-input" name="confirmPassword" hasFeedback />
                     <FormItemWrapper
                         type="custom-component"
                         name="submit"
