@@ -5,7 +5,10 @@ import { SUCCESS_RESULT_TYPES } from 'Core/accessRecovery/constants';
 import ChangePasswordSuccess from './ChangePasswordSuccess';
 import RecoverySuccess from './RecoverySuccess';
 
-const Success = ({ resultType, ...rest }) => {
+const Success = ({ location }) => {
+    const { state = {} } = location;
+    const { resultType, ...rest } = state;
+
     const renderResult = (type) => {
         switch (type) {
             case SUCCESS_RESULT_TYPES.RECOVERY:
@@ -23,10 +26,12 @@ const Success = ({ resultType, ...rest }) => {
 };
 
 Success.propTypes = {
-    resultType: PropTypes.oneOf([
-        'RecoverySuccess',
-        'ChangePasswordSuccess',
-    ]).isRequired,
+    location: PropTypes.shape({
+        state: PropTypes.shape({
+            [PropTypes.string]: PropTypes.any,
+        }),
+        [PropTypes.string]: PropTypes.any,
+    }).isRequired,
 };
 
 export default Success;

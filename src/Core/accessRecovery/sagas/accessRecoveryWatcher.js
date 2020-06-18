@@ -6,5 +6,5 @@ import restorePassword from './restorePassword';
 
 export default function* accessRecoveryWatcher() {
     yield takeLatest(types.FORGOT_PASSWORD_REQUEST, forgotPassword);
-    yield takeLatest(types.FORGOT_PASSWORD_SUCCESS, restorePassword);
+    yield takeLatest(types.RESTORE_PASSWORD_REQUEST, restorePassword);
 }
