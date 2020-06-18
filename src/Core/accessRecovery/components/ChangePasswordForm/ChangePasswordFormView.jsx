@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
     Badge,
     Button,
     notification,
     Form,
 } from 'antd';
+import { Redirect } from 'react-router-dom';
 import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
@@ -12,7 +13,6 @@ import { StandardForm, FormItemWrapper } from 'Core/ant';
 import options from './options';
 
 import styles from './index.module.scss';
-import { Redirect } from 'react-router-dom';
 
 const RenderValidationStatus = () => (
     <div>
@@ -27,11 +27,16 @@ const RenderValidationStatus = () => (
     </div>
 );
 
-const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors }) => {
+const ChangePasswordForm = ({
+    location,
+    loading,
+    restorePassword,
+    clearErrors,
+}) => {
     const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
     const { user, code } = queries;
 
-    if (!code) return <Redirect to="/" />;
+    const [form] = Form.useForm();
 
     const showHelp = () => {
         notification.info({
@@ -48,13 +53,15 @@ const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors })
 
     const closeHelp = () => notification.close('passwordHelp');
 
+    const memoizedShowHelp = useCallback(() => showHelp(), []);
+
     useEffect(() => {
-        showHelp();
+        memoizedShowHelp();
         return () => {
             closeHelp();
             clearErrors();
         };
-    }, [clearErrors]);
+    }, [clearErrors, memoizedShowHelp]);
 
     const onSubmit = (values) => {
         const payload = {
@@ -66,7 +73,7 @@ const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors })
         restorePassword(payload);
     };
 
-    const [form] = Form.useForm();
+    if (!code) return <Redirect to="/" />;
 
     return (
         <>
@@ -79,7 +86,7 @@ const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors })
                         type="password-input"
                         name="password"
                         propsToChild={{
-                            onFocus: () => showHelp(),
+                            onFocus: () => memoizedShowHelp(),
                         }}
                     />
                     <FormItemWrapper type="password-input" name="confirmPassword" />
@@ -102,6 +109,10 @@ const ChangePasswordForm = ({ location, loading, restorePassword, clearErrors })
 };
 
 ChangePasswordForm.propTypes = {
+    location: PropTypes.shape({
+        search: PropTypes.string,
+        [PropTypes.string]: PropTypes.any,
+    }).isRequired,
     loading: PropTypes.bool,
     restorePassword: PropTypes.func,
     clearErrors: PropTypes.func,
