@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 import Loader from 'Core/common/Loader';
 import { Button, Result } from 'antd';
 import { parse } from 'qs';
+import { useDidMount } from 'beautiful-react-hooks';
 
 import ADV_REGISTER_ROUTES from '../../constants/routes';
 
@@ -20,9 +21,9 @@ const AdvRegisterConfirm = ({
     const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
     const { user, code } = queries;
 
-    useEffect(() => {
+    useDidMount(() => {
         confirmAdRegistrationAction({ email: user, code });
-    }, []);
+    });
 
 
     const handleStartBtnClick = () => {

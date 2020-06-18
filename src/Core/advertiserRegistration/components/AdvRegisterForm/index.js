@@ -58,7 +58,7 @@ const AdvRegisterForm = ({
         if (!error) return;
         message.error(error, 3);
         cleanErrorAction();
-    }, [error]);
+    }, [error, cleanErrorAction]);
 
     const onSubmit = (values) => {
         const data = values;
