@@ -1,17 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
-import { connect } from 'react-redux';
 import {
     Badge,
     Button,
     notification,
     Form,
 } from 'antd';
+import { Redirect } from 'react-router-dom';
+import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
 import { StandardForm, FormItemWrapper } from 'Core/ant';
-import { restorePasswordRequest } from 'Core/accessRecovery/action-creators';
-import { getProp } from 'Core/utils/getProp';
-
 import options from './options';
 
 import styles from './index.module.scss';
@@ -29,8 +27,18 @@ const RenderValidationStatus = () => (
     </div>
 );
 
-const ChangePasswordForm = ({ loading, restorePassword }) => {
-    function showHelp() {
+const ChangePasswordForm = ({
+    location,
+    loading,
+    restorePassword,
+    clearErrors,
+}) => {
+    const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
+    const { user, code } = queries;
+
+    const [form] = Form.useForm();
+
+    const showHelp = () => {
         notification.info({
             key: 'passwordHelp',
             message: 'Требования для безопасного пароля',
@@ -41,19 +49,31 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                 width: 400,
             },
         });
-    }
+    };
+
+    const closeHelp = () => notification.close('passwordHelp');
 
     const memoizedShowHelp = useCallback(() => showHelp(), []);
 
     useEffect(() => {
         memoizedShowHelp();
-    }, [memoizedShowHelp]);
+        return () => {
+            closeHelp();
+            clearErrors();
+        };
+    }, [clearErrors, memoizedShowHelp]);
 
     const onSubmit = (values) => {
-        restorePassword(values);
+        const payload = {
+            email: user,
+            password: values.password,
+            confirmPassword: values.confirmPassword,
+            code,
+        };
+        restorePassword(payload);
     };
 
-    const [form] = Form.useForm();
+    if (!code) return <Redirect to="/" />;
 
     return (
         <>
@@ -69,23 +89,19 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
                             onFocus: () => memoizedShowHelp(),
                         }}
                     />
-                    <FormItemWrapper type="password-input" name="passwordConfirm" />
-                    <Form.Item shouldUpdate>
-                        {() => (
+                    <FormItemWrapper type="password-input" name="confirmPassword" />
+                    <FormItemWrapper
+                        type="custom-component"
+                        name="submit"
+                        component={(props) => (
                             <Button
-                                type="primary"
-                                htmlType="submit"
                                 loading={loading}
-                                disabled={
-                                    !form.isFieldsTouched(true)
-                                    || form.getFieldsError()
-                                        .filter(({ errors }) => errors.length).length
-                                }
+                                {...props}
                             >
-                                Log in
+                                Сохранить
                             </Button>
                         )}
-                    </Form.Item>
+                    />
                 </StandardForm>
             </div>
         </>
@@ -93,21 +109,19 @@ const ChangePasswordForm = ({ loading, restorePassword }) => {
 };
 
 ChangePasswordForm.propTypes = {
+    location: PropTypes.shape({
+        search: PropTypes.string,
+        [PropTypes.string]: PropTypes.any,
+    }).isRequired,
     loading: PropTypes.bool,
     restorePassword: PropTypes.func,
+    clearErrors: PropTypes.func,
 };
 
 ChangePasswordForm.defaultProps = {
     loading: false,
     restorePassword: Function.prototype,
+    clearErrors: Function.prototype,
 };
 
-const mapStateToProps = ({ accessRecoveryReducer }) => ({
-    loading: getProp(accessRecoveryReducer, 'loading', false),
-});
-
-const mapDispatchToProps = {
-    restorePassword: restorePasswordRequest,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChangePasswordForm);
+export default ChangePasswordForm;

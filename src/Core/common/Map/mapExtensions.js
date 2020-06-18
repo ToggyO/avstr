@@ -93,23 +93,22 @@ export const createBalloonLayoutTemplate = (ymaps) => (
 );
 
 export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) => {
-    const linkUrl = `/devices/monitoring/${deviceId}`;
-
     function toDeviceMonitoring(e) {
-        if (e.target.id === 'balloon-link') {
+        const linkUrl = `/devices/monitoring/${deviceId}`;
+        if (e.target.id === `balloon-link-${deviceId}`) {
             history.push(linkUrl);
         }
     }
 
     document.addEventListener('click', toDeviceMonitoring);
 
+    const id = `balloon-link-${deviceId}`;
     return (
         ymaps.templateLayoutFactory.createClass(
-            `
-            <div class=${styles.info}>
+            `<div class=${styles.info}>
                 <div class=${styles.name}>${title}</div>
                 <div class=${styles.id}>${descr}</div>
-                <div id="balloon-link" style="cursor:pointer;" class=${styles.link}>
+                <div id=${id} class=${styles.link}>
                     Мониторинг устройства
                     <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
                 </div>

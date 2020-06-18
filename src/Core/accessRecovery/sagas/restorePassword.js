@@ -10,24 +10,23 @@ import {
 } from 'Core/accessRecovery/constants';
 import * as types from '../actions';
 
-function* restorePassword({ payload }) {
+const { REACT_APP_AUTH_URL } = process.env;
+
+function* restorePassword({ data }) {
     try {
-        // debugger;
-        yield call(api.post, API_URLS_RECOVERY.RESTORE_PASSWORD, {
-            ...payload,
+        yield call(api.post, `${REACT_APP_AUTH_URL}${API_URLS_RECOVERY.RESTORE_PASSWORD}`, {
+            ...data,
         }, {
             credentials: 'include',
         });
         yield put({ type: types.RESTORE_PASSWORD_SUCCESS });
         yield history.push({
             pathname: RECOVERY_ROUTES.SUCCESS,
-            state: {
-                resultType: SUCCESS_RESULT_TYPES.RESTORE_PASSWORD,
-            },
+        }, {
+            resultType: SUCCESS_RESULT_TYPES.RESTORE_PASSWORD,
         });
     } catch (error) {
-        // debugger; // FIXME: удалить после тестов
-        yield put({ type: types.RESTORE_PASSWORD_ERROR });
+        yield put({ type: types.RESTORE_PASSWORD_ERROR, data: error });
     }
 }
 
