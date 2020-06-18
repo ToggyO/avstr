@@ -52,6 +52,9 @@ function* handleUploadFile({ data }) {
         }
     } catch ({ type }) {
         switch (type) {
+            case 'BadRequest':
+                yield put(changeUploadStatus('Error'));
+                break;
             case 'AuthorizationError':
                 window.location = '/';
                 break;
@@ -59,7 +62,7 @@ function* handleUploadFile({ data }) {
                 alert('На сервере произошла ошибка.');
                 break;
             default:
-                break;
+                yield put(changeUploadStatus('Error'));
         }
     }
 }

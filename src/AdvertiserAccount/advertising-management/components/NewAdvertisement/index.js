@@ -67,7 +67,13 @@ class NewAdvertisement extends Component {
 
     componentDidUpdate(prevProps) {
         const { fileStatus } = this.props;
-        if (prevProps.fileStatus !== fileStatus) this.handleSuccessUploading();
+        if (prevProps.fileStatus !== fileStatus) {
+            if (fileStatus === 'Success') {
+                this.handleSuccessUploading();
+            } else if (fileStatus === 'Error') {
+                this.handleErrorUploading();
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -81,11 +87,14 @@ class NewAdvertisement extends Component {
     }
 
     handleSuccessUploading = () => {
-        const { fileStatus, changeFileStatus } = this.props;
-        if (fileStatus !== 'Success') return;
+        const { changeFileStatus } = this.props;
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
         history.push(ROOT_ROUTES.AD_MANAGER);
+    };
+
+    handleErrorUploading = () => {
+        message.error('Что то пошло не так');
     };
 
     handleSaveClick = (values) => {
@@ -189,9 +198,20 @@ class NewAdvertisement extends Component {
         return Math.ceil((loaded / total) * 100);
     };
 
+    isShowBtnLoader = () => {
+        let result;
+        const { loading, fileStatus } = this.props;
+        if (fileStatus === 'Error') {
+            result = false;
+        } else {
+            result = loading;
+        }
+        return result;
+    };
+
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
-        const { fileStatus, loading } = this.props;
+        const { fileStatus } = this.props;
 
         return (
             <Row justify="center">
@@ -301,7 +321,7 @@ class NewAdvertisement extends Component {
                                             type="primary"
                                             htmlType="submit"
                                             className={styles.saveBtn}
-                                            loading={loading}
+                                            loading={this.isShowBtnLoader()}
                                             {...props}
                                         >
                                             Сохранить
