@@ -1,28 +1,20 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    Badge, Button, Result, notification, message,
+    Button, Result, message, Form,
 } from 'antd';
-import { StandardForm, FormItemWrapper } from 'Core/ant';
+import {
+    StandardForm,
+    FormItemWrapper,
+    PasswordValidationRulesPopover,
+} from 'Core/ant';
+import { useValidationStatus } from 'Core/ant/helpers';
 import options from './options';
 
 import styles from './index.module.scss';
 
-// todo(nn): Вынести эту ф-ность, т.к юзается такая же на стр Recovery
-const RenderValidationStatus = () => (
-    <div>
-        <Badge status="default" text="8 и более символов" />
-        <Badge status="default" text="прописные латинские буквы от A до Z" />
-        <Badge status="default" text="строчные латинские буквы от a до z" />
-        <Badge status="default" text="цифры от 0 до 9" />
-        <Badge
-            status="default"
-            text={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'}
-        />
-    </div>
-);
 
 const AdvRegisterForm = ({
     registerAdvertiserAction,
@@ -31,27 +23,34 @@ const AdvRegisterForm = ({
     error,
     cleanErrorAction,
 }) => {
-    const showHelp = () => {
-        notification.info({
-            key: 'passwordHelp',
-            message: 'Требования для безопасного пароля',
-            description: <RenderValidationStatus />,
-            duration: null,
-            top: '62%',
-            style: {
-                width: 400,
-            },
-        });
+    const [form] = Form.useForm();
+
+    const validationObj = {
+        patternMinLength: /.{8,}/,
+        patternUppSyms: /[A-Z]+/,
+        patternLowSyms: /[a-z]+/,
+        patternNums: /[0-9]+/,
+        patternSpecSymb: /[!"#$%&'()*+,-.:;<=>?@^_`[\]{|}~\\]/,
     };
-    const closeHelp = () => notification.close('passwordHelp');
+    const {
+        validationStatus,
+        setValidationStatus,
+        checkPatterns,
+    } = useValidationStatus(form, validationObj, 'password');
 
-    useEffect(() => {
-        showHelp();
+    const [visible, setVisible] = useState(false);
+    const toggleVisibility = (visibility) => {
+        setVisible(!visibility);
+    };
 
-        return () => {
-            closeHelp();
-            cleanErrorAction();
-        };
+    const highlightPasswordOnSubmitFailure = () => {
+        const isFieldTouched = form.isFieldTouched('password');
+        const status = !isFieldTouched ? 'error' : validationStatus;
+        return setValidationStatus(status);
+    };
+
+    useEffect(() => () => {
+        cleanErrorAction();
     }, [cleanErrorAction]);
 
     useEffect(() => {
@@ -98,12 +97,25 @@ const AdvRegisterForm = ({
                         <StandardForm
                             options={options}
                             onFinish={onSubmit}
+                            onFinishFailed={highlightPasswordOnSubmitFailure}
+                            outerFormInstance={form}
                         >
                             <FormItemWrapper type="text-input" name="name" />
                             <FormItemWrapper type="text-input" name="surname" />
                             <FormItemWrapper type="text-input" name="organization" />
                             <FormItemWrapper type="text-input" name="email" />
-                            <FormItemWrapper type="password-input" name="password" />
+                            <PasswordValidationRulesPopover visible={visible} />
+                            <FormItemWrapper
+                                type="password-input"
+                                name="password"
+                                propsToChild={{
+                                    onChange: (e) => checkPatterns(e.target.value),
+                                    onFocus: () => toggleVisibility(false),
+                                    onBlur: () => toggleVisibility(true),
+                                }}
+                                hasFeedback
+                                validateStatus={validationStatus}
+                            />
                             <FormItemWrapper
                                 shouldUpdate
                                 type="custom-component"

@@ -1,6 +1,8 @@
 import VALIDATION_MESSAGES from 'Core/constants/clientValidation';
 import * as validation from 'Core/utils/validation';
 
+import { validatePasswordBySteps } from 'Core/ant/helpers';
+
 
 const formOptions = {
     name: {
@@ -108,17 +110,20 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: ' ',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
-            {
+            (form) => ({
                 validator: (_, value) => {
-                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    if (!validation.isPasswordValid(value)) {
-                        return Promise.reject(VALIDATION_MESSAGES.EASY_PASSWORD);
-                    }
-                    return Promise.resolve();
+                    const validationObj = {
+                        patternMinLength: value && /.{8,}/.test(value),
+                        patternUppSyms: /[A-Z]+/.test(value),
+                        patternLowSyms: value && /[a-z]+/.test(value),
+                        patternNums: /[0-9]+/.test(value),
+                        patternSpecSymb: /[!"#$%&'()*+,-.:;<=>?@^_`[\]{|}~\\]/.test(value),
+                    };
+                    return validatePasswordBySteps(form, validationObj, 'password');
                 },
-            },
+            }),
         ],
     },
     submit: {
