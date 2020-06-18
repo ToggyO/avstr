@@ -24,7 +24,11 @@ export function formatDate(date, withTime) {
     return formattedDate;
 }
 
-
+/**
+ * Функция дизейбла дат, предшествующих текущей дате
+ * @param {Object<Moment | Date>} currentDate - объект Moment или Date.
+ * @return {boolean} - реультат, устаревшая дата или нет
+ */
 export function compareDateWithToday(currentDate) {
     if (typeof currentDate === 'object') {
         const now = new Date();
