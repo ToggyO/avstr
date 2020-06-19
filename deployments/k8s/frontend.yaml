@@ -23,6 +23,13 @@ spec:
           preStop:
             exec:
               command: ["/usr/sbin/nginx","-s","quit"]
+        ports:
+          - name: http  
+            containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
       imagePullSecrets:
       - name: gitlab-auth
 ---
