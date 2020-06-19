@@ -25,6 +25,9 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
             return {
                 ...state,
                 fileUploadStatus: data,
+                loading: data === 'Error'
+                    ? false
+                    : state.loading,
             };
         case actions.SAVE_XHR:
             return {
