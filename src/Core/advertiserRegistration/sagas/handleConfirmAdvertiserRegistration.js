@@ -29,7 +29,6 @@ function* handleConfirmAdvertiserRegistration({ data }) {
                 break;
             default:
                 yield put({ type: actions.CONFIRM_ADV_REGISTRATION_ERROR });
-                throw err;
         }
     }
 }
