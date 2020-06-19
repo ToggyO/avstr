@@ -1,5 +1,4 @@
 import React from 'react';
-
 import AdvRegistrationRouter from './AdvRegistrationRouter';
 
 import styles from './index.module.scss';

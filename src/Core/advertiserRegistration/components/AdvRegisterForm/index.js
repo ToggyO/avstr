@@ -1,6 +1,7 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import {
     Button, Result, message, Form,
@@ -75,72 +76,77 @@ const AdvRegisterForm = ({
         minute: 'numeric',
     });
     return (
-        <div className={styles.container}>
-            {isRegisterReqSuccess && !error
-                ? (
-                    <>
-                        <Result
-                            className={styles.info}
-                            title="Перейдите по ссылке в письме на электронной почте для завершения регистрации"
+        isRegisterReqSuccess && !error
+            ? (
+                <div className={cn(styles.container, styles.container__result)}>
+                    <Result
+                        className={styles.info}
+                        title={(
+                            <p className={styles.subtitle}>
+                                Перейдите по&nbsp;ссылке в&nbsp;письме на
+                                &nbsp;электронной почте для завершения регистрации
+                            </p>
+                        )}
+                    />
+                    <p className={styles.text}>
+                        Ссылка действительна в&nbsp;течении суток
+                        <br />
+                        до&nbsp;
+                        {date}
+                    </p>
+                </div>
+            )
+            : (
+                <div className={styles.container}>
+                    <div className={styles.headlines}>
+                        <h1>Регистрация рекламодателя</h1>
+                    </div>
+                    <StandardForm
+                        options={options}
+                        onFinish={onSubmit}
+                        onFinishFailed={highlightPasswordOnSubmitFailure}
+                        outerFormInstance={form}
+                    >
+                        <FormItemWrapper type="text-input" name="name" />
+                        <FormItemWrapper type="text-input" name="surname" />
+                        <FormItemWrapper type="text-input" name="organization" />
+                        <FormItemWrapper type="text-input" name="email" />
+                        <PasswordValidationRulesPopover visible={visible} />
+                        <FormItemWrapper
+                            type="password-input"
+                            name="password"
+                            propsToChild={{
+                                onChange: (e) => checkPatterns(e.target.value),
+                                onFocus: () => toggleVisibility(false),
+                                onBlur: () => toggleVisibility(true),
+                            }}
+                            hasFeedback
+                            validateStatus={validationStatus}
                         />
-                        <p className={styles.text}>
-                            Ссылка действительна в&nbsp;течении суток, до&nbsp;
-                            {date}
-                        </p>
-                    </>
-                )
-                : (
-                    <>
-                        <div className={styles.headlines}>
-                            <h1>Регистрация рекламодателя</h1>
-                        </div>
-                        <StandardForm
-                            options={options}
-                            onFinish={onSubmit}
-                            onFinishFailed={highlightPasswordOnSubmitFailure}
-                            outerFormInstance={form}
-                        >
-                            <FormItemWrapper type="text-input" name="name" />
-                            <FormItemWrapper type="text-input" name="surname" />
-                            <FormItemWrapper type="text-input" name="organization" />
-                            <FormItemWrapper type="text-input" name="email" />
-                            <PasswordValidationRulesPopover visible={visible} />
-                            <FormItemWrapper
-                                type="password-input"
-                                name="password"
-                                propsToChild={{
-                                    onChange: (e) => checkPatterns(e.target.value),
-                                    onFocus: () => toggleVisibility(false),
-                                    onBlur: () => toggleVisibility(true),
-                                }}
-                                hasFeedback
-                                validateStatus={validationStatus}
-                            />
-                            <FormItemWrapper
-                                shouldUpdate
-                                type="custom-component"
-                                name="submit"
-                                component={(props) => (
-                                    <Button
-                                        loading={loading}
-                                        className={styles.submit}
-                                        {...props}
-                                    >
-                                        Зарегистрироваться
-                                    </Button>
-                                )}
-                            />
-                        </StandardForm>
-                        <p className={styles.description}>
-                            Нажимая на&nbsp;кнопку &laquo;Зарегистрироваться&raquo;, вы&nbsp;
-                            соглашаетесь с&nbsp;
-                            <a href="/" target="_blank">Политикой конфиденциальности</a>
-                            &thinsp;и&nbsp;
-                            <a href="/" target="_blank">Обработкой персональных данных</a>
-                        </p>
-                    </>
-                )}
-        </div>
+                        <FormItemWrapper
+                            shouldUpdate
+                            type="custom-component"
+                            name="submit"
+                            component={(props) => (
+                                <Button
+                                    loading={loading}
+                                    className={styles.submit}
+                                    {...props}
+                                >
+                                    Зарегистрироваться
+                                </Button>
+                            )}
+                        />
+                    </StandardForm>
+                    <p className={styles.description}>
+                        Нажимая на&nbsp;кнопку &laquo;Зарегистрироваться&raquo;, вы&nbsp;
+                        соглашаетесь с&nbsp;
+                        <a href="/" target="_blank">Политикой конфиденциальности</a>
+                        &thinsp;и&nbsp;
+                        <a href="/" target="_blank">Обработкой персональных данных</a>
+                    </p>
+                </div>
+            )
     );
 };
 

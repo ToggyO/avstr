@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import history from 'Core/history';
 import Loader from 'Core/common/Loader';
@@ -45,15 +46,23 @@ const AdvRegisterConfirm = ({
             const subTitle = condition ? null : 'Для создания новой ссылки зарегистрируйтесь повторно';
             const btnText = condition ? 'Начать работу' : 'Регистрация';
             const clickHandler = condition ? handleStartBtnClick : handleRegisterBtnClick;
-            const resultClass = condition ? styles.success : styles.error;
+            const resultClass = condition ? cn(styles.result, styles.success) : cn(styles.result, styles.error);
 
             component = (
                 <>
                     <Result
                         className={resultClass}
                         status={status}
-                        title={title}
-                        subTitle={subTitle}
+                        title={(
+                            <p className={styles.title}>
+                                {title}
+                            </p>
+                        )}
+                        subTitle={(
+                            <p className={styles.subtitle}>
+                                {subTitle}
+                            </p>
+                        )}
                     />
                     <Button
                         className={styles.btn}
