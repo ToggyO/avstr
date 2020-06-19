@@ -41,3 +41,30 @@
         transform: translateX(100%);
     }
 }
+
+@keyframes dragger_in {
+    0% {
+        opacity: 0;
+        height: 0;
+    }
+
+    100% {
+        opacity: 1;
+        height: 136px;
+    }
+}
+
+@keyframes dragger_out {
+    0% {
+        opacity: 1;
+        height: 136px;
+    }
+
+    60% {
+        opacity: 0;
+    }
+
+    100% {
+        height: 0;
+    }
+}

@@ -2,12 +2,12 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-    Button, Col, Row, Upload, Progress, message, Modal,
+    Button, Col, Row, Progress, message, Modal,
 } from 'antd';
 import { InboxOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import history from 'Core/history';
-import { StandardForm, FormItemWrapper } from 'Core/ant';
+import { StandardForm, FormItemWrapper, AntDragger } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
 import options from './options';
 
@@ -63,16 +63,6 @@ class NewAdvertisement extends Component {
             showError: false,
         };
         this.formRef = createRef();
-    }
-
-    componentDidMount() {
-        const video = document.querySelector('video');
-        video.onloadedmetadata = () => {
-            const canvas = document.querySelector('#add-adv-canvas');
-            setTimeout(() => {
-                canvas.getContext('2d').drawImage(video, 0, 0, 100, 50);
-            }, 100);
-        };
     }
 
     componentDidUpdate(prevProps) {
@@ -180,10 +170,12 @@ class NewAdvertisement extends Component {
     handleRemove = (file) => {
         const { controlledFileList } = this.state;
         const filteredList = controlledFileList.filter(() => !file.uid);
+
         this.setState((prevState) => ({
             ...prevState,
             controlledFileList: filteredList,
         }));
+        this.toggleShowDragger();
     };
 
     toggleShowDragger = () => {
@@ -198,12 +190,6 @@ class NewAdvertisement extends Component {
         const [loaded, total] = status.split('/');
         return Math.ceil((loaded / total) * 100);
     };
-
-    capture = () => {
-        const video = document.querySelector('#add-adv-video');
-        const canvas = document.querySelector('#add-adv-canvas');
-        canvas.getContext('2d').drawImage(video, 0, 0, 100, 50);
-    }
 
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
@@ -262,77 +248,23 @@ class NewAdvertisement extends Component {
                             ]}
                             component={(props) => (
                                 <>
-                                    <p
-                                        className={styles.drop_description}
-                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
-                                    >
-                                        Максимальный размер файла - 50 МБ, фото - jpg, jpeg, png,
-                                        разрешение экрана - 1920×1080 px
-                                    </p>
-                                    <Upload.Dragger
+                                    <AntDragger
                                         accept={this.acceptedMediaTypes.join(', ')}
                                         fileList={controlledFileList}
                                         listType="picture"
-                                        showUploadList={{ showPreviewIcon: false }}
-                                        beforeUpload={() => false}
                                         isImageUrl={(file) => console.log(file)}
-                                        // showUploadList={false}
-                                        previewFile={async (file) => {
-                                            try {
-                                                const fileURL = URL.createObjectURL(file);
-                                                if (file.type === 'video/mp4') {
-                                                    // const img = document.querySelector('#add-adv-image');
-                                                    // const video = document.createElement('video');
-                                                    const video = document.querySelector('#add-adv-video');
-                                                    // video.id = 'add-adv-video';
-                                                    video.src = fileURL;
-                                                    // // const canvas = document.createElement('canvas');
-                                                    // const canvas = document.querySelector('#add-adv-canvas');
-                                                    // // canvas.id = 'add-adv-canvas';
-                                                    // // const image = canvas.toBlob();
-                                                    // canvas.getContext('2d').getImageData(0, 0, 100, 50);
-                                                    // canvas.toBlob((blob) => URL.createObjectURL(blob))
-                                                    // const blob = await getImage({ video, width: 500, height: 500 });
-                                                    // const fileReader = (file) => {
-                                                    //     return new Promise((resolve, reject) => {
-                                                    //         let IMG;
-                                                    //         const fr = new FileReader();
-                                                    //         debugger;
-                                                    //         fr.onload = function () {
-                                                    //             debugger
-                                                    //             IMG = fr.result;
-                                                    //             resolve(IMG);
-                                                    //         };
-                                                    //         fr.onerror = (error) => reject(error);
-                                                    //         fr.readAsDataURL(file);
-                                                    //         // const preview = URL.createObjectURL(file);
-                                                    //         // img.src = preview;
-                                                    //     });
-                                                    // };
-                                                    // const preview = await fileReader(blob);
-                                                    // debugger
-                                                    // img.src = preview;
-                                                    return Promise.resolve(fileURL);
-                                                }
-                                                return Promise.resolve(fileURL);
-                                            } catch (error) {
-                                                return Promise.reject(`Preview creation finished with error: ${error}`);
-                                            }
-                                        }}
+                                        previewFile={this.previewImage}
                                         onChange={this.handleDrop}
                                         onRemove={this.handleRemove}
-                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
+                                        isDraggerShown={!isUploadedToFileSystem}
+                                        // style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
                                         {...props}
                                     >
                                         <p className="ant-upload-drag-icon">
                                             <InboxOutlined />
                                         </p>
                                         <p className="ant-upload-text">Нажмите или перетащите файл в эту область</p>
-                                    </Upload.Dragger>
-                                    <img alt="" id="add-adv-image" />
-                                    {/* <video id="add-adv-video" style={{ visibility: 'hidden', height: 0 }} /> */}
-                                    {/* <canvas id="add-adv-canvas" /> */}
-                                    {/* <button onClick={this.capture}>Capture</button> */}
+                                    </AntDragger>
                                 </>
                             )}
                         />
