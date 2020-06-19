@@ -12,6 +12,7 @@ import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
 import Loader from '../common/Loader';
+import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
 
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
@@ -47,7 +48,7 @@ const RootRouter = () => {
     return (
         <Switch>
             <Route exact path="/null" render={() => <Redirect to={ROOT_ROUTES.AD_MANAGER} />} />
-            <Route path={['/', ROOT_ROUTES.AD_REGISTRATION]} component={LoginLayoutRouter} />
+            <Route exact path={['/', ROOT_ROUTES.AD_REGISTRATION, ADV_REGISTER_ROUTES.CONFIRM]} component={LoginLayoutRouter} />
             <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
