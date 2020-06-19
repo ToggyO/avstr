@@ -198,21 +198,21 @@ class NewAdvertisement extends Component {
         return Math.ceil((loaded / total) * 100);
     };
 
-    isShowBtnLoader = () => {
-        let result;
-        const { loading, fileStatus } = this.props;
-        if (fileStatus === 'Error') {
-            result = false;
-        } else {
-            result = loading;
-        }
-        return result;
-    };
+    // isShowBtnLoader = () => {
+    //     let result;
+    //     const { loading, fileStatus } = this.props;
+    //     if (fileStatus === 'Error') {
+    //         result = false;
+    //     } else {
+    //         result = loading;
+    //     }
+    //     return result;
+    // };
 
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
-        const { fileStatus } = this.props;
-
+        const { fileStatus, loading } = this.props;
+        console.log(loading);
         return (
             <Row justify="center">
                 <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
@@ -321,7 +321,7 @@ class NewAdvertisement extends Component {
                                             type="primary"
                                             htmlType="submit"
                                             className={styles.saveBtn}
-                                            loading={this.isShowBtnLoader()}
+                                            loading={loading}
                                             {...props}
                                         >
                                             Сохранить
