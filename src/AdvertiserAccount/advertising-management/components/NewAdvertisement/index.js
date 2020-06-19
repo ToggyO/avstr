@@ -67,7 +67,13 @@ class NewAdvertisement extends Component {
 
     componentDidUpdate(prevProps) {
         const { fileStatus } = this.props;
-        if (prevProps.fileStatus !== fileStatus) this.handleSuccessUploading();
+        if (prevProps.fileStatus !== fileStatus) {
+            if (fileStatus === 'Success') {
+                this.handleSuccessUploading();
+            } else if (fileStatus === 'Error') {
+                this.handleErrorUploading();
+            }
+        }
     }
 
     componentWillUnmount() {
@@ -81,11 +87,14 @@ class NewAdvertisement extends Component {
     }
 
     handleSuccessUploading = () => {
-        const { fileStatus, changeFileStatus } = this.props;
-        if (fileStatus !== 'Success') return;
+        const { changeFileStatus } = this.props;
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
         history.push(ROOT_ROUTES.AD_MANAGER);
+    };
+
+    handleErrorUploading = () => {
+        message.error('Что то пошло не так');
     };
 
     handleSaveClick = (values) => {
@@ -93,7 +102,7 @@ class NewAdvertisement extends Component {
         const { controlledFileList } = this.state;
 
         const formattedValues = {
-            advertiserId: values.advertiserId,
+            advertiserEmail: values.advertiserEmail,
             name: values.name,
             startDate: values.rangeDate[0].toISOString(),
             endDate: values.rangeDate[1].toISOString(),
@@ -191,10 +200,21 @@ class NewAdvertisement extends Component {
         return Math.ceil((loaded / total) * 100);
     };
 
+    // isShowBtnLoader = () => {
+    //     let result;
+    //     const { loading, fileStatus } = this.props;
+    //     if (fileStatus === 'Error') {
+    //         result = false;
+    //     } else {
+    //         result = loading;
+    //     }
+    //     return result;
+    // };
+
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
         const { fileStatus, loading } = this.props;
-
+        console.log(loading);
         return (
             <Row justify="center">
                 <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
@@ -209,7 +229,7 @@ class NewAdvertisement extends Component {
                         wrappedRef={this.formRef}
                         {...this.formItemLayout}
                     >
-                        <FormItemWrapper type="text-input" name="advertiserId" />
+                        <FormItemWrapper type="text-input" name="advertiserEmail" />
                         <FormItemWrapper type="text-input" name="name" />
                         <FormItemWrapper
                             type="range-picker"

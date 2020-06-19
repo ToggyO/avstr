@@ -1,11 +1,11 @@
 import { compareDateWithToday } from 'Core/utils/formatDate';
 
 const formOptions = {
-    advertiserId: {
+    advertiserEmail: {
         label: 'Рекламодатель',
         props: {
             size: 'large',
-            placeholder: 'Например, почта рекламодателя',
+            placeholder: 'Почта рекламодателя',
         },
         rules: [
             {

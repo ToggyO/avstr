@@ -14,7 +14,6 @@ import { ReactComponent as IconArrowUp } from './iconTypes/arrow-up.svg';
 import { ReactComponent as IconArrowUpMini } from './iconTypes/arrow-up-mini.svg';
 import { ReactComponent as IconAttention } from './iconTypes/attention.svg';
 import { ReactComponent as IconBan } from './iconTypes/ban.svg';
-import { ReactComponent as IconCar } from './iconTypes/car.svg';
 import { ReactComponent as IconCheckMark } from './iconTypes/check-mark.svg';
 import { ReactComponent as IconCloseCross } from './iconTypes/close-cross.svg';
 import { ReactComponent as IconCollapse } from './iconTypes/collapse.svg';
@@ -50,7 +49,6 @@ const iconsTypes = {
     arrowUpMini: IconArrowUpMini,
     attention: IconAttention,
     ban: IconBan,
-    car: IconCar,
     checkMark: IconCheckMark,
     closeCross: IconCloseCross,
     collapse: IconCollapse,

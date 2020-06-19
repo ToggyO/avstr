@@ -21,7 +21,7 @@ function* handleUploadFile({ data }) {
                 }
             });
 
-        const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/promotions`, 'json');
+        const configuredRequest = yield call(api.configurePostFile, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/admin/promotions`, 'json');
 
         const channel = yield call(createUploadChanel, configuredRequest, formData);
         yield put(saveXhr(configuredRequest));
@@ -52,6 +52,9 @@ function* handleUploadFile({ data }) {
         }
     } catch ({ type }) {
         switch (type) {
+            case 'BadRequest':
+                yield put(changeUploadStatus('Error'));
+                break;
             case 'AuthorizationError':
                 window.location = '/';
                 break;
@@ -59,7 +62,7 @@ function* handleUploadFile({ data }) {
                 alert('На сервере произошла ошибка.');
                 break;
             default:
-                break;
+                yield put(changeUploadStatus('Error'));
         }
     }
 }

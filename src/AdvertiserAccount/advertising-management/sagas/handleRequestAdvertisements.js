@@ -8,7 +8,7 @@ const { REACT_APP_ADVERTISER_API } = process.env;
 
 function* handleRequestAdvertisements() {
     try {
-        const { content } = yield call(api.get, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/promotions`);
+        const { content } = yield call(api.get, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/admin/promotions`);
         yield put(receiveAdvertisements(content));
     } catch ({ type }) {
         switch (type) {
