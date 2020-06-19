@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import api from 'Core/api';
+import history from 'Core/history';
 import API_URLS_ADV_REGISTRATION from '../constants/api-urls';
 import * as actions from '../actions';
 
@@ -22,15 +23,25 @@ function* handleRegisterAdvertiser({ data }) {
                         data: 'Рекламодатель с такой почтой уже существует',
                     });
                 } else {
-                    throw err;
+                    yield put({
+                        type: actions.REGISTER_ADVERTISER_ERROR,
+                        data: 'BadRequest',
+                    });
                 }
                 break;
             case 'AuthorizationError':
+                alert('Ошибка авторизации.');
+                history.push('/');
                 break;
             case 'ServerError':
+                alert('На сервере произошла ошибка.');
+                history.push('/');
                 break;
             default:
-                throw err;
+                yield put({
+                    type: actions.REGISTER_ADVERTISER_ERROR,
+                    data: 'Default Error',
+                });
         }
     }
 }
