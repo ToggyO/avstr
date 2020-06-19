@@ -45,7 +45,6 @@
     "eslint-plugin-react": "^7.19.0",
     "husky": "^4.2.3",
     "lint-staged": "^10.0.8",
-    "react-app-rewire-aliases": "^0.2.0",
     "stylelint": "^13.2.1",
     "stylelint-config-sh": "git+https://git@gitlab.smarthead.ru/frontend-public/stylelint-config-sh.git",
     "stylelint-order": "^4.0.0",

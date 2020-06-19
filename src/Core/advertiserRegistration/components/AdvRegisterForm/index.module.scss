@@ -1,0 +1,32 @@
+@import 'variables';
+
+.container {
+    @include max-w-346;
+    @include form-base-container;
+
+    min-height: 560px;
+    text-align: center;
+}
+
+.headlines {
+    text-align: center;
+
+    h1 {
+        @include headlineH1bold20;
+
+        padding-bottom: 8px;
+    }
+}
+
+.submit {
+    width: 100%;
+}
+
+.description {
+    text-align: center;
+}
+
+.info {
+    padding-top: 76px;
+    padding-bottom: 8px;
+}
