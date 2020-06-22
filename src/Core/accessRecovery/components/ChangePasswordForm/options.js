@@ -1,4 +1,5 @@
 import { validatePasswordBySteps } from 'Core/ant/helpers';
+import { VALIDATION_MESSAGES } from 'Core/constants';
 
 const formOptions = {
     password: {
@@ -9,7 +10,7 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: 'Поле обязательно для заполнения',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
             (form) => ({
                 validator: (_, value) => {
@@ -38,10 +39,10 @@ const formOptions = {
             },
             ({ getFieldValue }) => ({
                 validator: (_, value) => {
-                    if (!value) return Promise.reject('Поле обязательно для заполнения');
+                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
 
                     if (value !== getFieldValue('password')) {
-                        return Promise.reject('Пароли не совпадают');
+                        return Promise.reject(VALIDATION_MESSAGES.PASSWORD_NOT_CONFIRMED);
                     }
 
                     return Promise.resolve();
