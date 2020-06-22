@@ -21,7 +21,7 @@ const BasicHeader = ({
             {React.createElement(
                 siderState.isCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
-                    className: styles.sider_trigger,
+                    className: styles.siderTrigger,
                     onClick: () => setSiderState((prevState) => ({
                         ...prevState,
                         isCollapsed: !siderState.isCollapsed,
@@ -30,7 +30,7 @@ const BasicHeader = ({
             )}
             <div className={styles.header__container__dropdown}>
                 <AntDropdown items={dropdownItems}>
-                    <div className={styles.dropdown_button}>
+                    <div className={styles.dropdownButton}>
                         {userName}
                     </div>
                 </AntDropdown>

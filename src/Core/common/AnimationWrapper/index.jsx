@@ -48,7 +48,7 @@ const AnimationWrapper = ({
 };
 
 AnimationWrapper.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     show: PropTypes.bool.isRequired,
     showAnimName: PropTypes.string,
     hideAnimName: PropTypes.string,

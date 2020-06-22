@@ -53,7 +53,7 @@ const LoginLayout = ({ children, location }) => {
                     </div>
                 </Header>
                 <Content className={styles.content}>
-                    <div className={styles.children_container}>
+                    <div className={styles.childrenContainer}>
                         {children}
                     </div>
                 </Content>
@@ -63,7 +63,7 @@ const LoginLayout = ({ children, location }) => {
 };
 
 LoginLayout.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     location: PropTypes.shape({
         search: PropTypes.string,
         [PropTypes.string]: PropTypes.any,

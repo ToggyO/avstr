@@ -2,12 +2,12 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-    Button, Col, Row, Upload, Progress, message, Modal,
+    Button, Col, Row, Progress, message, Modal,
 } from 'antd';
 import { InboxOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
 import history from 'Core/history';
-import { StandardForm, FormItemWrapper } from 'Core/ant';
+import { StandardForm, FormItemWrapper, AntDragger } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
 import options from './options';
 
@@ -179,10 +179,12 @@ class NewAdvertisement extends Component {
     handleRemove = (file) => {
         const { controlledFileList } = this.state;
         const filteredList = controlledFileList.filter(() => !file.uid);
+
         this.setState((prevState) => ({
             ...prevState,
             controlledFileList: filteredList,
         }));
+        this.toggleShowDragger();
     };
 
     toggleShowDragger = () => {
@@ -212,11 +214,11 @@ class NewAdvertisement extends Component {
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
         const { fileStatus, loading } = this.props;
-        console.log(loading);
+
         return (
             <Row justify="center">
                 <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
-                    <div className={styles.progress_container}>
+                    <div className={styles.progressContainer}>
                         {fileStatus && (
                             <Progress percent={this.transformToPercent(fileStatus)} />
                         )}
@@ -233,7 +235,7 @@ class NewAdvertisement extends Component {
                             type="range-picker"
                             name="rangeDate"
                             propsToChild={{
-                                className: styles.input__range_picker,
+                                className: styles.input__rangePicker,
                             }}
                         />
                         <FormItemWrapper
@@ -266,29 +268,21 @@ class NewAdvertisement extends Component {
                             ]}
                             component={(props) => (
                                 <>
-                                    <p
-                                        className={styles.drop_description}
-                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
-                                    >
-                                        Максимальный размер файла - 50 МБ, фото - jpg, jpeg, png,
-                                        разрешение экрана - 1920×1080 px
-                                    </p>
-                                    <Upload.Dragger
+                                    <AntDragger
                                         accept={this.acceptedMediaTypes.join(', ')}
                                         fileList={controlledFileList}
                                         listType="picture"
-                                        showUploadList={{ showPreviewIcon: false }}
-                                        beforeUpload={() => false}
+                                        previewFile={this.previewImage}
                                         onChange={this.handleDrop}
                                         onRemove={this.handleRemove}
-                                        style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
+                                        isDraggerShown={!isUploadedToFileSystem}
                                         {...props}
                                     >
                                         <p className="ant-upload-drag-icon">
                                             <InboxOutlined />
                                         </p>
                                         <p className="ant-upload-text">Нажмите или перетащите файл в эту область</p>
-                                    </Upload.Dragger>
+                                    </AntDragger>
                                 </>
                             )}
                         />
@@ -298,7 +292,7 @@ class NewAdvertisement extends Component {
                                 xs={{ offset: 0 }}
                                 sm={{ offset: 8 }}
                                 md={{ offset: 6 }}
-                                className={styles.buttons_block}
+                                className={styles.buttonsBlock}
                             >
                                 <FormItemWrapper
                                     type="custom-component"

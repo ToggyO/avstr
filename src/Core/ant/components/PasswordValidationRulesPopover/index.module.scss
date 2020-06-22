@@ -1,11 +1,11 @@
 @import 'variables';
 
-.help_container {
+.helpContainer {
     display: flex;
     flex-direction: column;
 }
 
-.popover_title {
+.popoverTitle {
     @media screen and (max-width: $ant-breakpoint-lg) {
         margin-bottom: 0 !important;
         font-size: 12px;
@@ -16,7 +16,7 @@
     }
 }
 
-.popover_badge {
+.popoverBadge {
     display: flex;
     justify-content: flex-start;
     align-items: center;

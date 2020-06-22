@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 
 const AccessRecoveryPage = () => (
     <AccessRecoveryLayout>
-        <div className={styles.routes_wrapper}>
+        <div className={styles.routesWrapper}>
             <AccessRecoveryRouter />
         </div>
     </AccessRecoveryLayout>

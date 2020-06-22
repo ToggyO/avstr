@@ -1,0 +1,43 @@
+@import 'variables';
+
+.uploadCard {
+    display: flex;
+    height: 66px;
+    padding: 8px;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+
+    &__image {
+        position: relative;
+        width: 10%;
+        height: 48px;
+    }
+
+    &__fileName {
+        display: inline-block;
+        overflow: hidden;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        max-width: 100%;
+        margin: 0 0 0 8px;
+        padding-right: 16px;
+        padding-left: 8px;
+        line-height: 44px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        -webkit-transition: all 0.3s;
+        transition: all 0.3s;
+
+        @media screen and (max-width: $ant-breakpoint-sm) {
+            padding-left: 48px;
+        }
+    }
+
+    &__remove {
+        position: absolute;
+        top: 30%;
+        right: 16px;
+        background-color: white;
+        cursor: pointer;
+    }
+}

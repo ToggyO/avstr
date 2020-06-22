@@ -40,7 +40,7 @@ const AuthProvider = ({
 };
 
 AuthProvider.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     isAuthorized: PropTypes.bool.isRequired,
     setAuthorizedFunc: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,

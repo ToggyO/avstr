@@ -30,11 +30,8 @@
 
     padding: 54px 24px 70px 24px;
     background-color: $gray-bg;
-    //height: 100vh;
 }
 
-.children_container {
+.childrenContainer {
     @include max-w-1440;
-
-    //height: 100%;
 }

@@ -4,10 +4,6 @@
     margin-bottom: 24px;
 }
 
-.input {
-    margin-bottom: 24px;
-}
-
 .description {
     margin-bottom: 8px;
     color: $secondary-main-300;
@@ -35,28 +31,26 @@
     margin-right: 8px;
 }
 
-.input__number {
-    width: 100%;
-    max-width: 170px;
+.input {
+    &__number {
+        width: 100%;
+        max-width: 170px;
 
-    @media screen and (max-width: $ant-breakpoint-lg) {
-        max-width: 1000px;
+        @media screen and (max-width: $ant-breakpoint-lg) {
+            max-width: 1000px;
+        }
+    }
+
+    &__rangePicker {
+        width: 100%;
     }
 }
 
-.input__range_picker {
-    width: 100%;
-}
-
-.buttons_block {
+.buttonsBlock {
     display: flex;
 }
 
-.progress_container {
+.progressContainer {
     height: 22px;
     margin-bottom: 22px;
-}
-
-.drop_description {
-    margin-bottom: 0;
 }
