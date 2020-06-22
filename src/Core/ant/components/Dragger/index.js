@@ -111,7 +111,7 @@ class AntDragger extends React.Component {
                         restAnimationProps={{ duration: '0.2s' }}
                     >
                         <p
-                            className={styles.drop_description}
+                            className={styles.dropDescription}
                         >
                             Максимальный размер файла - 50 МБ, фото - jpg, jpeg, png,
                             разрешение экрана - 1920×1080 px
@@ -148,7 +148,7 @@ class AntDragger extends React.Component {
 }
 
 AntDragger.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+    children: PropTypes.node,
     onChange: PropTypes.func,
     onRemove: PropTypes.func,
     isDraggerShown: PropTypes.bool,

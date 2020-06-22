@@ -7,7 +7,7 @@ import { BREAKPOINTS } from '../../constants';
 
 import styles from './index.module.scss';
 
-const Text = ({ desc }) => <p className={styles.popover_title}>{desc}</p>;
+const Text = ({ desc }) => <p className={styles.popoverTitle}>{desc}</p>;
 
 Text.propTypes = {
     desc: PropTypes.string,
@@ -18,33 +18,33 @@ Text.defaultProps = {
 };
 
 const RenderValidationStatus = () => (
-    <div className={styles.help_container}>
+    <div className={styles.helpContainer}>
         <Badge
             status="default"
             text={<Text desc="8 и более символов" />}
-            className={styles.popover_badge}
+            className={styles.popoverBadge}
         />
         <Badge
             status="default"
             text={<Text desc="прописные латинские буквы от A до Z" />}
-            className={styles.popover_badge}
+            className={styles.popoverBadge}
         />
         <Badge
             status="default"
             text={<Text desc="строчные латинские буквы от a до z" />}
-            className={styles.popover_badge}
+            className={styles.popoverBadge}
         />
         <Badge
             status="default"
             text={<Text desc="цифры от 0 до 9" />}
-            className={styles.popover_badge}
+            className={styles.popoverBadge}
         />
         <Badge
             status="default"
             text={(
                 <Text desc={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'} />
             )}
-            className={styles.popover_badge}
+            className={styles.popoverBadge}
         />
     </div>
 );
@@ -56,7 +56,7 @@ const PasswordValidationRulesPopover = ({ visible }) => {
         <Popover
             visible={visible}
             content={RenderValidationStatus}
-            title={<p className={styles.popover_title}>Надежный пароль</p>}
+            title={<p className={styles.popoverTitle}>Надежный пароль</p>}
             trigger="hover"
             placement={isMobile ? 'top' : 'right'}
             overlayStyle={{

@@ -56,7 +56,7 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
                     </div>
                 </Header>
                 <Content className={styles.content}>
-                    <div className={styles.children_container}>
+                    <div className={styles.childrenContainer}>
                         {children}
                     </div>
                 </Content>
@@ -66,7 +66,7 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
 };
 
 AccessRecoveryLayout.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     loading: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     errorsFromBackend: PropTypes.array,

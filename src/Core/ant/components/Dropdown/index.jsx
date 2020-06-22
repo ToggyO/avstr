@@ -44,7 +44,7 @@ const AntDropdown = ({
             onVisibleChange={() => setState(!state)}
             {...rest}
         >
-            <div className={styles.trigger_container} style={triggerContainerStyle}>
+            <div className={styles.triggerContainer} style={triggerContainerStyle}>
                 {children || <Button type="link">Show menu</Button>}
                 {Icon
                     ? (
@@ -71,7 +71,7 @@ const AntDropdown = ({
 };
 
 AntDropdown.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             href: PropTypes.string,

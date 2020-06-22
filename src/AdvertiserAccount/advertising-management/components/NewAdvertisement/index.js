@@ -214,11 +214,11 @@ class NewAdvertisement extends Component {
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
         const { fileStatus, loading } = this.props;
-        console.log(loading);
+
         return (
             <Row justify="center">
                 <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
-                    <div className={styles.progress_container}>
+                    <div className={styles.progressContainer}>
                         {fileStatus && (
                             <Progress percent={this.transformToPercent(fileStatus)} />
                         )}
@@ -235,7 +235,7 @@ class NewAdvertisement extends Component {
                             type="range-picker"
                             name="rangeDate"
                             propsToChild={{
-                                className: styles.input__range_picker,
+                                className: styles.input__rangePicker,
                             }}
                         />
                         <FormItemWrapper
@@ -272,12 +272,10 @@ class NewAdvertisement extends Component {
                                         accept={this.acceptedMediaTypes.join(', ')}
                                         fileList={controlledFileList}
                                         listType="picture"
-                                        isImageUrl={(file) => console.log(file)}
                                         previewFile={this.previewImage}
                                         onChange={this.handleDrop}
                                         onRemove={this.handleRemove}
                                         isDraggerShown={!isUploadedToFileSystem}
-                                        // style={{ display: isUploadedToFileSystem ? 'none' : 'block' }}
                                         {...props}
                                     >
                                         <p className="ant-upload-drag-icon">
@@ -294,7 +292,7 @@ class NewAdvertisement extends Component {
                                 xs={{ offset: 0 }}
                                 sm={{ offset: 8 }}
                                 md={{ offset: 6 }}
-                                className={styles.buttons_block}
+                                className={styles.buttonsBlock}
                             >
                                 <FormItemWrapper
                                     type="custom-component"

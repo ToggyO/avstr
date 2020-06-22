@@ -50,7 +50,7 @@ const LoginLayout = ({ children }) => {
                     </div>
                 </Header>
                 <Content className={styles.content}>
-                    <div className={styles.children_container}>
+                    <div className={styles.childrenContainer}>
                         {children}
                     </div>
                 </Content>
@@ -60,7 +60,7 @@ const LoginLayout = ({ children }) => {
 };
 
 LoginLayout.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
 };
 
 LoginLayout.defaultProps = {

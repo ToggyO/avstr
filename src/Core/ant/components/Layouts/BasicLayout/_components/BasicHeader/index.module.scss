@@ -20,13 +20,13 @@
     margin-left: 40px;
 }
 
-.dropdown_button {
+.dropdownButton {
     color: $dark-gray-text;
 
     @include flex-centered;
 }
 
-.sider_trigger {
+.siderTrigger {
     svg {
         width: 19px;
         height: 17px;

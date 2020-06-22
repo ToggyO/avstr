@@ -124,7 +124,7 @@ FormItemWrapper.propTypes = {
     propsToChild: PropTypes.shape({
         [PropTypes.string]: PropTypes.any,
     }),
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+    children: PropTypes.node,
 };
 
 FormItemWrapper.defaultProps = {

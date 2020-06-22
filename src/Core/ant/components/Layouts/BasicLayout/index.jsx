@@ -77,7 +77,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
                         userName={userName}
                     />
                     <Content className={styles.content}>
-                        <div className={styles.children_container}>
+                        <div className={styles.childrenContainer}>
                             {children}
                         </div>
                     </Content>
@@ -88,7 +88,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 };
 
 BasicLayout.propTypes = {
-    children: PropTypes.element,
+    children: PropTypes.node,
     location: PropTypes.shape({
         pathname: PropTypes.string.isRequired,
     }),

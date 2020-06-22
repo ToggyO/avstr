@@ -6,21 +6,21 @@ import styles from './index.module.scss';
 
 const UploadCard = ({ children, fileName, onRemove }) => (
     <div className={styles.upload_card}>
-        <div className={styles.upload_card__image}>
+        <div className={styles.uploadCard__image}>
             {children}
         </div>
-        <div className={styles.upload_card__fileName}>
+        <div className={styles.uploadCard__fileName}>
             {fileName}
         </div>
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events */}
-        <span onClick={onRemove} className={styles.upload_card__remove}>
+        <span onClick={onRemove} className={styles.uploadCard__remove}>
             <DeleteOutlined />
         </span>
     </div>
 );
 
 UploadCard.propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+    children: PropTypes.node,
     fileName: PropTypes.string,
     onRemove: PropTypes.func,
 };
