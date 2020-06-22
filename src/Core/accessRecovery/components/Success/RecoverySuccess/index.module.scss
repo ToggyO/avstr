@@ -11,8 +11,16 @@
 
 .title {
     margin-bottom: 8px;
+
+    @media screen and (max-width: $ant-breakpoint-sm) {
+        font-size: 14px;
+    }
 }
 
 .subtitle {
     margin-top: 15px !important;
+
+    @media screen and (max-width: $ant-breakpoint-sm) {
+        font-size: 12px;
+    }
 }

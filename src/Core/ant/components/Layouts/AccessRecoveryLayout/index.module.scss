@@ -5,12 +5,19 @@
 
     box-shadow: $shadow-header;
 
+    @media screen and (max-width: $ant-breakpoint-sm) {
+        padding: 0 24px !important;
+    }
+
     &__container {
         @include flex-space-between;
         @include max-w-1440;
 
         padding: 0 50px;
-        //height: 100%;
+
+        @media screen and (max-width: $ant-breakpoint-sm) {
+            padding: 0;
+        }
     }
 
     &__logo {
