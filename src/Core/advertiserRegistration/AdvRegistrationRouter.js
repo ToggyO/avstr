@@ -5,7 +5,6 @@ import history from 'Core/history';
 import { ROOT_ROUTES } from '../constants';
 import { ADV_REGISTER_ROUTES } from './constants';
 
-
 import AdvRegisterFormContainer from './containers/AdvRegisterFormContainer';
 import AdvRegisterConfirmContainer from './containers/AdvRegisterConfirmContainer';
 

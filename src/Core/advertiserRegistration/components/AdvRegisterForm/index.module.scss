@@ -4,29 +4,38 @@
     @include max-w-346;
     @include form-base-container;
 
+    @media screen and (max-width: $ant-breakpoint-sm) {
+        margin: 24px;
+    }
+
     min-height: 560px;
-    text-align: center;
-}
 
-.headlines {
-    text-align: center;
+    &__result {
+        text-align: center;
+    }
 
-    h1 {
-        @include headlineH1bold20;
+    .headlines {
+        text-align: center;
 
+        h1 {
+            @include headlineH1bold20;
+
+            padding-bottom: 8px;
+        }
+    }
+
+    .submit {
+        width: 100%;
+    }
+
+    .description {
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .info {
+        padding: 0;
+        padding-top: 107px;
         padding-bottom: 8px;
     }
-}
-
-.submit {
-    width: 100%;
-}
-
-.description {
-    text-align: center;
-}
-
-.info {
-    padding-top: 76px;
-    padding-bottom: 8px;
 }

@@ -10,8 +10,20 @@
         margin-bottom: 0 !important;
         font-size: 12px;
     }
+
+    @media screen and (max-width: 458px) {
+        max-width: 240px;
+    }
 }
 
 .popoverBadge {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &:last-child > span:first-child {
+        @media screen and (max-width: 458px) {
+            margin-top: -15px;
+        }
+    }
 }

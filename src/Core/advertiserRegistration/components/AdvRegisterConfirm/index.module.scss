@@ -6,12 +6,21 @@
 
     min-height: 560px;
     text-align: center;
-}
 
-.success {
-    padding-top: 118px;
-}
+    .title {
+        padding-bottom: 8px;
+    }
 
-.error {
-    padding-top: 76px;
+    .result {
+        padding: 0;
+        padding-bottom: 34px;
+    }
+
+    .success {
+        padding-top: 118px;
+    }
+
+    .error {
+        padding-top: 107px;
+    }
 }

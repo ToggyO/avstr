@@ -24,7 +24,7 @@ const formOptions = {
                         return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
                     }
                     if (!validation.isNameValid(value)) {
-                        return Promise.reject('Имя не соответствует требованиям');
+                        return Promise.reject('Введите корректное имя');
                     }
 
                     return Promise.resolve();
@@ -50,7 +50,7 @@ const formOptions = {
                         return Promise.reject(VALIDATION_MESSAGES.LESS_THEN_2SYMB);
                     }
                     if (!validation.isNameValid(value)) {
-                        return Promise.reject('Фамилия не соответствует требованиям');
+                        return Promise.reject('Введите корректную фамилию');
                     }
 
                     return Promise.resolve();

@@ -7,14 +7,18 @@ import { BREAKPOINTS } from '../../constants';
 
 import styles from './index.module.scss';
 
-const Text = ({ desc }) => <p className={styles.popoverTitle}>{desc}</p>;
+const Text = ({ desc, style }) => <p className={styles.popoverTitle} style={style}>{desc}</p>;
 
 Text.propTypes = {
     desc: PropTypes.string,
+    style: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
 };
 
 Text.defaultProps = {
     desc: '',
+    style: {},
 };
 
 const RenderValidationStatus = () => (
@@ -42,7 +46,9 @@ const RenderValidationStatus = () => (
         <Badge
             status="default"
             text={(
-                <Text desc={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'} />
+                <Text
+                    desc={'знаки пунктуации ! " # $ % & \' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _` {|} ~'}
+                />
             )}
             className={styles.popoverBadge}
         />

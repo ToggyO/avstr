@@ -3,6 +3,7 @@ const VALIDATION_MESSAGES = {
     LESS_THEN_2SYMB: 'Необходимо минимум 2 символа',
     INCORRECT_EMAIL: 'Введите корректный email',
     EASY_PASSWORD: 'Пароль не соответствует требованиям',
+    PASSWORD_NOT_CONFIRMED: 'Пароль не подтвержден',
 };
 
 export default VALIDATION_MESSAGES;

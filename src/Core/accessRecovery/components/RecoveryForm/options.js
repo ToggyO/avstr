@@ -1,3 +1,5 @@
+import { VALIDATION_MESSAGES } from 'Core/constants';
+
 const formOptions = {
     email: {
         props: {
@@ -7,11 +9,11 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: 'Поле обязательно для заполнения',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
             {
                 pattern: /^[!#$%&'*+-/=?^_{|}~.\w]+@\w+\.\w+$/,
-                message: 'Невалидный адрес эелектронной почты',
+                message: VALIDATION_MESSAGES.INCORRECT_EMAIL,
             },
         ],
     },
