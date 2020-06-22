@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './index.module.scss';
 
 const UploadCard = ({ children, fileName, onRemove }) => (
-    <div className={styles.upload_card}>
+    <div className={styles.uploadCard}>
         <div className={styles.uploadCard__image}>
             {children}
         </div>
