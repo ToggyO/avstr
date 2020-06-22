@@ -2,14 +2,14 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 
 const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
 const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
 
 
 const AdvertiserAccountRouter = ({ match: { path } }) => (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<PageLoading />}>
         <Switch>
             <Route
                 exact

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 import userManager from 'Core/authorization/utils/userManager';
 
 // import { logout } from '../../action-creators';
@@ -24,7 +24,7 @@ class CallbackPage extends Component {
 
     render() {
         return (
-            <Loader />
+            <PageLoading />
         );
     }
 }

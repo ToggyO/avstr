@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 
 const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRouter'));
 const NewDevicePage = lazy(() => import('./devices-managment/containers/NewDevicePage'));
@@ -10,7 +10,7 @@ const DeviceMonitoringPage = lazy(() => import('./devices-monitoring/containers/
 
 
 const DevicesRouter = ({ match: { path } }) => (
-    <Suspense fallback={<Loader />}>
+    <Suspense fallback={<PageLoading />}>
         <Switch>
             <Route
                 path={`${path}/main`}
