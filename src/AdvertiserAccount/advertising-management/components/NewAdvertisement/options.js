@@ -1,4 +1,5 @@
 import { compareDateWithToday } from 'Core/utils/formatDate';
+import { VALIDATION_MESSAGES } from 'Core/constants';
 
 const formOptions = {
     advertiserEmail: {
@@ -10,7 +11,7 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: 'Выберите рекламодателя',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
         ],
     },
@@ -22,7 +23,7 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: 'Введите название объявления',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
         ],
     },
@@ -51,7 +52,7 @@ const formOptions = {
         rules: [
             {
                 required: true,
-                message: 'Введите частоту показа',
+                message: VALIDATION_MESSAGES.REQUIRED,
             },
         ],
     },
