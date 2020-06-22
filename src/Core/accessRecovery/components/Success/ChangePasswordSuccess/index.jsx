@@ -8,7 +8,11 @@ const ChangePasswordSuccess = () => (
     <div className={styles.wrapper}>
         <Result
             status="success"
-            title="Ваш пароль успешно изменен"
+            title={(
+                <p className={styles.title}>
+                    Ваш пароль успешно изменен
+                </p>
+            )}
             extra={[
                 <Button
                     type="primary"

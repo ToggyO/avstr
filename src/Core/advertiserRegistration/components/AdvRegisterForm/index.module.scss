@@ -4,6 +4,10 @@
     @include max-w-346;
     @include form-base-container;
 
+    @media screen and (max-width: $ant-breakpoint-sm) {
+        margin: 24px;
+    }
+
     min-height: 560px;
 
     &__result {
