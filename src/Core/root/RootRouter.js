@@ -16,9 +16,9 @@ import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
 
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
-const AdvertiserAccountRouter = lazy(() => import('AdvertiserAccount/AdvertiserAccountRouter'));
+const AdvertisingManagementRouter = lazy(() => import('AdvertiserAccount/advertising-management/AdvertisingManagementRouter'));
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));
-const AdvertiserRouter = lazy(() => import('Advertiser/AdvertiserRouter'));
+const AdvertiserPage = lazy(() => import('AdvertiserAccount/advertiser/AdvertiserPage'));
 
 const RootRouter = () => {
     const {
@@ -58,7 +58,7 @@ const RootRouter = () => {
                 <Suspense fallback={<Loader />}>
                     <AuthRoute
                         path={ROOT_ROUTES.AD_MANAGER}
-                        component={AdvertiserAccountRouter}
+                        component={AdvertisingManagementRouter}
                     />
 
                     <AuthRoute
@@ -68,7 +68,7 @@ const RootRouter = () => {
 
                     <AuthRoute
                         path={ROOT_ROUTES.ADVERTISER}
-                        component={AdvertiserRouter}
+                        component={AdvertiserPage}
                     />
 
                     <AuthRoute
