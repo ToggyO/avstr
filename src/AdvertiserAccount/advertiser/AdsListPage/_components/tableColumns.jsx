@@ -10,7 +10,7 @@ const getColumns = () => [
         title: 'Загружено',
         dataIndex: 'creationTime',
         // defaultSortOrder: 'descend',
-        align: 'center',
+        align: 'left',
         ellipsis: true,
         render: (creationTime) => formatDate(creationTime),
     },
@@ -32,7 +32,7 @@ const getColumns = () => [
     },
     {
         title: 'Статус',
-        dataIndex: 'state',
+        dataIndex: 'status',
         align: 'center',
         ellipsis: true,
         // filters: [
@@ -80,7 +80,7 @@ const getColumns = () => [
     },
     {
         title: 'Частота (в сутки)',
-        dataIndex: '',
+        dataIndex: 'frequency',
         align: 'center',
         // ellipsis: true,
         // defaultSortOrder: 'descend',

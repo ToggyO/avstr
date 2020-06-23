@@ -1,6 +1,7 @@
+import API_URLS_ADVERTISER from './api-urls';
 import ADVERTISER_ROUTES from './routes';
 
 export {
-    // eslint-disable-next-line import/prefer-default-export
+    API_URLS_ADVERTISER,
     ADVERTISER_ROUTES,
 };

@@ -1,0 +1,6 @@
+const DEFAULT_PAGINATION_PARAMS = {
+    PAGE: 1,
+    SIZE: 10,
+};
+
+export default DEFAULT_PAGINATION_PARAMS;

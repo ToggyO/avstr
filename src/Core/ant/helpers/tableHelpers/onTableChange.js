@@ -26,7 +26,7 @@ const onTableChange = (
     // pagination
     const { current, pageSize } = paginationParams;
     params.page = current;
-    params.pageSize = pageSize;
+    params.size = pageSize;
 
     // filters
 

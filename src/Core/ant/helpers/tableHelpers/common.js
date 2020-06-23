@@ -1,0 +1,12 @@
+import { DEFAULT_PAGINATION_PARAMS } from 'Core/constants';
+
+/**
+ * Функция для создания объекта пагинации для запросов к апи
+ * @param {{ page: string | number, size: string | number}} queries - объект с параметрами
+ * @returns {{ Page: string | number, Size: string | number}} - преобразованный безопасный объект с параметрами
+ */
+// eslint-disable-next-line import/prefer-default-export
+export const createPaginationQuery = (queries) => ({
+    Page: parseInt(queries.page, 10) || DEFAULT_PAGINATION_PARAMS.PAGE,
+    Size: parseInt(queries.size, 10) || DEFAULT_PAGINATION_PARAMS.SIZE,
+});
