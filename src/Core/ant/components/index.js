@@ -5,6 +5,7 @@ import PasswordValidationRulesPopover from './PasswordValidationRulesPopover';
 
 export * from './Layouts';
 export { StandardForm, StandardFormContext } from './FormComponents/ContextForm';
+export * from './Table';
 
 export {
     AntDragger,

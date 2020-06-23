@@ -1,3 +1,8 @@
+import React from 'react';
+import { Empty } from 'antd';
+
+import { TableSkeleton } from '../components/Table/_components';
+
 /**
  * Функция для создания заголовка вкладки браузера
  * @param {string} pathname - строка URL от корня
@@ -68,4 +73,32 @@ export const validatePasswordBySteps = ({ isFieldTouched }, validationObj, field
             break;
     }
     return status;
+};
+
+/**
+ * Функция для составления строки количества отображаемых данных в таблице
+ * @param {string | number} current - текущая страница
+ * @param {string | number} pageSize - количество элементов на странице
+ * @param {string | number} fieldName - иобщее количество элементов
+ * @return {string} - результат
+ */
+export const paginationInformationString = ({ current, pageSize, total }) => `
+Показано: ${
+    ((current) * pageSize - pageSize) + 1 || 0
+} по ${Math.min((current) * pageSize, total) || 0} из ${total || 0}
+`;
+
+/**
+ * Функция для отображения скелетона во время загрузки данных в таблицу
+ * @param {number} itemsCount - желаемое количество скелетонов
+ * @param {string | number} data - список пришедших в бэка айтемов
+ * @param {string | number} loader - триггер лоадера
+ * @return {JSX.Element} - результат
+ */
+export const renderNoDataContent = (itemsCount, data, loader) => {
+    const array = [...Array(itemsCount)];
+    if (loader && data.length === 0) {
+        return <TableSkeleton items={array} loading={loader} paragraph={{ rows: 1, width: '100%' }} avatar active />;
+    }
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
 };
