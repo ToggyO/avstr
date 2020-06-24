@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './index.module.scss';
 
 const PageLoading = ({ size }) => (
-    <Spin className={styles.page_loading} size={size} />
+    <Spin className={styles.pageLoading} size={size} />
 );
 
 PageLoading.propTypes = {
