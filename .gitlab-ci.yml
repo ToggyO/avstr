@@ -1,7 +1,8 @@
 stages:
   - build
   - push
-  - deploy
+  - staging
+  - production
 
 image: docker:19.03
 
@@ -49,7 +50,6 @@ Push master:
 
 .deploy_template: &deploy
   tags: [csharp,net]
-  stage: deploy
   only:
     - master
   image: ${KUBECTL_IMAGE}
@@ -72,11 +72,24 @@ Push master:
 
 Deploy.Staging:
   <<: *deploy
+  stage: staging
   environment:
     name: staging
     url: https://${APP_DOMAIN}
   variables:
     APP_DOMAIN: avastar.smartheadtest.ru
+    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+  only:
+    - master
+
+Deploy.Production:
+  <<: *deploy
+  stage: production
+  environment:
+    name: production
+    url: https://${APP_DOMAIN}
+  variables:
+    APP_DOMAIN: avastar.ru
     IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
   only:
     - master
