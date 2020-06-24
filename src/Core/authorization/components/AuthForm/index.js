@@ -1,5 +1,6 @@
 // todo(nn): При переделке стр не забыть перенести айдишники для автотестов
 import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Logo from 'Core/common/Logo';
@@ -100,13 +101,18 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                     )}
                 </div>
 
-                <div className={styles.btnWrap}>
+                <div className={styles.serviceWrap}>
                     <Checkbox
                         className={styles.checkbox}
                         label="Оставаться в системе"
                         checked={checkboxValue}
                         onChange={handleCheckboxValue}
                     />
+
+                    <Link to="/recovery">Забыли пароль?</Link>
+                </div>
+
+                <div className={styles.btnWrap}>
                     <Button
                         disabled={!loginText || !passwordText}
                         type="main"
