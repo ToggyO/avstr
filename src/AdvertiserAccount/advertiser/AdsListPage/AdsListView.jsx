@@ -52,12 +52,15 @@ AdsListView.propTypes = {
     }),
     advList: PropTypes.arrayOf(
         PropTypes.shape({
+            id: PropTypes.number,
             name: PropTypes.string,
             startDate: PropTypes.string,
             endDate: PropTypes.string,
             creationTime: PropTypes.string,
             frequency: PropTypes.number,
             status: PropTypes.oneOf([1, 2, 4, 8]),
+            url: PropTypes.string,
+            filePath: PropTypes.string,
         }),
     ),
     getAdv: PropTypes.func,

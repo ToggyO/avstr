@@ -23,7 +23,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.LG}px)`);
 
     const [siderState, setSiderState] = useState({
-        isCollapsed: true,
+        isCollapsed: false,
         isFixed: isMobile,
     });
 

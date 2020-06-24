@@ -1,5 +1,3 @@
-// TODO(toleg): пересмотреть послу подключения к API
-// FIXME(toleg): Link для перехода на детальный просмотр объявления
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
@@ -27,8 +25,11 @@ const getColumns = () => [
         ellipsis: true,
         // className: 'custom-table-row',
         width: '8%',
-        render: () => <MediaFile />,
-        // render: () => <img width={100} src="https://images.unsplash.com/photo-1592395834485-b119374bc3f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=928&q=80" alt="" />,
+        render: (value) => (
+            <span onClick={() => window.open(value)}>
+                <MediaFile src={value} />
+            </span>
+        ),
     },
     {
         title: <p className="custom-ant-table__title">Название</p>,
@@ -39,8 +40,7 @@ const getColumns = () => [
         width: '20%',
         // defaultSortOrder: 'descend',
         // sorter: (a, b) => a.name < b.name,
-        // FIXME:
-        render: (name, record) => <Link to={`${ADVERTISER_ROUTES.ADVERTISEMENT_DETAILS(record.name)}`}>{name}</Link>,
+        render: (name, record) => <Link to={`${ADVERTISER_ROUTES.ADVERTISEMENT_DETAILS(record.id)}`}>{name}</Link>,
     },
     {
         title: <p className="custom-ant-table__title">Статус</p>,
