@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { StandardTable } from 'Core/ant';
+import { StandardTable, addSortToTableColumns } from 'Core/ant';
 import { useGetDataWithQueries, useShowError } from 'Core/utils/userHooks';
 import getColumns from './_components/tableColumns';
-
 
 const AdsListView = ({
     history,
@@ -20,9 +19,11 @@ const AdsListView = ({
 
     useShowError(errorsFromBackend, clearErrors);
 
+    const signalColumnsWithSort = addSortToTableColumns(getColumns(), location);
+
     return (
         <StandardTable
-            columns={getColumns()}
+            columns={signalColumnsWithSort}
             scroll={{ x: 1100, scrollToFirstRowOnChange: true }}
             dataSource={advList}
             loading={loading}

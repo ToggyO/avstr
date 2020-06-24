@@ -1,8 +1,9 @@
+import addSortToTableColumns from './addSortToTableColumns';
 import onTableChange from './onTableChange';
 
+export * from './common';
+
 export {
-    // eslint-disable-next-line import/prefer-default-export
+    addSortToTableColumns,
     onTableChange,
 };
-
-export * from './common';

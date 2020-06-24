@@ -1,5 +1,13 @@
 import { stringify } from 'qs';
 
+/**
+ * Функция для обработки изменения в таблице
+ * @param {object} paginationParams - объект с параметрами пагинации (генерируется таблицей)
+ * @param {object} filters - объект с параметрами фильрации (генерируется таблицей)
+ * @param {object} sorter - объект с параметрами сортировки (генерируется таблицей)
+ * @param {object} history
+ * @returns {Array<object>} newColumns - массив объектов с параметрами c с обновленным полем sortOrder
+ */
 const onTableChange = (
     paginationParams,
     filters,
@@ -12,7 +20,6 @@ const onTableChange = (
     const params = {};
 
     // sort
-    // TODO: modify
     let sorterResult;
     if (Array.isArray(sorter)) {
     // eslint-disable-next-line prefer-destructuring
@@ -21,16 +28,25 @@ const onTableChange = (
         sorterResult = sorter;
     }
     const { field, order } = sorterResult;
-    if (field) params.sort = `${field}${order}`; // FIXME: change order literal, when will be done on backend
+    const resultOrder = order === 'ascend';
+    if (!field) {
+        delete params.Order;
+        delete params.Asc;
+    } else {
+        params.Order = field;
+        params.Asc = resultOrder;
+    }
 
     // pagination
     const { current, pageSize } = paginationParams;
-    params.page = current;
-    params.size = pageSize;
+    params.Page = current;
+    params.Size = pageSize;
 
     // filters
 
-    history.push(`${location.pathname}?${stringify(params)}`);
+    const queriesString = stringify(params, { addQueryPrefix: true });
+    history.push(`${location.pathname}${queriesString}`);
+    window.scrollTo(0, 0);
 };
 
 export default onTableChange;
