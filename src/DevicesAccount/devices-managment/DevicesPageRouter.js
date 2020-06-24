@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 import DevicesHeaderContainer from './containers/DevicesHeaderContainer';
 
 const DevicesListPage = lazy(() => import('./containers/DevicesListPage'));
@@ -11,7 +11,7 @@ const DevicesMapPage = lazy(() => import('./containers/DevicesMapPage'));
 const DevicesPageRouter = ({ match: { path } }) => (
     <>
         <DevicesHeaderContainer />
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<PageLoading />}>
             <Switch>
                 <Route
                     path={`${path}/list`}

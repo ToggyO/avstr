@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, memo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { BasicLayout } from 'Core/ant';
+import { BasicLayout, PageLoading } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
@@ -11,7 +11,6 @@ import LogoutPage from '../authorization/components/LogoutPage';
 import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
-import Loader from '../common/Loader';
 import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
 
 
@@ -54,7 +53,7 @@ const RootRouter = () => {
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
             <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
             <BasicLayout>
-                <Suspense fallback={<Loader />}>
+                <Suspense fallback={<PageLoading />}>
                     <AuthRoute
                         path={ROOT_ROUTES.AD_MANAGER}
                         component={AdvertiserAccountRouter}

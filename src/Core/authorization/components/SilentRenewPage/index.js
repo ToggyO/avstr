@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 import { processSilentRenew } from 'redux-oidc';
 
 class SilentRenewPage extends Component {
@@ -10,7 +10,7 @@ class SilentRenewPage extends Component {
 
     render() {
         return (
-            <Loader />
+            <PageLoading />
         );
     }
 }
