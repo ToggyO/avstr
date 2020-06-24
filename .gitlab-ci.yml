@@ -79,8 +79,6 @@ Deploy.Staging:
   variables:
     APP_DOMAIN: avastar.smartheadtest.ru
     IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
-  only:
-    - master
 
 Deploy.Production:
   <<: *deploy
@@ -91,5 +89,4 @@ Deploy.Production:
   variables:
     APP_DOMAIN: avastar.ru
     IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
-  only:
-    - master
+  when: manual
