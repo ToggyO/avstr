@@ -12,7 +12,7 @@ variables:
   IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}
   KUBECTL_IMAGE: registry-gitlab.smarthead.ru/avastar/smarthead.avastar.kubectl-y:50-master
 
-Build:
+Build.Staging:
   tags: [csharp]
   stage: build
   only:
@@ -30,6 +30,26 @@ Build:
         .
     - docker push ${IMAGE_TAG}
 
+Build.Production:
+  tags: [csharp]
+  stage: build
+  variables:
+    DOCKER_FILE_PATH: deployments/docker/Dockerfile_production
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-production
+  only:
+    - master
+  before_script:
+    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
+  script:
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+    - >
+        docker build
+        --pull
+        --cache-from ${CI_REGISTRY_IMAGE}:latest
+        --tag ${IMAGE_TAG}
+        -f ${DOCKER_FILE_PATH}
+        .
+    - docker push ${IMAGE_TAG}
 
 Push master:
   stage: push
@@ -43,8 +63,11 @@ Push master:
     - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker pull ${IMAGE_TAG}
+    - docker pull ${IMAGE_TAG}-production
+    - docker tag ${IMAGE_TAG}-production ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:latest
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
@@ -88,5 +111,5 @@ Deploy.Production:
     url: https://${APP_DOMAIN}
   variables:
     APP_DOMAIN: avastar.ru
-    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+    IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
   when: manual
