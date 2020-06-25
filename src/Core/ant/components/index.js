@@ -6,6 +6,7 @@ import PasswordValidationRulesPopover from './PasswordValidationRulesPopover';
 
 export * from './Filters';
 export * from './Layouts';
+export * from './Loader';
 export * from './Table';
 
 export {

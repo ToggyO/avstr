@@ -1,14 +1,13 @@
-// TODO(toleg): заменить Loader на антовский
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import userManager from 'Core/authorization/utils/userManager';
 import { getProp } from 'Core/utils/getProp';
+import { PageLoading } from 'Core/ant';
 import { setAuthorized, toggleGlobalLoading } from 'Core/authorization/action-creators';
 import api from 'Core/api';
 import AuthContext from './AuthContext';
-import Loader from '../../common/Loader';
 
 const AuthProvider = ({
     children,
@@ -33,7 +32,7 @@ const AuthProvider = ({
     return (
         <AuthContext.Provider value={isAuthorized}>
             {loading
-                ? <Loader />
+                ? <PageLoading />
                 : children}
         </AuthContext.Provider>
     );

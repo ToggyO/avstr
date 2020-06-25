@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import history from 'Core/history';
-import Loader from 'Core/common/Loader';
+import { PageLoading } from 'Core/ant';
 import { Button, Result } from 'antd';
 import { parse } from 'qs';
 import { useDidMount } from 'beautiful-react-hooks';
@@ -38,7 +38,7 @@ const AdvRegisterConfirm = ({
     const renderContent = () => {
         let component;
         if (loading) {
-            component = <Loader />;
+            component = <PageLoading />;
         } else {
             const condition = isConfirmSuccess;
             const status = condition ? 'success' : 'error';

@@ -53,10 +53,16 @@
             height: 20*$atom;
         }
 
-        .btnWrap {
+        .serviceWrap {
             @include flex-space-between;
+        }
 
-            margin-top: 6*$atom;
+        .btnWrap {
+            margin-top: 6 * $atom;
+        }
+
+        .btn {
+            width: 100%;
         }
 
         .err {
