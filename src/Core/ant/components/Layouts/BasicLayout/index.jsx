@@ -23,7 +23,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.LG}px)`);
 
     const [siderState, setSiderState] = useState({
-        isCollapsed: true,
+        isCollapsed: false,
         isFixed: isMobile,
     });
 
@@ -42,12 +42,16 @@ const BasicLayout = ({ children, location, logoutAction }) => {
 
     const dropdownItems = [
         {
+            href: ROOT_ROUTES.ADVERTISER,
+            text: 'Кабинет рекламодателя',
+        },
+        {
             href: ROOT_ROUTES.AD_MANAGER,
-            text: 'Рекламодатель',
+            text: 'Управление рекламой',
         },
         {
             href: `${ROOT_ROUTES.DEVICES}/main/list`,
-            text: 'Администрирование',
+            text: 'Управление устройствами',
         },
     ];
 

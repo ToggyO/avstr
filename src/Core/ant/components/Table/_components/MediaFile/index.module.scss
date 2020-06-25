@@ -1,0 +1,13 @@
+.imageContainer {
+    position: relative;
+    overflow: hidden;
+    max-width: 118px;
+    max-height: 47px;
+    border-radius: 4px;
+
+    img {
+        width: 99%;
+        height: auto;
+        object-fit: cover;
+    }
+}

@@ -1,4 +1,3 @@
-// TODO(Олег): протестить отправку ошибок в redux store
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';

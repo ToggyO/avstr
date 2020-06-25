@@ -40,7 +40,7 @@ class AntDragger extends React.Component {
                                 video.videoHeight * scale,
                             );
                     }
-                }, 100);
+                }, 200);
             };
         }
     };

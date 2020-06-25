@@ -1,7 +1,6 @@
 import React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import history from 'Core/history';
 import { ROOT_ROUTES } from '../constants';
 import { ADV_REGISTER_ROUTES } from './constants';
 
@@ -10,12 +9,10 @@ import AdvRegisterConfirmContainer from './containers/AdvRegisterConfirmContaine
 
 
 const AdvRegistrationRouter = () => (
-    <Router history={history}>
-        <Switch>
-            <Route exact path={ROOT_ROUTES.AD_REGISTRATION} component={AdvRegisterFormContainer} />
-            <Route exact path={ADV_REGISTER_ROUTES.CONFIRM} component={AdvRegisterConfirmContainer} />
-        </Switch>
-    </Router>
+    <Switch>
+        <Route exact path={ROOT_ROUTES.AD_REGISTRATION} component={AdvRegisterFormContainer} />
+        <Route exact path={ADV_REGISTER_ROUTES.CONFIRM} component={AdvRegisterConfirmContainer} />
+    </Switch>
 );
 
 export default AdvRegistrationRouter;

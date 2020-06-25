@@ -4,17 +4,17 @@ import { Route, Switch } from 'react-router-dom';
 
 import { PageLoading } from 'Core/ant';
 
-const AdvertiserAccountPage = lazy(() => import('./AdvertiserAccountPage'));
-const NewAdvertisementPage = lazy(() => import('./advertising-management/NewAdvertisementPage'));
+const AdvertisingManagementPage = lazy(() => import('./AdvertisingManagementPage'));
+const NewAdvertisementPage = lazy(() => import('./NewAdvertisementPage'));
 
 
-const AdvertiserAccountRouter = ({ match: { path } }) => (
+const AdvertisingManagementRouter = ({ match: { path } }) => (
     <Suspense fallback={<PageLoading />}>
         <Switch>
             <Route
                 exact
                 path={`${path}`}
-                component={AdvertiserAccountPage}
+                component={AdvertisingManagementPage}
             />
             <Route
                 path={`${path}/add`}
@@ -25,10 +25,10 @@ const AdvertiserAccountRouter = ({ match: { path } }) => (
 );
 
 
-AdvertiserAccountRouter.propTypes = {
+AdvertisingManagementRouter.propTypes = {
     match: PropTypes.shape({
         path: PropTypes.string.isRequired,
     }).isRequired,
 };
 
-export default AdvertiserAccountRouter;
+export default AdvertisingManagementRouter;

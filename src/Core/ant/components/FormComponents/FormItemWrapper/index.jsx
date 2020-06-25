@@ -5,6 +5,7 @@ import {
     InputNumber,
     Select,
     DatePicker,
+    Checkbox,
 } from 'antd';
 import MaskedInput from 'antd-mask-input';
 import PropTypes from 'prop-types';
@@ -75,6 +76,12 @@ const FormItemWrapper = ({
                 return <RangePicker {...componentProps} {...propsToChild} />;
             case 'phoneNumber':
                 return <MaskedInput {...componentProps} {...propsToChild} />;
+            case 'checkbox':
+                return (
+                    <Checkbox {...componentProps} {...propsToChild}>
+                        {propsToChild.label || 'Check'}
+                    </Checkbox>
+                );
             case 'custom-component':
                 return component({ ...componentProps, ...propsToChild });
             case 'render-component':
@@ -109,6 +116,7 @@ FormItemWrapper.propTypes = {
         'date-picker',
         'range-picker',
         'phoneNumber',
+        'checkbox',
         'custom-component',
         'render-component',
     ]).isRequired,

@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 import { ROOT_ROUTES } from 'Core/constants';
-import { requestAdvertisements, deleteAdvertisement } from './advertising-management/action-creators';
+import { requestAdvertisements, deleteAdvertisement } from './action-creators';
 
-import Advertisements from './advertising-management/components/Advertisements';
+import Advertisements from './components/Advertisements';
 
 
-class AdvertiserAccountPage extends Component {
+class AdvertisingManagementPage extends Component {
     componentDidMount() {
         const { requestAdvertisementsAction } = this.props;
         requestAdvertisementsAction();
@@ -32,7 +32,7 @@ class AdvertiserAccountPage extends Component {
 }
 
 
-AdvertiserAccountPage.propTypes = {
+AdvertisingManagementPage.propTypes = {
     advertisements: PropTypes.arrayOf(
         PropTypes.shape({
             name: PropTypes.string,
@@ -56,4 +56,4 @@ const mapDispatchToProps = {
     deleteAdvertisementAction: deleteAdvertisement,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdvertiserAccountPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdvertisingManagementPage);
