@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Tag } from 'antd';
 
 import { formatDate } from 'Core/utils/formatDate';
-import { MediaFile } from 'Core/ant/components/Table/_components';
+import { MediaFile } from 'Core/ant';
 import { ADVERTISEMENT_STATUS, ADVERTISEMENT_TAG } from 'Core/constants';
 import ADVERTISER_ROUTES from '../../constants/routes';
 
@@ -47,27 +47,30 @@ const getColumns = () => [
         dataIndex: 'status',
         align: 'left',
         ellipsis: true,
-        className: 'custom-table-row',
         width: '10%',
-        // filters: [
-        //     {
-        //         text: 'Активные',
-        //         value: 0,
-        //     },
-        //     {
-        //         text: 'Ожидают показа',
-        //         value: 1,
-        //     },
-        //     {
-        //         text: 'Приостановленные',
-        //         value: 2,
-        //     },
-        //     {
-        //         text: 'Завершенные',
-        //         value: 3,
-        //     },
-        // ],
-        // onFilter: (value, record) => record.state === value,
+        filters: [
+            {
+                label: 'Ожидает показа',
+                value: 1,
+            },
+            {
+                label: 'Активно',
+                value: 2,
+            },
+
+            {
+                label: 'Приостановлено',
+                value: 4,
+            },
+            {
+                label: 'Завершено',
+                value: 8,
+            },
+        ],
+        // onFilter: (value, record) => {
+        //     console.log(value);
+        //     console.log(record);
+        // },
         render: (value) => (
             <Tag color={ADVERTISEMENT_TAG[value]}>
                 {ADVERTISEMENT_STATUS[value]}

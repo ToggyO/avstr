@@ -84,7 +84,7 @@ export const validatePasswordBySteps = ({ isFieldTouched }, validationObj, field
  */
 export const paginationInformationString = ({ current, pageSize, total }) => `
 Показано: ${
-    ((current) * pageSize - pageSize) + 1 || 0
+    total !== 0 ? ((current) * pageSize - pageSize) + 1 : 0
 } по ${Math.min((current) * pageSize, total) || 0} из ${total || 0}
 `;
 

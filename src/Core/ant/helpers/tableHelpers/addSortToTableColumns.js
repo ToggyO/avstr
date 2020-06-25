@@ -8,6 +8,7 @@ import { parse } from 'qs';
  */
 const addSortToTableColumns = (columns, location) => {
     const newColumns = columns.map((column) => ({ ...column }));
+
     const { search = '' } = location;
     const queries = parse(search, { ignoreQueryPrefix: true });
 
@@ -17,7 +18,7 @@ const addSortToTableColumns = (columns, location) => {
     let sortOrder;
     if (isAsc && isAsc === 'true') {
         sortOrder = 'ascend';
-    } else {
+    } else if (isAsc && isAsc === 'false') {
         sortOrder = 'descend';
     }
 

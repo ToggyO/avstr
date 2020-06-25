@@ -1,4 +1,4 @@
-import { DEFAULT_PAGINATION_PARAMS } from 'Core/constants';
+import { DEFAULT_TABLE_QUERY_PARAMS } from 'Core/constants';
 
 /**
  * Функция для создания объекта пагинации для запросов к апи
@@ -8,6 +8,6 @@ import { DEFAULT_PAGINATION_PARAMS } from 'Core/constants';
 // eslint-disable-next-line import/prefer-default-export
 export const createPaginationQuery = (queries) => ({
     ...queries,
-    Page: parseInt(queries.Page, 10) || DEFAULT_PAGINATION_PARAMS.PAGE,
-    Size: parseInt(queries.Size, 10) || DEFAULT_PAGINATION_PARAMS.SIZE,
+    Page: parseInt(queries.Page, 10) || DEFAULT_TABLE_QUERY_PARAMS.PAGE,
+    Size: parseInt(queries.Size, 10) || DEFAULT_TABLE_QUERY_PARAMS.SIZE,
 });

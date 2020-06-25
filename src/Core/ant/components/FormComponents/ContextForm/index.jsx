@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Form } from 'antd';
 import PropTypes from 'prop-types';
 
-import { useBackendErrors } from 'Core/ant/helpers';
+import { useBackendErrors } from '../../../helpers';
 
 export const StandardFormContext = React.createContext({
     form: {},

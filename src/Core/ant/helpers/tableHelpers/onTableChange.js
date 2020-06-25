@@ -1,4 +1,6 @@
 import { stringify } from 'qs';
+import { DEFAULT_TABLE_QUERY_PARAMS } from '../../../constants';
+import arraySum from '../../../utils/arraySum';
 
 /**
  * Функция для обработки изменения в таблице
@@ -29,7 +31,7 @@ const onTableChange = (
     }
     const { field, order } = sorterResult;
     const resultOrder = order === 'ascend';
-    if (!field) {
+    if (!order) {
         delete params.Order;
         delete params.Asc;
     } else {
@@ -39,10 +41,27 @@ const onTableChange = (
 
     // pagination
     const { current, pageSize } = paginationParams;
-    params.Page = current;
-    params.Size = pageSize;
+    if (current === DEFAULT_TABLE_QUERY_PARAMS.PAGE) {
+        delete params.Page;
+        delete params.Size;
+    } else {
+        params.Page = current;
+        params.Size = pageSize;
+    }
 
     // filters
+    Object.keys(filters).forEach((key) => {
+        if (Array.isArray(filters[key])) {
+            if (filters[key].length) {
+                params[key] = arraySum(filters[key]);
+            } else {
+                delete params[key];
+            }
+        }
+        if (typeof filters[key] === 'string') {
+            // TODO: возможная реализация
+        }
+    });
 
     const queriesString = stringify(params, { addQueryPrefix: true });
     history.push(`${location.pathname}${queriesString}`);

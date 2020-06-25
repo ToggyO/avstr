@@ -1,7 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import { FilterFilled } from '@ant-design/icons';
+import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
-import { StandardTable, addSortToTableColumns } from 'Core/ant';
+import {
+    StandardTable,
+    addSortToTableColumns,
+    addFilterToTableColumn,
+    CheckboxFilter,
+} from 'Core/ant';
 import { useGetDataWithQueries, useShowError } from 'Core/utils/userHooks';
 import getColumns from './_components/tableColumns';
 
@@ -19,11 +26,22 @@ const AdsListView = ({
 
     useShowError(errorsFromBackend, clearErrors);
 
-    const signalColumnsWithSort = addSortToTableColumns(getColumns(), location);
+    const columnsWithSort = addSortToTableColumns(getColumns(), location);
+    const columnsWithFilter = columnsWithSort.map((column) => {
+        const queries = parse(location.search, { ignoreQueryPrefix: true });
+        if (column.dataIndex === 'status') {
+            return {
+                ...column,
+                ...addFilterToTableColumn(CheckboxFilter, location, 'status'),
+                defaultFilteredValue: queries.status || '',
+            };
+        }
+        return { ...column };
+    });
 
     return (
         <StandardTable
-            columns={signalColumnsWithSort}
+            columns={columnsWithFilter}
             scroll={{ x: 1100, scrollToFirstRowOnChange: true }}
             dataSource={advList}
             loading={loading}

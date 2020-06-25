@@ -1,4 +1,4 @@
-export const DEFAULT_PAGINATION_PARAMS = {
+export const DEFAULT_TABLE_QUERY_PARAMS = {
     PAGE: 1,
     SIZE: 10,
 };
