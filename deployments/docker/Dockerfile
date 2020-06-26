@@ -6,7 +6,8 @@ RUN npm run build:prod
 
 FROM nginx:1.17.0-alpine
 RUN rm /etc/nginx/conf.d/default.conf
-COPY /deployments/nginx/nginx.conf /etc/nginx/conf.d
+COPY /deployments/nginx/frontend.conf /etc/nginx/conf.d
+COPY /deployments/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=build-deps /src/build /usr/share/nginx/html
 EXPOSE 80
 ENTRYPOINT ["nginx","-g","daemon off;"]
