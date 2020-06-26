@@ -43,11 +43,8 @@ Push master:
     - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker pull ${IMAGE_TAG}
-    - docker pull ${IMAGE_TAG}-production
-    - docker tag ${IMAGE_TAG}-production ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:latest
-    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
@@ -103,7 +100,9 @@ Build.Production:
         --tag ${IMAGE_TAG}
         -f ${DOCKER_FILE_PATH}
         .
+    - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker push ${IMAGE_TAG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
 
 Deploy.Production:
   <<: *deploy
