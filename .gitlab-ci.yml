@@ -2,6 +2,7 @@ stages:
   - build
   - push
   - staging
+  - build.production
   - production
 
 image: docker:19.03
@@ -15,27 +16,6 @@ variables:
 Build.Staging:
   tags: [csharp]
   stage: build
-  only:
-    - master
-  before_script:
-    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
-  script:
-    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
-    - >
-        docker build
-        --pull
-        --cache-from ${CI_REGISTRY_IMAGE}:latest
-        --tag ${IMAGE_TAG}
-        -f ${DOCKER_FILE_PATH}
-        .
-    - docker push ${IMAGE_TAG}
-
-Build.Production:
-  tags: [csharp]
-  stage: build
-  variables:
-    DOCKER_FILE_PATH: deployments/docker/Dockerfile_production
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-production
   only:
     - master
   before_script:
@@ -102,6 +82,28 @@ Deploy.Staging:
   variables:
     APP_DOMAIN: avastar.smartheadtest.ru
     IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+
+Build.Production:
+  tags: [csharp]
+  stage: build.production
+  when: manual
+  variables:
+    DOCKER_FILE_PATH: deployments/docker/Dockerfile_production
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-production
+  only:
+    - master
+  before_script:
+    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
+  script:
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+    - >
+        docker build
+        --pull
+        --cache-from ${CI_REGISTRY_IMAGE}:latest
+        --tag ${IMAGE_TAG}
+        -f ${DOCKER_FILE_PATH}
+        .
+    - docker push ${IMAGE_TAG}
 
 Deploy.Production:
   <<: *deploy
