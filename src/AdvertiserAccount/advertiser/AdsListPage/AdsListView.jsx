@@ -9,7 +9,7 @@ import {
     addFilterToTableColumn,
     CheckboxFilter,
 } from 'Core/ant';
-import { useGetDataWithQueries, useShowError } from 'Core/utils/userHooks';
+import { useGetDataWithQueries, useShowError, useClearError } from 'Core/utils/userHooks';
 import getColumns from './_components/tableColumns';
 
 const AdsListView = ({
@@ -24,7 +24,10 @@ const AdsListView = ({
 }) => {
     useGetDataWithQueries(getAdv, location.search);
 
-    // useShowError(errorsFromBackend, clearErrors);
+    useShowError(errorsFromBackend);
+    // useShowError(transformError(errorsFromBackend));
+
+    useClearError(clearErrors);
 
     const columnsWithSort = addSortToTableColumns(getColumns(), location);
     const columnsWithFilter = columnsWithSort.map((column) => {
@@ -83,11 +86,11 @@ AdsListView.propTypes = {
         }),
     ),
     getAdv: PropTypes.func,
-    errorsFromBackend: PropTypes.arrayOf(
-        PropTypes.shape({
-            [PropTypes.string]: PropTypes.any,
-        }),
-    ),
+    // errorsFromBackend: PropTypes.arrayOf(
+    //     PropTypes.shape({
+    //         [PropTypes.string]: PropTypes.any,
+    //     }),
+    // ),
     clearErrors: PropTypes.func,
 };
 

@@ -35,3 +35,7 @@ export const deleteAdvertisement = (data) => ({
     type: actions.DELETE_ADVERTISEMENT,
     data,
 });
+
+export const clearAdvertiserManagerErrors = () => ({
+    type: actions.ADVERTISER_MANAGEMENT_CLEAR_ERRORS,
+});

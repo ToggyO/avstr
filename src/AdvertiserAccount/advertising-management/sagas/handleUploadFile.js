@@ -7,6 +7,8 @@ import {
     receiveUploadedContent,
     saveXhr,
 } from '../action-creators';
+import * as actions from '../actions';
+import handleRequestErrors from '../../../Core/api/handeRequestErrors';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
@@ -28,7 +30,9 @@ function* handleUploadFile({ data }) {
         while (true) {
             const {
                 progress = 0,
-                err,
+                isErr,
+                status,
+                error = {},
                 success,
                 abort,
             } = yield take(channel);
@@ -43,27 +47,30 @@ function* handleUploadFile({ data }) {
                 yield put(changeUploadStatus(''));
                 return;
             }
-            if (err) {
+            if (isErr) {
                 yield put(changeUploadStatus('Error'));
-                return;
+                yield handleRequestErrors(status, error);
             }
 
             yield put(changeUploadStatus(progress));
         }
-    } catch ({ type }) {
-        switch (type) {
-            case 'BadRequest':
-                yield put(changeUploadStatus('Error'));
-                break;
-            case 'AuthorizationError':
-                window.location = '/';
-                break;
-            case 'ServerError':
-                alert('На сервере произошла ошибка.');
-                break;
-            default:
-                yield put(changeUploadStatus('Error'));
-        }
+    // } catch ({ type }) {
+    } catch (error) {
+        const { errorContent } = error;
+        yield put({ type: actions.ADVERTISER_MANAGEMENT_PUT_ERRORS, data: errorContent });
+        // switch (type) {
+        //     case 'BadRequest':
+        //         yield put(changeUploadStatus('Error'));
+        //         break;
+        //     case 'AuthorizationError':
+        //         window.location = '/';
+        //         break;
+        //     case 'ServerError':
+        //         alert('На сервере произошла ошибка.');
+        //         break;
+        //     default:
+        //         yield put(changeUploadStatus('Error'));
+        // }
     }
 }
 

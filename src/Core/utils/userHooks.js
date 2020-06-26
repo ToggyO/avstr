@@ -3,6 +3,7 @@ import { parse } from 'qs';
 import { message } from 'antd';
 
 import { createPaginationQuery } from 'Core/ant';
+import { isEmptyObject } from './isEmpty';
 
 /**
  * Хук для получения списка данных с параметрами для пагинациии,
@@ -24,11 +25,14 @@ export const useGetDataWithQueries = (func, search) => {
  * @param {Function} clearErrorFunc - функция для очистки ошибок в конкретном редьюсере
  * @returns {void}
  */
-export const useShowError = (errors, clearErrorFunc) => {
+export const useShowError = (errors) => {
     useEffect(() => {
-        if (errors.length) {
+        if (!isEmptyObject(errors)) {
             message.error('Что то пошло не так');
         }
-        return () => clearErrorFunc();
-    }, [errors, clearErrorFunc]);
+    }, [errors]);
+};
+
+export const useClearError = (clearErrorFunc) => {
+    useEffect(() => () => clearErrorFunc(), [clearErrorFunc]);
 };

@@ -12,6 +12,7 @@ const initialState = {
         id: null,
     },
     advertisements: [],
+    errors: {},
 };
 
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
@@ -49,6 +50,17 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
             return {
                 ...state,
                 advertisements: data,
+            };
+        case actions.ADVERTISER_MANAGEMENT_PUT_ERRORS:
+            return {
+                ...state,
+                loading: false,
+                errors: data,
+            };
+        case actions.ADVERTISER_MANAGEMENT_CLEAR_ERRORS:
+            return {
+                ...state,
+                errors: {},
             };
         default:
             return state;

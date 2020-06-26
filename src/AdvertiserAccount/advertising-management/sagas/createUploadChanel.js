@@ -1,5 +1,4 @@
 import { END, eventChannel } from 'redux-saga';
-import handleRequestErrors from 'Core/api/handeRequestErrors';
 
 function createUploadChanel(xhr, file) {
     return eventChannel((emitter) => {
@@ -10,8 +9,8 @@ function createUploadChanel(xhr, file) {
             }
         };
 
-        const onFailure = () => {
-            emitter({ err: true });
+        const onFailure = (status, error) => {
+            emitter({ isErr: true, status, error });
             emitter(END);
         };
 
@@ -21,26 +20,12 @@ function createUploadChanel(xhr, file) {
         };
 
         const onSuccess = () => {
-            try {
-                const { status, response } = xhr;
-                if (status === 201) {
-                    emitter({ success: { response } });
-                    emitter(END);
-                } else {
-                    handleRequestErrors(status);
-                }
-            } catch ({ type }) {
-                switch (type) {
-                    case 'AuthorizationError':
-                        window.location = '/';
-                        break;
-                    case 'ServerError':
-                        alert('На сервере произошла ошибка');
-                        break;
-                    default:
-                        onFailure();
-                        break;
-                }
+            const { status, response } = xhr;
+            if (status === 201) {
+                emitter({ success: { response } });
+                emitter(END);
+            } else {
+                onFailure(status, response);
             }
         };
 

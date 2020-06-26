@@ -1,5 +1,5 @@
 import { compareDateWithToday } from 'Core/utils/formatDate';
-import { VALIDATION_MESSAGES } from 'Core/constants';
+// import { VALIDATION_MESSAGES } from 'Core/constants';
 
 const formOptions = {
     advertiserEmail: {
@@ -8,24 +8,24 @@ const formOptions = {
             size: 'large',
             placeholder: 'Почта рекламодателя',
         },
-        rules: [
-            {
-                required: true,
-                message: VALIDATION_MESSAGES.REQUIRED,
-            },
-        ],
+        // rules: [
+        //     {
+        //         required: true,
+        //         message: VALIDATION_MESSAGES.REQUIRED,
+        //     },
+        // ],
     },
     name: {
         label: 'Название объявления',
         props: {
             size: 'large',
         },
-        rules: [
-            {
-                required: true,
-                message: VALIDATION_MESSAGES.REQUIRED,
-            },
-        ],
+        // rules: [
+        //     {
+        //         required: true,
+        //         message: VALIDATION_MESSAGES.REQUIRED,
+        //     },
+        // ],
     },
     rangeDate: {
         label: 'Даты показа',
@@ -49,12 +49,12 @@ const formOptions = {
             min: 1,
             parser: (value) => value.replace(/\.s?|(,*)[^-0-9]/gim, ''),
         },
-        rules: [
-            {
-                required: true,
-                message: VALIDATION_MESSAGES.REQUIRED,
-            },
-        ],
+        // rules: [
+        //     {
+        //         required: true,
+        //         message: VALIDATION_MESSAGES.REQUIRED,
+        //     },
+        // ],
     },
     ticketId: {
         label: 'ID тикета',
