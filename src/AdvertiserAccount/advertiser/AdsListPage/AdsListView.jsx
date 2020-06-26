@@ -24,7 +24,7 @@ const AdsListView = ({
 }) => {
     useGetDataWithQueries(getAdv, location.search);
 
-    useShowError(errorsFromBackend, clearErrors);
+    // useShowError(errorsFromBackend, clearErrors);
 
     const columnsWithSort = addSortToTableColumns(getColumns(), location);
     const columnsWithFilter = columnsWithSort.map((column) => {
