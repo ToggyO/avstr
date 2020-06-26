@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, Layout } from 'antd';
 import PropTypes from 'prop-types';
 import { useGlobalEvent } from 'beautiful-react-hooks';
@@ -52,26 +53,26 @@ const BasicSider = ({
                     zIndex: 10,
                 }}
             >
-                <div className={styles.sider__logo}>
+                <Link to="/" className={styles.sider__logo}>
                     <AvaSystemsLogo />
-                </div>
+                </Link>
                 <Menu theme="light" mode="inline" defaultSelectedKeys={['1']}>
                     {/* FIXME: temporary solution */}
-                    <Menu.Item key="1">
-                        <div className={targetClass}>
-                            nav 1
-                        </div>
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <div className={targetClass}>
-                            nav 2
-                        </div>
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <div className={targetClass}>
-                            nav 3
-                        </div>
-                    </Menu.Item>
+                    {/* <Menu.Item key="1"> */}
+                    {/*    <div className={targetClass}> */}
+                    {/*        nav 1 */}
+                    {/*    </div> */}
+                    {/* </Menu.Item> */}
+                    {/* <Menu.Item key="2"> */}
+                    {/*    <div className={targetClass}> */}
+                    {/*        nav 2 */}
+                    {/*    </div> */}
+                    {/* </Menu.Item> */}
+                    {/* <Menu.Item key="3"> */}
+                    {/*    <div className={targetClass}> */}
+                    {/*        nav 3 */}
+                    {/*    </div> */}
+                    {/* </Menu.Item> */}
                 </Menu>
             </Sider>
         </>
