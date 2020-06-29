@@ -7,7 +7,7 @@ import options from './options';
 
 import styles from './index.module.scss';
 
-const RecoveryForm = ({ loading, sendLink, clearErrors }) => {
+const RecoveryForm = ({ loading, sendLink, errorsFromBackend, clearErrors }) => {
     useEffect(() => () => clearErrors(), [clearErrors]);
 
     const onSubmit = (values) => {
@@ -23,7 +23,7 @@ const RecoveryForm = ({ loading, sendLink, clearErrors }) => {
                 <h1>Восстановление доступа</h1>
                 <p>Укажите почту, мы вышлем вам ссылку для изменения пароля.</p>
             </div>
-            <StandardForm onFinish={onSubmit} options={options}>
+            <StandardForm onFinish={onSubmit} options={options} errorsFromBackend={errorsFromBackend}>
                 <FormItemWrapper type="text-input" name="email" />
                 <FormItemWrapper
                     type="custom-component"
@@ -45,12 +45,16 @@ const RecoveryForm = ({ loading, sendLink, clearErrors }) => {
 RecoveryForm.propTypes = {
     loading: PropTypes.bool,
     sendLink: PropTypes.func,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
     clearErrors: PropTypes.func,
 };
 
 RecoveryForm.defaultProps = {
     loading: false,
     sendLink: Function.prototype,
+    errorsFromBackend: {},
     clearErrors: Function.prototype,
 };
 

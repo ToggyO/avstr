@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import NewAdvertisement from './components/NewAdvertisement';
 
-import { changeUploadStatus, uploadFile, cleanXhr } from './action-creators';
+import {
+    changeUploadStatus,
+    uploadFile,
+    cleanXhr,
+    clearAdvertiserManagerErrors,
+} from './action-creators';
 
 
 const NewAdvertisementPage = ({
@@ -15,6 +20,8 @@ const NewAdvertisementPage = ({
     xhr,
     cleanXhrAction,
     loading,
+    errorsFromBackend,
+    cleanErrors,
 }) => (
     <NewAdvertisement
         fileStatus={fileUploadStatus}
@@ -24,6 +31,8 @@ const NewAdvertisementPage = ({
         uploadingConnection={xhr}
         cleanUploadConnection={cleanXhrAction}
         loading={loading}
+        errorsFromBackend={errorsFromBackend}
+        cleanErrors={cleanErrors}
     />
 );
 
@@ -31,6 +40,8 @@ const NewAdvertisementPage = ({
 NewAdvertisementPage.defaultProps = {
     xhr: null,
     loading: false,
+    errorsFromBackend: {},
+    cleanErrors: Function.prototype,
 };
 
 NewAdvertisementPage.propTypes = {
@@ -47,6 +58,10 @@ NewAdvertisementPage.propTypes = {
     xhr: PropTypes.shape(),
     cleanXhrAction: PropTypes.func.isRequired,
     loading: PropTypes.bool,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    cleanErrors: PropTypes.func,
 };
 
 
@@ -57,6 +72,7 @@ const mapStateToProps = ({
             uploadedFileContent,
             xhr,
             loading,
+            errors,
         },
     },
 }) => ({
@@ -64,12 +80,14 @@ const mapStateToProps = ({
     uploadedFileContent,
     xhr,
     loading,
+    errorsFromBackend: errors,
 });
 
 const mapDispatchToProps = {
     uploadFileAction: uploadFile,
     changeUploadStatusAction: changeUploadStatus,
     cleanXhrAction: cleanXhr,
+    cleanErrors: clearAdvertiserManagerErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewAdvertisementPage);

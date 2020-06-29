@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getFromLocalState } from 'Core/utils/local-storage';
-import { login } from './action-creators';
+import { authClearErrors, login } from './action-creators';
 import Authorization from './components/Authorization';
 import userManager from './utils/userManager';
-
 
 class AuthorizationPage extends Component {
     componentDidMount() {
@@ -23,11 +22,18 @@ class AuthorizationPage extends Component {
     }
 
     render() {
-        const { authErrMessage, loginAction } = this.props;
+        const {
+            authErrMessage,
+            loginAction,
+            loginRequestLoading,
+            clearErrors,
+        } = this.props;
         return (
             <Authorization
                 errMessage={authErrMessage}
                 formSubmitHandler={loginAction}
+                loading={loginRequestLoading}
+                clearErrors={clearErrors}
             />
         );
     }
@@ -37,13 +43,23 @@ class AuthorizationPage extends Component {
 AuthorizationPage.propTypes = {
     authErrMessage: PropTypes.string.isRequired,
     loginAction: PropTypes.func.isRequired,
+    loginRequestLoading: PropTypes.bool,
+    clearErrors: PropTypes.func,
 };
 
+AuthorizationPage.defaultProps = {
+    loginRequestLoading: false,
+    clearErrors: Function.prototype,
+};
 
-const mapStateToProps = ({ authorizationReducer: { authErrMessage } }) => ({ authErrMessage });
+const mapStateToProps = ({ authorizationReducer: { authErrMessage, loginRequestLoading } }) => ({
+    authErrMessage,
+    loginRequestLoading,
+});
 
 const mapDispatchToProps = {
     loginAction: login,
+    clearErrors: authClearErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthorizationPage);

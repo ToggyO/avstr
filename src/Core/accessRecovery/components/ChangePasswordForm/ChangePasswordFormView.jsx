@@ -21,6 +21,7 @@ const ChangePasswordForm = ({
     location,
     loading,
     restorePassword,
+    errorsFromBackend,
     clearErrors,
 }) => {
     const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
@@ -82,6 +83,7 @@ const ChangePasswordForm = ({
                     onFinishFailed={highlightPasswordOnSubmitFailure}
                     options={options}
                     outerFormInstance={form}
+                    errorsFromBackend={errorsFromBackend}
                 >
                     <PasswordValidationRulesPopover visible={visible} />
                     <FormItemWrapper
@@ -121,12 +123,16 @@ ChangePasswordForm.propTypes = {
     }).isRequired,
     loading: PropTypes.bool,
     restorePassword: PropTypes.func,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
     clearErrors: PropTypes.func,
 };
 
 ChangePasswordForm.defaultProps = {
     loading: false,
     restorePassword: Function.prototype,
+    errorsFromBackend: {},
     clearErrors: Function.prototype,
 };
 

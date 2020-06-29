@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import { ERROR_CODES } from '../constants';
-import { transformErrorToForm } from './common';
+import { isEmptyObject } from 'Core/utils/isEmpty';
+import transformErrorToForm from 'Core/api/transformErrorToForm';
 
 /**
  * Функция пробрасывает обработанные ошибки с API в инстанс формы
- * @return {Array<object>} errorsFromBackend - массив ошибок с API
+ * @return {object} errorsFromBackend - объект ошибок с API
  * @return {object} formInstance - инстанс формы
  * @return {void}
  */
-// eslint-disable-next-line import/prefer-default-export
-export const useBackendErrors = (errorsFromBackend = [], formInstance = {}) => {
+export const useBackendErrors = (errorsFromBackend = {}, formInstance = {}) => {
     useEffect(() => {
-        if (errorsFromBackend.length && formInstance) {
-            const transformedErrors = transformErrorToForm(errorsFromBackend, ERROR_CODES, formInstance);
+        if (!isEmptyObject(errorsFromBackend) && formInstance) {
+            const transformedErrors = transformErrorToForm(errorsFromBackend, formInstance);
             formInstance.setFields(transformedErrors);
         }
     }, [errorsFromBackend, formInstance]);

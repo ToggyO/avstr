@@ -24,8 +24,8 @@ const AdsListView = ({
 }) => {
     useGetDataWithQueries(getAdv, location.search);
 
-    useShowError(errorsFromBackend);
-    // useShowError(transformError(errorsFromBackend));
+    // useShowError(errorsFromBackend);
+    // useShowError(transformErrorToForm(errorsFromBackend));
 
     useClearError(clearErrors);
 
@@ -86,11 +86,9 @@ AdsListView.propTypes = {
         }),
     ),
     getAdv: PropTypes.func,
-    // errorsFromBackend: PropTypes.arrayOf(
-    //     PropTypes.shape({
-    //         [PropTypes.string]: PropTypes.any,
-    //     }),
-    // ),
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
     clearErrors: PropTypes.func,
 };
 

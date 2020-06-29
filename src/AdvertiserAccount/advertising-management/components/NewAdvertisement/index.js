@@ -70,20 +70,24 @@ class NewAdvertisement extends Component {
         if (prevProps.fileStatus !== fileStatus) {
             if (fileStatus === 'Success') {
                 this.handleSuccessUploading();
-            } else if (fileStatus === 'Error') {
-                this.handleErrorUploading();
             }
         }
     }
 
     componentWillUnmount() {
-        const { changeFileStatus, uploadingConnection, cleanUploadConnection } = this.props;
+        const {
+            changeFileStatus,
+            uploadingConnection,
+            cleanUploadConnection,
+            cleanErrors,
+        } = this.props;
         changeFileStatus('');
 
         if (uploadingConnection) {
             uploadingConnection.abort();
             cleanUploadConnection();
         }
+        cleanErrors();
     }
 
     handleSuccessUploading = () => {
@@ -91,10 +95,6 @@ class NewAdvertisement extends Component {
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
         history.push(ROOT_ROUTES.AD_MANAGER);
-    };
-
-    handleErrorUploading = () => {
-        message.error('Что то пошло не так');
     };
 
     handleSaveClick = (values) => {
@@ -200,20 +200,9 @@ class NewAdvertisement extends Component {
         return Math.ceil((loaded / total) * 100);
     };
 
-    // isShowBtnLoader = () => {
-    //     let result;
-    //     const { loading, fileStatus } = this.props;
-    //     if (fileStatus === 'Error') {
-    //         result = false;
-    //     } else {
-    //         result = loading;
-    //     }
-    //     return result;
-    // };
-
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
-        const { fileStatus, loading } = this.props;
+        const { fileStatus, loading, errorsFromBackend } = this.props;
 
         return (
             <Row justify="center">
@@ -224,9 +213,12 @@ class NewAdvertisement extends Component {
                         )}
                     </div>
                     <StandardForm
+                        layout="horizontal"
+                        size="large"
                         onFinish={this.handleSaveClick}
                         options={options}
                         wrappedRef={this.formRef}
+                        errorsFromBackend={errorsFromBackend}
                         {...this.formItemLayout}
                     >
                         <FormItemWrapper type="text-input" name="advertiserEmail" />
@@ -334,6 +326,8 @@ class NewAdvertisement extends Component {
 NewAdvertisement.defaultProps = {
     uploadingConnection: null,
     loading: false,
+    errorsFromBackend: {},
+    cleanErrors: Function.prototype,
 };
 
 NewAdvertisement.propTypes = {
@@ -350,6 +344,10 @@ NewAdvertisement.propTypes = {
     uploadingConnection: PropTypes.shape(),
     cleanUploadConnection: PropTypes.func.isRequired,
     loading: PropTypes.bool,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    cleanErrors: PropTypes.func,
 };
 
 export default NewAdvertisement;

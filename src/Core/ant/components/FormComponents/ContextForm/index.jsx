@@ -10,7 +10,6 @@ export const StandardFormContext = React.createContext({
 });
 
 export const StandardForm = ({
-    // eslint-disable-next-line react/prop-types
     children,
     onFinish,
     onFinishFailed,
@@ -38,6 +37,7 @@ export const StandardForm = ({
 };
 
 StandardForm.propTypes = {
+    children: PropTypes.node,
     onFinish: PropTypes.func.isRequired,
     onFinishFailed: PropTypes.func,
     options: PropTypes.shape({
@@ -50,8 +50,9 @@ StandardForm.propTypes = {
     asyncInitValues: PropTypes.shape({
         [PropTypes.string]: PropTypes.any,
     }),
-    // eslint-disable-next-line react/forbid-prop-types
-    errorsFromBackend: PropTypes.array,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
     wrappedRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.any }),
@@ -59,10 +60,11 @@ StandardForm.propTypes = {
 };
 
 StandardForm.defaultProps = {
+    children: null,
     onFinishFailed: Function.prototype,
     options: {},
     outerFormInstance: undefined,
     asyncInitValues: undefined,
-    errorsFromBackend: [],
+    errorsFromBackend: {},
     wrappedRef: null,
 };

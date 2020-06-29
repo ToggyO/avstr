@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 
 import {
-    Button, Result, message, Form,
+    Button, Result, Form,
 } from 'antd';
 import {
     StandardForm,
@@ -21,11 +21,11 @@ const AdvRegisterForm = ({
     registerAdvertiserAction,
     loading,
     isRegisterReqSuccess,
-    error,
+    errorsFromBackend,
     cleanErrorAction,
 }) => {
     const [form] = Form.useForm();
-
+    // debugger
     const validationObj = {
         patternMinLength: /.{8,}/,
         patternUppSyms: /[A-Z]+/,
@@ -50,15 +50,13 @@ const AdvRegisterForm = ({
         return setValidationStatus(status);
     };
 
-    useEffect(() => () => {
-        cleanErrorAction();
-    }, [cleanErrorAction]);
+    useEffect(() => () => cleanErrorAction(), [cleanErrorAction]);
 
-    useEffect(() => {
-        if (!error) return;
-        message.error(error, 3);
-        cleanErrorAction();
-    }, [error, cleanErrorAction]);
+    // useEffect(() => {
+    //     if (!error) return;
+    //     message.error(error, 3);
+    //     cleanErrorAction();
+    // }, [error, cleanErrorAction]);
 
     const onSubmit = (values) => {
         const data = values;
@@ -76,7 +74,7 @@ const AdvRegisterForm = ({
         minute: 'numeric',
     });
     return (
-        isRegisterReqSuccess && !error
+        isRegisterReqSuccess && !errorsFromBackend
             ? (
                 <div className={cn(styles.container, styles.container__result)}>
                     <Result
@@ -106,6 +104,7 @@ const AdvRegisterForm = ({
                         onFinish={onSubmit}
                         onFinishFailed={highlightPasswordOnSubmitFailure}
                         outerFormInstance={form}
+                        errorsFromBackend={errorsFromBackend}
                     >
                         <FormItemWrapper type="text-input" name="name" />
                         <FormItemWrapper type="text-input" name="surname" />
@@ -156,7 +155,7 @@ AdvRegisterForm.defaultProps = {
     isRegisterReqSuccess: false,
     registerAdvertiserAction: Function.prototype,
     cleanErrorAction: Function.prototype,
-    error: null,
+    errorsFromBackend: {},
 };
 
 AdvRegisterForm.propTypes = {
@@ -164,7 +163,9 @@ AdvRegisterForm.propTypes = {
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
     cleanErrorAction: PropTypes.func,
-    error: PropTypes.string,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
 };
 
 export default AdvRegisterForm;

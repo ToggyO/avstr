@@ -8,6 +8,7 @@ import ChangePasswordFormView from './ChangePasswordFormView';
 
 const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading', false),
+    errorsFromBackend: getProp(accessRecoveryReducer, 'errors'),
 });
 
 const mapDispatchToProps = {

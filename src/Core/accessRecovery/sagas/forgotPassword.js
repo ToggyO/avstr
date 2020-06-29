@@ -26,7 +26,8 @@ function* forgotPassword({ data }) {
             recoveredEmail: data.email,
         });
     } catch (error) {
-        yield put({ type: types.FORGOT_PASSWORD_ERROR, data: error });
+        const { errorContent } = error;
+        yield put({ type: types.FORGOT_PASSWORD_ERROR, data: errorContent });
     }
 }
 

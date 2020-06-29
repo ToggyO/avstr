@@ -22,8 +22,6 @@ function* getAdvertisementsList({ data }) {
             data: response.content,
         });
     } catch (error) {
-        // debugger; // FIXME: проверить приход ошибок
-        console.log(error);
         const { errorContent } = error;
         yield put({ type: actions.GET_ADVERTISEMENTS_LIST_ERROR, data: errorContent });
     }

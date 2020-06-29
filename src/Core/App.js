@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader/root';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 import io from 'socket.io-client';
+import { message } from 'antd';
 
 import 'semantic-ui-css/semantic.min.css';
 import 'antd/dist/antd.css';
@@ -16,6 +17,10 @@ import { AuthProvider } from './context';
 import './App.scss';
 
 window.io = io;
+
+// Глобальный конфиг для всплывающих message
+// https://ant.design/components/message/#message.config
+message.config({ maxCount: 1 });
 
 const App = () => (
     <Provider store={store}>
