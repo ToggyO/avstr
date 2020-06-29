@@ -2,7 +2,15 @@
 import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import {
-    Button, Col, Row, Progress, message, Modal,
+    Button,
+    Col,
+    Row,
+    Progress,
+    message,
+    Modal,
+    Select,
+    Spin,
+    Typography,
 } from 'antd';
 import { InboxOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 
@@ -12,6 +20,8 @@ import { ROOT_ROUTES } from 'Core/constants';
 import options from './options';
 
 import styles from './index.module.scss';
+
+const { Text } = Typography;
 
 class NewAdvertisement extends Component {
     acceptedMediaTypes = ['image/jpeg', 'image/png', 'image/jpg', 'video/mp4'];
@@ -77,12 +87,22 @@ class NewAdvertisement extends Component {
     }
 
     componentWillUnmount() {
-        const { changeFileStatus, uploadingConnection, cleanUploadConnection } = this.props;
+        const {
+            changeFileStatus,
+            uploadingConnection,
+            cleanUploadConnection,
+            advertisersReset,
+            advertisers,
+        } = this.props;
         changeFileStatus('');
 
         if (uploadingConnection) {
             uploadingConnection.abort();
             cleanUploadConnection();
+        }
+
+        if (advertisers && advertisers.length) {
+            advertisersReset();
         }
     }
 
@@ -110,6 +130,7 @@ class NewAdvertisement extends Component {
             frequency: values.frequency,
             ticketId: values.ticketId,
         };
+
         saveClick(formattedValues);
     };
 
@@ -200,20 +221,27 @@ class NewAdvertisement extends Component {
         return Math.ceil((loaded / total) * 100);
     };
 
-    // isShowBtnLoader = () => {
-    //     let result;
-    //     const { loading, fileStatus } = this.props;
-    //     if (fileStatus === 'Error') {
-    //         result = false;
-    //     } else {
-    //         result = loading;
-    //     }
-    //     return result;
-    // };
+    handleAdvertiserSearch = (value) => {
+        const { advertiserSearch } = this.props;
+
+        if (!value.trim()) {
+            return;
+        }
+
+        advertiserSearch({
+            template: value,
+            count: 4,
+        });
+    }
 
     render() {
         const { isUploadedToFileSystem, controlledFileList } = this.state;
-        const { fileStatus, loading } = this.props;
+        const {
+            fileStatus,
+            loading,
+            advertisersPending,
+            advertisers,
+        } = this.props;
 
         return (
             <Row justify="center">
@@ -229,8 +257,37 @@ class NewAdvertisement extends Component {
                         wrappedRef={this.formRef}
                         {...this.formItemLayout}
                     >
-                        <FormItemWrapper type="text-input" name="advertiserEmail" />
+                        <FormItemWrapper
+                            type="custom-component"
+                            name="advertiserEmail"
+                            component={(props) => (
+                                <Select
+                                    showSearch
+                                    defaultActiveFirstOption={false}
+                                    showArrow={false}
+                                    filterOption={false}
+                                    optionLabelProp="label"
+                                    onSearch={this.handleAdvertiserSearch}
+                                    notFoundContent={advertisersPending ? <Spin size="small" /> : null}
+                                    {...props}
+                                >
+                                    {advertisers.map((advertiser) => (
+                                        <Select.Option
+                                            key={advertiser.id}
+                                            value={advertiser.email}
+                                            label={`${advertiser.email} — ${advertiser.organization}`}
+                                        >
+                                            {advertiser.email}
+                                            <br />
+                                            <Text type="secondary">{advertiser.organization}</Text>
+                                        </Select.Option>
+                                    ))}
+                                </Select>
+                            )}
+                        />
+
                         <FormItemWrapper type="text-input" name="name" />
+
                         <FormItemWrapper
                             type="range-picker"
                             name="rangeDate"
@@ -238,6 +295,7 @@ class NewAdvertisement extends Component {
                                 className: styles.input__rangePicker,
                             }}
                         />
+
                         <FormItemWrapper
                             type="number-input"
                             name="frequency"
@@ -245,6 +303,7 @@ class NewAdvertisement extends Component {
                                 className: styles.input__number,
                             }}
                         />
+
                         <FormItemWrapper
                             type="text-input"
                             name="ticketId"
@@ -334,6 +393,7 @@ class NewAdvertisement extends Component {
 NewAdvertisement.defaultProps = {
     uploadingConnection: null,
     loading: false,
+    advertisers: [],
 };
 
 NewAdvertisement.propTypes = {
@@ -350,6 +410,14 @@ NewAdvertisement.propTypes = {
     uploadingConnection: PropTypes.shape(),
     cleanUploadConnection: PropTypes.func.isRequired,
     loading: PropTypes.bool,
+    advertiserSearch: PropTypes.func.isRequired,
+    advertisersReset: PropTypes.func.isRequired,
+    advertisersPending: PropTypes.bool.isRequired,
+    advertisers: PropTypes.arrayOf(PropTypes.shape({
+        email: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
+        organization: PropTypes.string.isRequired,
+    })),
 };
 
 export default NewAdvertisement;
