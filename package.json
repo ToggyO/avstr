@@ -11,6 +11,7 @@
     "antd-mask-input": "^0.1.13",
     "beautiful-react-hooks": "^0.25.2",
     "classnames": "^2.2.6",
+    "env-cmd": "^10.1.0",
     "miragejs": "^0.1.35",
     "node-sass": "^4.13.1",
     "oidc-client": "^1.10.1",
