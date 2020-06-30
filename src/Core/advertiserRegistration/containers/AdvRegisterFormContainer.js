@@ -9,7 +9,7 @@ import AdvRegisterForm from '../components/AdvRegisterForm';
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     loading: getProp(advertiserRegistrationReducer, 'loading', false),
     isRegisterReqSuccess: getProp(advertiserRegistrationReducer, 'isRegisterReqSuccess', false),
-    error: getProp(advertiserRegistrationReducer, 'error', null),
+    errorsFromBackend: getProp(advertiserRegistrationReducer, 'errors'),
 });
 
 const mapDispatchToProps = {

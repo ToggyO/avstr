@@ -10,7 +10,9 @@ import {
     cleanXhr,
     getAdvertisersList,
     resetAdvertisersList,
+    clearAdvertiserManagerErrors,
 } from './action-creators';
+
 
 const NewAdvertisementPage = ({
     fileUploadStatus,
@@ -24,6 +26,8 @@ const NewAdvertisementPage = ({
     resetAdvertisersListAction,
     advertisersPending,
     advertisers,
+    errorsFromBackend,
+    cleanErrors,
 }) => (
     <NewAdvertisement
         fileStatus={fileUploadStatus}
@@ -37,6 +41,8 @@ const NewAdvertisementPage = ({
         advertisersReset={resetAdvertisersListAction}
         advertisersPending={advertisersPending}
         advertisers={advertisers}
+        errorsFromBackend={errorsFromBackend}
+        cleanErrors={cleanErrors}
     />
 );
 
@@ -45,6 +51,8 @@ NewAdvertisementPage.defaultProps = {
     xhr: null,
     loading: false,
     advertisers: [],
+    errorsFromBackend: {},
+    cleanErrors: Function.prototype,
 };
 
 NewAdvertisementPage.propTypes = {
@@ -69,6 +77,10 @@ NewAdvertisementPage.propTypes = {
         id: PropTypes.number.isRequired,
         organization: PropTypes.string.isRequired,
     })),
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    cleanErrors: PropTypes.func,
 };
 
 
@@ -81,6 +93,7 @@ const mapStateToProps = ({
             loading,
             advertisersPending,
             advertisers,
+            errors,
         },
     },
 }) => ({
@@ -90,6 +103,7 @@ const mapStateToProps = ({
     loading,
     advertisersPending,
     advertisers,
+    errorsFromBackend: errors,
 });
 
 const mapDispatchToProps = {
@@ -98,6 +112,7 @@ const mapDispatchToProps = {
     cleanXhrAction: cleanXhr,
     getAdvertisersListAction: getAdvertisersList,
     resetAdvertisersListAction: resetAdvertisersList,
+    cleanErrors: clearAdvertiserManagerErrors,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewAdvertisementPage);

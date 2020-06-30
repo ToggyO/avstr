@@ -5,7 +5,6 @@ const formOptions = {
     advertiserEmail: {
         label: 'Рекламодатель',
         props: {
-            size: 'middle',
             placeholder: 'Для поиска начните вводить почту рекламодателя',
         },
         rules: [
@@ -17,9 +16,6 @@ const formOptions = {
     },
     name: {
         label: 'Название объявления',
-        props: {
-            size: 'middle',
-        },
         rules: [
             {
                 required: true,
@@ -30,7 +26,6 @@ const formOptions = {
     rangeDate: {
         label: 'Даты показа',
         props: {
-            size: 'middle',
             placeholder: ['Дата начала', 'Дата окончания'],
             disabledDate: (currentDate) => compareDateWithToday(currentDate),
         },
@@ -45,7 +40,6 @@ const formOptions = {
     frequency: {
         label: 'Частота показа в сутки',
         props: {
-            size: 'middle',
             min: 1,
             parser: (value) => value.replace(/\.s?|(,*)[^-0-9]/gim, ''),
         },
@@ -58,22 +52,13 @@ const formOptions = {
     },
     ticketId: {
         label: 'ID тикета',
-        props: {
-            size: 'middle',
-        },
         extra: 'Необязательное поле',
     },
     fileList: {
         label: 'Медиафайл',
     },
-    cancel: {
-        props: {
-            size: 'middle',
-        },
-    },
     submit: {
         props: {
-            size: 'middle',
             type: 'primary',
             htmlType: 'submit',
         },

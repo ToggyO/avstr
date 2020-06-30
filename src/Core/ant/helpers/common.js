@@ -33,9 +33,6 @@ export const getHeaderTitle = ({
     return `${splittedPathname[splittedPathname.length - 1]}`;
 };
 
-// TODO: реализовать функцию обработки ошибок с бэкэнда
-export const transformErrorToForm = () => {};
-
 /**
  * Функция валидации поля FormItemWrapper
  * @param {object} form - инстанс формы Ant Design

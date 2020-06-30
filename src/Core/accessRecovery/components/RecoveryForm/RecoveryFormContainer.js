@@ -6,6 +6,7 @@ import RecoveryFormView from './RecoveryFormView';
 
 const mapStateToProps = ({ accessRecoveryReducer }) => ({
     loading: getProp(accessRecoveryReducer, 'loading'),
+    errorsFromBackend: getProp(accessRecoveryReducer, 'errors'),
 });
 
 const mapDispatchToProps = {

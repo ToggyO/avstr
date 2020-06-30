@@ -26,7 +26,8 @@ function* restorePassword({ data }) {
             resultType: SUCCESS_RESULT_TYPES.RESTORE_PASSWORD,
         });
     } catch (error) {
-        yield put({ type: types.RESTORE_PASSWORD_ERROR, data: error });
+        const { errorContent } = error;
+        yield put({ type: types.RESTORE_PASSWORD_ERROR, data: errorContent });
     }
 }
 

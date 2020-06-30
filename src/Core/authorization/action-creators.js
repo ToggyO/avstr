@@ -11,7 +11,7 @@ export const setAuthorized = (data) => ({
 });
 
 export const login = (data) => ({
-    type: actions.LOGIN,
+    type: actions.LOGIN_REQUEST,
     data,
 });
 
@@ -23,4 +23,8 @@ export const logout = (data) => ({
 export const setErrMessage = (data) => ({
     type: actions.SET_AUTH_ERR_MESSAGE,
     data,
+});
+
+export const authClearErrors = () => ({
+    type: actions.CLEAR_ERRORS,
 });

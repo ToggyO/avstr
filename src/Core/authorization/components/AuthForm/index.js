@@ -1,19 +1,25 @@
 // todo(nn): При переделке стр не забыть перенести айдишники для автотестов
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
 import PropTypes from 'prop-types';
 
 import Logo from 'Core/common/Logo';
 import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
-import Button from 'Core/common/Button';
+// import Button from 'Core/common/Button';
 import ErrMessage from 'Core/common/ErrorMessage';
 
 
 import styles from './index.module.scss';
 
 
-const AuthForm = ({ formSubmitHandler, errMessage }) => {
+const AuthForm = ({
+    formSubmitHandler,
+    errMessage,
+    clearErrors,
+    loading,
+}) => {
     const [loginText, setLoginText] = useState('');
 
     const [passwordText, setPasswordText] = useState('');
@@ -23,6 +29,7 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
     const [checkboxValue, setCheckboxValue] = useState(false);
     // const [showInputErrors, setShowInputErrors] = useState(false);
 
+    useEffect(() => () => clearErrors(), [clearErrors]);
 
     const handleLoginChange = ({ target: { value } }) => {
         setLoginText(value);
@@ -115,8 +122,10 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
                 <div className={styles.btnWrap}>
                     <Button
                         disabled={!loginText || !passwordText}
-                        type="main"
-                        size="medium"
+                        type="primary"
+                        size="large"
+                        htmlType="button"
+                        loading={loading}
                         className={styles.btn}
                         onClick={handleBtnClick}
                         id="signIn" // Для автотестов
@@ -133,6 +142,13 @@ const AuthForm = ({ formSubmitHandler, errMessage }) => {
 AuthForm.propTypes = {
     errMessage: PropTypes.string.isRequired,
     formSubmitHandler: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+    clearErrors: PropTypes.func,
+};
+
+AuthForm.defaultProps = {
+    loading: false,
+    clearErrors: Function.prototype,
 };
 
 export default AuthForm;

@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     items: [],
     pagination: {},
-    errors: [],
+    errors: {},
 };
 
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
@@ -36,7 +36,7 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
         case actions.ADVERTISER_CLEAR_ERRORS:
             return {
                 ...state,
-                errors: [],
+                errors: {},
             };
         default:
             return state;

@@ -12,3 +12,7 @@ export const GET_ADVERTISERS_LIST_REQUEST = 'advertising-management/GET_ADVERTIS
 export const GET_ADVERTISERS_LIST_SUCCESS = 'advertising-management/GET_ADVERTISERS_LIST_SUCCESS';
 export const GET_ADVERTISERS_LIST_ERROR = 'advertising-management/GET_ADVERTISERS_LIST_ERROR';
 export const RESET_ADVERTISERS_LIST = 'advertising-management/RESET_ADVERTISERS_LIST';
+
+export const ADVERTISER_MANAGEMENT_PUT_ERRORS = 'advertisingManagement/ADVERTISER_MANAGEMENT_PUT_ERRORS';
+// Очистка ошибок advertisingManagementReducer
+export const ADVERTISER_MANAGEMENT_CLEAR_ERRORS = 'advertisingManagement/ADVERTISER_MANAGEMENT_CLEAR_ERRORS';

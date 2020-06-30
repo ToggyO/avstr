@@ -47,3 +47,7 @@ export const getAdvertisersList = (params) => ({
 export const resetAdvertisersList = () => ({
     type: actions.RESET_ADVERTISERS_LIST,
 });
+
+export const clearAdvertiserManagerErrors = () => ({
+    type: actions.ADVERTISER_MANAGEMENT_CLEAR_ERRORS,
+});

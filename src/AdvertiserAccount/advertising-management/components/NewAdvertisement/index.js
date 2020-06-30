@@ -80,8 +80,6 @@ class NewAdvertisement extends Component {
         if (prevProps.fileStatus !== fileStatus) {
             if (fileStatus === 'Success') {
                 this.handleSuccessUploading();
-            } else if (fileStatus === 'Error') {
-                this.handleErrorUploading();
             }
         }
     }
@@ -93,6 +91,7 @@ class NewAdvertisement extends Component {
             cleanUploadConnection,
             advertisersReset,
             advertisers,
+            cleanErrors,
         } = this.props;
         changeFileStatus('');
 
@@ -104,6 +103,8 @@ class NewAdvertisement extends Component {
         if (advertisers && advertisers.length) {
             advertisersReset();
         }
+
+        cleanErrors();
     }
 
     handleSuccessUploading = () => {
@@ -111,10 +112,6 @@ class NewAdvertisement extends Component {
         changeFileStatus('');
         message.success('Объявление успешно добавлено');
         history.push(ROOT_ROUTES.AD_MANAGER);
-    };
-
-    handleErrorUploading = () => {
-        message.error('Что то пошло не так');
     };
 
     handleSaveClick = (values) => {
@@ -241,6 +238,7 @@ class NewAdvertisement extends Component {
             loading,
             advertisersPending,
             advertisers,
+            errorsFromBackend,
         } = this.props;
 
         return (
@@ -252,9 +250,12 @@ class NewAdvertisement extends Component {
                         )}
                     </div>
                     <StandardForm
+                        layout="horizontal"
+                        size="large"
                         onFinish={this.handleSaveClick}
                         options={options}
                         wrappedRef={this.formRef}
+                        errorsFromBackend={errorsFromBackend}
                         {...this.formItemLayout}
                     >
                         <FormItemWrapper
@@ -394,6 +395,8 @@ NewAdvertisement.defaultProps = {
     uploadingConnection: null,
     loading: false,
     advertisers: [],
+    errorsFromBackend: {},
+    cleanErrors: Function.prototype,
 };
 
 NewAdvertisement.propTypes = {
@@ -418,6 +421,10 @@ NewAdvertisement.propTypes = {
         id: PropTypes.number.isRequired,
         organization: PropTypes.string.isRequired,
     })),
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
+    cleanErrors: PropTypes.func,
 };
 
 export default NewAdvertisement;

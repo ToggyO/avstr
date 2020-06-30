@@ -4,7 +4,7 @@ const initialState = {
     loading: false,
     isRegisterReqSuccess: false,
     isConfirmSuccess: false,
-    error: null,
+    errors: {},
 };
 
 const advertiserRegistrationReducer = (state = { ...initialState }, { type, data }) => {
@@ -31,7 +31,7 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
             return {
                 ...state,
                 loading: false,
-                error: data,
+                errors: data,
             };
         case actions.CONFIRM_ADV_REGISTRATION_ERROR:
             return {
@@ -41,7 +41,7 @@ const advertiserRegistrationReducer = (state = { ...initialState }, { type, data
         case actions.CLEAN_ERROR:
             return {
                 ...state,
-                error: null,
+                errors: {},
             };
         default:
             return state;
