@@ -5,7 +5,7 @@ const formOptions = {
     advertiserEmail: {
         label: 'Рекламодатель',
         props: {
-            placeholder: 'Почта рекламодателя',
+            placeholder: 'Для поиска начните вводить почту рекламодателя',
         },
         rules: [
             {

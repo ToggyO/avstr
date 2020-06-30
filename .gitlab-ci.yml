@@ -2,6 +2,7 @@ stages:
   - build
   - push
   - staging
+  - build.production
   - production
 
 image: docker:19.03
@@ -30,27 +31,6 @@ Build.Staging:
         .
     - docker push ${IMAGE_TAG}
 
-Build.Production:
-  tags: [csharp]
-  stage: build
-  variables:
-    DOCKER_FILE_PATH: deployments/docker/Dockerfile_production
-    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-production
-  only:
-    - master
-  before_script:
-    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
-  script:
-    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
-    - >
-        docker build
-        --pull
-        --cache-from ${CI_REGISTRY_IMAGE}:latest
-        --tag ${IMAGE_TAG}
-        -f ${DOCKER_FILE_PATH}
-        .
-    - docker push ${IMAGE_TAG}
-
 Push master:
   stage: push
   tags: [csharp,net]
@@ -63,11 +43,8 @@ Push master:
     - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
   script:
     - docker pull ${IMAGE_TAG}
-    - docker pull ${IMAGE_TAG}-production
-    - docker tag ${IMAGE_TAG}-production ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:latest
-    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
     - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
     - docker push ${CI_REGISTRY_IMAGE}:latest
 
@@ -102,6 +79,30 @@ Deploy.Staging:
   variables:
     APP_DOMAIN: avastar.smartheadtest.ru
     IMAGE: ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master
+
+Build.Production:
+  tags: [csharp]
+  stage: build.production
+  when: manual
+  variables:
+    DOCKER_FILE_PATH: deployments/docker/Dockerfile_production
+    IMAGE_TAG: ${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}-production
+  only:
+    - master
+  before_script:
+    - echo -n ${CI_JOB_TOKEN} | docker login -u gitlab-ci-token --password-stdin ${CI_REGISTRY}
+  script:
+    - docker pull ${CI_REGISTRY_IMAGE}:latest || true
+    - >
+        docker build
+        --pull
+        --cache-from ${CI_REGISTRY_IMAGE}:latest
+        --tag ${IMAGE_TAG}
+        -f ${DOCKER_FILE_PATH}
+        .
+    - docker tag ${IMAGE_TAG} ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
+    - docker push ${IMAGE_TAG}
+    - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_IID}-master-production
 
 Deploy.Production:
   <<: *deploy

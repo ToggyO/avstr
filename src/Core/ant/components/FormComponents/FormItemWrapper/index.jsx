@@ -14,18 +14,19 @@ import { StandardFormContext } from '../ContextForm';
 
 const { RangePicker } = DatePicker;
 
-const FormItemWrapper = ({
-    type,
-    name,
-    dataSource = [],
-    component = () => <div />,
-    formItemStyle,
-    propsToChild,
-    children,
-    ...restFormItemProps
-}) => {
-    let getOptions;
+const FormItemWrapper = (props) => {
+    const {
+        type,
+        name,
+        dataSource = [],
+        component = () => <div />,
+        formItemStyle,
+        propsToChild,
+        children,
+        ...restFormItemProps
+    } = props;
     const { form, options } = useContext(StandardFormContext);
+    let getOptions;
 
     if (typeof options === 'function') {
         getOptions = options(form);
@@ -38,6 +39,7 @@ const FormItemWrapper = ({
         formItemStyle: fomItemStyleFromOptions = {},
         ...restItemProps
     } = getOptions[name] || {};
+
     const { selectOptions } = componentProps;
 
     const fieldType = () => {
@@ -64,7 +66,7 @@ const FormItemWrapper = ({
                 return (
                     <Select {...componentProps} {...propsToChild}>
                         {dataSource.map((data) => (
-                            <Select.Option value={data.key} key={data.key}>
+                            <Select.Option key={data.value} value={data.value}>
                                 {data.label}
                             </Select.Option>
                         ))}
@@ -122,16 +124,12 @@ FormItemWrapper.propTypes = {
     ]).isRequired,
     name: PropTypes.string.isRequired,
     dataSource: PropTypes.shape({
-        key: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
-        label: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+        label: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
     component: PropTypes.func,
-    formItemStyle: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
-    propsToChild: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    formItemStyle: PropTypes.objectOf(PropTypes.any),
+    propsToChild: PropTypes.objectOf(PropTypes.any),
     children: PropTypes.node,
 };
 
