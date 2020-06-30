@@ -2,8 +2,8 @@ import { message } from 'antd';
 
 import ApplicationError from 'Core/api/applicationError';
 
-export default function handleRequestErrors(status, err) {
-    const { errorContent } = err;
+export default function handleRequestErrors(status, err = {}) {
+    const { errorContent = {} } = err;
     let errorMessage = '';
     let errorObj = {};
     switch (status) {

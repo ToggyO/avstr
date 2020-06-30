@@ -15,36 +15,17 @@ function* handleRegisterAdvertiser({ data }) {
         yield put({ type: actions.REGISTER_ADVERTISER_SUCCESS });
     } catch (error) {
         const { errorContent } = error;
-        yield put({ type: actions.REGISTER_ADVERTISER_ERROR, data: errorContent });
-        // const { type, content } = err;
-        // switch (type) {
-        //     case 'BadRequest':
-        //         if (content && content[0] === 'DuplicateUserName') {
-        //             yield put({
-        //                 type: actions.REGISTER_ADVERTISER_ERROR,
-        //                 data: 'Рекламодатель с такой почтой уже существует',
-        //             });
-        //         } else {
-        //             yield put({
-        //                 type: actions.REGISTER_ADVERTISER_ERROR,
-        //                 data: 'BadRequest',
-        //             });
-        //         }
-        //         break;
-        //     case 'AuthorizationError':
-        //         alert('Ошибка авторизации.');
-        //         history.push('/');
-        //         break;
-        //     case 'ServerError':
-        //         alert('На сервере произошла ошибка.');
-        //         history.push('/');
-        //         break;
-        //     default:
-        //         yield put({
-        //             type: actions.REGISTER_ADVERTISER_ERROR,
-        //             data: 'Default Error',
-        //         });
-        // }
+
+        if (errorContent && errorContent[0] === 'DuplicateUserName') {
+            yield put({
+                type: actions.REGISTER_ADVERTISER_ERROR,
+                data: {
+                    Email: ['Рекламодатель с такой почтой уже существует'],
+                },
+            });
+        } else {
+            yield put({ type: actions.REGISTER_ADVERTISER_ERROR, data: errorContent });
+        }
     }
 }
 

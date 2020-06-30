@@ -51,26 +51,11 @@ function* handleUploadFile({ data }) {
                 yield put(changeUploadStatus('Error'));
                 yield handleRequestErrors(status, error);
             }
-
             yield put(changeUploadStatus(progress));
         }
-    // } catch ({ type }) {
     } catch (error) {
         const { errorContent } = error;
         yield put({ type: actions.ADVERTISER_MANAGEMENT_PUT_ERRORS, data: errorContent });
-        // switch (type) {
-        //     case 'BadRequest':
-        //         yield put(changeUploadStatus('Error'));
-        //         break;
-        //     case 'AuthorizationError':
-        //         window.location = '/';
-        //         break;
-        //     case 'ServerError':
-        //         alert('На сервере произошла ошибка.');
-        //         break;
-        //     default:
-        //         yield put(changeUploadStatus('Error'));
-        // }
     }
 }
 

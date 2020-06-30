@@ -9,8 +9,9 @@ function createUploadChanel(xhr, file) {
             }
         };
 
-        const onFailure = (status, error) => {
-            emitter({ isErr: true, status, error });
+        const onFailure = (statusCode, error = {}) => {
+            const resultError = error === null ? {} : error;
+            emitter({ isErr: true, status: statusCode, error: resultError });
             emitter(END);
         };
 
@@ -20,7 +21,7 @@ function createUploadChanel(xhr, file) {
         };
 
         const onSuccess = () => {
-            const { status, response } = xhr;
+            const { status, response = {} } = xhr;
             if (status === 201) {
                 emitter({ success: { response } });
                 emitter(END);
@@ -30,7 +31,10 @@ function createUploadChanel(xhr, file) {
         };
 
         xhr.upload.addEventListener('progress', onProgress);
-        xhr.upload.addEventListener('error', onFailure);
+        xhr.upload.addEventListener('error', () => {
+            const { status, response = {} } = xhr;
+            return onFailure(status, response);
+        });
         xhr.upload.addEventListener('abort', onAbort);
         xhr.addEventListener('loadend', onSuccess);
 

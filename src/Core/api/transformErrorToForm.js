@@ -1,4 +1,4 @@
-import { ERROR_MESSAGES } from '../constants';
+import createErrorMessage from 'Core/api/createErrorMessage';
 
 const transformErrorToForm = (
     errors,
@@ -14,7 +14,7 @@ const transformErrorToForm = (
         value,
         touched,
         validating,
-        errors: [ERROR_MESSAGES(value)],
+        errors: [createErrorMessage(value, errors[key][0])],
     };
     acc.push(errorObj);
     return acc;

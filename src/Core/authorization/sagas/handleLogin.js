@@ -29,17 +29,6 @@ function* handleLogin({ data }) {
     } catch (error) {
         const { errorContent } = error;
         yield put({ type: actions.LOGIN_ERROR, data: errorContent });
-        // const { type } = err;
-        // switch (type) {
-        //     case 'AuthorizationError':
-        //         yield put(setErrMessage('Неверное имя пользователя или пароль'));
-        //         break;
-        //     case 'ServerError':
-        //         yield put(setErrMessage('Что то пошло не так. Пожалуйста поробуйте позже.'));
-        //         break;
-        //     default:
-        //         throw err;
-        // }
     }
 }
 
