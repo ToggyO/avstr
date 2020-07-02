@@ -11,6 +11,7 @@
     "antd-mask-input": "^0.1.13",
     "beautiful-react-hooks": "^0.25.2",
     "classnames": "^2.2.6",
+    "env-cmd": "^10.1.0",
     "miragejs": "^0.1.35",
     "node-sass": "^4.13.1",
     "oidc-client": "^1.10.1",
@@ -52,7 +53,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "env-cmd -f .env.production react-app-rewired build",
+    "build": "env-cmd -f .env.testing react-app-rewired build",
     "build:prod": "react-app-rewired build",
     "build:stage": "env-cmd -f .env.staging react-app-rewired build",
     "test": "react-app-rewired test",
