@@ -12,7 +12,7 @@ const userManagerConfig = {
     authority: REACT_APP_AUTH_URL,
     redirect_uri: `${REACT_APP_REDIRECT_URL}${REACT_APP_CALLBACK_PATH}`,
     response_type: 'token id_token',
-    scope: 'openid avastar-microservices IdentityServerApi',
+    scope: 'openid avastar-microservices',
     post_logout_redirect_uri: REACT_APP_REDIRECT_URL,
     silent_redirect_uri: `${REACT_APP_REDIRECT_URL}${REACT_APP_SILENT_RENEW_PATH}`,
     automaticSilentRenew: true,
