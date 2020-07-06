@@ -5,7 +5,6 @@ import cn from 'classnames';
 
 import styles from './index.module.scss';
 
-
 const Popup = ({
     show,
     children,
@@ -40,7 +39,6 @@ const Popup = ({
             modalRoot,
         ));
 };
-
 
 Popup.defaultProps = {
     show: false,

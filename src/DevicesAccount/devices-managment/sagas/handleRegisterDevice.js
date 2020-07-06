@@ -4,7 +4,6 @@ import api from 'Core/api';
 import { changeDeviceStatus, changeFieldsCleanNeededFlag } from '../action-creators';
 import handleDeviceStatusRequest from './handleDeviceStatusRequest';
 
-
 const { REACT_APP_DEVICE_API } = process.env;
 
 function* handleRegisterDevice({ data: { name, serialNumberCrc, isFromPopup } }) {

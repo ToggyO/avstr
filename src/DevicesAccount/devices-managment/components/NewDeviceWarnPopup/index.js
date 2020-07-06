@@ -42,7 +42,6 @@ const NewDeviceWarnPopup = ({
     </Popup>
 );
 
-
 NewDeviceWarnPopup.propTypes = {
     show: PropTypes.bool.isRequired,
     noBtnHandler: PropTypes.func.isRequired,

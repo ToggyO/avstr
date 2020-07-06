@@ -17,7 +17,6 @@ import handleDeactivateDevice from './device-status-changing/handleDeactivateDev
 import handleStartMediaStream from './video-streaming/handleStartMediaStream';
 import handleRequestGeoPoints from '../../devices-common/sagas/handleRequestGeoPoints';
 
-
 export default function* devicesMonitoringWatcher() {
     yield takeLatest(REQUEST_DEVICE_CONTENT, handleRequestDeviceContent);
 

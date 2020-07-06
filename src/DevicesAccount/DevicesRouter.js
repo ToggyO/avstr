@@ -8,7 +8,6 @@ const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRout
 const NewDevicePage = lazy(() => import('./devices-managment/containers/NewDevicePage'));
 const DeviceMonitoringPage = lazy(() => import('./devices-monitoring/containers/DeviceMonitoringPage'));
 
-
 const DevicesRouter = ({ match: { path } }) => (
     <Suspense fallback={<PageLoading />}>
         <Switch>
@@ -27,7 +26,6 @@ const DevicesRouter = ({ match: { path } }) => (
         </Switch>
     </Suspense>
 );
-
 
 DevicesRouter.propTypes = {
     match: PropTypes.shape({

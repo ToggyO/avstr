@@ -5,7 +5,6 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from './root/rootReducer';
 import rootSaga from './root/rootSaga';
 
-
 const composeEnhancers = process.env.NODE_ENV !== 'production'
     && typeof window === 'object'
     && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -27,6 +26,5 @@ const configureStore = (preloadedState) => (
 
 const store = configureStore({});
 sagaMiddleware.run(rootSaga);
-
 
 export default store;

@@ -8,7 +8,6 @@ import { requestAdvertisements, deleteAdvertisement } from './action-creators';
 
 import Advertisements from './components/Advertisements';
 
-
 class AdvertisingManagementPage extends Component {
     componentDidMount() {
         const { requestAdvertisementsAction } = this.props;
@@ -30,7 +29,6 @@ class AdvertisingManagementPage extends Component {
         );
     }
 }
-
 
 AdvertisingManagementPage.propTypes = {
     advertisements: PropTypes.arrayOf(

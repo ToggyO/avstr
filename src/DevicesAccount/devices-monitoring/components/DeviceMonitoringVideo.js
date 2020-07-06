@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import streamStore from 'Core/streamStoreService';
 
-
 const DeviceMonitoringVideo = ({ mediaStreamId }) => {
     const ref = useRef(null);
 
@@ -21,7 +20,6 @@ const DeviceMonitoringVideo = ({ mediaStreamId }) => {
         />
     );
 };
-
 
 DeviceMonitoringVideo.defaultProps = {
     mediaStreamId: null,

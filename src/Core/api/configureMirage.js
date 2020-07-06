@@ -32,7 +32,6 @@ const configureMirage = () => new Server({
             return schema.movies.find(id).destroy();
         });
 
-
         // errors
         this.post('/400', () => {
             const headers = {};

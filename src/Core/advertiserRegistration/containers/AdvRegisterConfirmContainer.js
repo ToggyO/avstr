@@ -7,7 +7,6 @@ import { confirmAdRegistration } from '../action-creators';
 
 import AdvRegisterConfirm from '../components/AdvRegisterConfirm';
 
-
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     isConfirmSuccess: getProp(advertiserRegistrationReducer, 'isConfirmSuccess', false),
     loading: getProp(advertiserRegistrationReducer, 'loading', false),
@@ -16,7 +15,6 @@ const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
 const mapDispatchToProps = {
     confirmAdRegistrationAction: confirmAdRegistration,
 };
-
 
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),

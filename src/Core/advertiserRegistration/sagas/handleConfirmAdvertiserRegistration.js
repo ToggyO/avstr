@@ -33,5 +33,4 @@ function* handleConfirmAdvertiserRegistration({ data }) {
     }
 }
 
-
 export default handleConfirmAdvertiserRegistration;

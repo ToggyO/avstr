@@ -64,5 +64,4 @@ VideoPreview.defaultProps = {
     onRemove: Function.prototype,
 };
 
-
 export default VideoPreview;

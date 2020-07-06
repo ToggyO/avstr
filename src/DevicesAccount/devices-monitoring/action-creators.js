@@ -19,7 +19,6 @@ import {
     CLEAN_GEO_POINT,
 } from './actions';
 
-
 export const requestDeviceContent = (data) => ({
     type: REQUEST_DEVICE_CONTENT,
     data,
@@ -28,7 +27,6 @@ export const receiveDeviceContent = (data) => ({
     type: RECEIVE_DEVICE_CONTENT,
     data,
 });
-
 
 export const startAdvertising = (data) => ({
     type: START_ADVERTISING,
@@ -42,7 +40,6 @@ export const changeAdvertisingLoaderStatus = (data) => ({
     type: CHANGE_ADVERTISING_LOADER_STATUS,
     data,
 });
-
 
 export const activateDevice = (data) => ({
     type: ACTIVATE_DEVICE,
@@ -60,7 +57,6 @@ export const changeDeviceStatusLoader = (data) => ({
     type: CHANGE_DEVICE_STATUS_LOADER,
     data,
 });
-
 
 export const startMediaStream = (data) => ({
     type: START_MEDIA_STREAM,

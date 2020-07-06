@@ -11,7 +11,6 @@ import {
     CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
 } from './actions';
 
-
 export const requestDevices = (data) => ({
     type: REQUEST_DEVICES,
     data,
@@ -21,12 +20,10 @@ export const receiveDevices = (data) => ({
     data,
 });
 
-
 export const receivePagination = (data) => ({
     type: RECEIVE_PAGINATION,
     data,
 });
-
 
 export const registerDevice = (data) => ({
     type: REGISTER_DEVICE,
@@ -44,7 +41,6 @@ export const changeFieldsCleanNeededFlag = (data) => ({
     type: CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
     data,
 });
-
 
 export const requestAllGeoPoints = (data) => ({
     type: REQUEST_ALL_GEO_POINTS,

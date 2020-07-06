@@ -26,7 +26,6 @@ const DevicesPageRouter = ({ match: { path } }) => (
     </>
 );
 
-
 DevicesPageRouter.propTypes = {
     match: PropTypes.shape({
         path: PropTypes.string.isRequired,

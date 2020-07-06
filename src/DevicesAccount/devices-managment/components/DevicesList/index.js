@@ -212,7 +212,6 @@ const DevicesList = ({
     );
 };
 
-
 DevicesList.propTypes = {
     pagination: PropTypes.shape({
         page: PropTypes.number.isRequired,

@@ -6,7 +6,6 @@ import { Icon } from 'semantic-ui-react';
 
 import styles from './index.module.scss';
 
-
 const UploadedFileCard = ({ pathToImg, partOfAdvertisement, isVideo }) => {
     const cardStyles = cn(
         styles.card,
@@ -32,12 +31,10 @@ const UploadedFileCard = ({ pathToImg, partOfAdvertisement, isVideo }) => {
     );
 };
 
-
 UploadedFileCard.defaultProps = {
     partOfAdvertisement: false,
     isVideo: false,
 };
-
 
 UploadedFileCard.propTypes = {
     pathToImg: PropTypes.string.isRequired,

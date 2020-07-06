@@ -9,7 +9,6 @@ const ProgressBar = ({ status }) => (
     </div>
 );
 
-
 ProgressBar.propTypes = {
     status: PropTypes.string.isRequired,
 };
