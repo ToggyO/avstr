@@ -14,7 +14,6 @@ import Button from '../Button';
 
 import styles from './index.module.scss';
 
-
 const NavBar = ({ logoutAction }) => {
     const handleLogout = () => {
         userManager.signoutRedirect();
@@ -63,7 +62,6 @@ const NavBar = ({ logoutAction }) => {
         </nav>
     );
 };
-
 
 NavBar.propTypes = {
     logoutAction: PropTypes.func.isRequired,

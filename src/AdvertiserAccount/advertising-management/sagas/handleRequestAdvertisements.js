@@ -5,7 +5,6 @@ import { receiveAdvertisements } from '../action-creators';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
-
 function* handleRequestAdvertisements() {
     try {
         const { content } = yield call(api.get, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/admin/promotions`);

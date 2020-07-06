@@ -14,7 +14,6 @@ const NewDeviceTextItem = ({ number, text, className }) => (
     </div>
 );
 
-
 NewDeviceTextItem.defaultProps = {
     className: '',
 };

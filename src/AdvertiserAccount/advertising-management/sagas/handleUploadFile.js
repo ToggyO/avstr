@@ -12,7 +12,6 @@ import handleRequestErrors from '../../../Core/api/handeRequestErrors';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
-
 function* handleUploadFile({ data }) {
     try {
         const formData = new FormData();

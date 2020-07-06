@@ -12,7 +12,6 @@ import {
 
 import NewDevice from '../components/NewDevice';
 
-
 const NewDevicePage = ({
     lastDeviceStatus,
     registerDeviceAction,
@@ -38,7 +37,6 @@ const NewDevicePage = ({
     );
 };
 
-
 NewDevicePage.defaultProps = {
     lastDeviceStatus: '',
 };
@@ -51,7 +49,6 @@ NewDevicePage.propTypes = {
     isFieldsCleanNeeded: PropTypes.bool.isRequired,
     changeFieldsCleanNeededFlagAction: PropTypes.func.isRequired,
 };
-
 
 const mapStateToProps = ({
     devicesReducer: {

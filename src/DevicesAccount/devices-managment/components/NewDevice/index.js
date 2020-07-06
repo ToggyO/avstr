@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import NewDeviceForm from '../NewDeviceForm';
 import NewDeviceSuccess from '../NewDeviceSuccess';
 
-
 const NewDevice = ({
     deviceStatus,
     registerDevice,
@@ -26,7 +25,6 @@ const NewDevice = ({
             />
         )
 );
-
 
 NewDevice.defaultProps = {
     deviceStatus: '',

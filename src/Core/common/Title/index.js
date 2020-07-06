@@ -4,13 +4,11 @@ import cn from 'classnames';
 
 import styles from './index.module.scss';
 
-
 const Title = ({ text, className }) => (
     <h1 className={cn(styles.title, className)}>
         {text}
     </h1>
 );
-
 
 Title.defaultProps = {
     className: '',

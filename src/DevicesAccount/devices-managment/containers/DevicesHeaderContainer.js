@@ -7,7 +7,6 @@ import history from 'Core/history';
 import DevicesHeader from '../components/DevicesHeader';
 import { requestDevices } from '../action-creators';
 
-
 class DevicesHeaderContainer extends Component {
     componentDidMount() {
         const { requestDevicesAction } = this.props;
@@ -38,7 +37,6 @@ class DevicesHeaderContainer extends Component {
         );
     }
 }
-
 
 DevicesHeaderContainer.propTypes = {
     devices: PropTypes.arrayOf(

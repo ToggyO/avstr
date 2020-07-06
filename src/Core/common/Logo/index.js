@@ -6,7 +6,6 @@ import { ReactComponent as IconLogo } from '../../ant/components/Layouts/LoginLa
 
 import styles from './index.module.scss';
 
-
 const Logo = ({ size, className, ...attrs }) => {
     const logoClasses = cn(
         styles.logo,
@@ -25,7 +24,6 @@ const Logo = ({ size, className, ...attrs }) => {
     );
 };
 
-
 Logo.defaultProps = {
     size: 'normal',
     className: '',
@@ -35,6 +33,5 @@ Logo.propTypes = {
     size: PropTypes.string,
     className: PropTypes.string,
 };
-
 
 export default Logo;

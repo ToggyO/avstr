@@ -33,7 +33,6 @@ import { ReactComponent as IconTrashCan } from './iconTypes/trash-can.svg';
 import { ReactComponent as IconTrashCanFilled } from './iconTypes/trash-can-filled.svg';
 import { ReactComponent as IconUser } from './iconTypes/user.svg';
 
-
 import styles from './index.module.scss';
 
 const iconsTypes = {

@@ -6,7 +6,6 @@ import * as actions from '../actions';
 
 const { REACT_APP_AUTH_API } = process.env;
 
-
 function* handleRegisterAdvertiser({ data }) {
     try {
         yield call(api.post, `${REACT_APP_AUTH_API}${API_URLS_ADV_REGISTRATION.REGISTER}`, data, {

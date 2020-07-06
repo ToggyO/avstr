@@ -5,7 +5,6 @@ import { receiveDeviceContent } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
-
 function* handleRequestDeviceContent({ data }) {
     try {
         const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${data}`);

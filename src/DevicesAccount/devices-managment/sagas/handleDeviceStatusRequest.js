@@ -3,7 +3,6 @@ import { CANCEL_DEVICE_REGISTRATION } from '../actions';
 
 import requestDeviceStatus from './requestDeviceStatus';
 
-
 function* handleDeviceStatusRequest(deviceId) {
     const requestStatusChain = yield fork(requestDeviceStatus, deviceId);
     yield take(CANCEL_DEVICE_REGISTRATION);

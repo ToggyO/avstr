@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import DeviceMap from '../../devices-common/components/DeviceMap';
 import { requestGeoPoint, cleanGeoPoint } from '../action-creators';
 
-
 const DeviceMonitoringMapContainer = ({
     currentGeoPoint,
     requestGeoPointAction,
@@ -22,7 +21,6 @@ const DeviceMonitoringMapContainer = ({
         zoomWithUpdate
     />
 );
-
 
 DeviceMonitoringMapContainer.defaultProps = {
     className: '',
@@ -54,6 +52,5 @@ const mapDispatchToProps = {
     requestGeoPointAction: requestGeoPoint,
     cleanGeoPointAction: cleanGeoPoint,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringMapContainer);

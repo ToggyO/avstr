@@ -59,7 +59,6 @@ const NewDeviceErrPopup = ({
     </Popup>
 );
 
-
 NewDeviceErrPopup.propTypes = {
     show: PropTypes.bool.isRequired,
     deviceStatus: PropTypes.string.isRequired,

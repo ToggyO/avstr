@@ -7,7 +7,6 @@ import { ADV_REGISTER_ROUTES } from './constants';
 import AdvRegisterFormContainer from './containers/AdvRegisterFormContainer';
 import AdvRegisterConfirmContainer from './containers/AdvRegisterConfirmContainer';
 
-
 const AdvRegistrationRouter = () => (
     <Switch>
         <Route exact path={ROOT_ROUTES.AD_REGISTRATION} component={AdvRegisterFormContainer} />

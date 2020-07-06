@@ -4,9 +4,7 @@ import api from 'Core/api';
 import { receiveAllGeoPoints } from '../../devices-managment/action-creators';
 import { receiveGeoPoint } from '../../devices-monitoring/action-creators';
 
-
 const { REACT_APP_DEVICE_API } = process.env;
-
 
 function* handleRequestGeoPoints({ data }) {
     try {

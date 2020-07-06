@@ -7,9 +7,7 @@ import isEqual from 'Core/utils/isEqual';
 import { Icon } from 'semantic-ui-react';
 import UploadedFileCard from '../UploadedFileCard';
 
-
 import styles from './index.module.scss';
-
 
 const AdvertisementCard = ({
     content: {
@@ -49,7 +47,6 @@ const AdvertisementCard = ({
         </div>
     );
 };
-
 
 AdvertisementCard.propTypes = {
     content: PropTypes.shape({

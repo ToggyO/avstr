@@ -5,7 +5,6 @@ import { receivePagination, receiveDevices } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
-
 function* handleRequestDevices({ data }) {
     let queryParams = '';
     if (data) {

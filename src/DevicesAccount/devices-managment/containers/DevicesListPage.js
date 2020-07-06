@@ -8,7 +8,6 @@ import Container from 'Core/common/Container';
 import { requestDevices } from '../action-creators';
 import DevicesList from '../components/DevicesList';
 
-
 class DevicesListPage extends Component {
     componentDidMount() {
         const { requestDevicesAction } = this.props;
@@ -32,7 +31,6 @@ class DevicesListPage extends Component {
         );
     }
 }
-
 
 DevicesListPage.propTypes = {
     pagination: PropTypes.shape({

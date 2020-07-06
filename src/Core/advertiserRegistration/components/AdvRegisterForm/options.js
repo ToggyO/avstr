@@ -3,7 +3,6 @@ import * as validation from 'Core/utils/validation';
 
 import { validatePasswordBySteps } from 'Core/ant/helpers';
 
-
 const formOptions = {
     name: {
         props: {
@@ -85,6 +84,7 @@ const formOptions = {
             size: 'large',
             placeholder: 'Электронная почта',
         },
+        normalize: (value) => (value || '').trim(),
         rules: [
             {
                 required: true,

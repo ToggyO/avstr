@@ -30,7 +30,6 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
         let isShown = true;
         if (isShown) {
             if ((typeof errorsFromBackend === 'object' && !isEmptyObject(errorsFromBackend))
-                || errorsFromBackend.length
             ) {
                 message.error('Что-то пошло не так. Повторите попытку ', 5);
             }
@@ -68,14 +67,15 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
 AccessRecoveryLayout.propTypes = {
     children: PropTypes.node,
     loading: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    errorsFromBackend: PropTypes.array,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
 };
 
 AccessRecoveryLayout.defaultProps = {
     children: null,
     loading: false,
-    errorsFromBackend: [],
+    errorsFromBackend: {},
 };
 
 const mapStateToProps = ({ accessRecoveryReducer }) => ({

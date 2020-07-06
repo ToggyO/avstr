@@ -9,7 +9,6 @@ import Icon from 'Core/common/Icon';
 
 import styles from './index.module.scss';
 
-
 const DeviceItem = ({
     content: {
         name,
@@ -76,7 +75,6 @@ const DeviceItem = ({
         </tr>
     );
 };
-
 
 DeviceItem.propTypes = {
     content: PropTypes.shape({

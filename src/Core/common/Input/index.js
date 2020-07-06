@@ -6,7 +6,6 @@ import Icon from '../Icon';
 
 import styles from './index.module.scss';
 
-
 const Input = forwardRef(({
     type,
     placeholder,
@@ -41,7 +40,6 @@ const Input = forwardRef(({
         })}
     </div>
 ));
-
 
 Input.defaultProps = {
     type: 'text',

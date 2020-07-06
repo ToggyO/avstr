@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 import { logout } from '../../action-creators';
 
-
 class LogoutPage extends Component {
     componentDidMount() {
         const { logoutAction } = this.props;
@@ -18,7 +17,6 @@ class LogoutPage extends Component {
         );
     }
 }
-
 
 LogoutPage.propTypes = {
     logoutAction: PropTypes.func.isRequired,

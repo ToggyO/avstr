@@ -16,7 +16,6 @@ import options from './options';
 
 import styles from './index.module.scss';
 
-
 const AdvRegisterForm = ({
     registerAdvertiserAction,
     loading,
@@ -148,7 +147,6 @@ const AdvRegisterForm = ({
             )
     );
 };
-
 
 AdvRegisterForm.defaultProps = {
     loading: false,
