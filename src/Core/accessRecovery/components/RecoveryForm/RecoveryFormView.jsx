@@ -31,6 +31,7 @@ const RecoveryForm = ({ loading, sendLink, errorsFromBackend, clearErrors }) => 
                     component={(props) => (
                         <Button
                             loading={loading}
+                            className={styles.submit}
                             {...props}
                         >
                             Отправить ссылку

@@ -45,7 +45,6 @@ const ChangePasswordForm = ({
 
     const [visible, setVisible] = useState(false);
 
-
     useEffect(() => () => {
         clearErrors();
     }, [clearErrors]);
@@ -104,6 +103,7 @@ const ChangePasswordForm = ({
                         component={(props) => (
                             <Button
                                 loading={loading}
+                                className={styles.submit}
                                 {...props}
                             >
                                 Сохранить
