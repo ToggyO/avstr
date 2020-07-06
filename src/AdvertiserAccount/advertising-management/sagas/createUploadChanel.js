@@ -38,7 +38,6 @@ function createUploadChanel(xhr, file) {
         xhr.upload.addEventListener('abort', onAbort);
         xhr.addEventListener('loadend', onSuccess);
 
-
         xhr.send(file);
 
         return () => {

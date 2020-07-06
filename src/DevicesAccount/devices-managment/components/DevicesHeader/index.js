@@ -9,7 +9,6 @@ import styles from './index.module.scss';
 
 const { Title } = Typography;
 
-
 const DevicesHeader = ({
     text,
     handleListBtn,
@@ -67,7 +66,6 @@ const DevicesHeader = ({
         </Container>
     );
 };
-
 
 DevicesHeader.defaultProps = {
     text: '',

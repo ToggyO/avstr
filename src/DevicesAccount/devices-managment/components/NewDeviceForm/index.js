@@ -15,7 +15,6 @@ import NewDeviceWarnPopup from '../NewDeviceWarnPopup';
 
 import styles from './index.module.scss';
 
-
 const NewDeviceForm = ({
     deviceStatus,
     registerDevice,
@@ -72,7 +71,6 @@ const NewDeviceForm = ({
         handleCloseErrPopup();
         history.push('/devices/main/list');
     };
-
 
     const retryRegistration = () => {
         registerDevice({

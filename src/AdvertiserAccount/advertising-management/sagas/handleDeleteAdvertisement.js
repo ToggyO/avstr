@@ -4,7 +4,6 @@ import handleRequestAdvertisements from './handleRequestAdvertisements';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
-
 function* handleDeleteAdvertisement({ data }) {
     try {
         yield call(api.delete, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/admin/promotions/${data}`);

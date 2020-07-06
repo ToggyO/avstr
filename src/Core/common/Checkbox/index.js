@@ -24,7 +24,6 @@ const Checkbox = ({
     </label>
 );
 
-
 Checkbox.defaultProps = {
     label: null,
     className: '',

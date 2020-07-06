@@ -12,16 +12,19 @@ import AuthContext from './AuthContext';
 const AuthProvider = ({
     children,
     isAuthorized,
+    userInfo,
     setAuthorizedFunc,
     loading,
     globalLoading,
 }) => {
+    const { profile = {} } = userInfo;
+
     useEffect(() => {
         globalLoading(true);
         userManager.getUser().then((user) => {
             if (user !== null && !user.expired) {
-                console.log(user);
-                setAuthorizedFunc(true);
+                // console.log(user);
+                setAuthorizedFunc(user);
                 globalLoading(false);
                 api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
             } else {
@@ -31,7 +34,12 @@ const AuthProvider = ({
     }, [setAuthorizedFunc, globalLoading]);
 
     return (
-        <AuthContext.Provider value={isAuthorized}>
+        <AuthContext.Provider
+            value={{
+                isAuthorized,
+                roles: profile['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] || [],
+            }}
+        >
             {loading
                 ? <PageLoading />
                 : children}
@@ -42,6 +50,12 @@ const AuthProvider = ({
 AuthProvider.propTypes = {
     children: PropTypes.node,
     isAuthorized: PropTypes.bool.isRequired,
+    userInfo: PropTypes.shape({
+        profile: PropTypes.shape({
+            [PropTypes.string]: PropTypes.any,
+        }),
+        [PropTypes.string]: PropTypes.any,
+    }),
     setAuthorizedFunc: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,
     globalLoading: PropTypes.func.isRequired,
@@ -49,11 +63,13 @@ AuthProvider.propTypes = {
 
 AuthProvider.defaultProps = {
     children: null,
+    userInfo: {},
 };
 
 const mapStateToProps = ({ authorizationReducer }) => ({
     loading: getProp(authorizationReducer, 'loading'),
     isAuthorized: getProp(authorizationReducer, 'isAuthorized'),
+    userInfo: getProp(authorizationReducer, 'userInfo'),
 });
 
 const mapDispatchToProps = {

@@ -2,7 +2,7 @@ import React, { Suspense, lazy, memo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { BasicLayout, PageLoading } from 'Core/ant';
-import { ROOT_ROUTES } from 'Core/constants';
+import { ROOT_ROUTES, USER_ROLES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
 import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
 
@@ -12,7 +12,6 @@ import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
 import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
-
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertisingManagementRouter = lazy(() => import('AdvertiserAccount/advertising-management/AdvertisingManagementRouter'));
@@ -57,16 +56,19 @@ const RootRouter = () => {
                 <Suspense fallback={<PageLoading />}>
                     <AuthRoute
                         path={ROOT_ROUTES.AD_MANAGER}
+                        allowedRoles={[USER_ROLES.ADMINISTRATOR]}
                         component={AdvertisingManagementRouter}
                     />
 
                     <AuthRoute
                         path={ROOT_ROUTES.DEVICES}
+                        allowedRoles={[USER_ROLES.DEVICE_MANAGER]}
                         component={DevicesRouter}
                     />
 
                     <AuthRoute
                         path={ROOT_ROUTES.ADVERTISER}
+                        allowedRoles={[USER_ROLES.ADVERTISER]}
                         component={AdvertiserPage}
                     />
 

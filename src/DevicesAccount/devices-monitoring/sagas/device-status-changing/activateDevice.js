@@ -2,7 +2,6 @@ import { call, put, delay } from 'redux-saga/effects';
 import api from 'Core/api';
 import { changeDeviceStatusLoader, receiveDeviceContent } from '../../action-creators';
 
-
 const { REACT_APP_DEVICE_API } = process.env;
 
 function* activateDevice({ data: { id } }) {

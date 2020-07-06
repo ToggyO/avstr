@@ -17,7 +17,6 @@ import {
 
 import createWebSocketChanel from './createWebSocketChanel';
 
-
 const { REACT_APP_DEVICE_API } = process.env;
 
 function* requestMediaStream({ data: { id, serialNumber } }) {

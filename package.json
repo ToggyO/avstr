@@ -61,7 +61,8 @@
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint --quiet --color --allow-empty-input \"src/**/*.{css,scss}\"",
     "lint:css:fix": "stylelint --quiet --color --allow-empty-input --fix --config .stylelintrc-extended \"src/**/*.{css,scss}\"",
-    "lint:js": "eslint --quiet --color --no-error-on-unmatched-pattern ./src --ext .js"
+    "lint:js": "eslint --quiet --color --no-error-on-unmatched-pattern ./src --ext .js",
+    "lint:js:fix": "eslint --quiet --color --no-error-on-unmatched-pattern --fix ./src --ext .js"
   },
   "husky": {
     "hooks": {

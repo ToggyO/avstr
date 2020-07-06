@@ -3,12 +3,12 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { AuthContext } from 'Core/context';
-import { ROOT_ROUTES } from 'Core/constants';
+import { REDIRECT_PATH_BY_ROLE } from 'Core/constants';
 
 const CreateComponent = (Component, props) => <Component {...props} />;
 
 const UnAuthRoute = ({ component: Component, ...rest }) => {
-    const isAuthorized = useContext(AuthContext);
+    const { isAuthorized, roles } = useContext(AuthContext);
 
     return (
         <Route
@@ -19,7 +19,7 @@ const UnAuthRoute = ({ component: Component, ...rest }) => {
                     return CreateComponent(Component, props);
                 }
                 // debugger;
-                return <Redirect to={ROOT_ROUTES.AD_MANAGER} />;
+                return <Redirect to={REDIRECT_PATH_BY_ROLE[roles[0]] || '/'} />;
             }}
         />
     );

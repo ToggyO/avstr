@@ -7,7 +7,6 @@ import { PageLoading } from 'Core/ant';
 const AdvertisingManagementPage = lazy(() => import('./AdvertisingManagementPage'));
 const NewAdvertisementPage = lazy(() => import('./NewAdvertisementPage'));
 
-
 const AdvertisingManagementRouter = ({ match: { path } }) => (
     <Suspense fallback={<PageLoading />}>
         <Switch>
@@ -23,7 +22,6 @@ const AdvertisingManagementRouter = ({ match: { path } }) => (
         </Switch>
     </Suspense>
 );
-
 
 AdvertisingManagementRouter.propTypes = {
     match: PropTypes.shape({

@@ -15,7 +15,6 @@ import {
     cancelDeviceActivation,
 } from '../action-creators';
 
-
 class DeviceMonitoringCardContainer extends Component {
     componentDidMount() {
         const { requestDeviceContentAction } = this.props;
@@ -55,7 +54,6 @@ class DeviceMonitoringCardContainer extends Component {
     }
 }
 
-
 DeviceMonitoringCardContainer.defaultProps = {
     mediaStreamId: null,
 };
@@ -81,7 +79,6 @@ DeviceMonitoringCardContainer.propTypes = {
     mediaStreamId: PropTypes.number,
     cancelDeviceActivationAction: PropTypes.func.isRequired,
 };
-
 
 const mapStateToProps = ({
     devicesReducer: {
@@ -109,6 +106,5 @@ const mapDispatchToProps = {
     cancelMediaStreamAction: cancelMediaStream,
     cancelDeviceActivationAction: cancelDeviceActivation,
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringCardContainer);

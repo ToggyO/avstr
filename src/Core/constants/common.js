@@ -16,3 +16,15 @@ export const ADVERTISEMENT_TAG = {
     4: 'error',
     8: 'default',
 };
+
+export const USER_ROLES = {
+    ADMINISTRATOR: 'Administrator',
+    DEVICE_MANAGER: 'DeviceManager',
+    ADVERTISER: 'Advertiser',
+};
+
+export const REDIRECT_PATH_BY_ROLE = {
+    Administrator: '/ad-manager',
+    DeviceManager: '/devices/main/list',
+    Advertiser: '/advertiser',
+};

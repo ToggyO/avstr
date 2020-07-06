@@ -5,7 +5,6 @@ import AdvertisementCard from '../AdvertisementCard';
 
 import styles from './index.module.scss';
 
-
 const AdvertisementsList = ({ advertisements, deleteAdvertisement }) => (
     <div className={styles.list}>
         {advertisements.map((advertisement) => {
@@ -20,7 +19,6 @@ const AdvertisementsList = ({ advertisements, deleteAdvertisement }) => (
         })}
     </div>
 );
-
 
 AdvertisementsList.propTypes = {
     advertisements: PropTypes.arrayOf(
