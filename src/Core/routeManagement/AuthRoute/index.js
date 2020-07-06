@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { AuthContext } from 'Core/context';
-import checkRoles from 'Core/utils/checkRoles';
+import { checkRoles } from 'Core/utils/checkRoles';
 
 const CreateComponent = (Component, props) => <Component {...props} />;
 
@@ -15,7 +15,7 @@ const AuthRoute = ({ component: Component, allowedRoles, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (isAuthorized && checkRoles(allowedRoles, roles)) {
-                    // debugger
+                    // debugger;
                     return CreateComponent(Component, props);
                 }
                 // debugger;
@@ -27,9 +27,12 @@ const AuthRoute = ({ component: Component, allowedRoles, ...rest }) => {
 
 AuthRoute.propTypes = {
     component: PropTypes.elementType.isRequired,
-    allowedRoles: PropTypes.arrayOf(
-        PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
-    ),
+    allowedRoles: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
+        ),
+        PropTypes.string,
+    ]),
 };
 
 AuthRoute.defaultProps = {
