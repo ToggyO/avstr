@@ -3,14 +3,14 @@
  * @param {string} name строка
  * @returns {boolean} возвращает булево значение
  */
-export const isNameValid = (name) => /^[a-zа-яё]+$/i.test(name);
+export const isNameValid = (name) => /^[a-zа-яё\s'-]+$/i.test(name);
 
 /**
  * Функция для определения валидности электронной почты
  * @param {string} email строка
  * @returns {boolean} возвращает булево значение
  */
-export const isEmailValid = (email) => /^[!#$%&'*+-/=?^_{|}~.\w]+@\w+\.\w+$/.test(email);
+export const isEmailValid = (email) => /^[!#$%&'*+-/=?^_{|}~.\w]+@[\w-]+\.\w+$/.test(email);
 
 /**
  * Функция для проверки строки на содержание минимум 2х символов
