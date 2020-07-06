@@ -8,7 +8,6 @@ import { LoginLayout } from '../ant/components/Layouts';
 import AdvertiserRegistrationPage from '../advertiserRegistration/AdvertiserRegistrationPage';
 import AuthorizationPage from '../authorization/AuthorizationPage';
 
-
 const LoginLayoutRouter = () => (
     <LoginLayout>
         <Router history={history}>

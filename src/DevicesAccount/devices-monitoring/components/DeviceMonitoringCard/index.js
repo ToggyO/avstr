@@ -8,7 +8,6 @@ import Button from 'Core/common/Button';
 
 import styles from './index.module.scss';
 
-
 class DeviceMonitoringCard extends Component {
     componentWillUnmount() {
         const { cancelDeviceActivation } = this.props;
@@ -154,7 +153,6 @@ class DeviceMonitoringCard extends Component {
         );
     }
 }
-
 
 DeviceMonitoringCard.defaultProps = {
     content: {

@@ -5,7 +5,6 @@ import handleRequestDevices from './handleRequestDevices';
 import handleRegisterDevice from './handleRegisterDevice';
 import handleRequestGeoPoints from '../../devices-common/sagas/handleRequestGeoPoints';
 
-
 export default function* devicesManagementWatcher() {
     yield takeLatest(REQUEST_DEVICES, handleRequestDevices);
     yield takeLatest(REGISTER_DEVICE, handleRegisterDevice);

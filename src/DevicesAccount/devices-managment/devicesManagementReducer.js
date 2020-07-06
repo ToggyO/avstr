@@ -6,7 +6,6 @@ import {
     CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
 } from './actions';
 
-
 const initialState = {
     pagination: {},
     devices: [],

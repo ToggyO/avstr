@@ -68,14 +68,15 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
 AccessRecoveryLayout.propTypes = {
     children: PropTypes.node,
     loading: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    errorsFromBackend: PropTypes.array,
+    errorsFromBackend: PropTypes.shape({
+        [PropTypes.string]: PropTypes.any,
+    }),
 };
 
 AccessRecoveryLayout.defaultProps = {
     children: null,
     loading: false,
-    errorsFromBackend: [],
+    errorsFromBackend: {},
 };
 
 const mapStateToProps = ({ accessRecoveryReducer }) => ({

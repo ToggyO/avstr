@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Map from 'Core/common/Map';
 import styles from './index.module.scss';
 
-
 class DeviceMap extends Component {
     constructor(props) {
         super(props);
@@ -93,7 +92,6 @@ DeviceMap.defaultProps = {
     className: '',
     zoomWithUpdate: false,
 };
-
 
 DeviceMap.propTypes = {
     geoPoint: PropTypes.arrayOf(

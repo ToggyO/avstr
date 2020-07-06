@@ -39,7 +39,6 @@ class AuthorizationPage extends Component {
     }
 }
 
-
 AuthorizationPage.propTypes = {
     authErrMessage: PropTypes.string.isRequired,
     loginAction: PropTypes.func.isRequired,

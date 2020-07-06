@@ -13,7 +13,6 @@ import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
 import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
 
-
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertisingManagementRouter = lazy(() => import('AdvertiserAccount/advertising-management/AdvertisingManagementRouter'));
 const DevicesRouter = lazy(() => import('DevicesAccount/DevicesRouter'));

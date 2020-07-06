@@ -3,7 +3,6 @@ import * as validation from 'Core/utils/validation';
 
 import { validatePasswordBySteps } from 'Core/ant/helpers';
 
-
 const formOptions = {
     name: {
         props: {

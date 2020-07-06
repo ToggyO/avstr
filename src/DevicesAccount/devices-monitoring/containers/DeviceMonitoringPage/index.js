@@ -19,7 +19,6 @@ import {
 
 import styles from './index.module.scss';
 
-
 class DeviceMonitoringPage extends Component {
     constructor(props) {
         super(props);
@@ -138,7 +137,6 @@ class DeviceMonitoringPage extends Component {
     }
 }
 
-
 DeviceMonitoringPage.defaultProps = {
     mediaStreamId: null,
     id: null,
@@ -156,7 +154,6 @@ DeviceMonitoringPage.propTypes = {
     changeMediaStreamLoaderAction: PropTypes.func.isRequired,
     cleanMediaStreamIdAction: PropTypes.func.isRequired,
 };
-
 
 const mapStateToProps = ({
     devicesReducer: {
