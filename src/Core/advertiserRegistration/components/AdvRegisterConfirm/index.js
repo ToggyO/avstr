@@ -10,7 +10,6 @@ import { useDidMount } from 'beautiful-react-hooks';
 
 import { ROOT_ROUTES } from 'Core/constants';
 
-
 import styles from './index.module.scss';
 
 const AdvRegisterConfirm = ({
@@ -25,7 +24,6 @@ const AdvRegisterConfirm = ({
     useDidMount(() => {
         confirmAdRegistrationAction({ email: user, code });
     });
-
 
     const handleStartBtnClick = () => {
         history.push('/');
@@ -85,7 +83,6 @@ const AdvRegisterConfirm = ({
     );
 };
 
-
 AdvRegisterConfirm.defaultProps = {
     isConfirmSuccess: false,
     loading: false,
@@ -103,6 +100,5 @@ AdvRegisterConfirm.propTypes = {
         state: PropTypes.shape(),
     }).isRequired,
 };
-
 
 export default AdvRegisterConfirm;

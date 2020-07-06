@@ -46,7 +46,6 @@ const Button = ({
     );
 };
 
-
 Button.defaultProps = {
     className: '',
     type: 'main',
@@ -64,6 +63,5 @@ Button.propTypes = {
     icon: PropTypes.bool,
     withIcon: PropTypes.bool,
 };
-
 
 export default Button;

@@ -10,9 +10,7 @@ import Checkbox from 'Core/common/Checkbox';
 // import Button from 'Core/common/Button';
 import ErrMessage from 'Core/common/ErrorMessage';
 
-
 import styles from './index.module.scss';
-
 
 const AuthForm = ({
     formSubmitHandler,
@@ -137,7 +135,6 @@ const AuthForm = ({
         </form>
     );
 };
-
 
 AuthForm.propTypes = {
     errMessage: PropTypes.string.isRequired,

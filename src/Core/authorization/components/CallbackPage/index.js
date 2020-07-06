@@ -5,7 +5,6 @@ import userManager from 'Core/authorization/utils/userManager';
 
 // import { logout } from '../../action-creators';
 
-
 class CallbackPage extends Component {
     componentDidMount() {
         userManager

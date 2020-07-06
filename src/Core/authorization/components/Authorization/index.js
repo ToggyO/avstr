@@ -21,7 +21,6 @@ const Authorization = ({
     </div>
 );
 
-
 Authorization.propTypes = {
     errMessage: PropTypes.string.isRequired,
     formSubmitHandler: PropTypes.func.isRequired,

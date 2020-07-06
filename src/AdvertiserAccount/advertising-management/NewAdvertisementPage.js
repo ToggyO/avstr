@@ -13,7 +13,6 @@ import {
     clearAdvertiserManagerErrors,
 } from './action-creators';
 
-
 const NewAdvertisementPage = ({
     fileUploadStatus,
     uploadedFileContent,
@@ -45,7 +44,6 @@ const NewAdvertisementPage = ({
         cleanErrors={cleanErrors}
     />
 );
-
 
 NewAdvertisementPage.defaultProps = {
     xhr: null,
@@ -82,7 +80,6 @@ NewAdvertisementPage.propTypes = {
     }),
     cleanErrors: PropTypes.func,
 };
-
 
 const mapStateToProps = ({
     advertiserAccountReducer: {

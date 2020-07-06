@@ -43,7 +43,6 @@ const DevicesPagination = ({
     );
 };
 
-
 DevicesPagination.propTypes = {
     pagination: PropTypes.shape({
         page: PropTypes.number.isRequired,

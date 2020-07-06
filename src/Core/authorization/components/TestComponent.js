@@ -27,7 +27,6 @@ const TestComponent = () => {
         await api.delete('API/movies/2');
     };
 
-
     // Errors
     const handle400Click = async () => {
         await api.post('API/400');
@@ -79,6 +78,5 @@ const TestComponent = () => {
         </div>
     );
 };
-
 
 export default TestComponent;

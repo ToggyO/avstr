@@ -10,7 +10,6 @@ import {
     CLEAN_GEO_POINT,
 } from './actions';
 
-
 const initialState = {
     currentDevice: {
         name: '',
@@ -27,7 +26,6 @@ const initialState = {
     currentDeviceStatus: null,
     currentGeoPoint: [],
 };
-
 
 const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {

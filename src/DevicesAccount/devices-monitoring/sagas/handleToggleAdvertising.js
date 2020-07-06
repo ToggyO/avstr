@@ -6,7 +6,6 @@ import { changeAdvertisingLoaderStatus } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
-
 function* handleToggleAdvertising(isAdvertisementsDisabled, { data }) {
     let advertisingFlag = 'DisableAdvertisements';
     if (isAdvertisementsDisabled) {

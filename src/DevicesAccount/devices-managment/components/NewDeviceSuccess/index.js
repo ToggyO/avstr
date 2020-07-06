@@ -8,7 +8,6 @@ import Button from 'Core/common/Button';
 
 import styles from './index.module.scss';
 
-
 const NewDeviceSuccess = ({ changeDeviceStatus }) => {
     const handleBtnClick = () => {
         changeDeviceStatus('');
@@ -33,7 +32,6 @@ const NewDeviceSuccess = ({ changeDeviceStatus }) => {
         </Container>
     );
 };
-
 
 NewDeviceSuccess.propTypes = {
     changeDeviceStatus: PropTypes.func.isRequired,

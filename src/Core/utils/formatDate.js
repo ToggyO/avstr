@@ -6,7 +6,6 @@
  */
 import formatNumLess10 from './formatNumLess10';
 
-
 export function formatDate(date, withTime) {
     const dateObj = new Date(Date.parse(date));
 

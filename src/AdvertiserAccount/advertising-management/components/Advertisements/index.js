@@ -9,7 +9,6 @@ import AdvertisementsList from '../AdvertisementsList';
 
 import styles from './index.module.scss';
 
-
 const Advertisements = ({ addBtnHandler, advertisements, deleteAdvertisement }) => (
     <Container>
         <div className={styles.wrap}>
@@ -37,7 +36,6 @@ const Advertisements = ({ addBtnHandler, advertisements, deleteAdvertisement }) 
             : ''}
     </Container>
 );
-
 
 Advertisements.propTypes = {
     addBtnHandler: PropTypes.func.isRequired,
