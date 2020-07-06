@@ -3,7 +3,7 @@ import { getProp } from 'Core/utils/getProp';
 
 import { cleanError, registerAdvertiser } from '../action-creators';
 
-import AdvRegisterForm from '../components/AdvRegisterForm';
+import AdvRegisterForm from './View';
 
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     loading: getProp(advertiserRegistrationReducer, 'loading', false),

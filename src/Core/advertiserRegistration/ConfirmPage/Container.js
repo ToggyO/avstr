@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { getProp } from 'Core/utils/getProp';
 import { confirmAdRegistration } from '../action-creators';
 
-import AdvRegisterConfirm from '../components/AdvRegisterConfirm';
+import AdvRegisterConfirm from './View';
 
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     isConfirmSuccess: getProp(advertiserRegistrationReducer, 'isConfirmSuccess', false),

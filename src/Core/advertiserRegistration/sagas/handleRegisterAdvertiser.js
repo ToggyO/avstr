@@ -19,7 +19,7 @@ function* handleRegisterAdvertiser({ data }) {
             yield put({
                 type: actions.REGISTER_ADVERTISER_ERROR,
                 data: {
-                    Email: ['Рекламодатель с такой почтой уже существует'],
+                    Email: ['Пользователь с такой почтой уже существует'],
                 },
             });
         } else {

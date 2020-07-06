@@ -4,8 +4,8 @@ import { Route, Switch } from 'react-router-dom';
 import { ROOT_ROUTES } from '../constants';
 import { ADV_REGISTER_ROUTES } from './constants';
 
-import AdvRegisterFormContainer from './containers/AdvRegisterFormContainer';
-import AdvRegisterConfirmContainer from './containers/AdvRegisterConfirmContainer';
+import AdvRegisterFormContainer from './RegisterPage/Container';
+import AdvRegisterConfirmContainer from './ConfirmPage/Container';
 
 const AdvRegistrationRouter = () => (
     <Switch>
