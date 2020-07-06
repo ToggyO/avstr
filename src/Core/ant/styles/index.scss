@@ -1,8 +1,17 @@
+@import 'variables';
+
 .custom-ant-table {
     width: 100%;
 
     &__title {
+        overflow: hidden;
         font-weight: bold;
+        white-space: pre;
+        text-overflow: ellipsis;
+
+        @media screen and (max-width: $ant-breakpoint-xxl) {
+            max-width: 105px;
+        }
     }
 
     &__rows {
