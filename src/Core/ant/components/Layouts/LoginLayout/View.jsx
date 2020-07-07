@@ -12,10 +12,12 @@ import styles from './index.module.scss';
 
 const { Header, Content } = Layout;
 
-const LoginLayout = ({ children, location }) => {
+const LoginLayout = ({ children, location, setDefaultStateAction }) => {
     const { search } = location;
 
     const registerBtnHandler = () => {
+        setDefaultStateAction();
+        // window.location = ROOT_ROUTES.AD_REGISTRATION;
         history.push(ROOT_ROUTES.AD_REGISTRATION);
     };
 
@@ -62,15 +64,17 @@ const LoginLayout = ({ children, location }) => {
     );
 };
 
+LoginLayout.defaultProps = {
+    children: null,
+    setDefaultStateAction: Function.prototype,
+};
+
 LoginLayout.propTypes = {
     children: PropTypes.node,
     location: PropTypes.shape({
         search: PropTypes.string,
     }).isRequired,
-};
-
-LoginLayout.defaultProps = {
-    children: null,
+    setDefaultStateAction: PropTypes.func,
 };
 
 export default withRouter(LoginLayout);

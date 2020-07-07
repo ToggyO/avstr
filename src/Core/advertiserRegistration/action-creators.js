@@ -13,3 +13,7 @@ export const confirmAdRegistration = (data) => ({
 export const cleanError = () => ({
     type: actions.CLEAN_ERROR,
 });
+
+export const setDefaultState = () => ({
+    type: actions.SET_DEFAULT_STATE,
+});
