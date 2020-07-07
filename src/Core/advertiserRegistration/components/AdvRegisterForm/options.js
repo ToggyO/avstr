@@ -84,6 +84,7 @@ const formOptions = {
             size: 'large',
             placeholder: 'Электронная почта',
         },
+        normalize: (value) => (value || '').trim(),
         rules: [
             {
                 required: true,

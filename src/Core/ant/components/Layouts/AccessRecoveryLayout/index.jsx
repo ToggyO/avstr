@@ -30,7 +30,6 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
         let isShown = true;
         if (isShown) {
             if ((typeof errorsFromBackend === 'object' && !isEmptyObject(errorsFromBackend))
-                || errorsFromBackend.length
             ) {
                 message.error('Что-то пошло не так. Повторите попытку ', 5);
             }

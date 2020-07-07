@@ -29,7 +29,7 @@ const reducer = (state = { ...initialState }, { type, data }) => {
         case actions.RECOVERY_CLEAR_ERRORS:
             return {
                 ...state,
-                errors: [],
+                errors: {},
             };
         default:
             return state;
