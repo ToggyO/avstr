@@ -22,14 +22,14 @@ const AntDropdown = ({
         iconStyle = {},
         menuItemStyle = {},
     } = inlineStyle;
-    const [state, setState] = useState(false);
+    const [isVisible, setVisible] = useState(false);
 
     const renderMenu = (menuItems) => (
         <Menu>
             {menuItems.map((item, index) => (
                 checkRoles(item.allowedRoles || [], roles)
                     ? (
-                        <Menu.Item key={`${item.href}_${index + 1}`} onClick={() => setState(!state)}>
+                        <Menu.Item key={`${item.href}_${index + 1}`} onClick={() => setVisible(!isVisible)}>
                             <Link
                                 to={item.href}
                                 className={styles.menuItem}
@@ -47,8 +47,8 @@ const AntDropdown = ({
         <Dropdown
             overlay={() => renderMenu(items)}
             trigger={trigger}
-            visible={state}
-            onVisibleChange={() => setState(!state)}
+            visible={isVisible}
+            onVisibleChange={() => setVisible(!isVisible)}
             {...rest}
         >
             <div className={styles.triggerContainer} style={triggerContainerStyle}>
@@ -59,7 +59,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )
@@ -68,7 +68,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )}
