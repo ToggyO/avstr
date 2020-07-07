@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 
 import { formatDate } from 'Core/utils/formatDate';
 import { MediaFile } from 'Core/ant';
@@ -20,7 +20,7 @@ const getColumns = () => [
         render: (creationTime) => formatDate(creationTime),
     },
     {
-        title: <p className="custom-ant-table__title">Медиафайл</p>,
+        title: <p className="custom-ant-table__title">Файл</p>,
         dataIndex: 'url',
         align: 'left',
         ellipsis: true,
@@ -102,7 +102,7 @@ const getColumns = () => [
     {
         title: <p className="custom-ant-table__title">Частота (в сутки)</p>,
         dataIndex: 'frequency',
-        align: 'right',
+        // align: 'right',
         ellipsis: true,
         width: '12%',
         sortDirections: ['descend', 'ascend'],
@@ -112,12 +112,12 @@ const getColumns = () => [
     {
         title: <p className="custom-ant-table__title">Кол-во показов</p>,
         dataIndex: 'viewsCount',
-        align: 'right',
+        // align: 'right',
         ellipsis: true,
         width: '12%',
-        // sortDirections: ['descend', 'ascend'],
-        // sorter: true,
-        // sortOrder: false,
+        sortDirections: ['descend', 'ascend'],
+        sorter: true,
+        sortOrder: false,
     },
 ];
 

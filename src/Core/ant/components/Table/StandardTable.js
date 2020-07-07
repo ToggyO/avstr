@@ -39,7 +39,12 @@ const StandardTable = ({
                 bordered
                 className="custom-ant-table"
                 rowClassName={() => 'custom-ant-table__rows'}
-                locale={{ emptyText: renderNoDataContent(6, dataSource, loading) }}
+                locale={{
+                    emptyText: renderNoDataContent(6, dataSource, loading),
+                    triggerDesc: 'Сортировать по убыванию',
+                    triggerAsc: 'Сортировать по возрастанию',
+                    cancelSort: 'Сбросить сортировку',
+                }}
                 dataSource={dataSource}
                 pagination={pagination}
                 loading={loading}

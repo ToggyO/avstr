@@ -1,5 +1,4 @@
 import React from 'react';
-import { FilterFilled } from '@ant-design/icons';
 import { parse } from 'qs';
 import PropTypes from 'prop-types';
 
@@ -9,7 +8,7 @@ import {
     addFilterToTableColumn,
     CheckboxFilter,
 } from 'Core/ant';
-import { useGetDataWithQueries, useShowError, useClearError } from 'Core/utils/userHooks';
+import { useGetDataWithQueries, useClearError } from 'Core/utils/userHooks';
 import getColumns from './_components/tableColumns';
 
 const AdsListView = ({
@@ -19,13 +18,10 @@ const AdsListView = ({
     pagination,
     advList,
     getAdv,
-    errorsFromBackend,
+    // errorsFromBackend,
     clearErrors,
 }) => {
     useGetDataWithQueries(getAdv, location.search);
-
-    // useShowError(errorsFromBackend);
-    // useShowError(transformErrorToForm(errorsFromBackend));
 
     useClearError(clearErrors);
 
@@ -86,9 +82,9 @@ AdsListView.propTypes = {
         }),
     ),
     getAdv: PropTypes.func,
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    // errorsFromBackend: PropTypes.shape({
+    //     [PropTypes.string]: PropTypes.any,
+    // }),
     clearErrors: PropTypes.func,
 };
 
@@ -101,7 +97,7 @@ AdsListView.defaultProps = {
     },
     advList: Function.prototype,
     getAdv: Function.prototype,
-    errorsFromBackend: [],
+    // errorsFromBackend: [],
     clearErrors: Function.prototype,
 };
 

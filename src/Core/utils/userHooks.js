@@ -22,7 +22,6 @@ export const useGetDataWithQueries = (func, search) => {
 /**
  * Хук для общей обработки ошибки при совершения запроса
  * @param {Array<{}>} errors - массив объектов с ошибками
- * @param {Function} clearErrorFunc - функция для очистки ошибок в конкретном редьюсере
  * @returns {void}
  */
 export const useShowError = (errors) => {
@@ -33,6 +32,11 @@ export const useShowError = (errors) => {
     }, [errors]);
 };
 
+/**
+ * Хук для очистки ошибок в конкретном редьюсере
+ * @param {Function} clearErrorFunc - функция для очистки ошибок в конкретном редьюсере
+ * @returns {void}
+ */
 export const useClearError = (clearErrorFunc) => {
     useEffect(() => () => clearErrorFunc(), [clearErrorFunc]);
 };
