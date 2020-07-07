@@ -3,10 +3,12 @@ import api from 'Core/api';
 // import history from 'Core/history';
 import API_URLS_ADV_REGISTRATION from '../constants/api-urls';
 import * as actions from '../actions';
+import { cleanError } from '../action-creators';
 
 const { REACT_APP_AUTH_API } = process.env;
 
 function* handleRegisterAdvertiser({ data }) {
+    yield put(cleanError());
     try {
         yield call(api.post, `${REACT_APP_AUTH_API}${API_URLS_ADV_REGISTRATION.REGISTER}`, data, {
             credentials: 'include',
