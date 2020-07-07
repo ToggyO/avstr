@@ -36,6 +36,7 @@ const RecoveryForm = ({
                     component={(props) => (
                         <Button
                             loading={loading}
+                            className={styles.submit}
                             {...props}
                         >
                             Отправить ссылку

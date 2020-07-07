@@ -12,6 +12,7 @@ import {
     PasswordValidationRulesPopover,
 } from 'Core/ant';
 import { useValidationStatus } from 'Core/ant/helpers';
+import { isEmptyObject } from 'Core/utils/isEmpty';
 import options from './options';
 
 import styles from './index.module.scss';
@@ -73,15 +74,14 @@ const AdvRegisterForm = ({
         minute: 'numeric',
     });
     return (
-        isRegisterReqSuccess && !errorsFromBackend
+        isRegisterReqSuccess && isEmptyObject(errorsFromBackend)
             ? (
                 <div className={cn(styles.container, styles.container__result)}>
                     <Result
                         className={styles.info}
                         title={(
                             <p className={styles.subtitle}>
-                                Перейдите по&nbsp;ссылке в&nbsp;письме на
-                                &nbsp;электронной почте для завершения регистрации
+                                Перейдите по&nbsp;ссылке в&nbsp;письме для завершения регистрации
                             </p>
                         )}
                     />
