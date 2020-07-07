@@ -15,6 +15,7 @@ const BasicHeader = ({
     dropdownItems,
     handleLogout,
     userName,
+    roles,
 }) => (
     <Header className={styles.header}>
         <div className={styles.header__container}>
@@ -29,7 +30,7 @@ const BasicHeader = ({
                 },
             )}
             <div className={styles.header__container__dropdown}>
-                <AntDropdown items={dropdownItems}>
+                <AntDropdown items={dropdownItems} roles={roles}>
                     <div className={styles.dropdownButton}>
                         {userName}
                     </div>
@@ -61,6 +62,12 @@ BasicHeader.propTypes = {
     ),
     handleLogout: PropTypes.func,
     userName: PropTypes.string,
+    roles: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
+        ),
+        PropTypes.string,
+    ]),
 };
 
 BasicHeader.defaultProps = {
@@ -69,6 +76,7 @@ BasicHeader.defaultProps = {
     dropdownItems: [],
     handleLogout: Function.prototype,
     userName: '',
+    roles: [],
 };
 
 export default BasicHeader;

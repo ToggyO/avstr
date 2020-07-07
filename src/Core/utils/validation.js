@@ -10,7 +10,10 @@ export const isNameValid = (name) => /^[a-zа-яё\s'-]+$/i.test(name);
  * @param {string} email строка
  * @returns {boolean} возвращает булево значение
  */
-export const isEmailValid = (email) => /^[!#$%&'*+-/=?^_{|}~.\w]+@[\w-]+\.\w+$/.test(email);
+export const isEmailValid = (email) => (
+    /[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(email)
+);
+// export const isEmailValid = (email) => /^[!#$%&'*+-/=?^_{|}~.\w]+@[\w-]+\.\w+$/.test(email);
 
 /**
  * Функция для проверки строки на содержание минимум 2х символов

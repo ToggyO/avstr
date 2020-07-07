@@ -4,6 +4,8 @@ import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { DownOutlined } from '@ant-design/icons';
 
+import { checkRoles } from 'Core/utils/checkRoles';
+
 import styles from './index.module.scss';
 
 const AntDropdown = ({
@@ -12,6 +14,7 @@ const AntDropdown = ({
     icon: Icon,
     trigger,
     inlineStyle,
+    roles,
     ...rest
 }) => {
     const {
@@ -24,15 +27,18 @@ const AntDropdown = ({
     const renderMenu = (menuItems) => (
         <Menu>
             {menuItems.map((item, index) => (
-                <Menu.Item key={`${item.href}_${index + 1}`}>
-                    <Link
-                        to={item.href}
-                        className={styles.menuItem}
-                        style={menuItemStyle}
-                    >
-                        {item.text}
-                    </Link>
-                </Menu.Item>
+                checkRoles(item.allowedRoles || [], roles)
+                    ? (
+                        <Menu.Item key={`${item.href}_${index + 1}`} onClick={() => setState(!state)}>
+                            <Link
+                                to={item.href}
+                                className={styles.menuItem}
+                                style={menuItemStyle}
+                            >
+                                {item.text}
+                            </Link>
+                        </Menu.Item>
+                    ) : null
             ))}
         </Menu>
     );
@@ -41,6 +47,7 @@ const AntDropdown = ({
         <Dropdown
             overlay={() => renderMenu(items)}
             trigger={trigger}
+            visible={state}
             onVisibleChange={() => setState(!state)}
             {...rest}
         >
@@ -85,6 +92,12 @@ AntDropdown.propTypes = {
         iconStyle: PropTypes.object,
         menuItemStyle: PropTypes.object,
     }),
+    roles: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
+        ),
+        PropTypes.string,
+    ]),
 };
 
 AntDropdown.defaultProps = {
@@ -93,6 +106,7 @@ AntDropdown.defaultProps = {
     icon: null,
     trigger: 'click',
     inlineStyle: {},
+    roles: [],
 };
 
 export default AntDropdown;

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import userManager from 'Core/authorization/utils/userManager';
 import { getProp } from 'Core/utils/getProp';
-import { PageLoading } from 'Core/ant';
 import { setAuthorized, toggleGlobalLoading } from 'Core/authorization/action-creators';
 import api from 'Core/api';
+import { PageLoading } from 'Core/ant/components/Loader';
 import AuthContext from './AuthContext';
 
 const AuthProvider = ({
