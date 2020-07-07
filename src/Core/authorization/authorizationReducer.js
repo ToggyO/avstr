@@ -5,6 +5,7 @@ const initialState = {
     loading: true,
     loginRequestLoading: false,
     isAuthorized: false,
+    userInfo: {},
     errors: {},
     authErrMessage: '',
 };
@@ -24,7 +25,8 @@ const authorizationReducer = (state = { ...initialState }, { type, data }) => {
         case actions.SET_AUTHORIZED:
             return {
                 ...state,
-                isAuthorized: data,
+                isAuthorized: true,
+                userInfo: data,
                 loginRequestLoading: false,
             };
         case actions.LOGIN_ERROR:
@@ -37,6 +39,12 @@ const authorizationReducer = (state = { ...initialState }, { type, data }) => {
             return {
                 ...state,
                 authErrMessage: data,
+            };
+        case actions.LOGOUT:
+            return {
+                ...state,
+                isAuthorized: false,
+                userInfo: {},
             };
         default:
             return state;
