@@ -75,9 +75,7 @@ NewAdvertisementPage.propTypes = {
         id: PropTypes.number.isRequired,
         organization: PropTypes.string.isRequired,
     })),
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
     cleanErrors: PropTypes.func,
 };
 

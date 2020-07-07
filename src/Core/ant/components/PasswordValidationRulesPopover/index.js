@@ -11,9 +11,7 @@ const Text = ({ desc, style }) => <p className={styles.popoverTitle} style={styl
 
 Text.propTypes = {
     desc: PropTypes.string,
-    style: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    style: PropTypes.objectOf(PropTypes.any),
 };
 
 Text.defaultProps = {

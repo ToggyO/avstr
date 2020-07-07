@@ -58,9 +58,7 @@ const StandardTable = ({
 };
 
 StandardTable.propTypes = {
-    history: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }).isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
     pagination: PropTypes.shape({
         total: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         current: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

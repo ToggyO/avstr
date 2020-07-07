@@ -27,10 +27,7 @@ const Success = ({ location }) => {
 
 Success.propTypes = {
     location: PropTypes.shape({
-        state: PropTypes.shape({
-            [PropTypes.string]: PropTypes.any,
-        }),
-        [PropTypes.string]: PropTypes.any,
+        state: PropTypes.objectOf(PropTypes.any),
     }).isRequired,
 };
 

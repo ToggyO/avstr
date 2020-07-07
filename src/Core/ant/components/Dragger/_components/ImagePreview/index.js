@@ -23,7 +23,6 @@ ImagePreview.propTypes = {
     selectedImage: PropTypes.shape({
         file: PropTypes.shape({
             name: PropTypes.string,
-            [PropTypes.string]: PropTypes.any,
         }),
         blobData: PropTypes.string,
     }),

@@ -52,12 +52,8 @@ AnimationWrapper.propTypes = {
     show: PropTypes.bool.isRequired,
     showAnimName: PropTypes.string,
     hideAnimName: PropTypes.string,
-    restAnimationProps: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
-    style: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    restAnimationProps: PropTypes.objectOf(PropTypes.any),
+    style: PropTypes.objectOf(PropTypes.any),
 };
 
 AnimationWrapper.defaultProps = {

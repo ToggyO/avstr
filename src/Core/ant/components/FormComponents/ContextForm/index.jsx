@@ -40,19 +40,10 @@ StandardForm.propTypes = {
     children: PropTypes.node,
     onFinish: PropTypes.func.isRequired,
     onFinishFailed: PropTypes.func,
-    options: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
-    outerFormInstance: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
-
-    asyncInitValues: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    options: PropTypes.objectOf(PropTypes.any),
+    outerFormInstance: PropTypes.objectOf(PropTypes.any),
+    asyncInitValues: PropTypes.objectOf(PropTypes.any),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
     wrappedRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({ current: PropTypes.any }),
