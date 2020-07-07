@@ -52,15 +52,10 @@ const AdsListView = ({
 };
 
 AdsListView.propTypes = {
-    history: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }).isRequired,
+    history: PropTypes.objectOf(PropTypes.any).isRequired,
     location: PropTypes.shape({
-        state: PropTypes.shape({
-            [PropTypes.string]: PropTypes.any,
-        }),
+        state: PropTypes.objectOf(PropTypes.any),
         search: PropTypes.string,
-        [PropTypes.string]: PropTypes.any,
     }).isRequired,
     loading: PropTypes.bool,
     pagination: PropTypes.shape({

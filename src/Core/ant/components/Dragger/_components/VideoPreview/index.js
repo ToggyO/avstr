@@ -44,7 +44,6 @@ VideoPreview.propTypes = {
         file: PropTypes.shape({
             name: PropTypes.string,
             type: PropTypes.string,
-            [PropTypes.string]: PropTypes.any,
         }),
         blobData: PropTypes.string,
     }),

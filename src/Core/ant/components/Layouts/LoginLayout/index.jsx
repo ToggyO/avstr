@@ -66,7 +66,6 @@ LoginLayout.propTypes = {
     children: PropTypes.node,
     location: PropTypes.shape({
         search: PropTypes.string,
-        [PropTypes.string]: PropTypes.any,
     }).isRequired,
 };
 

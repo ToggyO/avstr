@@ -161,9 +161,7 @@ RegisterPageView.propTypes = {
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
     cleanErrorAction: PropTypes.func,
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
 };
 
 export default RegisterPageView;

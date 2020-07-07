@@ -67,9 +67,7 @@ const AccessRecoveryLayout = ({ children, loading, errorsFromBackend }) => {
 AccessRecoveryLayout.propTypes = {
     children: PropTypes.node,
     loading: PropTypes.bool,
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
 };
 
 AccessRecoveryLayout.defaultProps = {

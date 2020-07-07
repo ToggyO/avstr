@@ -51,9 +51,7 @@ const RecoveryForm = ({
 RecoveryForm.propTypes = {
     loading: PropTypes.bool,
     sendLink: PropTypes.func,
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
     clearErrors: PropTypes.func,
 };
 

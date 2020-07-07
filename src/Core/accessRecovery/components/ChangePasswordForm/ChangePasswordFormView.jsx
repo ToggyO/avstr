@@ -119,13 +119,10 @@ const ChangePasswordForm = ({
 ChangePasswordForm.propTypes = {
     location: PropTypes.shape({
         search: PropTypes.string,
-        [PropTypes.string]: PropTypes.any,
     }).isRequired,
     loading: PropTypes.bool,
     restorePassword: PropTypes.func,
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
     clearErrors: PropTypes.func,
 };
 

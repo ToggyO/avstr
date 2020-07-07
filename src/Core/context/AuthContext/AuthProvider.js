@@ -51,10 +51,7 @@ AuthProvider.propTypes = {
     children: PropTypes.node,
     isAuthorized: PropTypes.bool.isRequired,
     userInfo: PropTypes.shape({
-        profile: PropTypes.shape({
-            [PropTypes.string]: PropTypes.any,
-        }),
-        [PropTypes.string]: PropTypes.any,
+        profile: PropTypes.objectOf(PropTypes.any),
     }),
     setAuthorizedFunc: PropTypes.func.isRequired,
     loading: PropTypes.bool.isRequired,

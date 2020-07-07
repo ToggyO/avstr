@@ -243,7 +243,7 @@ class NewAdvertisement extends Component {
 
         return (
             <Row justify="center">
-                <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 18 }} xl={{ span: 16 }} xxl={{ span: 12 }}>
+                <Col xs={{ span: 24 }} sm={{ span: 24 }} lg={{ span: 24 }} xl={{ span: 18 }} xxl={{ span: 12 }}>
                     <div className={styles.progressContainer}>
                         {fileStatus && (
                             <Progress percent={this.transformToPercent(fileStatus)} />
@@ -421,9 +421,7 @@ NewAdvertisement.propTypes = {
         id: PropTypes.number.isRequired,
         organization: PropTypes.string.isRequired,
     })),
-    errorsFromBackend: PropTypes.shape({
-        [PropTypes.string]: PropTypes.any,
-    }),
+    errorsFromBackend: PropTypes.objectOf(PropTypes.any),
     cleanErrors: PropTypes.func,
 };
 
