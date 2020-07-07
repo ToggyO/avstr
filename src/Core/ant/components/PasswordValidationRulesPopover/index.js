@@ -62,7 +62,7 @@ const PasswordValidationRulesPopover = ({ visible }) => {
         <Popover
             visible={visible}
             content={RenderValidationStatus}
-            title={<p className={styles.popoverTitle}>Надежный пароль</p>}
+            title={<p className={styles.popoverTitle}>Требования для безопасного пароля</p>}
             trigger="hover"
             placement={isMobile ? 'top' : 'right'}
             overlayStyle={{

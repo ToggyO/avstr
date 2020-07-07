@@ -17,7 +17,7 @@ import options from './options';
 
 import styles from './index.module.scss';
 
-const AdvRegisterForm = ({
+const RegisterPageView = ({
     registerAdvertiserAction,
     loading,
     isRegisterReqSuccess,
@@ -148,7 +148,7 @@ const AdvRegisterForm = ({
     );
 };
 
-AdvRegisterForm.defaultProps = {
+RegisterPageView.defaultProps = {
     loading: false,
     isRegisterReqSuccess: false,
     registerAdvertiserAction: Function.prototype,
@@ -156,7 +156,7 @@ AdvRegisterForm.defaultProps = {
     errorsFromBackend: {},
 };
 
-AdvRegisterForm.propTypes = {
+RegisterPageView.propTypes = {
     loading: PropTypes.bool,
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
@@ -166,4 +166,4 @@ AdvRegisterForm.propTypes = {
     }),
 };
 
-export default AdvRegisterForm;
+export default RegisterPageView;

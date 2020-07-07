@@ -3,7 +3,7 @@ import { getProp } from 'Core/utils/getProp';
 
 import { cleanError, registerAdvertiser } from '../action-creators';
 
-import AdvRegisterForm from '../components/AdvRegisterForm';
+import RegisterPageView from './View';
 
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     loading: getProp(advertiserRegistrationReducer, 'loading', false),
@@ -16,4 +16,4 @@ const mapDispatchToProps = {
     cleanErrorAction: cleanError,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdvRegisterForm);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPageView);

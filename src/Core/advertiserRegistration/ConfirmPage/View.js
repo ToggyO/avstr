@@ -12,7 +12,7 @@ import { ROOT_ROUTES } from 'Core/constants';
 
 import styles from './index.module.scss';
 
-const AdvRegisterConfirm = ({
+const ConfirmPageView = ({
     confirmAdRegistrationAction,
     isConfirmSuccess,
     loading,
@@ -83,13 +83,13 @@ const AdvRegisterConfirm = ({
     );
 };
 
-AdvRegisterConfirm.defaultProps = {
+ConfirmPageView.defaultProps = {
     isConfirmSuccess: false,
     loading: false,
     confirmAdRegistrationAction: Function.prototype,
 };
 
-AdvRegisterConfirm.propTypes = {
+ConfirmPageView.propTypes = {
     isConfirmSuccess: PropTypes.bool,
     loading: PropTypes.bool,
     confirmAdRegistrationAction: PropTypes.func,
@@ -101,4 +101,4 @@ AdvRegisterConfirm.propTypes = {
     }).isRequired,
 };
 
-export default AdvRegisterConfirm;
+export default ConfirmPageView;
