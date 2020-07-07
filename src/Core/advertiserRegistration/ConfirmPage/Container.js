@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { getProp } from 'Core/utils/getProp';
 import { confirmAdRegistration } from '../action-creators';
 
-import AdvRegisterConfirm from './View';
+import ConfirmPageView from './View';
 
 const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
     isConfirmSuccess: getProp(advertiserRegistrationReducer, 'isConfirmSuccess', false),
@@ -19,4 +19,4 @@ const mapDispatchToProps = {
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     withRouter,
-)(AdvRegisterConfirm);
+)(ConfirmPageView);
