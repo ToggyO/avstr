@@ -109,3 +109,32 @@ CheckboxFilter.defaultProps = {
 };
 
 export default CheckboxFilter;
+
+// const memoizedSetSelectedKeys = useCallback(() => setSelectedKeys, []);
+// const memoizedFilters = useMemo(() => filters.map((filter) => ({ ...filter })), [filters]);
+//
+// useEffect(() => {
+//     const createDefaultValue = (val) => {
+//         const listOfStatuses = [];
+//         memoizedFilters.reverse().reduce((acc, { value }) => {
+//             if (!acc) return false;
+//
+//             const parsedKey = parseInt(value, 10);
+//             if (parsedKey > acc) {
+//                 return acc;
+//             }
+//
+//             listOfStatuses.push(parsedKey);
+//             const subtractedValue = acc - parsedKey;
+//             if (subtractedValue !== 0) {
+//                 return subtractedValue;
+//             }
+//
+//             return false;
+//         }, parseInt(val, 10));
+//
+//         return listOfStatuses;
+//     };
+//     debugger
+//     if (query) setSelectedKeys(createDefaultValue(query));
+// }, [query, memoizedFilters, memoizedSetSelectedKeys]);
