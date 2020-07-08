@@ -24,7 +24,8 @@ const DevicesList = ({
         // total,
         size,
         itemsTotal,
-    }, devices,
+    },
+    devices,
     requestDevices,
 }) => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -125,8 +126,6 @@ const DevicesList = ({
         });
     };
 
-    const amountOfVisibleDevices = itemsTotal > size ? size : itemsTotal;
-
     const paginationTableOptions = {
         position: ['topRight', 'bottomRight'],
         current: page,
@@ -146,7 +145,7 @@ const DevicesList = ({
     return (
         <div className={styles.wrap}>
             <Text className={styles.text}>
-                {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
+                {`Показано устройств: ${devices.length} из ${itemsTotal}`}
             </Text>
 
             {width > 768
@@ -206,7 +205,7 @@ const DevicesList = ({
                     />
                 )}
             <Text className={styles.text}>
-                {`Показано устройств: ${amountOfVisibleDevices} из ${itemsTotal}`}
+                {`Показано устройств: ${devices.length} из ${itemsTotal}`}
             </Text>
         </div>
     );
