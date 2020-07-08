@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Tag, Tooltip } from 'antd';
+import { Tag } from 'antd';
 
 import { formatDate } from 'Core/utils/formatDate';
 import { MediaFile } from 'Core/ant';
