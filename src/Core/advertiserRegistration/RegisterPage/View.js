@@ -21,9 +21,7 @@ const RegisterPageView = ({
                 <RegistrationForm
                     registerAdvertiserAction={registerAdvertiserAction}
                     loading={loading}
-                    isRegisterReqSuccess={isRegisterReqSuccess}
                     errorsFromBackend={errorsFromBackend}
-                    cleanErrorAction={cleanErrorAction}
                 />
             )
     );
