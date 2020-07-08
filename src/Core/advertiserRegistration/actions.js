@@ -7,3 +7,4 @@ export const CONFIRM_ADV_REGISTRATION_SUCCESS = 'ad-registration/CONFIRM_ADV_REG
 export const CONFIRM_ADV_REGISTRATION_ERROR = 'ad-registration/CONFIRM_ADV_REGISTRATION_ERROR';
 
 export const CLEAN_ERROR = 'ad-registration/CLEAN_ERROR';
+export const SET_DEFAULT_STATE = 'ad-registration/SET_DEFAULT_STATE';
