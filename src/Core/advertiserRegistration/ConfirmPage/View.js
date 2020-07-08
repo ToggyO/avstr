@@ -15,7 +15,6 @@ import styles from './index.module.scss';
 const ConfirmPageView = ({
     confirmAdRegistrationAction,
     isConfirmSuccess,
-    loading,
     location,
 }) => {
     const queries = parse(location.search, { ignoreQueryPrefix: true, charsetSentinel: true });
@@ -34,10 +33,8 @@ const ConfirmPageView = ({
     };
 
     const renderContent = () => {
-        let component;
-        if (loading) {
-            component = <PageLoading />;
-        } else {
+        let component = <PageLoading />;
+        if (isConfirmSuccess !== null) {
             const condition = isConfirmSuccess;
             const status = condition ? 'success' : 'error';
             const title = condition ? 'Регистрация завершена' : 'Истек срок действия ссылки';
@@ -84,14 +81,12 @@ const ConfirmPageView = ({
 };
 
 ConfirmPageView.defaultProps = {
-    isConfirmSuccess: false,
-    loading: false,
+    isConfirmSuccess: null,
     confirmAdRegistrationAction: Function.prototype,
 };
 
 ConfirmPageView.propTypes = {
     isConfirmSuccess: PropTypes.bool,
-    loading: PropTypes.bool,
     confirmAdRegistrationAction: PropTypes.func,
     location: PropTypes.shape({
         hash: PropTypes.string,

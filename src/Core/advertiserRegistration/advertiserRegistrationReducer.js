@@ -3,14 +3,13 @@ import * as actions from './actions';
 const initialState = {
     loading: false,
     isRegisterReqSuccess: false,
-    isConfirmSuccess: false,
+    isConfirmSuccess: null,
     errors: {},
 };
 
 const advertiserRegistrationReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
         case actions.REGISTER_ADVERTISER:
-        case actions.CONFIRM_ADV_REGISTRATION:
             return {
                 ...state,
                 loading: true,
