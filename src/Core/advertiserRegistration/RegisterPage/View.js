@@ -1,21 +1,9 @@
-// todo(nn): Добавить ссылки на документы, когда они появятся
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 
-import {
-    Button, Result, Form,
-} from 'antd';
-import {
-    StandardForm,
-    FormItemWrapper,
-    PasswordValidationRulesPopover,
-} from 'Core/ant';
-import { useValidationStatus } from 'Core/ant/helpers';
 import { isEmptyObject } from 'Core/utils/isEmpty';
-import options from './options';
-
-import styles from './index.module.scss';
+import RegistrationForm from './components/RegistrationForm';
+import InfoMessage from './components/InfoMessage';
 
 const RegisterPageView = ({
     registerAdvertiserAction,
@@ -24,126 +12,19 @@ const RegisterPageView = ({
     errorsFromBackend,
     cleanErrorAction,
 }) => {
-    const [form] = Form.useForm();
-    // debugger
-    const validationObj = {
-        patternMinLength: /.{8,}/,
-        patternUppSyms: /[A-Z]+/,
-        patternLowSyms: /[a-z]+/,
-        patternNums: /[0-9]+/,
-        patternSpecSymb: /[!"#$%&'()*+,-.:;<=>?@^_`[\]{|}~\\]/,
-    };
-    const {
-        validationStatus,
-        setValidationStatus,
-        checkPatterns,
-    } = useValidationStatus(form, validationObj, 'password');
-
-    const [visible, setVisible] = useState(false);
-    const toggleVisibility = (visibility) => {
-        setVisible(!visibility);
-    };
-
-    const highlightPasswordOnSubmitFailure = () => {
-        const isFieldTouched = form.isFieldTouched('password');
-        const status = !isFieldTouched ? 'error' : validationStatus;
-        return setValidationStatus(status);
-    };
-
     useEffect(() => () => cleanErrorAction(), [cleanErrorAction]);
 
-    // useEffect(() => {
-    //     if (!error) return;
-    //     message.error(error, 3);
-    //     cleanErrorAction();
-    // }, [error, cleanErrorAction]);
-
-    const onSubmit = (values) => {
-        const data = values;
-        delete data.submit;
-        registerAdvertiserAction(data);
-    };
-
-    let date = new Date();
-    date.setDate(date.getDate() + 1);
-    date = date.toLocaleString('ru', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-    });
     return (
         isRegisterReqSuccess && isEmptyObject(errorsFromBackend)
-            ? (
-                <div className={cn(styles.container, styles.container__result)}>
-                    <Result
-                        className={styles.info}
-                        title={(
-                            <p className={styles.subtitle}>
-                                Перейдите по&nbsp;ссылке в&nbsp;письме для завершения регистрации
-                            </p>
-                        )}
-                    />
-                    <p className={styles.text}>
-                        Ссылка действительна в&nbsp;течении суток
-                        <br />
-                        до&nbsp;
-                        {date}
-                    </p>
-                </div>
-            )
+            ? <InfoMessage />
             : (
-                <div className={styles.container}>
-                    <div className={styles.headlines}>
-                        <h1>Регистрация рекламодателя</h1>
-                    </div>
-                    <StandardForm
-                        options={options}
-                        onFinish={onSubmit}
-                        onFinishFailed={highlightPasswordOnSubmitFailure}
-                        outerFormInstance={form}
-                        errorsFromBackend={errorsFromBackend}
-                    >
-                        <FormItemWrapper type="text-input" name="name" />
-                        <FormItemWrapper type="text-input" name="surname" />
-                        <FormItemWrapper type="text-input" name="organization" />
-                        <FormItemWrapper type="text-input" name="email" />
-                        <PasswordValidationRulesPopover visible={visible} />
-                        <FormItemWrapper
-                            type="password-input"
-                            name="password"
-                            propsToChild={{
-                                onChange: (e) => checkPatterns(e.target.value),
-                                onFocus: () => toggleVisibility(false),
-                                onBlur: () => toggleVisibility(true),
-                            }}
-                            hasFeedback
-                            validateStatus={validationStatus}
-                        />
-                        <FormItemWrapper
-                            shouldUpdate
-                            type="custom-component"
-                            name="submit"
-                            component={(props) => (
-                                <Button
-                                    loading={loading}
-                                    className={styles.submit}
-                                    {...props}
-                                >
-                                    Зарегистрироваться
-                                </Button>
-                            )}
-                        />
-                    </StandardForm>
-                    <p className={styles.description}>
-                        Нажимая на&nbsp;кнопку &laquo;Зарегистрироваться&raquo;, вы&nbsp;
-                        соглашаетесь с&nbsp;
-                        <a href="/" target="_blank">Политикой конфиденциальности</a>
-                        &thinsp;и&nbsp;
-                        <a href="/" target="_blank">Обработкой персональных данных</a>
-                    </p>
-                </div>
+                <RegistrationForm
+                    registerAdvertiserAction={registerAdvertiserAction}
+                    loading={loading}
+                    isRegisterReqSuccess={isRegisterReqSuccess}
+                    errorsFromBackend={errorsFromBackend}
+                    cleanErrorAction={cleanErrorAction}
+                />
             )
     );
 };
