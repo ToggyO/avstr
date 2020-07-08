@@ -17,7 +17,6 @@ const LoginLayout = ({ children, location, setDefaultStateAction }) => {
 
     const registerBtnHandler = () => {
         setDefaultStateAction();
-        // window.location = ROOT_ROUTES.AD_REGISTRATION;
         history.push(ROOT_ROUTES.AD_REGISTRATION);
     };
 
