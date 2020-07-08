@@ -56,24 +56,25 @@ const RootRouter = () => {
                 <Suspense fallback={<PageLoading />}>
                     <AuthRoute
                         path={ROOT_ROUTES.AD_MANAGER}
-                        allowedRoles={[USER_ROLES.ADMINISTRATOR]}
+                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.AD_MANAGER]}
                         component={AdvertisingManagementRouter}
                     />
 
                     <AuthRoute
                         path={ROOT_ROUTES.DEVICES}
-                        allowedRoles={[USER_ROLES.DEVICE_MANAGER]}
+                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.DEVICE_MANAGER]}
                         component={DevicesRouter}
                     />
 
                     <AuthRoute
                         path={ROOT_ROUTES.ADVERTISER}
-                        allowedRoles={[USER_ROLES.ADVERTISER]}
+                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.ADVERTISER]}
                         component={AdvertiserPage}
                     />
 
                     <AuthRoute
                         path={ROOT_ROUTES.TOKEN}
+                        allowedRoles={[]}
                         component={TokenPage}
                     />
                 </Suspense>

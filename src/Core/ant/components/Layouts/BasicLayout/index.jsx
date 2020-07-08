@@ -48,17 +48,17 @@ const BasicLayout = ({ children, location, logoutAction }) => {
         {
             href: ROOT_ROUTES.ADVERTISER,
             text: 'Кабинет рекламодателя',
-            allowedRoles: [USER_ROLES.ADVERTISER],
+            allowedRoles: [USER_ROLES.ADMINISTRATOR, USER_ROLES.ADVERTISER],
         },
         {
             href: ROOT_ROUTES.AD_MANAGER,
             text: 'Управление рекламой',
-            allowedRoles: [USER_ROLES.ADMINISTRATOR],
+            allowedRoles: [USER_ROLES.ADMINISTRATOR, USER_ROLES.AD_MANAGER],
         },
         {
             href: `${ROOT_ROUTES.DEVICES}/main/list`,
             text: 'Управление устройствами',
-            allowedRoles: [USER_ROLES.DEVICE_MANAGER],
+            allowedRoles: [USER_ROLES.ADMINISTRATOR, USER_ROLES.DEVICE_MANAGER],
         },
     ];
 

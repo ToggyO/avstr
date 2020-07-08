@@ -29,7 +29,7 @@ AuthRoute.propTypes = {
     component: PropTypes.elementType.isRequired,
     allowedRoles: PropTypes.oneOfType([
         PropTypes.arrayOf(
-            PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
+            PropTypes.oneOf([[], 'Administrator', 'AdManager', 'DeviceManager', 'Advertiser']),
         ),
         PropTypes.string,
     ]),
