@@ -19,12 +19,14 @@ export const ADVERTISEMENT_TAG = {
 
 export const USER_ROLES = {
     ADMINISTRATOR: 'Administrator',
+    AD_MANAGER: 'AdManager',
     DEVICE_MANAGER: 'DeviceManager',
     ADVERTISER: 'Advertiser',
 };
 
 export const REDIRECT_PATH_BY_ROLE = {
-    Administrator: '/ad-manager',
+    // Administrator: '/ad-manager',
+    AdManager: '/ad-manager',
     DeviceManager: '/devices/main/list',
     Advertiser: '/advertiser',
 };

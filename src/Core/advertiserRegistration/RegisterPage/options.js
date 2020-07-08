@@ -85,22 +85,22 @@ const formOptions = {
             placeholder: 'Электронная почта',
         },
         normalize: (value) => (value || '').trim(),
-        rules: [
-            {
-                required: true,
-                message: ' ',
-            },
-            {
-                validator: (_, value) => {
-                    if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
-                    if (!validation.isEmailValid(value)) {
-                        return Promise.reject(VALIDATION_MESSAGES.INCORRECT_EMAIL);
-                    }
-
-                    return Promise.resolve();
-                },
-            },
-        ],
+        // rules: [
+        //     {
+        //         required: true,
+        //         message: ' ',
+        //     },
+        //     {
+        //         validator: (_, value) => {
+        //             if (!value) return Promise.reject(VALIDATION_MESSAGES.REQUIRED);
+        //             if (!validation.isEmailValid(value)) {
+        //                 return Promise.reject(VALIDATION_MESSAGES.INCORRECT_EMAIL);
+        //             }
+        //
+        //             return Promise.resolve();
+        //         },
+        //     },
+        // ],
     },
     password: {
         props: {
