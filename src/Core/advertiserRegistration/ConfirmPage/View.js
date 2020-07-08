@@ -81,7 +81,7 @@ const ConfirmPageView = ({
 };
 
 ConfirmPageView.defaultProps = {
-    isConfirmSuccess: false,
+    isConfirmSuccess: null,
     confirmAdRegistrationAction: Function.prototype,
 };
 
