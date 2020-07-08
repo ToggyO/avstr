@@ -4,6 +4,8 @@ import { Dropdown, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { DownOutlined } from '@ant-design/icons';
 
+import { checkRoles } from 'Core/utils/checkRoles';
+
 import styles from './index.module.scss';
 
 const AntDropdown = ({
@@ -12,6 +14,7 @@ const AntDropdown = ({
     icon: Icon,
     trigger,
     inlineStyle,
+    roles,
     ...rest
 }) => {
     const {
@@ -19,20 +22,23 @@ const AntDropdown = ({
         iconStyle = {},
         menuItemStyle = {},
     } = inlineStyle;
-    const [state, setState] = useState(false);
+    const [isVisible, setVisible] = useState(false);
 
     const renderMenu = (menuItems) => (
         <Menu>
             {menuItems.map((item, index) => (
-                <Menu.Item key={`${item.href}_${index + 1}`}>
-                    <Link
-                        to={item.href}
-                        className={styles.menuItem}
-                        style={menuItemStyle}
-                    >
-                        {item.text}
-                    </Link>
-                </Menu.Item>
+                checkRoles(item.allowedRoles || [], roles)
+                    ? (
+                        <Menu.Item key={`${item.href}_${index + 1}`} onClick={() => setVisible(!isVisible)}>
+                            <Link
+                                to={item.href}
+                                className={styles.menuItem}
+                                style={menuItemStyle}
+                            >
+                                {item.text}
+                            </Link>
+                        </Menu.Item>
+                    ) : null
             ))}
         </Menu>
     );
@@ -41,7 +47,8 @@ const AntDropdown = ({
         <Dropdown
             overlay={() => renderMenu(items)}
             trigger={trigger}
-            onVisibleChange={() => setState(!state)}
+            visible={isVisible}
+            onVisibleChange={() => setVisible(!isVisible)}
             {...rest}
         >
             <div className={styles.triggerContainer} style={triggerContainerStyle}>
@@ -52,7 +59,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )
@@ -61,7 +68,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: state ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )}
@@ -85,6 +92,12 @@ AntDropdown.propTypes = {
         iconStyle: PropTypes.object,
         menuItemStyle: PropTypes.object,
     }),
+    roles: PropTypes.oneOfType([
+        PropTypes.arrayOf(
+            PropTypes.oneOf([[], 'Administrator', 'DeviceManager', 'Advertiser']),
+        ),
+        PropTypes.string,
+    ]),
 };
 
 AntDropdown.defaultProps = {
@@ -93,6 +106,7 @@ AntDropdown.defaultProps = {
     icon: null,
     trigger: 'click',
     inlineStyle: {},
+    roles: [],
 };
 
 export default AntDropdown;
