@@ -14,7 +14,7 @@ export default function handleRequestErrors(status, err = {}) {
             errorObj = {
                 ...err,
                 status,
-                errorContent: errorContent === null ? {} : errorContent,
+                // errorContent: errorContent === null ? {} : errorContent,
             };
             break;
         case 401:
