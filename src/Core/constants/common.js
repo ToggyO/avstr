@@ -25,7 +25,7 @@ export const USER_ROLES = {
 };
 
 export const REDIRECT_PATH_BY_ROLE = {
-    // Administrator: '/ad-manager',
+    Administrator: '/ad-manager',
     AdManager: '/ad-manager',
     DeviceManager: '/devices/main/list',
     Advertiser: '/advertiser',
