@@ -63,6 +63,7 @@ const PasswordValidationRulesPopover = ({ visible }) => {
             title={<p className={styles.popoverTitle}>Требования для безопасного пароля</p>}
             trigger="hover"
             placement={isMobile ? 'top' : 'right'}
+            autoAdjustOverflow={false}
             overlayStyle={{
                 marginLeft: isMobile ? 24 : 0,
                 marginRight: isMobile ? 24 : 0,
