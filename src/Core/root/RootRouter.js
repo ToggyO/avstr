@@ -68,7 +68,7 @@ const RootRouter = () => {
 
                     <AuthRoute
                         path={ROOT_ROUTES.ADVERTISER}
-                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.ADVERTISER]}
+                        allowedRoles={[USER_ROLES.ADVERTISER]}
                         component={AdvertiserPage}
                     />
 

@@ -3,8 +3,6 @@ import { Badge, Popover } from 'antd';
 import { useMediaQuery } from 'beautiful-react-hooks';
 import PropTypes from 'prop-types';
 
-import { BREAKPOINTS } from '../../constants';
-
 import styles from './index.module.scss';
 
 const Text = ({ desc, style }) => <p className={styles.popoverTitle} style={style}>{desc}</p>;
@@ -54,7 +52,8 @@ const RenderValidationStatus = () => (
 );
 
 const PasswordValidationRulesPopover = ({ visible }) => {
-    const isMobile = useMediaQuery(`(max-width: ${BREAKPOINTS.LG}px)`);
+    const SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER = 1300;
+    const isMobile = useMediaQuery(`(max-width: ${SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER}px)`);
 
     return (
         <Popover
