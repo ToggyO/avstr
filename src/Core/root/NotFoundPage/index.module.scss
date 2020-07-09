@@ -1,0 +1,7 @@
+@import 'variables';
+
+.wrap {
+    @include flex-centered;
+
+    height: 100%;
+}

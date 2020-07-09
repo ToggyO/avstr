@@ -12,6 +12,7 @@ import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
 import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
+import NotFoundPage from './NotFoundPage';
 
 const TokenPage = lazy(() => import('../authorization/components/TokenPage'));
 const AdvertisingManagementRouter = lazy(() => import('AdvertiserAccount/advertising-management/AdvertisingManagementRouter'));
@@ -52,6 +53,7 @@ const RootRouter = () => {
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
             <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
+            <Route component={NotFoundPage} />
             <BasicLayout>
                 <Suspense fallback={<PageLoading />}>
                     <AuthRoute
@@ -65,7 +67,6 @@ const RootRouter = () => {
                         allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.DEVICE_MANAGER]}
                         component={DevicesRouter}
                     />
-
                     <AuthRoute
                         path={ROOT_ROUTES.ADVERTISER}
                         allowedRoles={[USER_ROLES.ADVERTISER]}
