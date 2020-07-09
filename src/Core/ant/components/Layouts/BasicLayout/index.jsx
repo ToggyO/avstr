@@ -48,7 +48,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
         {
             href: ROOT_ROUTES.ADVERTISER,
             text: 'Кабинет рекламодателя',
-            allowedRoles: [USER_ROLES.ADMINISTRATOR, USER_ROLES.ADVERTISER],
+            allowedRoles: [USER_ROLES.ADVERTISER],
         },
         {
             href: ROOT_ROUTES.AD_MANAGER,
@@ -68,6 +68,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
         userManager.signoutRedirect();
         userManager.removeUser();
         logoutAction();
+        localStorage.clear();
     };
 
     return (
