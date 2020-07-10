@@ -30,7 +30,12 @@ const BasicHeader = ({
                 },
             )}
             <div className={styles.header__container__dropdown}>
-                <AntDropdown items={dropdownItems} roles={roles}>
+                <AntDropdown
+                    items={dropdownItems}
+                    roles={roles}
+                    placement="bottomCenter"
+                    arrow
+                >
                     <div className={styles.dropdownButton}>
                         {userName}
                     </div>

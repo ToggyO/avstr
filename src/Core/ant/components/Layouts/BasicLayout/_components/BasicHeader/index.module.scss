@@ -23,6 +23,7 @@
 }
 
 .dropdownButton {
+    max-height: 15px;
     color: $dark-gray-text;
 
     @include flex-centered;
