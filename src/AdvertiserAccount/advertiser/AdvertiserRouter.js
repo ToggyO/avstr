@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { ROOT_ROUTES } from 'Core/constants';
+import NotFoundPage from 'Core/root/NotFoundPage';
 import { ADVERTISER_ROUTES } from './constants';
 import { AdsListContainer } from './AdsListPage';
 import AdPage from './AdPage';
@@ -21,6 +22,8 @@ const AdvertiserRouter = () => (
             path={ADVERTISER_ROUTES.ADVERTISEMENT_DETAILS(':id')}
             component={AdPage}
         />
+
+        <Route component={NotFoundPage} />
     </Switch>
 );
 
