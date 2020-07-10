@@ -1,0 +1,9 @@
+@import "variables";
+
+.wrap {
+    @include max-w-346;
+
+    min-height: 560px;
+    margin: 0 auto;
+    background: white;
+}

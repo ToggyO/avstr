@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
 import { PageLoading } from 'Core/ant';
+import NotFoundPage from 'Core/root/NotFoundPage';
 
 const DevicesPageRouter = lazy(() => import('./devices-managment/DevicesPageRouter'));
 const NewDevicePage = lazy(() => import('./devices-managment/containers/NewDevicePage'));
@@ -23,6 +24,7 @@ const DevicesRouter = ({ match: { path } }) => (
                 path={`${path}/monitoring`}
                 component={DeviceMonitoringPage}
             />
+            <Route component={NotFoundPage} />
         </Switch>
     </Suspense>
 );
