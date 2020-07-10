@@ -2,6 +2,7 @@
 
 .wrap {
     @include max-w-346;
+    @include flex-centered;
 
     min-height: 560px;
     margin: 0 auto;

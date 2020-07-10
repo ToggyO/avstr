@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { ROOT_ROUTES } from 'Core/constants';
 import { writeToLocalState, getFromLocalState } from 'Core/utils/local-storage';
-import { UnAuthRoute, AuthRoute } from 'Core/routeManagement';
+import { UnAuthRoute } from 'Core/routeManagement';
 
 import CallbackPage from '../authorization/components/CallbackPage';
 import LogoutPage from '../authorization/components/LogoutPage';
@@ -46,7 +46,7 @@ const RootRouter = () => {
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
             <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
-            <AuthRoute
+            <Route
                 path={[
                     ROOT_ROUTES.AD_MANAGER,
                     ROOT_ROUTES.DEVICES,
