@@ -1,12 +1,15 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'antd';
 
+import { SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER } from 'Core/constants';
 import { StandardForm } from 'Core/ant/components/FormComponents/ContextForm';
 import trimFormValues from 'Core/utils/trimFormValues';
 import { FormItemWrapper, PasswordValidationRulesPopover } from 'Core/ant/components';
 import { useValidationStatus } from 'Core/ant/helpers';
+import { useAdaptivePopover } from 'Core/utils/userHooks';
+
 import options from '../../options';
 import styles from './index.module.scss';
 
@@ -29,9 +32,10 @@ const RegistrationForm = ({
         checkPatterns,
     } = useValidationStatus(form, validationObj, 'password');
 
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible, isMobile] = useAdaptivePopover(SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER);
+
     const toggleVisibility = (visibility) => {
-        setVisible(!visibility);
+        setVisible(visibility);
     };
 
     const highlightPasswordOnSubmitFailure = () => {
@@ -62,14 +66,18 @@ const RegistrationForm = ({
                 <FormItemWrapper type="text-input" name="surname" />
                 <FormItemWrapper type="text-input" name="organization" />
                 <FormItemWrapper type="text-input" name="email" />
-                <PasswordValidationRulesPopover visible={visible} />
+                <PasswordValidationRulesPopover visible={visible} isMobile={isMobile} />
                 <FormItemWrapper
                     type="password-input"
                     name="password"
                     propsToChild={{
-                        onChange: (e) => checkPatterns(e.target.value),
-                        onFocus: () => toggleVisibility(false),
-                        onBlur: () => toggleVisibility(true),
+                        onChange: (e) => {
+                            checkPatterns(e.target.value);
+                            toggleVisibility(true);
+                        },
+                        onFocus: () => toggleVisibility(true),
+                        onClick: () => toggleVisibility(true),
+                        onBlur: () => toggleVisibility(false),
                     }}
                     hasFeedback
                     validateStatus={validationStatus}

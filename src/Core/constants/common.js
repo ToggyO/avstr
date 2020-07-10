@@ -30,3 +30,5 @@ export const REDIRECT_PATH_BY_ROLE = {
     DeviceManager: '/devices/main/list',
     Advertiser: '/advertiser',
 };
+
+export const SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER = 1300;
