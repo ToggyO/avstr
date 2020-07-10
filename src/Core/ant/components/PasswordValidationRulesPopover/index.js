@@ -1,6 +1,5 @@
 import React from 'react';
 import { Badge, Popover } from 'antd';
-import { useMediaQuery } from 'beautiful-react-hooks';
 import PropTypes from 'prop-types';
 
 import styles from './index.module.scss';
@@ -51,34 +50,26 @@ const RenderValidationStatus = () => (
     </div>
 );
 
-const PasswordValidationRulesPopover = ({ visible }) => {
-    const SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER = 1300;
-    const isMobile = useMediaQuery(`(max-width: ${SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER}px)`);
-
-    return (
-        <Popover
-            visible={visible}
-            content={RenderValidationStatus}
-            title={<p className={styles.popoverTitle}>Требования для безопасного пароля</p>}
-            trigger="hover"
-            placement={isMobile ? 'top' : 'right'}
-            autoAdjustOverflow={false}
-            overlayStyle={{
-                marginLeft: isMobile ? 24 : 0,
-                marginRight: isMobile ? 24 : 0,
-            }}
-        >
-            <div />
-        </Popover>
-    );
-};
+const PasswordValidationRulesPopover = ({ visible, isMobile }) => (
+    <Popover
+        visible={visible}
+        content={RenderValidationStatus}
+        title={<p className={styles.popoverTitle}>Требования для безопасного пароля</p>}
+        placement={isMobile ? 'top' : 'right'}
+        autoAdjustOverflow={false}
+        destroyTooltipOnHide
+        overlayStyle={{
+            marginLeft: isMobile ? 24 : 0,
+            marginRight: isMobile ? 24 : 0,
+        }}
+    >
+        <div />
+    </Popover>
+);
 
 PasswordValidationRulesPopover.propTypes = {
-    visible: PropTypes.bool,
-};
-
-PasswordValidationRulesPopover.defaultProps = {
-    visible: false,
+    visible: PropTypes.bool.isRequired,
+    isMobile: PropTypes.bool.isRequired,
 };
 
 export default PasswordValidationRulesPopover;
