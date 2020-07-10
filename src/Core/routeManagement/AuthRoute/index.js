@@ -15,10 +15,8 @@ const AuthRoute = ({ component: Component, allowedRoles, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (isAuthorized && checkRoles(allowedRoles, roles)) {
-                    // debugger;
                     return CreateComponent(Component, props);
                 }
-                // debugger;
                 return <Redirect to="/" />;
             }}
         />

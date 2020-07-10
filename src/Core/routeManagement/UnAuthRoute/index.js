@@ -16,10 +16,8 @@ const UnAuthRoute = ({ component: Component, ...rest }) => {
             {...rest}
             render={(props) => {
                 if (!isAuthorized) {
-                    // debugger;
                     return CreateComponent(Component, props);
                 }
-                // debugger;
                 // return <Redirect to={REDIRECT_PATH_BY_ROLE[roles[0]] || '/'} />;
                 return <Redirect to={createRoleRedirect(roles)} />;
             }}

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
 import { PageLoading } from 'Core/ant';
+import NotFoundPage from 'Core/root/NotFoundPage';
 
 const AdvertisingManagementPage = lazy(() => import('./AdvertisingManagementPage'));
 const NewAdvertisementPage = lazy(() => import('./NewAdvertisementPage'));
@@ -19,6 +20,7 @@ const AdvertisingManagementRouter = ({ match: { path } }) => (
                 path={`${path}/add`}
                 component={NewAdvertisementPage}
             />
+            <Route component={NotFoundPage} />
         </Switch>
     </Suspense>
 );
