@@ -11,12 +11,13 @@ const RegisterPageView = ({
     isRegisterReqSuccess,
     errorsFromBackend,
     cleanErrorAction,
+    setDefaultStateAction,
 }) => {
     useEffect(() => () => cleanErrorAction(), [cleanErrorAction]);
 
     return (
         isRegisterReqSuccess && isEmptyObject(errorsFromBackend)
-            ? <InfoMessage />
+            ? <InfoMessage setDefaultStateAction={setDefaultStateAction} />
             : (
                 <RegistrationForm
                     registerAdvertiserAction={registerAdvertiserAction}
@@ -32,6 +33,7 @@ RegisterPageView.defaultProps = {
     isRegisterReqSuccess: false,
     registerAdvertiserAction: Function.prototype,
     cleanErrorAction: Function.prototype,
+    setDefaultStateAction: Function.prototype,
     errorsFromBackend: {},
 };
 
@@ -40,6 +42,7 @@ RegisterPageView.propTypes = {
     isRegisterReqSuccess: PropTypes.bool,
     registerAdvertiserAction: PropTypes.func,
     cleanErrorAction: PropTypes.func,
+    setDefaultStateAction: PropTypes.func,
     errorsFromBackend: PropTypes.objectOf(PropTypes.any),
 };
 

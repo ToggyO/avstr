@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { getProp } from 'Core/utils/getProp';
 
-import { cleanError, registerAdvertiser } from '../action-creators';
+import { cleanError, registerAdvertiser, setDefaultState } from '../action-creators';
 
 import RegisterPageView from './View';
 
@@ -14,6 +14,7 @@ const mapStateToProps = ({ advertiserRegistrationReducer }) => ({
 const mapDispatchToProps = {
     registerAdvertiserAction: registerAdvertiser,
     cleanErrorAction: cleanError,
+    setDefaultStateAction: setDefaultState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPageView);
