@@ -59,7 +59,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: !isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )
@@ -68,7 +68,7 @@ const AntDropdown = ({
                             className={styles.icon}
                             style={{
                                 ...iconStyle,
-                                transform: isVisible ? 'rotate(180deg)' : 'rotate(0)',
+                                transform: !isVisible ? 'rotate(180deg)' : 'rotate(0)',
                             }}
                         />
                     )}
