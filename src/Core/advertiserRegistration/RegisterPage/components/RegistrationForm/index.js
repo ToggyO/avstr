@@ -1,10 +1,10 @@
 // todo(nn): Добавить ссылки на документы, когда они появятся
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Form } from 'antd';
 
 import { StandardForm } from 'Core/ant/components/FormComponents/ContextForm';
+import trimFormValues from 'Core/utils/trimFormValues';
 import { FormItemWrapper, PasswordValidationRulesPopover } from 'Core/ant/components';
 import { useValidationStatus } from 'Core/ant/helpers';
 import options from '../../options';
@@ -43,7 +43,7 @@ const RegistrationForm = ({
     const onSubmit = (values) => {
         const data = values;
         delete data.submit;
-        registerAdvertiserAction(data);
+        registerAdvertiserAction(trimFormValues(data));
     };
 
     return (

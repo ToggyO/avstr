@@ -13,6 +13,7 @@ import {
     PasswordValidationRulesPopover,
 } from 'Core/ant';
 import { useValidationStatus } from 'Core/ant/helpers';
+import trimFormValues from 'Core/utils/trimFormValues';
 import options from './options';
 
 import styles from './index.module.scss';
@@ -60,7 +61,7 @@ const ChangePasswordForm = ({
             confirmPassword: values.confirmPassword,
             code,
         };
-        restorePassword(payload);
+        restorePassword(trimFormValues(payload));
     };
 
     const highlightPasswordOnSubmitFailure = () => {

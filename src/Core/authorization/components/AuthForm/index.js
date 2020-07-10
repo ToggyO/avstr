@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import Logo from 'Core/common/Logo';
 import Input from 'Core/common/Input';
 import Checkbox from 'Core/common/Checkbox';
-// import Button from 'Core/common/Button';
 import ErrMessage from 'Core/common/ErrorMessage';
+import trimFormValues from 'Core/utils/trimFormValues';
 
 import styles from './index.module.scss';
 
@@ -57,11 +57,12 @@ const AuthForm = ({
 
     const handleBtnClick = (e) => {
         e.preventDefault();
-        formSubmitHandler({
+        const values = trimFormValues({
             username: loginText,
             password: passwordText,
             rememberLogin: checkboxValue,
         });
+        formSubmitHandler(values);
     };
 
     const passwordIcon = [
