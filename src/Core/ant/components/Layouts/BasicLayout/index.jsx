@@ -26,17 +26,19 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     const { roles } = useContext(AuthContext);
 
     const [siderState, setSiderState] = useState({
-        isCollapsed: isMobile,
+        isCollapsed: true,
         isFixed: isMobile,
     });
 
     useEffect(() => {
         setSiderState((prevState) => ({
             ...prevState,
-            isCollapsed: isMobile,
+            // isCollapsed: isMobile,
             isFixed: isMobile,
         }));
     }, [isMobile]);
+
+    useEffect(() => console.log(siderState), [siderState]);
 
     const { pathname } = location;
 
