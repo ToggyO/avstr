@@ -1,9 +1,13 @@
 import React from 'react';
-import { Result } from 'antd';
+import PropTypes from 'prop-types';
+import { Button, Result } from 'antd';
+
+import history from 'Core/history';
+import { ROOT_ROUTES } from 'Core/constants';
 
 import styles from './index.module.scss';
 
-const InfoMessage = () => {
+const InfoMessage = ({ setDefaultStateAction }) => {
     let date = new Date();
     date.setDate(date.getDate() + 1);
     date = date.toLocaleString('ru', {
@@ -13,6 +17,11 @@ const InfoMessage = () => {
         hour: 'numeric',
         minute: 'numeric',
     });
+
+    const registerBtnHandler = () => {
+        setDefaultStateAction();
+        history.push(ROOT_ROUTES.AD_REGISTRATION);
+    };
 
     return (
         <div className={styles.container}>
@@ -30,8 +39,23 @@ const InfoMessage = () => {
                 до&nbsp;
                 {date}
             </p>
+            <Button
+                className={styles.btn}
+                type="default"
+                onClick={registerBtnHandler}
+            >
+                Зарегестрироваться еще раз
+            </Button>
         </div>
     );
+};
+
+InfoMessage.defaultProps = {
+    setDefaultStateAction: Function.prototype,
+};
+
+InfoMessage.propTypes = {
+    setDefaultStateAction: PropTypes.func,
 };
 
 export default InfoMessage;
