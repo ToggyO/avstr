@@ -44,7 +44,7 @@ const InfoMessage = ({ setDefaultStateAction }) => {
                 type="default"
                 onClick={registerBtnHandler}
             >
-                Зарегестрироваться еще раз
+                Зарегистрироваться еще раз
             </Button>
         </div>
     );
