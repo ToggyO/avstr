@@ -5,6 +5,7 @@ import { Button, Form } from 'antd';
 
 import { SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER } from 'Core/constants';
 import { StandardForm } from 'Core/ant/components/FormComponents/ContextForm';
+import trimFormValues from 'Core/utils/trimFormValues';
 import { FormItemWrapper, PasswordValidationRulesPopover } from 'Core/ant/components';
 import { useValidationStatus } from 'Core/ant/helpers';
 import { useAdaptivePopover } from 'Core/utils/userHooks';
@@ -46,7 +47,7 @@ const RegistrationForm = ({
     const onSubmit = (values) => {
         const data = values;
         delete data.submit;
-        registerAdvertiserAction(data);
+        registerAdvertiserAction(trimFormValues(data));
     };
 
     return (

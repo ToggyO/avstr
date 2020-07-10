@@ -13,6 +13,7 @@ import {
     PasswordValidationRulesPopover,
 } from 'Core/ant';
 import { useValidationStatus } from 'Core/ant/helpers';
+import trimFormValues from 'Core/utils/trimFormValues';
 import { SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER } from 'Core/constants';
 import { useAdaptivePopover } from 'Core/utils/userHooks';
 import options from './options';
@@ -62,7 +63,7 @@ const ChangePasswordForm = ({
             confirmPassword: values.confirmPassword,
             code,
         };
-        restorePassword(payload);
+        restorePassword(trimFormValues(payload));
     };
 
     const highlightPasswordOnSubmitFailure = () => {
