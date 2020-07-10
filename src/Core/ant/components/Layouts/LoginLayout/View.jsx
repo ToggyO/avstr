@@ -23,6 +23,8 @@ const LoginLayout = ({ children, location, setDefaultStateAction }) => {
     const entryBtnHandler = () => {
         history.push(`/${search || ''}`);
     };
+
+    const { pathname } = location;
     return (
         <>
             <Helmet>
@@ -37,19 +39,25 @@ const LoginLayout = ({ children, location, setDefaultStateAction }) => {
                             <AvaLogo />
                         </a>
                         <div className={styles.header__buttons}>
-                            <Button
-                                type="default"
-                                ghost
-                                onClick={registerBtnHandler}
-                            >
-                                Регистрация
-                            </Button>
-                            <Button
-                                type="primary"
-                                onClick={entryBtnHandler}
-                            >
-                                Вход
-                            </Button>
+                            {
+                                pathname === '/'
+                                    ? (
+                                        <Button
+                                            type="default"
+                                            ghost
+                                            onClick={registerBtnHandler}
+                                        >
+                                            Регистрация
+                                        </Button>
+                                    ) : (
+                                        <Button
+                                            type="primary"
+                                            onClick={entryBtnHandler}
+                                        >
+                                            Вход
+                                        </Button>
+                                    )
+                            }
                         </div>
                     </div>
                 </Header>
@@ -72,6 +80,7 @@ LoginLayout.propTypes = {
     children: PropTypes.node,
     location: PropTypes.shape({
         search: PropTypes.string,
+        pathname: PropTypes.string,
     }).isRequired,
     setDefaultStateAction: PropTypes.func,
 };
