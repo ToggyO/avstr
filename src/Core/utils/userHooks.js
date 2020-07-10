@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { parse } from 'qs';
 import { message } from 'antd';
+import { useMediaQuery } from 'beautiful-react-hooks';
 
 import { createPaginationQuery } from 'Core/ant';
 import { isEmptyObject } from './isEmpty';
@@ -39,4 +40,19 @@ export const useShowError = (errors) => {
  */
 export const useClearError = (clearErrorFunc) => {
     useEffect(() => () => clearErrorFunc(), [clearErrorFunc]);
+};
+
+/**
+ * Хук для адаптивного тображение тултипа/поповера
+ * @param {number} breakpoint - ширина экрана, при которой будет происходить триггер
+ * @returns {[boolean, Function, boolean]}
+ * Array[0] - управляет отображением тултипа/поповера
+ * Array[1] - переключает отображение тултипа/поповера
+ * Array[2] - флаг срабатывания брэйкпоинта
+ */
+export const useAdaptivePopover = (breakpoint) => {
+    const isMobile = useMediaQuery(`(max-width: ${breakpoint}px)`);
+    const [visible, setVisible] = useState(false);
+    useEffect(() => setVisible(false), [isMobile]);
+    return [visible, setVisible, isMobile];
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import {
     Button,
@@ -13,6 +13,8 @@ import {
     PasswordValidationRulesPopover,
 } from 'Core/ant';
 import { useValidationStatus } from 'Core/ant/helpers';
+import { SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER } from 'Core/constants';
+import { useAdaptivePopover } from 'Core/utils/userHooks';
 import options from './options';
 
 import styles from './index.module.scss';
@@ -43,14 +45,14 @@ const ChangePasswordForm = ({
         checkPatterns,
     } = useValidationStatus(form, validationObj, 'password');
 
-    const [visible, setVisible] = useState(false);
+    const [visible, setVisible, isMobile] = useAdaptivePopover(SPECIAL_BREAKPOINT_FOR_PASSWORD_POPOVER);
 
     useEffect(() => () => {
         clearErrors();
     }, [clearErrors]);
 
     const toggleVisibility = (visibility) => {
-        setVisible(!visibility);
+        setVisible(visibility);
     };
 
     const onSubmit = (values) => {
@@ -84,14 +86,18 @@ const ChangePasswordForm = ({
                     outerFormInstance={form}
                     errorsFromBackend={errorsFromBackend}
                 >
-                    <PasswordValidationRulesPopover visible={visible} />
+                    <PasswordValidationRulesPopover visible={visible} isMobile={isMobile} />
                     <FormItemWrapper
                         type="password-input"
                         name="password"
                         propsToChild={{
-                            onChange: (e) => checkPatterns(e.target.value),
-                            onFocus: () => toggleVisibility(false),
-                            onBlur: () => toggleVisibility(true),
+                            onChange: (e) => {
+                                checkPatterns(e.target.value);
+                                toggleVisibility(true);
+                            },
+                            onFocus: () => toggleVisibility(true),
+                            onClick: () => toggleVisibility(true),
+                            onBlur: () => toggleVisibility(false),
                         }}
                         hasFeedback
                         validateStatus={validationStatus}
