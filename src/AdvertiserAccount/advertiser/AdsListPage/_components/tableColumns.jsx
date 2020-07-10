@@ -13,7 +13,7 @@ const getColumns = () => [
         dataIndex: 'creationTime',
         align: 'left',
         ellipsis: true,
-        width: '10%',
+        width: 115,
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -24,7 +24,7 @@ const getColumns = () => [
         dataIndex: 'url',
         align: 'left',
         ellipsis: true,
-        width: '8%',
+        width: 115,
         render: (value) => (
             <span onClick={() => window.open(value)}>
                 <MediaFile src={value} />
@@ -47,7 +47,7 @@ const getColumns = () => [
         dataIndex: 'status',
         align: 'left',
         ellipsis: true,
-        width: '10%',
+        width: 140,
         filters: [
             {
                 label: 'Ожидает показа',
@@ -67,10 +67,6 @@ const getColumns = () => [
                 value: 8,
             },
         ],
-        // onFilter: (value, record) => {
-        //     console.log(value);
-        //     console.log(record);
-        // },
         render: (value) => (
             <Tag color={ADVERTISEMENT_TAG[value]}>
                 {ADVERTISEMENT_STATUS[value]}
@@ -82,7 +78,7 @@ const getColumns = () => [
         dataIndex: 'startDate',
         align: 'left',
         ellipsis: true,
-        width: '10%',
+        width: 115,
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -93,7 +89,7 @@ const getColumns = () => [
         dataIndex: 'endDate',
         align: 'left',
         ellipsis: true,
-        width: '10%',
+        width: 115,
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -102,9 +98,8 @@ const getColumns = () => [
     {
         title: <p className="custom-ant-table__title">Частота (в сутки)</p>,
         dataIndex: 'frequency',
-        // align: 'right',
         ellipsis: true,
-        width: '12%',
+        width: 150,
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -114,7 +109,8 @@ const getColumns = () => [
         dataIndex: 'viewsCount',
         // align: 'right',
         ellipsis: true,
-        width: '12%',
+        width: 140,
+        // width: '12%',
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,

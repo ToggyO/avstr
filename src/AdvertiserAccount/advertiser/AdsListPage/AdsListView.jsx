@@ -41,7 +41,7 @@ const AdsListView = ({
     return (
         <StandardTable
             columns={columnsWithFilter}
-            scroll={{ x: 1100, scrollToFirstRowOnChange: true }}
+            scroll={{ x: 1300, scrollToFirstRowOnChange: true }}
             dataSource={advList}
             loading={loading}
             pagination={pagination}

@@ -17,6 +17,7 @@ import { InboxOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import history from 'Core/history';
 import { StandardForm, FormItemWrapper, AntDragger } from 'Core/ant';
 import { ROOT_ROUTES } from 'Core/constants';
+import trimFormValues from 'Core/utils/trimFormValues';
 import options from './options';
 
 import styles from './index.module.scss';
@@ -128,7 +129,7 @@ class NewAdvertisement extends Component {
             ticketId: values.ticketId,
         };
 
-        saveClick(formattedValues);
+        saveClick(trimFormValues(formattedValues));
     };
 
     handleCancelClick = () => {
