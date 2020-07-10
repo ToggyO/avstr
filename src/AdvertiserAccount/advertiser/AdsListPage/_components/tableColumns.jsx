@@ -14,7 +14,6 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 115,
-        // width: '10%',
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -26,7 +25,6 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 115,
-        // width: '8%',
         render: (value) => (
             <span onClick={() => window.open(value)}>
                 <MediaFile src={value} />
@@ -50,7 +48,6 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 140,
-        // width: '10%',
         filters: [
             {
                 label: 'Ожидает показа',
@@ -70,10 +67,6 @@ const getColumns = () => [
                 value: 8,
             },
         ],
-        // onFilter: (value, record) => {
-        //     console.log(value);
-        //     console.log(record);
-        // },
         render: (value) => (
             <Tag color={ADVERTISEMENT_TAG[value]}>
                 {ADVERTISEMENT_STATUS[value]}
@@ -86,7 +79,6 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 115,
-        // width: '10%',
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -98,7 +90,6 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 115,
-        // width: '10%',
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
@@ -107,10 +98,8 @@ const getColumns = () => [
     {
         title: <p className="custom-ant-table__title">Частота (в сутки)</p>,
         dataIndex: 'frequency',
-        // align: 'right',
         ellipsis: true,
         width: 150,
-        // width: '12%',
         sortDirections: ['descend', 'ascend'],
         sorter: true,
         sortOrder: false,
