@@ -6,6 +6,7 @@ const formOptions = {
         label: 'Рекламодатель',
         props: {
             placeholder: 'Для поиска начните вводить почту рекламодателя',
+            autoComplete: 'off',
         },
         rules: [
             {
