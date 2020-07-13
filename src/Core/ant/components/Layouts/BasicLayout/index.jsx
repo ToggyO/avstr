@@ -33,12 +33,9 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     useEffect(() => {
         setSiderState((prevState) => ({
             ...prevState,
-            // isCollapsed: isMobile,
             isFixed: isMobile,
         }));
     }, [isMobile]);
-
-    useEffect(() => console.log(siderState), [siderState]);
 
     const { pathname } = location;
 
