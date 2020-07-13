@@ -5,6 +5,7 @@ const formOptions = {
         props: {
             size: 'large',
             placeholder: 'Электронная почта',
+            autoComplete: 'off',
         },
         normalize: (value) => (value || '').trim(),
         rules: [
