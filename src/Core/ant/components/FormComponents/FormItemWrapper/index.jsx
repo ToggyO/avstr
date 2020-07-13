@@ -47,7 +47,7 @@ const FormItemWrapper = (props) => {
             case 'text-input':
                 return <Input {...componentProps} {...propsToChild} />;
             case 'password-input':
-                return <Input.Password {...componentProps} {...propsToChild} />;
+                return <Input.Password {...componentProps} {...propsToChild} autoComplete="off" />;
             case 'number-input':
                 return <InputNumber {...componentProps} {...propsToChild} />;
             case 'text-area':
