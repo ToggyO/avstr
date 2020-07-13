@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import {
     Route,
     Switch,
@@ -12,18 +12,15 @@ import {
     ChangePasswordFormContainer,
     SuccessResult,
 } from './components';
-import PageLoading from '../ant/components/Loader/PageLoading';
 
 const AccessRecoveryRouter = () => (
-    <Suspense fallback={<PageLoading />}>
-        <Switch>
-            <Route exact path={RECOVERY_ROUTES.ROOT} render={() => <Redirect to={RECOVERY_ROUTES.SEND_LINK} />} />
-            <Route exact path={RECOVERY_ROUTES.SEND_LINK} component={RecoveryFormContainer} />
-            <Route exact path={RECOVERY_ROUTES.RESTORE_PASSWORD} component={ChangePasswordFormContainer} />
-            <Route exact path={RECOVERY_ROUTES.SUCCESS} component={SuccessResult} />
-            <Route component={NotFoundBasic} />
-        </Switch>
-    </Suspense>
+    <Switch>
+        <Route exact path={RECOVERY_ROUTES.ROOT} render={() => <Redirect to={RECOVERY_ROUTES.SEND_LINK} />} />
+        <Route exact path={RECOVERY_ROUTES.SEND_LINK} component={RecoveryFormContainer} />
+        <Route exact path={RECOVERY_ROUTES.RESTORE_PASSWORD} component={ChangePasswordFormContainer} />
+        <Route exact path={RECOVERY_ROUTES.SUCCESS} component={SuccessResult} />
+        <Route component={NotFoundBasic} />
+    </Switch>
 );
 
 export default AccessRecoveryRouter;
