@@ -1,5 +1,7 @@
 @import 'variables';
 
 .container {
-    @include flex-centered;
+    display: flex;
+    justify-content: center;
+    height: 100%;
 }
