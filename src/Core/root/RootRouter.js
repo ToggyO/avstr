@@ -11,6 +11,8 @@ import SilentRenewPage from '../authorization/components/SilentRenewPage';
 import { AccessRecoveryPage } from '../accessRecovery';
 import LoginLayoutRouter from './LoginLayoutRouter';
 import BasicLayoutRouter from './BasicLayoutRouter';
+
+import RECOVERY_ROUTES from '../accessRecovery/constants/routes';
 import ADV_REGISTER_ROUTES from '../advertiserRegistration/constants/routes';
 
 const RootRouter = () => {
@@ -45,7 +47,16 @@ const RootRouter = () => {
             <UnAuthRoute exact path={REACT_APP_CALLBACK_PATH} component={CallbackPage} />
             <UnAuthRoute exact path={REACT_APP_LOGOUT_PATH} component={LogoutPage} />
             <UnAuthRoute exact path={REACT_APP_SILENT_RENEW_PATH} component={SilentRenewPage} />
-            <UnAuthRoute path={ROOT_ROUTES.RECOVERY} component={AccessRecoveryPage} />
+
+            <UnAuthRoute
+                path={[
+                    ROOT_ROUTES.RECOVERY,
+                    RECOVERY_ROUTES.SEND_LINK,
+                    RECOVERY_ROUTES.RESTORE_PASSWORD,
+                    RECOVERY_ROUTES.SUCCESS,
+                ]}
+                component={AccessRecoveryPage}
+            />
             <Route
                 path={[
                     ROOT_ROUTES.AD_MANAGER,
@@ -55,7 +66,14 @@ const RootRouter = () => {
                 ]}
                 component={BasicLayoutRouter}
             />
-            <UnAuthRoute path={['/', ROOT_ROUTES.AD_REGISTRATION, ADV_REGISTER_ROUTES.CONFIRM]} component={LoginLayoutRouter} />
+            <UnAuthRoute
+                path={[
+                    '/',
+                    ROOT_ROUTES.AD_REGISTRATION,
+                    ADV_REGISTER_ROUTES.CONFIRM,
+                ]}
+                component={LoginLayoutRouter}
+            />
         </Switch>
     );
 };

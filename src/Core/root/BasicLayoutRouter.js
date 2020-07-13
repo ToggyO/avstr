@@ -1,7 +1,6 @@
 import React, { lazy, Suspense } from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
-import history from 'Core/history';
 import { ROOT_ROUTES, USER_ROLES } from 'Core/constants';
 import AuthRoute from '../routeManagement/AuthRoute';
 import PageLoading from '../ant/components/Loader/PageLoading';
@@ -14,34 +13,32 @@ const AdvertiserPage = lazy(() => import('AdvertiserAccount/advertiser/Advertise
 
 const BasicLayoutRouter = () => (
     <BasicLayout>
-        <Router history={history}>
-            <Suspense fallback={<PageLoading />}>
-                <Switch>
-                    <AuthRoute
-                        path={ROOT_ROUTES.AD_MANAGER}
-                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.AD_MANAGER]}
-                        component={AdvertisingManagementRouter}
-                    />
+        <Suspense fallback={<PageLoading />}>
+            <Switch>
+                <AuthRoute
+                    path={ROOT_ROUTES.AD_MANAGER}
+                    allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.AD_MANAGER]}
+                    component={AdvertisingManagementRouter}
+                />
 
-                    <AuthRoute
-                        path={ROOT_ROUTES.DEVICES}
-                        allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.DEVICE_MANAGER]}
-                        component={DevicesRouter}
-                    />
-                    <AuthRoute
-                        path={ROOT_ROUTES.ADVERTISER}
-                        allowedRoles={[USER_ROLES.ADVERTISER]}
-                        component={AdvertiserPage}
-                    />
+                <AuthRoute
+                    path={ROOT_ROUTES.DEVICES}
+                    allowedRoles={[USER_ROLES.ADMINISTRATOR, USER_ROLES.DEVICE_MANAGER]}
+                    component={DevicesRouter}
+                />
+                <AuthRoute
+                    path={ROOT_ROUTES.ADVERTISER}
+                    allowedRoles={[USER_ROLES.ADVERTISER]}
+                    component={AdvertiserPage}
+                />
 
-                    <AuthRoute
-                        path={ROOT_ROUTES.TOKEN}
-                        allowedRoles={[]}
-                        component={TokenPage}
-                    />
-                </Switch>
-            </Suspense>
-        </Router>
+                <AuthRoute
+                    path={ROOT_ROUTES.TOKEN}
+                    allowedRoles={[]}
+                    component={TokenPage}
+                />
+            </Switch>
+        </Suspense>
     </BasicLayout>
 );
 
