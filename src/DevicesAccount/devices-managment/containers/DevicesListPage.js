@@ -15,18 +15,21 @@ class DevicesListPage extends Component {
     }
 
     render() {
-        const { pagination, devices, requestDevicesAction } = this.props;
+        const {
+            pagination,
+            devices,
+            requestDevicesAction,
+            loading,
+        } = this.props;
+
         return (
             <Container>
-                {devices.length
-                    ? (
-                        <DevicesList
-                            pagination={pagination}
-                            devices={devices}
-                            requestDevices={requestDevicesAction}
-                        />
-                    )
-                    : ''}
+                <DevicesList
+                    pagination={pagination}
+                    devices={devices}
+                    requestDevices={requestDevicesAction}
+                    loading={loading}
+                />
             </Container>
         );
     }
@@ -50,6 +53,11 @@ DevicesListPage.propTypes = {
         }),
     ).isRequired,
     requestDevicesAction: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+};
+
+DevicesListPage.defaultProps = {
+    loading: false,
 };
 
 const mapStateToProps = ({
@@ -57,9 +65,10 @@ const mapStateToProps = ({
         devicesManagementReducer: {
             pagination,
             devices,
+            loading,
         },
     },
-}) => ({ pagination, devices });
+}) => ({ pagination, devices, loading });
 
 const mapDispatchToProps = {
     requestDevicesAction: requestDevices,

@@ -3,7 +3,8 @@ import {
     RECEIVE_PAGINATION,
     CHANGE_DEVICE_STATUS,
     RECEIVE_ALL_GEO_POINTS,
-    CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
+    CHANGE_FIELDS_CLEAN_NEEDED_FLAG, REQUEST_DEVICES,
+    RECEIVE_DEVICES_ERROR,
 } from './actions';
 
 const initialState = {
@@ -12,10 +13,16 @@ const initialState = {
     allGeoPoints: [],
     lastDeviceStatus: '',
     isFieldsCleanNeeded: false,
+    loading: false,
 };
 
 const devicesManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
+        case REQUEST_DEVICES:
+            return {
+                ...state,
+                loading: true,
+            };
         case RECEIVE_PAGINATION:
             return {
                 ...state,
@@ -26,6 +33,7 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 devices: data,
+                loading: false,
             };
         case CHANGE_DEVICE_STATUS:
             return {
@@ -43,6 +51,11 @@ const devicesManagementReducer = (state = { ...initialState }, { type, data }) =
             return {
                 ...state,
                 allGeoPoints: data,
+            };
+        case RECEIVE_DEVICES_ERROR:
+            return {
+                ...state,
+                loading: false,
             };
         default:
             return state;
