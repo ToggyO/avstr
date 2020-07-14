@@ -97,7 +97,7 @@ class DeviceMonitoringCard extends Component {
             location,
         } = this.props;
         const { state: { goBackPath = '/devices/main/list' } = {} } = location;
-        console.log(goBackPath);
+
         return (
             <div className={styles.wrap}>
                 <Button
