@@ -18,31 +18,53 @@ const AuthForm = ({
     clearErrors,
     loading,
 }) => {
-    const [loginText, setLoginText] = useState('');
-
-    const [passwordText, setPasswordText] = useState('');
+    const [loginState, setLoginState] = useState({
+        isTouched: false,
+        value: '',
+    });
+    const [passwordState, setPasswordState] = useState({
+        isTouched: false,
+        value: '',
+    });
     const [showPassword, toggleShowPassword] = useState(false);
-    const passwordRef = useRef(null);
-
     const [checkboxValue, setCheckboxValue] = useState(false);
+
     // const [showInputErrors, setShowInputErrors] = useState(false);
 
     useEffect(() => () => clearErrors(), [clearErrors]);
 
+    const passwordRef = useRef(null);
+
     const handleLoginChange = ({ target: { value } }) => {
-        setLoginText(value);
+        setLoginState((prevState) => ({
+            ...prevState,
+            value,
+        }));
         // setShowInputErrors(false);
     };
 
     const handlePasswordChange = ({ target: { value } }) => {
-        setPasswordText(value);
+        setPasswordState((prevState) => ({
+            ...prevState,
+            value,
+        }));
         // setShowInputErrors(false);
+    };
+    const handleEmailFocus = () => {
+        setLoginState((prevState) => ({
+            ...prevState,
+            isTouched: true,
+        }));
     };
     const handlePasswordFocus = () => {
         const { current } = passwordRef;
+        setPasswordState((prevState) => ({
+            ...prevState,
+            isTouched: true,
+        }));
         setTimeout(() => {
-            current.selectionStart = passwordText.length;
-            current.selectionEnd = passwordText.length;
+            current.selectionStart = passwordState.value.length;
+            current.selectionEnd = passwordState.value.length;
         });
     };
     const handlePasswordIconClick = () => {
@@ -58,8 +80,8 @@ const AuthForm = ({
     const handleBtnClick = (e) => {
         e.preventDefault();
         const values = trimFormValues({
-            username: loginText,
-            password: passwordText,
+            username: loginState.value,
+            password: passwordState.value,
             rememberLogin: checkboxValue,
         });
         formSubmitHandler(values);
@@ -81,7 +103,8 @@ const AuthForm = ({
                 <Input
                     className={styles.input}
                     placeholder="Электронная почта"
-                    value={loginText}
+                    value={loginState.value}
+                    onFocus={handleEmailFocus}
                     onChange={handleLoginChange}
                     error={errMessage !== ''}
                     id="emailAuth" // Для автотестов
@@ -92,7 +115,7 @@ const AuthForm = ({
                         icons={passwordIcon}
                         className={styles.input}
                         placeholder="Пароль"
-                        value={passwordText}
+                        value={passwordState.value}
                         error={errMessage !== ''}
                         onChange={handlePasswordChange}
                         onFocus={handlePasswordFocus}
@@ -120,7 +143,9 @@ const AuthForm = ({
 
                 <div className={styles.btnWrap}>
                     <Button
-                        disabled={!loginText || !passwordText}
+                        disabled={(
+                            !loginState.value || !loginState.isTouched)
+                        || (!passwordState.value || !passwordState.isTouched)}
                         type="primary"
                         size="large"
                         htmlType="submit"
