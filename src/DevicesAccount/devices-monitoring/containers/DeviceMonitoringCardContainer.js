@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 import DeviceMonitoringCard from '../components/DeviceMonitoringCard';
 import {
@@ -35,6 +36,7 @@ class DeviceMonitoringCardContainer extends Component {
             cleanMediaStreamIdAction,
             cancelMediaStreamAction,
             cancelDeviceActivationAction,
+            location,
         } = this.props;
         return (
             <DeviceMonitoringCard
@@ -49,6 +51,7 @@ class DeviceMonitoringCardContainer extends Component {
                 cancelMediaStream={cancelMediaStreamAction}
                 mediaStreamId={mediaStreamId}
                 cancelDeviceActivation={cancelDeviceActivationAction}
+                location={location}
             />
         );
     }
@@ -78,6 +81,7 @@ DeviceMonitoringCardContainer.propTypes = {
     cancelMediaStreamAction: PropTypes.func.isRequired,
     mediaStreamId: PropTypes.number,
     cancelDeviceActivationAction: PropTypes.func.isRequired,
+    location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = ({
@@ -107,4 +111,7 @@ const mapDispatchToProps = {
     cancelDeviceActivationAction: cancelDeviceActivation,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeviceMonitoringCardContainer);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+)(DeviceMonitoringCardContainer);

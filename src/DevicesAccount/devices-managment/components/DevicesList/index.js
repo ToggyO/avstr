@@ -117,7 +117,7 @@ const DevicesList = ({
     ];
 
     const handleRowClick = (id) => () => {
-        history.push(`/devices/monitoring/${id}`);
+        history.push(`/devices/monitoring/${id}`, { goBackPath: '/devices/main/list' });
     };
     const handlePageChange = (currentPage, pageSize) => {
         requestDevices({
