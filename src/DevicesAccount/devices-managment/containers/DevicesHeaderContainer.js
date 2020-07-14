@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { compose } from 'redux';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -26,13 +28,14 @@ class DevicesHeaderContainer extends Component {
     };
 
     render() {
-        const { devices } = this.props;
+        const { devices, location } = this.props;
         return (
             <DevicesHeader
                 text={devices.length ? 'Устройства' : 'Нет зарегистрированных устройств'}
                 handleAddBtn={this.handleAddBtn}
                 handleMapBtn={this.handleMapBtn}
                 handleListBtn={this.handleListBtn}
+                location={location}
             />
         );
     }
@@ -48,6 +51,7 @@ DevicesHeaderContainer.propTypes = {
         }),
     ).isRequired,
     requestDevicesAction: PropTypes.func.isRequired,
+    location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const mapStateToProps = ({ devicesReducer: { devicesManagementReducer: { devices } } }) => ({ devices });
@@ -56,4 +60,7 @@ const mapDispatchToProps = {
     requestDevicesAction: requestDevices,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DevicesHeaderContainer);
+export default compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+)(DevicesHeaderContainer);

@@ -14,7 +14,13 @@ const DevicesHeader = ({
     handleListBtn,
     handleMapBtn,
     handleAddBtn,
+    location,
 }) => {
+    const createRadioGroupDefaultValue = (pathname) => {
+        const splittedPathname = pathname.split('/');
+        return splittedPathname[splittedPathname.length - 1];
+    };
+
     const handleRadioChange = ({ target: { value } }) => {
         switch (value) {
             case 'list':
@@ -33,7 +39,7 @@ const DevicesHeader = ({
             <div className={styles.wrap}>
                 <Title className={styles.title}>{text}</Title>
                 <Radio.Group
-                    defaultValue="list"
+                    defaultValue={createRadioGroupDefaultValue(location.pathname)}
                     buttonStyle="solid"
                     size="large"
                     onChange={handleRadioChange}
@@ -76,6 +82,7 @@ DevicesHeader.propTypes = {
     handleAddBtn: PropTypes.func.isRequired,
     handleMapBtn: PropTypes.func.isRequired,
     handleListBtn: PropTypes.func.isRequired,
+    location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default DevicesHeader;
