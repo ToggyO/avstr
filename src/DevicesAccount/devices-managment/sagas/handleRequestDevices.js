@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { receivePagination, receiveDevices } from '../action-creators';
+import { receivePagination, receiveDevices, receiveDevicesError } from '../action-creators';
 
 const { REACT_APP_DEVICE_API } = process.env;
 
@@ -20,6 +20,7 @@ function* handleRequestDevices({ data }) {
         yield put(receivePagination(pagination));
         yield put(receiveDevices(items));
     } catch ({ type }) {
+        yield put(receiveDevicesError());
         switch (type) {
             case 'AuthorizationError':
                 window.location = '/';

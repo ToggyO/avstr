@@ -27,6 +27,7 @@ const DevicesList = ({
     },
     devices,
     requestDevices,
+    loading,
 }) => {
     const [width, setWidth] = useState(window.innerWidth);
     useWindowResize(useThrottledFn(() => {
@@ -159,6 +160,7 @@ const DevicesList = ({
                         })}
                         rowKey={(record) => record.id}
                         pagination={paginationTableOptions}
+                        loading={loading}
                     />
                 )
                 : (
@@ -228,6 +230,11 @@ DevicesList.propTypes = {
         }),
     ).isRequired,
     requestDevices: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+};
+
+DevicesList.defaultProps = {
+    loading: false,
 };
 
 export default DevicesList;

@@ -9,6 +9,7 @@ import {
     RECEIVE_ALL_GEO_POINTS,
     CLEAN_ALL_GEO_POINTS,
     CHANGE_FIELDS_CLEAN_NEEDED_FLAG,
+    RECEIVE_DEVICES_ERROR,
 } from './actions';
 
 export const requestDevices = (data) => ({
@@ -18,6 +19,10 @@ export const requestDevices = (data) => ({
 export const receiveDevices = (data) => ({
     type: RECEIVE_DEVICES,
     data,
+});
+
+export const receiveDevicesError = () => ({
+    type: RECEIVE_DEVICES_ERROR,
 });
 
 export const receivePagination = (data) => ({
