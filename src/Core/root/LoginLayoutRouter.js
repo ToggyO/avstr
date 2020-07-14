@@ -1,7 +1,6 @@
 import React from 'react';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import history from 'Core/history';
 import { ROOT_ROUTES } from '../constants';
 import UnAuthRoute from '../routeManagement/UnAuthRoute';
 import { LoginLayout } from '../ant/components/Layouts';
@@ -11,13 +10,11 @@ import NotFoundBasic from './NotFoundPage/NotFoundBasic';
 
 const LoginLayoutRouter = () => (
     <LoginLayout>
-        <Router history={history}>
-            <Switch>
-                <UnAuthRoute exact path="/" component={AuthorizationPage} />
-                <UnAuthRoute path={ROOT_ROUTES.AD_REGISTRATION} component={AdvertiserRegistrationPage} />
-                <Route component={NotFoundBasic} />
-            </Switch>
-        </Router>
+        <Switch>
+            <UnAuthRoute exact path="/" component={AuthorizationPage} />
+            <UnAuthRoute path={ROOT_ROUTES.AD_REGISTRATION} component={AdvertiserRegistrationPage} />
+            <Route component={NotFoundBasic} />
+        </Switch>
     </LoginLayout>
 );
 

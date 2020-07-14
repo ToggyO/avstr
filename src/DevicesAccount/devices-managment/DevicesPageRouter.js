@@ -1,9 +1,8 @@
 import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { PageLoading } from 'Core/ant';
-import NotFoundPage from 'Core/root/NotFoundPage';
 import DevicesHeaderContainer from './containers/DevicesHeaderContainer';
 
 const DevicesListPage = lazy(() => import('./containers/DevicesListPage'));
@@ -14,6 +13,7 @@ const DevicesPageRouter = ({ match: { path } }) => (
         <DevicesHeaderContainer />
         <Suspense fallback={<PageLoading />}>
             <Switch>
+                <Route exact path={path} render={() => <Redirect to={`${path}/list`} />} />
                 <Route
                     path={`${path}/list`}
                     component={DevicesListPage}
@@ -22,7 +22,7 @@ const DevicesPageRouter = ({ match: { path } }) => (
                     path={`${path}/map`}
                     component={DevicesMapPage}
                 />
-                <Route component={NotFoundPage} />
+                <Route render={() => <Redirect to={`${path}/list`} />} />
             </Switch>
         </Suspense>
     </>
