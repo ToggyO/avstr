@@ -96,7 +96,7 @@ export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) 
     function toDeviceMonitoring(e) {
         const linkUrl = `/devices/monitoring/${deviceId}`;
         if (e.target.id === `balloon-link-${deviceId}`) {
-            history.push(linkUrl);
+            history.push(linkUrl, { goBackPath: '/devices/main/map' });
         }
     }
 

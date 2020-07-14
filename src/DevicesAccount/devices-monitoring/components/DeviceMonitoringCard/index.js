@@ -14,8 +14,8 @@ class DeviceMonitoringCard extends Component {
         cancelDeviceActivation();
     }
 
-    handleBackBtn = () => {
-        history.push('/devices/main/list');
+    handleBackBtn = (pathname) => {
+        history.push(pathname);
     };
 
     handleStopAdvertisingBtnClick = () => {
@@ -94,16 +94,21 @@ class DeviceMonitoringCard extends Component {
             },
             showDeviceStatusLoader,
             showAdvertisingLoader,
+            location,
         } = this.props;
+        const { state: { goBackPath = '/devices/main/list' } = {} } = location;
+
         return (
             <div className={styles.wrap}>
                 <Button
                     // disabled={showDeviceStatusLoader || showAdvertisingLoader}
                     size="small"
-                    onClick={this.handleBackBtn}
+                    onClick={() => this.handleBackBtn(goBackPath)}
                     className={styles.backBtn}
                 >
-                    Назад
+                    {goBackPath === '/devices/main/map'
+                        ? 'Назад к карте'
+                        : 'Назад к списку'}
                 </Button>
 
                 <div className={styles.title}>Мониторинг устройства</div>
@@ -181,6 +186,7 @@ DeviceMonitoringCard.propTypes = {
     deactivateDevice: PropTypes.func.isRequired,
     cleanMediaStreamId: PropTypes.func.isRequired,
     cancelDeviceActivation: PropTypes.func.isRequired,
+    location: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default DeviceMonitoringCard;
