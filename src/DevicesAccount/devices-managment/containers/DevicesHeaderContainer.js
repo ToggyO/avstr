@@ -28,10 +28,11 @@ class DevicesHeaderContainer extends Component {
     };
 
     render() {
-        const { devices, location } = this.props;
+        const { location } = this.props;
         return (
             <DevicesHeader
-                text={devices.length ? 'Устройства' : 'Нет зарегистрированных устройств'}
+                text="Устройства"
+                // text={devices.length ? 'Устройства' : 'Нет зарегистрированных устройств'}
                 handleAddBtn={this.handleAddBtn}
                 handleMapBtn={this.handleMapBtn}
                 handleListBtn={this.handleListBtn}
@@ -42,14 +43,6 @@ class DevicesHeaderContainer extends Component {
 }
 
 DevicesHeaderContainer.propTypes = {
-    devices: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            name: PropTypes.string.isRequired,
-            serialNumber: PropTypes.string.isRequired,
-            isActive: PropTypes.bool.isRequired,
-        }),
-    ).isRequired,
     requestDevicesAction: PropTypes.func.isRequired,
     location: PropTypes.objectOf(PropTypes.any).isRequired,
 };

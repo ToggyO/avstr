@@ -23,7 +23,7 @@ const DevicesList = ({
         page,
         // total,
         size,
-        itemsTotal,
+        itemsTotal = 0,
     },
     devices,
     requestDevices,
@@ -219,7 +219,7 @@ DevicesList.propTypes = {
         total: PropTypes.number.isRequired,
         size: PropTypes.number.isRequired,
         itemsTotal: PropTypes.number.isRequired,
-    }).isRequired,
+    }),
     devices: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -228,13 +228,15 @@ DevicesList.propTypes = {
             isActive: PropTypes.bool.isRequired,
             isRevokeRequired: PropTypes.bool,
         }),
-    ).isRequired,
+    ),
     requestDevices: PropTypes.func.isRequired,
     loading: PropTypes.bool,
 };
 
 DevicesList.defaultProps = {
     loading: false,
+    pagination: {},
+    devices: [],
 };
 
 export default DevicesList;
