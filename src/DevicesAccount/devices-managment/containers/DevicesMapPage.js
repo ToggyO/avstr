@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
+import { toDeviceMonitoring } from 'Core/common/Map/mapExtensions';
 import DeviceMap from '../../devices-common/components/DeviceMap';
 import { requestAllGeoPoints, cleanAllGeoPoints } from '../action-creators';
 
@@ -10,6 +11,11 @@ class DevicesMapPage extends Component {
     componentDidMount() {
         const { requestAllGeoPointsAction } = this.props;
         requestAllGeoPointsAction();
+        document.addEventListener('click', toDeviceMonitoring);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', toDeviceMonitoring);
     }
 
     render() {
