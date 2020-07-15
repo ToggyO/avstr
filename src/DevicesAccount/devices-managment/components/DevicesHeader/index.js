@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Container from 'Core/common/Container';
@@ -16,10 +16,13 @@ const DevicesHeader = ({
     handleAddBtn,
     location,
 }) => {
-    const createRadioGroupDefaultValue = (pathname) => {
-        const splittedPathname = pathname.split('/');
-        return splittedPathname[splittedPathname.length - 1];
-    };
+    const splittedPathname = location.pathname.split('/');
+    const radioGroupDefaultValue = splittedPathname[splittedPathname.length - 1];
+    const [defaultValue, setDefaultValue] = useState(radioGroupDefaultValue);
+
+    useEffect(() => {
+        setDefaultValue(splittedPathname[splittedPathname.length - 1]);
+    }, [location.pathname]);
 
     const handleRadioChange = ({ target: { value } }) => {
         switch (value) {
@@ -39,7 +42,8 @@ const DevicesHeader = ({
             <div className={styles.wrap}>
                 <Title className={styles.title}>{text}</Title>
                 <Radio.Group
-                    defaultValue={createRadioGroupDefaultValue(location.pathname)}
+                    defaultValue={defaultValue}
+                    value={defaultValue}
                     buttonStyle="solid"
                     size="large"
                     onChange={handleRadioChange}
