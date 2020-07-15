@@ -136,9 +136,13 @@ class Map extends Component {
 
         const { zoomWithUpdate } = this.props;
         if (zoomWithUpdate) {
-            map.setBounds(map.geoObjects.getBounds(), {
+            map.setCenter(map.geoObjects.getBounds()[0], map.getZoom(), {
                 checkZoomRange: true,
             });
+            // FIXME: старый вариант лучше не удалять до полной проверки работоспособности карты
+            // map.setBounds(map.geoObjects.getBounds(), {
+            //     checkZoomRange: true,
+            // });
         }
     };
 
