@@ -22,7 +22,7 @@ const DevicesRouter = ({ match: { path } }) => (
                 component={NewDevicePage}
             />
             <Route
-                path={`${path}/monitoring`}
+                path={`${path}/monitoring/:id`}
                 component={DeviceMonitoringPage}
             />
             <Route component={NotFoundPage} />

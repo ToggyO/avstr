@@ -92,23 +92,25 @@ export const createBalloonLayoutTemplate = (ymaps) => (
     )
 );
 
-export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) => {
-    function toDeviceMonitoring(e) {
+export const toDeviceMonitoring = ({ target }) => {
+    if (target.hasAttribute('data-device-id')) {
+        const { deviceId } = target.dataset;
         const linkUrl = `/devices/monitoring/${deviceId}`;
-        if (e.target.id === `balloon-link-${deviceId}`) {
+        if (target.id === `balloon-link-${deviceId}`) {
             history.push(linkUrl, { goBackPath: '/devices/main/map' });
         }
     }
+};
 
-    document.addEventListener('click', toDeviceMonitoring);
-
+export const createBalloonContentTemplate = (ymaps, { title, descr, deviceId }) => {
     const id = `balloon-link-${deviceId}`;
+
     return (
         ymaps.templateLayoutFactory.createClass(
             `<div class=${styles.info}>
                 <div class=${styles.name}>${title}</div>
                 <div class=${styles.id}>${descr}</div>
-                <div id=${id} class=${styles.link}>
+                <div id=${id} class=${styles.link} data-device-id=${deviceId}>
                     Мониторинг устройства
                     <i class=${styles.arrow} style="background-image: url(${iconArrow})"></i>
                 </div>
