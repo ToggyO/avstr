@@ -20,6 +20,13 @@
     align-items: center;
 }
 
+@mixin flex-column-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 @mixin form-base-container {
     padding: 40px 24px 16px 24px;
     background-color: $white;

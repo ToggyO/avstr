@@ -28,6 +28,7 @@ const initialState = {
 };
 
 const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) => {
+    let newDeviceData = {};
     switch (type) {
         case RECEIVE_DEVICE_CONTENT:
             return {
@@ -67,8 +68,20 @@ const devicesMonitoringReducer = (state = { ...initialState }, { type, data }) =
             };
 
         case RECEIVE_GEO_POINT:
+            if (data.length) {
+                newDeviceData = {
+                    id: data[0].deviceId,
+                    name: data[0].title,
+                    serialNumber: data[0].descr,
+                    isActive: data[0].isActive,
+                    isRevokeRequired: data[0].isRevokeRequired,
+                    isAdvertisementsDisabled: data[0].isAdvertisementsDisabled,
+
+                };
+            }
             return {
                 ...state,
+                currentDevice: newDeviceData,
                 currentGeoPoint: data,
             };
         case CLEAN_GEO_POINT:

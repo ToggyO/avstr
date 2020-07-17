@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
+import {
+    Badge,
+    Button,
+    Divider,
+    PageHeader,
+    Row, Space,
+    Tag,
+    Typography,
+} from 'antd';
+import { CaretRightOutlined, PauseOutlined } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 import history from 'Core/history';
 import streamStore from 'Core/streamStoreService';
 
-import Button from 'Core/common/Button';
-
 import styles from './index.module.scss';
+
+const { Text } = Typography;
 
 class DeviceMonitoringCard extends Component {
     componentWillUnmount() {
@@ -60,33 +70,63 @@ class DeviceMonitoringCard extends Component {
         }
     };
 
-    calcMessage = () => {
+    calcDeviceStatusBadge = () => {
         const {
             content: {
                 isActive,
-                isAdvertisementsDisabled,
                 isRevokeRequired,
             },
             showAdvertisingLoader,
         } = this.props;
 
         let message;
+        let status;
         if (showAdvertisingLoader) {
             message = 'Загрузка...';
+            status = 'processing';
         } else if (!isActive && !isRevokeRequired) {
             message = 'Деактивировано';
+            status = 'error';
         } else if (!isActive && isRevokeRequired) {
             message = 'Активация...';
-        } else if (isAdvertisementsDisabled) {
-            message = 'Отключен показ рекламы';
+            status = 'warning';
+        } else if (isActive && !isRevokeRequired) {
+            message = 'Активно';
+            status = 'success';
         }
-        return message;
+
+        return <Badge status={status} text={message} />;
     };
+
+    calcAdvertisementStatusBadge = () => {
+        const {
+            content: { isAdvertisementsDisabled },
+        } = this.props;
+
+        let text;
+        let color;
+        switch (isAdvertisementsDisabled) {
+            case false:
+                text = 'Запущена';
+                color = 'green';
+                break;
+            case true:
+                text = 'Приостановлена';
+                color = 'red';
+                break;
+            default:
+                text = 'Не запущена';
+                color = 'default';
+                break;
+        }
+
+        return <Tag color={color}>{text}</Tag>;
+    }
 
     render() {
         const {
             content: {
-                name,
+                name = '',
                 serialNumber,
                 isActive,
                 isAdvertisementsDisabled,
@@ -99,62 +139,65 @@ class DeviceMonitoringCard extends Component {
         const { state: { goBackPath = '/devices/main/list' } = {} } = location;
 
         return (
-            <div className={styles.wrap}>
-                <Button
-                    // disabled={showDeviceStatusLoader || showAdvertisingLoader}
-                    size="small"
-                    onClick={() => this.handleBackBtn(goBackPath)}
-                    className={styles.backBtn}
-                >
-                    {goBackPath === '/devices/main/map'
-                        ? 'Назад к карте'
-                        : 'Назад к списку'}
-                </Button>
+            <PageHeader
+                title={name}
+                subTitle=" "
+                onBack={() => this.handleBackBtn(goBackPath)}
+                className={styles.wrapper}
+            >
+                <Divider className={styles.divider} />
 
-                <div className={styles.title}>Мониторинг устройства</div>
-                <div>{this.calcMessage()}</div>
-                <div className={styles.divider} />
+                <Row>
+                    <Space direction="vertical">
+                        <Text>{serialNumber}</Text>
+                        {this.calcDeviceStatusBadge()}
+                    </Space>
+                </Row>
 
-                <div className={styles.listPoint}>
-                    <div className={styles.description}>Название:</div>
-                    <div className={styles.value}>{name}</div>
-                </div>
+                <Divider className={styles.divider} dashed />
 
-                <div className={styles.divider} />
+                <Row>
+                    <Space direction="vertical">
+                        <Text strong>Реклама</Text>
+                        {this.calcAdvertisementStatusBadge()}
+                    </Space>
+                </Row>
 
-                <div className={styles.listPoint}>
-                    <div className={styles.description}>Устройство:</div>
-                    <div className={styles.value}>
-                        {serialNumber}
-                    </div>
-                </div>
+                <Divider className={styles.divider} />
 
-                <div className={styles.divider} />
+                <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                    <Button
+                        block
+                        htmlType="button"
+                        loading={showAdvertisingLoader}
+                        disabled={!isActive}
+                        onClick={this.handleStopAdvertisingBtnClick}
+                    >
+                        {isAdvertisementsDisabled
+                            ? <CaretRightOutlined />
+                            : <PauseOutlined />}
+                        {isAdvertisementsDisabled
+                            ? 'Запустить показ рекламы'
+                            : 'Приостановить показ рекламы'}
+                    </Button>
 
-                <Button
-                    disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
-                    size="small"
-                    onClick={this.handleStopAdvertisingBtnClick}
-                    className={styles.stopAdvBtn}
-                >
-                    {isAdvertisementsDisabled
-                        ? 'Запустить показ рекламы'
-                        : 'Приостановить показ рекламы'}
-                </Button>
-
-                <div className={styles.divider} />
-
-                <Button
-                    disabled={showAdvertisingLoader || (showDeviceStatusLoader && !isRevokeRequired)}
-                    size="small"
-                    onClick={this.handleActivateDeactivateBtnClick}
-                    className={styles.deactivateBtn}
-                >
-                    {(isActive && !isRevokeRequired) || (!isActive && isRevokeRequired)
-                        ? 'Деактивировать устройство'
-                        : 'Активировать устройство'}
-                </Button>
-            </div>
+                    <Button
+                        type={(isActive && !isRevokeRequired) || (!isActive && isRevokeRequired)
+                            ? 'danger'
+                            : 'primary'}
+                        htmlType="button"
+                        loading={showDeviceStatusLoader}
+                        disabled={!isActive && isRevokeRequired}
+                        onClick={this.handleActivateDeactivateBtnClick}
+                        block
+                        ghost
+                    >
+                        {(isActive && !isRevokeRequired) || (!isActive && isRevokeRequired)
+                            ? 'Деактивировать устройство'
+                            : 'Активировать устройство'}
+                    </Button>
+                </Space>
+            </PageHeader>
         );
     }
 }
@@ -190,3 +233,60 @@ DeviceMonitoringCard.propTypes = {
 };
 
 export default DeviceMonitoringCard;
+
+// <div className={styles.wrap}>
+//     <Button
+//         // disabled={showDeviceStatusLoader || showAdvertisingLoader}
+//         size="small"
+//         onClick={() => this.handleBackBtn(goBackPath)}
+//         className={styles.backBtn}
+//     >
+//         {goBackPath === '/devices/main/map'
+//             ? 'Назад к карте'
+//             : 'Назад к списку'}
+//     </Button>
+//
+//     <div className={styles.title}>Мониторинг устройства</div>
+//     <div>{this.calcMessage()}</div>
+//     <div className={styles.divider} />
+//
+//     <div className={styles.listPoint}>
+//         <div className={styles.description}>Название:</div>
+//         <div className={styles.value}>{name}</div>
+//     </div>
+//
+//     <div className={styles.divider} />
+//
+//     <div className={styles.listPoint}>
+//         <div className={styles.description}>Устройство:</div>
+//         <div className={styles.value}>
+//             {serialNumber}
+//         </div>
+//     </div>
+//
+//     <div className={styles.divider} />
+//
+//     <Button
+//         disabled={showDeviceStatusLoader || showAdvertisingLoader || !isActive}
+//         size="small"
+//         onClick={this.handleStopAdvertisingBtnClick}
+//         className={styles.stopAdvBtn}
+//     >
+//         {isAdvertisementsDisabled
+//             ? 'Запустить показ рекламы'
+//             : 'Приостановить показ рекламы'}
+//     </Button>
+//
+//     <div className={styles.divider} />
+//
+//     <Button
+//         disabled={showAdvertisingLoader || (showDeviceStatusLoader && !isRevokeRequired)}
+//         size="small"
+//         onClick={this.handleActivateDeactivateBtnClick}
+//         className={styles.deactivateBtn}
+//     >
+//         {(isActive && !isRevokeRequired) || (!isActive && isRevokeRequired)
+//             ? 'Деактивировать устройство'
+//             : 'Активировать устройство'}
+//     </Button>
+// </div>

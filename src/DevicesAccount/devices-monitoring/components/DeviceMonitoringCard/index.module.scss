@@ -1,5 +1,27 @@
 @import "variables";
 
+.wrapper {
+    width: 30%;
+    min-width: 316px;
+
+    & > div {
+        padding-top: 0 !important;
+    }
+}
+
+.info {
+    @include flex-column-left;
+
+    //&__text {
+    //    margin-bottom: 8px;
+    //}
+}
+
+//.divider {
+//    margin-top: 16px;
+//    margin-bottom: 16px;
+//}
+
 .wrap {
     flex: 0 0 466px;
     box-sizing: border-box;
