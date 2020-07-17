@@ -14,6 +14,7 @@ function* activateDevice({ data: { id } }) {
         setTimeout(() => {
             isRequestsFinish = true;
         }, 60000);
+        yield put(changeDeviceStatusLoader(false));
 
         while (!isRequestsFinish) {
             const { content } = yield call(api.get, `${REACT_APP_DEVICE_API}/device-management-microservice/devices/${id}`);
@@ -33,8 +34,6 @@ function* activateDevice({ data: { id } }) {
             default:
                 break;
         }
-    } finally {
-        yield put(changeDeviceStatusLoader(false));
     }
 }
 

@@ -92,6 +92,7 @@ class DeviceMonitoringPage extends Component {
             isActive,
             isRevokeRequired,
         } = this.props;
+
         return (
             <div className={styles.wrap}>
                 <DeviceMonitoringCardContainer />
