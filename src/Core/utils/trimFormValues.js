@@ -9,8 +9,11 @@ const trimFormValues = (values = {}) => Object.entries(values).reduce(
         if (typeof val === 'boolean') {
             resultValue = val;
         }
-        if (typeof val === 'number' || typeof val === 'string') {
+        if (typeof val === 'string') {
             resultValue = (val || '').trim();
+        }
+        if (typeof val === 'number') {
+            resultValue = parseInt(val.toString().trim(), 10);
         }
         if (typeof val === 'object' || Array.isArray(val)) {
             resultValue = val;
