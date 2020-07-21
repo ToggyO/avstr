@@ -25,11 +25,15 @@ const getColumns = () => [
         align: 'left',
         ellipsis: true,
         width: 115,
-        render: (value) => (
-            <span onClick={() => window.open(value)}>
-                <MediaFile src={value} />
-            </span>
-        ),
+        render: (_, record) => {
+            const { url, thumbnailUrl } = record;
+            const preview = thumbnailUrl !== null ? thumbnailUrl : url;
+            return (
+                <span onClick={() => window.open(record.url)}>
+                    <MediaFile src={preview} />
+                </span>
+            );
+        },
     },
     {
         title: <p className="custom-ant-table__title">Название</p>,
