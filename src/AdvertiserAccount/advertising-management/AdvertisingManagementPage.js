@@ -19,12 +19,13 @@ class AdvertisingManagementPage extends Component {
     };
 
     render() {
-        const { advertisements, deleteAdvertisementAction } = this.props;
+        const { advertisements, deleteAdvertisementAction, loading } = this.props;
         return (
             <Advertisements
                 addBtnHandler={this.handleAddBtn}
                 advertisements={advertisements}
                 deleteAdvertisement={deleteAdvertisementAction}
+                loading={loading}
             />
         );
     }
@@ -41,13 +42,18 @@ AdvertisingManagementPage.propTypes = {
     ).isRequired,
     requestAdvertisementsAction: PropTypes.func.isRequired,
     deleteAdvertisementAction: PropTypes.func.isRequired,
+    loading: PropTypes.bool,
+};
+
+AdvertisingManagementPage.defaultProps = {
+    loading: false,
 };
 
 const mapStateToProps = ({
     advertiserAccountReducer: {
-        advertisingManagementReducer: { advertisements },
+        advertisingManagementReducer: { advertisements, loading },
     },
-}) => ({ advertisements });
+}) => ({ advertisements, loading });
 
 const mapDispatchToProps = {
     requestAdvertisementsAction: requestAdvertisements,
