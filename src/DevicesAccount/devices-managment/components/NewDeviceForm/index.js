@@ -14,6 +14,7 @@ import NewDeviceErrPopup from '../NewDeviceErrPopup';
 import NewDeviceWarnPopup from '../NewDeviceWarnPopup';
 
 import styles from './index.module.scss';
+import trimFormValues from '../../../../Core/utils/trimFormValues';
 
 const NewDeviceForm = ({
     deviceStatus,
@@ -51,11 +52,12 @@ const NewDeviceForm = ({
         setShowWarningPopup(true);
     };
     const handleOkBtn = () => {
-        registerDevice({
+        const trimmedValues = trimFormValues({
             name: deviceNameText,
             serialNumberCrc: codeText,
             isFromPopup: false,
         });
+        registerDevice(trimmedValues);
     };
 
     const handleCloseErrPopup = () => {
