@@ -96,9 +96,9 @@ DeviceMap.defaultProps = {
 DeviceMap.propTypes = {
     geoPoint: PropTypes.arrayOf(
         PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            descr: PropTypes.string.isRequired,
-            coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+            title: PropTypes.string,
+            descr: PropTypes.string,
+            coords: PropTypes.arrayOf(PropTypes.number),
         }),
     ),
     getGeoPoint: PropTypes.func,

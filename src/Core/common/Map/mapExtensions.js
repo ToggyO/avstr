@@ -9,7 +9,7 @@ const iconClose = `${PUBLIC_URL}/close-cross.svg`;
 const iconArrow = `${PUBLIC_URL}/arrow-right-keyboard.svg`;
 
 export const createPlaceMark = (ymaps, point, balloonLayout, balloonContent) => (
-    new ymaps.Placemark(point.coords, {}, {
+    new ymaps.Placemark(point.coords || [], {}, {
         iconLayout: 'default#image',
         iconImageHref: iconPlacemark,
         iconImageSize: [22, 22],
