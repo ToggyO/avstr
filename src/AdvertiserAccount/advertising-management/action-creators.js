@@ -26,12 +26,7 @@ export const cleanXhr = (data) => ({
 });
 
 export const requestAdvertisements = () => ({
-    type: actions.REQUEST_ADVERTISEMENTS,
-});
-
-export const receiveAdvertisements = (data) => ({
-    type: actions.RECEIVE_ADVERTISEMENTS,
-    data,
+    type: actions.GET_ADVERTISEMENTS_REQUEST,
 });
 
 export const deleteAdvertisement = (data) => ({

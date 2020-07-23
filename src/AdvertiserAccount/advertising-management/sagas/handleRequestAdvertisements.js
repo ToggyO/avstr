@@ -1,25 +1,19 @@
 import { call, put } from 'redux-saga/effects';
 
 import api from 'Core/api';
-import { receiveAdvertisements } from '../action-creators';
+import * as actions from '../actions';
 
 const { REACT_APP_ADVERTISER_API } = process.env;
 
 function* handleRequestAdvertisements() {
     try {
         const { content } = yield call(api.get, `${REACT_APP_ADVERTISER_API}/advertiser-microservice/admin/promotions`);
-        yield put(receiveAdvertisements(content));
-    } catch ({ type }) {
-        switch (type) {
-            case 'AuthorizationError':
-                window.location = '/';
-                break;
-            case 'ServerError':
-                alert('На сервере произошла ошибка.');
-                break;
-            default:
-                break;
-        }
+        yield put({
+            type: actions.GET_ADVERTISEMENTS_SUCCESS,
+            data: content,
+        });
+    } catch (error) {
+        yield put({ type: actions.GET_ADVERTISEMENTS_ERROR, data: error });
     }
 }
 
