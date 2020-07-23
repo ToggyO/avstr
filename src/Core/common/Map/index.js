@@ -164,9 +164,9 @@ Map.propTypes = {
     className: PropTypes.string,
     geoPoints: PropTypes.arrayOf(
         PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            descr: PropTypes.string.isRequired,
-            coords: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+            title: PropTypes.string,
+            descr: PropTypes.string,
+            coords: PropTypes.arrayOf(PropTypes.number),
         }),
     ).isRequired,
     isSizeChanged: PropTypes.bool,

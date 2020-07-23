@@ -22,7 +22,7 @@ export const setMapCenter = (
 );
 
 export const createPlaceMark = (ymaps, mapInstance, point, balloonLayout, balloonContent) => {
-    const placemark = new ymaps.Placemark(point.coords, {}, {
+    const placemark = new ymaps.Placemark(point.coords || [], {}, {
         iconLayout: 'default#image',
         iconImageHref: iconPlacemark,
         iconImageSize: [22, 22],
