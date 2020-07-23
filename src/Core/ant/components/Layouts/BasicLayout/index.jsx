@@ -66,6 +66,7 @@ const BasicLayout = ({ children, location, logoutAction }) => {
     const handleLogout = () => {
         userManager.signoutRedirect();
         userManager.removeUser();
+        window.accessToken = undefined;
         logoutAction();
         localStorage.clear();
     };

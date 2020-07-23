@@ -23,9 +23,9 @@ const AuthProvider = ({
         globalLoading(true);
         userManager.getUser().then((user) => {
             if (user !== null && !user.expired) {
-                // console.log(user);
                 setAuthorizedFunc(user);
                 globalLoading(false);
+                window.accessToken = user.access_token;
                 api.setConstantHeader('Authorization', `Bearer ${user.access_token}`);
             } else {
                 globalLoading(false);
