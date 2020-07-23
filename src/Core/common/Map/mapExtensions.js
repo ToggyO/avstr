@@ -8,8 +8,21 @@ const iconPlacemark = `${PUBLIC_URL}/placemark.svg`;
 const iconClose = `${PUBLIC_URL}/close-cross.svg`;
 const iconArrow = `${PUBLIC_URL}/arrow-right-keyboard.svg`;
 
-export const createPlaceMark = (ymaps, point, balloonLayout, balloonContent) => (
-    new ymaps.Placemark(point.coords, {}, {
+export const setMapCenter = (
+    mapInstance,
+    coords,
+    zoom = mapInstance.getZoom(),
+    options,
+) => (
+    mapInstance.setCenter(coords, zoom, {
+        checkZoomRange: true,
+        duration: 300,
+        ...options,
+    })
+);
+
+export const createPlaceMark = (ymaps, mapInstance, point, balloonLayout, balloonContent) => {
+    const placemark = new ymaps.Placemark(point.coords, {}, {
         iconLayout: 'default#image',
         iconImageHref: iconPlacemark,
         iconImageSize: [22, 22],
@@ -20,8 +33,10 @@ export const createPlaceMark = (ymaps, point, balloonLayout, balloonContent) => 
         balloonPanelMaxMapArea: 0,
         hideIconOnBalloonOpen: false,
         balloonOffset: [-44, 18],
-    })
-);
+    });
+    placemark.events.add('click', (e) => setMapCenter(mapInstance, e.get('coords')));
+    return placemark;
+};
 
 const templateMethodBuild = (self) => {
     const newSelf = self;

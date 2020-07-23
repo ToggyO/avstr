@@ -10,6 +10,7 @@ import {
     createBalloonLayoutTemplate,
     createPlaceMark,
     createBalloonContentTemplate,
+    setMapCenter,
 } from './mapExtensions';
 
 import styles from './index.module.scss';
@@ -91,6 +92,7 @@ class Map extends Component {
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
             const placeMark = createPlaceMark(
                 ymaps,
+                map,
                 point,
                 pointsWithBaloons && createBalloonLayoutTemplate(ymaps),
                 pointsWithBaloons && createBalloonContentTemplate(ymaps, point),
@@ -134,15 +136,9 @@ class Map extends Component {
 
         this.createPoints();
 
-        const { zoomWithUpdate } = this.props;
-        if (zoomWithUpdate) {
-            map.setCenter(map.geoObjects.getBounds()[0], map.getZoom(), {
-                checkZoomRange: true,
-            });
-            // FIXME: старый вариант лучше не удалять до полной проверки работоспособности карты
-            // map.setBounds(map.geoObjects.getBounds(), {
-            //     checkZoomRange: true,
-            // });
+        const { setCenterWithUpdate } = this.props;
+        if (setCenterWithUpdate) {
+            setMapCenter(map, map.geoObjects.getBounds()[0]);
         }
     };
 
@@ -161,7 +157,7 @@ class Map extends Component {
 Map.defaultProps = {
     className: '',
     isSizeChanged: false,
-    zoomWithUpdate: false,
+    setCenterWithUpdate: false,
 };
 
 Map.propTypes = {
@@ -176,7 +172,7 @@ Map.propTypes = {
     isSizeChanged: PropTypes.bool,
     handleMapLoaded: PropTypes.func.isRequired,
     pointsWithBaloons: PropTypes.bool.isRequired,
-    zoomWithUpdate: PropTypes.bool,
+    setCenterWithUpdate: PropTypes.bool,
 };
 
 export default Map;

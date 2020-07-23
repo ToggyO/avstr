@@ -1,3 +1,4 @@
+// TODO(toleg): удалить функцию для мока геоокрдинат после закрытия всех багов по карте
 import {
     REQUEST_DEVICE_CONTENT,
     RECEIVE_DEVICE_CONTENT,
@@ -91,6 +92,22 @@ export const receiveGeoPoint = (data) => ({
     type: RECEIVE_GEO_POINT,
     data,
 });
+// FIXME: удалить после закрытия всех багов по карте
+// export const receiveGeoPointMock = (data) => {
+//     const newData = [{
+//         coords: [55.76987456, 49.1612345],
+//         descr: '10000000156b9193',
+//         deviceId: 315,
+//         isActive: true,
+//         isAdvertisementsDisabled: false,
+//         isRevokeRequired: false,
+//         title: 'tanchik_device',
+//     }];
+//     return {
+//         type: RECEIVE_GEO_POINT,
+//         data: newData,
+//     };
+// };
 export const cleanGeoPoint = (data) => ({
     type: CLEAN_GEO_POINT,
     data,
