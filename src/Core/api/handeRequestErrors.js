@@ -17,13 +17,18 @@ export default function handleRequestErrors(status, err = {}) {
                 // errorContent: errorContent === null ? {} : errorContent,
             };
             break;
-        case 401:
-            errorMessage = 'Неверное имя пользователя или пароль.';
+        case 401: {
+            if (window.accessToken) {
+                window.location.reload();
+            } else {
+                errorMessage = 'Неверное имя пользователя или пароль.';
+            }
             errorObj = {
                 ...err,
                 status,
             };
             break;
+        }
         case 403:
             errorMessage = 'У вас нет прав на этот запрос.';
             errorObj = {
