@@ -6,12 +6,17 @@ import { Icon } from 'semantic-ui-react';
 
 import styles from './index.module.scss';
 
-const UploadedFileCard = ({ pathToImg, partOfAdvertisement, isVideo }) => {
+const UploadedFileCard = ({
+    pathToImg,
+    preview,
+    partOfAdvertisement,
+    isVideo,
+}) => {
     const cardStyles = cn(
         styles.card,
         { [styles.card__part]: partOfAdvertisement },
     );
-    const imgUrl = isVideo ? './stub2.jpg' : pathToImg;
+    const imgUrl = isVideo ? preview : pathToImg;
     return (
         <div
             className={cardStyles}
@@ -32,12 +37,14 @@ const UploadedFileCard = ({ pathToImg, partOfAdvertisement, isVideo }) => {
 };
 
 UploadedFileCard.defaultProps = {
+    preview: undefined,
     partOfAdvertisement: false,
     isVideo: false,
 };
 
 UploadedFileCard.propTypes = {
     pathToImg: PropTypes.string.isRequired,
+    preview: PropTypes.string,
     partOfAdvertisement: PropTypes.bool,
     isVideo: PropTypes.bool,
 };

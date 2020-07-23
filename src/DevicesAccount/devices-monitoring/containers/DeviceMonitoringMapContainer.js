@@ -18,7 +18,7 @@ const DeviceMonitoringMapContainer = ({
         cleanGeoPoint={cleanGeoPointAction}
         isSizeChanged={isMapSizeChanged}
         className={className}
-        zoomWithUpdate
+        // setCenterWithUpdate
     />
 );
 

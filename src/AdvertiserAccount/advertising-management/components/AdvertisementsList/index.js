@@ -19,7 +19,7 @@ const AdvertisementsList = ({ advertisements, deleteAdvertisement }) => (
         })}
     </div>
 );
-
+// 'Здесь пока нет объявлений'
 AdvertisementsList.propTypes = {
     advertisements: PropTypes.arrayOf(
         PropTypes.shape({

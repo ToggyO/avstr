@@ -13,6 +13,7 @@ const AdvertisementCard = ({
     content: {
         name,
         url,
+        thumbnailUrl,
         creationTime,
         id,
         isVideo,
@@ -31,6 +32,7 @@ const AdvertisementCard = ({
         <div className={styles.card}>
             <UploadedFileCard
                 pathToImg={url}
+                preview={thumbnailUrl}
                 isVideo={isVideo}
                 partOfAdvertisement
             />
@@ -52,6 +54,7 @@ AdvertisementCard.propTypes = {
     content: PropTypes.shape({
         name: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired,
+        thumbnailUrl: PropTypes.string,
         creationTime: PropTypes.string.isRequired,
         id: PropTypes.number.isRequired,
         isVideo: PropTypes.bool.isRequired,

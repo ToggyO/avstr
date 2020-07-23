@@ -19,6 +19,7 @@ const initialState = {
 
 const advertisingManagementReducer = (state = { ...initialState }, { type, data }) => {
     switch (type) {
+        case actions.GET_ADVERTISEMENTS_REQUEST:
         case actions.UPLOAD_FILE:
             return {
                 ...state,
@@ -53,10 +54,11 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
                 uploadedFileContent: data,
             };
 
-        case actions.RECEIVE_ADVERTISEMENTS:
+        case actions.GET_ADVERTISEMENTS_SUCCESS:
             return {
                 ...state,
                 advertisements: data,
+                loading: false,
             };
 
         case actions.GET_ADVERTISERS_LIST_REQUEST:
@@ -93,6 +95,7 @@ const advertisingManagementReducer = (state = { ...initialState }, { type, data 
                 errors: data,
             };
         case actions.ADVERTISER_MANAGEMENT_CLEAR_ERRORS:
+        case actions.GET_ADVERTISEMENTS_ERROR:
             return {
                 ...state,
                 errors: {},
