@@ -8,6 +8,8 @@ const iconPlacemark = `${PUBLIC_URL}/placemark.svg`;
 const iconClose = `${PUBLIC_URL}/close-cross.svg`;
 const iconArrow = `${PUBLIC_URL}/arrow-right-keyboard.svg`;
 
+export const defaultCenter = [55.751574, 37.573856];
+
 export const setMapCenter = (
     mapInstance,
     coords,
@@ -21,8 +23,9 @@ export const setMapCenter = (
     })
 );
 
-export const createPlaceMark = (ymaps, mapInstance, point, balloonLayout, balloonContent) => {
-    const placemark = new ymaps.Placemark(point.coords || [], {}, {
+export const createPlaceMark = (ymaps, mapInstance, point, isCenteredByClick, balloonLayout, balloonContent) => {
+    // FIXME: убрать defaultCenter после удаления фейковых устройств
+    const placemark = new ymaps.Placemark(point.coords, {}, {
         iconLayout: 'default#image',
         iconImageHref: iconPlacemark,
         iconImageSize: [22, 22],
@@ -34,7 +37,9 @@ export const createPlaceMark = (ymaps, mapInstance, point, balloonLayout, balloo
         hideIconOnBalloonOpen: false,
         balloonOffset: [-44, 18],
     });
-    placemark.events.add('click', (e) => setMapCenter(mapInstance, e.get('coords')));
+    if (isCenteredByClick) {
+        placemark.events.add('click', (e) => setMapCenter(mapInstance, e.get('coords')));
+    }
     return placemark;
 };
 

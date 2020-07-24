@@ -11,12 +11,13 @@ import {
     createPlaceMark,
     createBalloonContentTemplate,
     setMapCenter,
+    defaultCenter,
 } from './mapExtensions';
 
 import styles from './index.module.scss';
 
 const mapOptions = {
-    center: [55.751574, 37.573856],
+    center: defaultCenter,
     zoom: 11,
     controls: [],
 };
@@ -80,25 +81,61 @@ class Map extends Component {
             });
     };
 
+    // createPoints = (point) => {
+    //     debugger
+    //     const { map } = this.state;
+    //     const { ymaps } = this;
+    //     let placeMarks = [];
+    //
+    //     const { descr, deviceId } = point;
+    //     const { pointsWithBaloons } = this.props;
+    //     const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
+    //
+    //     const placeMark = createPlaceMark(
+    //         ymaps,
+    //         map,
+    //         point,
+    //         pointsWithBaloons && createBalloonLayoutTemplate(ymaps),
+    //         pointsWithBaloons && createBalloonContentTemplate(ymaps, point),
+    //     );
+    //     placeMark.id = deviceId;
+    //
+    //     placeMarks = [...placeMarks, placeMark];
+    //
+    //     map.geoObjects.add(collection);
+    //     collection.add(placeMark);
+    //
+    //     if (pointsWithBaloons) {
+    //         placeMark.events.add('balloonopen', () => {
+    //             this.balloonIndex = deviceId;
+    //         });
+    //     }
+    //
+    //     if (this.balloonIsActive) {
+    //         const openedPlaceMark = placeMarks.filter(({ id }) => id === this.balloonIndex)[0];
+    //         openedPlaceMark.balloon.open();
+    //     }
+    // };
+
     createPoints = () => {
         const { map } = this.state;
-        const { geoPoints } = this.props;
+        const { geoPoints, isCenteredByClick } = this.props;
         const { ymaps } = this;
         let placeMarks = [];
 
         geoPoints.forEach((point) => {
-            const { descr } = point;
+            const { descr, deviceId } = point;
             const { pointsWithBaloons } = this.props;
             const collection = new ymaps.GeoObjectCollection(null, { preset: descr });
+
             const placeMark = createPlaceMark(
                 ymaps,
                 map,
                 point,
+                isCenteredByClick,
                 pointsWithBaloons && createBalloonLayoutTemplate(ymaps),
                 pointsWithBaloons && createBalloonContentTemplate(ymaps, point),
             );
-
-            const { deviceId } = point;
             placeMark.id = deviceId;
 
             placeMarks = [...placeMarks, placeMark];
@@ -123,9 +160,14 @@ class Map extends Component {
         const { map } = this.state;
 
         this.createPoints();
-        map.setBounds(map.geoObjects.getBounds(), {
-            checkZoomRange: true,
-        });
+
+        const bounds = map.geoObjects.getBounds();
+
+        if (bounds) {
+            map.setBounds(bounds, {
+                checkZoomRange: true,
+            });
+        }
     };
 
     updatePoints = () => {
@@ -158,6 +200,7 @@ Map.defaultProps = {
     className: '',
     isSizeChanged: false,
     setCenterWithUpdate: false,
+    isCenteredByClick: true,
 };
 
 Map.propTypes = {
@@ -173,6 +216,7 @@ Map.propTypes = {
     handleMapLoaded: PropTypes.func.isRequired,
     pointsWithBaloons: PropTypes.bool.isRequired,
     setCenterWithUpdate: PropTypes.bool,
+    isCenteredByClick: PropTypes.bool,
 };
 
 export default Map;

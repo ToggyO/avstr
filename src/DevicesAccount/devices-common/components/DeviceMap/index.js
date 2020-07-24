@@ -58,6 +58,7 @@ class DeviceMap extends Component {
             isSizeChanged,
             className,
             setCenterWithUpdate,
+            isCenteredByClick,
         } = this.props;
 
         let resultGeoPoints = geoPoint;
@@ -76,6 +77,7 @@ class DeviceMap extends Component {
                 pointsWithBaloons={isDevicesMapPage}
                 handleMapLoaded={this.handleMapLoaded}
                 setCenterWithUpdate={setCenterWithUpdate}
+                isCenteredByClick={isCenteredByClick}
             />
         );
     }
@@ -91,6 +93,7 @@ DeviceMap.defaultProps = {
     isSizeChanged: false,
     className: '',
     setCenterWithUpdate: false,
+    isCenteredByClick: true,
 };
 
 DeviceMap.propTypes = {
@@ -115,6 +118,7 @@ DeviceMap.propTypes = {
     isSizeChanged: PropTypes.bool,
     className: PropTypes.string,
     setCenterWithUpdate: PropTypes.bool,
+    isCenteredByClick: PropTypes.bool,
 };
 
 export default DeviceMap;
