@@ -18,6 +18,7 @@ const DeviceMonitoringMapContainer = ({
         cleanGeoPoint={cleanGeoPointAction}
         isSizeChanged={isMapSizeChanged}
         className={className}
+        isCenteredByClick={false}
         // setCenterWithUpdate
     />
 );
