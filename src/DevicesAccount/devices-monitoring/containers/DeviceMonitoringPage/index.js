@@ -96,6 +96,7 @@ class DeviceMonitoringPage extends Component {
         return (
             <div className={styles.wrap}>
                 <DeviceMonitoringCardContainer />
+
                 <div className={styles.mediaWrap}>
                     <DeviceMonitoringMapContainer
                         isMapSizeChanged={isMapSizeChanged}
@@ -114,6 +115,7 @@ class DeviceMonitoringPage extends Component {
                                 >
                                     х
                                 </Button>
+
                                 <DeviceMonitoringVideo mediaStreamId={mediaStreamId} />
                             </div>
                         )
