@@ -1,5 +1,6 @@
 import { END, eventChannel } from 'redux-saga';
 import RTCMultiConnection from 'rtcmulticonnection';
+import 'webrtc-adapter';
 
 function createWebSocketChanel({
     socketUrl,
@@ -12,19 +13,27 @@ function createWebSocketChanel({
         const connection = new RTCMultiConnection();
 
         connection.socketURL = socketUrl;
+
         connection.socketMessageEvent = socketMessageEvent;
 
+        connection.enableLogs = process.env.NODE_ENV !== 'production';
+
         connection.session = {
-            audio: true,
+            audio: false,
             video: true,
+            data: false,
+            screen: false,
             oneway: true,
+            broadcast: false,
         };
+
         connection.sdpConstraints.mandatory = {
             OfferToReceiveAudio: false,
             OfferToReceiveVideo: false,
         };
 
         connection.iceServers = [];
+
         servers.forEach((server) => {
             connection.iceServers.push(server);
         });
@@ -61,6 +70,7 @@ function createWebSocketChanel({
         connection.error = onError;
 
         let isNoAttempts = false;
+
         setTimeout(() => {
             isNoAttempts = true;
         }, 12000);
@@ -71,6 +81,7 @@ function createWebSocketChanel({
                     connection.join(roomId);
                     return;
                 }
+
                 if (isNoAttempts) {
                     closeConnection();
                     emitter({ error: 'noRoom' });
@@ -81,6 +92,7 @@ function createWebSocketChanel({
                 setTimeout(joinRoomIfExists, 3000);
             });
         };
+
         joinRoomIfExists();
 
         return () => {};
