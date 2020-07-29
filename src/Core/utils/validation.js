@@ -11,7 +11,7 @@ export const isNameValid = (name) => /^[a-zа-яё\s'-]+$/i.test(name);
  * @returns {boolean} возвращает булево значение
  */
 export const isEmailValid = (email) => (
-    /[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g.test(email)
+    /[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email)
 );
 // export const isEmailValid = (email) => /^[!#$%&'*+-/=?^_{|}~.\w]+@[\w-]+\.\w+$/.test(email);
 
